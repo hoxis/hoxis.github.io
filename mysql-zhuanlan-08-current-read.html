@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库,Mysql,可重复读,行锁,当前读,极客时间">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="我们之前学习了隔离级别和锁，在隔离级别里有一个可重复读，锁里有个行锁。  可重复读：事务期间，看不懂别的事务的更新； 行锁：有事务 1 在更新某行数据时，若有其他事务 2 进来，会被锁住  矛盾来了：事务 2 等待结束，获取到行锁时，看到的是哪个数据呢？ 按可重复读隔离级别来说，看到的应该是事务启动时的最新数据，即事务 1 修改之前的数据； 但是这样不就造成了事务 1 的修改丢失了吗？">
+<meta name="keywords" content="数据库,Mysql,可重复读,行锁,当前读,极客时间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL实战 | 08 懵逼，可重复读好像失效了？">
+<meta property="og:url" content="https://hoxis.github.io/mysql-zhuanlan-08-current-read.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="我们之前学习了隔离级别和锁，在隔离级别里有一个可重复读，锁里有个行锁。  可重复读：事务期间，看不懂别的事务的更新； 行锁：有事务 1 在更新某行数据时，若有其他事务 2 进来，会被锁住  矛盾来了：事务 2 等待结束，获取到行锁时，看到的是哪个数据呢？ 按可重复读隔离级别来说，看到的应该是事务启动时的最新数据，即事务 1 修改之前的数据； 但是这样不就造成了事务 1 的修改丢失了吗？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1545286973820.png">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1545293379282.png">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1545295850393.png">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1545299018249.png">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1545367367146.png">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.493Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL实战 | 08 懵逼，可重复读好像失效了？">
+<meta name="twitter:description" content="我们之前学习了隔离级别和锁，在隔离级别里有一个可重复读，锁里有个行锁。  可重复读：事务期间，看不懂别的事务的更新； 行锁：有事务 1 在更新某行数据时，若有其他事务 2 进来，会被锁住  矛盾来了：事务 2 等待结束，获取到行锁时，看到的是哪个数据呢？ 按可重复读隔离级别来说，看到的应该是事务启动时的最新数据，即事务 1 修改之前的数据； 但是这样不就造成了事务 1 的修改丢失了吗？">
+<meta name="twitter:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1545286973820.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/mysql-zhuanlan-08-current-read.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>MySQL实战 | 08 懵逼，可重复读好像失效了？ | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mysql-zhuanlan-08-current-read.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">MySQL实战 | 08 懵逼，可重复读好像失效了？</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T10:57:43+08:00">
+                2018-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/mysql-zhuanlan-08-current-read.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-zhuanlan-08-current-read.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/mysql-zhuanlan-08-current-read.html" class="leancloud_visitors" data-flag-title="MySQL实战 | 08 懵逼，可重复读好像失效了？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,096
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们之前学习了隔离级别和锁，在隔离级别里有一个<strong>可重复读</strong>，锁里有个<strong>行锁</strong>。</p>
+<ul>
+<li>可重复读：事务期间，看不懂别的事务的更新；</li>
+<li>行锁：有事务 1 在更新某行数据时，若有其他事务 2 进来，会被锁住</li>
+</ul>
+<p>矛盾来了：事务 2 等待结束，获取到行锁时，看到的是哪个数据呢？</p>
+<p>按可重复读隔离级别来说，看到的应该是事务启动时的最新数据，即事务 1 修改之前的数据；</p>
+<p>但是这样不就造成了事务 1 的修改丢失了吗？</p>
+<a id="more"></a>
+<p>本文脑图：<a href="https://mubu.com/doc/hyPYP01r-G" target="_blank" rel="noopener">https://mubu.com/doc/hyPYP01r-G</a></p>
+<p>话不多说，我们先手动实验一把。</p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>我们建个表先：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">CREATE</span> TABLE <span class="symbol">`t`</span> (</span><br><span class="line">  <span class="symbol">`id`</span> int(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="symbol">`k`</span> int(<span class="number">11</span>) DEFAULT <span class="literal">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`id`</span>)</span><br><span class="line">) ENGINE=InnoDB;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t(id, k) <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>),(<span class="number">2</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>然后做如下操作：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545286973820.png" alt="实验1"></p>
+<blockquote>
+<p>说明：<br>1、begin/start transaction 运行后其实并<strong>不会立即启动事务</strong>，执行第一个操作 InnoDB 表的语句时才会真正启动；<br>2、显示启动事务：start transaction with consistent snapshot</p>
+</blockquote>
+<p>很容易看到实验结果：</p>
+<ul>
+<li>A 读到的值是 1</li>
+<li>B 读到的值是 3</li>
+</ul>
+<p>看上去 B 事务违反了可重复读隔离级别的概念，为啥呢？</p>
+<h1 id="原因探索"><a href="#原因探索" class="headerlink" title="原因探索"></a>原因探索</h1><p>之前在学习事务隔离级别时，我们接触到了一个「视图」的概念，这个视图和我们平常接触的 view 视图并不一样。</p>
+<h2 id="MySQL-中的两个「视图」的区别"><a href="#MySQL-中的两个「视图」的区别" class="headerlink" title="MySQL 中的两个「视图」的区别"></a>MySQL 中的两个「视图」的区别</h2><p>一、常说的视图：view</p>
+<p>① 是用查询语句定义的<strong>虚拟表</strong>；<br>② 在调用时执行查询，并生成结果；<br>③ 创建方法：<code>create view...</code>；</p>
+<p>二、MVCC 中的一致性视图（consistent read view）</p>
+<p>① 用于<strong>支持隔离级别的实现</strong>：RC（Read Committed，读提交）和 RR（Repeatable Read，可重复读）<br>② 没有物理结构，作用是事务执行期间<strong>用来定义我能看到什么数据</strong>；<br>③ 其中，可重复读：每个事务启动是都会重建读视图，整个事务存在期间都用这个视图；</p>
+<h2 id="快照是什么"><a href="#快照是什么" class="headerlink" title="快照是什么"></a>快照是什么</h2><p>很多文章都会说可重复读隔离级别下，<strong>事务启动时会生成整个库的快照</strong>。</p>
+<p>那么这个快照是什么？</p>
+<p>我们要先了解下<strong>数据的版本</strong>问题：</p>
+<p>其实每个事务都有一个标识 id：trx_id，是在事务启动时向存储引擎的事务系统申请的，并且是<strong>按照申请顺序严格递增</strong>的。</p>
+<p>每行数据都有版本的概念，这里的版本其实就是修改历史，而这个修改历史是跟事务挂钩的，比如：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545293379282.png" alt="不同版本的数据"></p>
+<p>如图所示，一行数据被多次事务修改时，这行数据会存储多个版本，如 V1、V2、V3 等。</p>
+<p>每个版本会记录了关联的事务 id，这里的版本并不是物理上存在的，需要根据<strong>版本号+undo log</strong> 来获取。</p>
+<p>其实，快照就是版本号的集合。</p>
+<h2 id="事务启动时发生了什么"><a href="#事务启动时发生了什么" class="headerlink" title="事务启动时发生了什么"></a>事务启动时发生了什么</h2><p>可重复读隔离级别下，事务的属性是这样的：可以看到所有已提交的更新，所有未提交的更新都不能看到。对于同一行数据，以最新一次的事务提交为数据基准。</p>
+<p>另外，事务启动后，很可能存在其他<strong>活跃事务（启动且未提交）</strong>，我们把这些活跃事务的 id 组成一个数组，并且记数组中 trx_id 最小的记为<strong>低水位</strong>，trx_id 最大的记为<strong>高水位</strong>。</p>
+<p>因此，所有的事务 id 可以分成下图这种：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545295850393.png" alt="事务 id"></p>
+<ul>
+<li>trx_id 在绿色部分，已提交，可见</li>
+<li>在红色部分，未提交，不可见</li>
+<li>黄色部分<ul>
+<li>trx_id 在数组中，未提交，不可见</li>
+<li>trx_id 不在数组中，已提交，可见</li>
+</ul>
+</li>
+</ul>
+<p><strong>举个例子</strong></p>
+<p>1、假设有一组事务 id：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]；</p>
+<p>2、其中<strong>已提交（可见）</strong>：[1, 2, 3, 6, 7]，<strong>未开始的（不可见）</strong>：[10, 11, 12]，当前 id：[8]</p>
+<p>3、那么活跃 id 数组（不可见）：[4, 5, 9]，高水位：9，低水位：4；</p>
+<p>4、高低水位之间既有<strong>已提交但不在数组中</strong>的（可见）：[6, 7]，又有<strong>活跃的</strong>（不可见）：[4, 5, 9]</p>
+<h1 id="实验复盘"><a href="#实验复盘" class="headerlink" title="实验复盘"></a>实验复盘</h1><p>按照上面的数组和水位的概念，我们来捋一下文章开头的实验。</p>
+<p>首先，假设事务 A 的 id 为 10，启动后，A 的活跃数组就是 [10]；</p>
+<p>接下来是事务 B，id 为 11，启动后，B 的活跃数组是 [10, 11]；</p>
+<p>最后是 C，id 为 12，启动后，活跃数组是 [10, 11, 12]；</p>
+<p>C 处理完毕后，直接提交事务；k 的值由 1 变为 2，</p>
+<p>此时就存储了两个版本的数据：（事务id-9, 1），（事务id-12, 2）</p>
+<p>接下来 B 来处理，它会将 k 的值更新为 3，此时就有三个版本的数据：（事务id-9, 1），（事务id-12, 2）,（事务id-11, 3）</p>
+<p>最后 A 事务，由于 A 启动时，B、C 事务都未提交，所以它们的数据更新对于 A 来说都是看不到的，因此 A 获取到的结果是 1。</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545299018249.png" alt="实验复盘图"></p>
+<h1 id="更新的逻辑"><a href="#更新的逻辑" class="headerlink" title="更新的逻辑"></a>更新的逻辑</h1><p>不知道你注意到没有，上面的复盘中，有一个重要的点，我们没有说。</p>
+<p>按照可重复读的逻辑，B 执行更新时，看到的 k 的值应该是 1，执行更新的话，就直接造成了 C 操作中的数据丢失。</p>
+<p>但是事务 B 在更新时，为什么读取到了事务 C 更新的数据？</p>
+<p>这里有一条规则，就是更新数据都是<strong>先读后写</strong>的，而这个读，只能<strong>读当前的最新值</strong>，称为<strong>当前读</strong>（current read），</p>
+<p>即，更新数据时<strong>总是读取已经提交完成的最新版本</strong>。</p>
+<p>另外，除了 update 语句外，select 语句如果加锁，也是当前读。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">读锁（S 锁，共享锁）：mysql&gt; <span class="keyword">select</span> k <span class="keyword">from</span> t <span class="keyword">where</span> id=<span class="number">1</span> lock <span class="keyword">in</span> share mode;</span><br><span class="line">写锁（X 锁，排他锁）：mysql&gt; <span class="keyword">select</span> k <span class="keyword">from</span> t <span class="keyword">where</span> id=<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>可重复读的能力是怎么实现的？</strong></p>
+<p>把握以下几点：</p>
+<p>1、可重复读的核心就是<strong>一致性读</strong>（consistent read）；</p>
+<p>2、而事务更新数据的时候，只能用<strong>当前读</strong>。</p>
+<p>3、如果当前的记录的行锁被其他事务占用的话，就需要进入<strong>锁等待</strong>。</p>
+<p>另外，本文的几个重要概念：</p>
+<p>1、<strong>一致性视图</strong>，保证了当前事务从启动到提交期间，读取到的数据是一致的（包括当前事务的修改）。</p>
+<p>2、<strong>当前读</strong>，保证了当前事务修改数据时，不会丢失其他事务已经提交的修改。</p>
+<p>3、<strong>两阶段锁协议</strong>，保证了当前事务修改数据时，不会丢失其他事务未提交的修改。</p>
+<p>4、RR 是通过事务启动时创建一致性识图来实现，RC 是语句执行时创建一致性识图来实现</p>
+<h1 id="课后题目"><a href="#课后题目" class="headerlink" title="课后题目"></a>课后题目</h1><p>我们用下面的语句初始化一个表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE `t` (</span><br><span class="line">  `id` int(11) NOT NULL,</span><br><span class="line">  `c` int(11) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t(<span class="keyword">id</span>, c) <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>),(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">3</span>,<span class="number">3</span>),(<span class="number">4</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>你是否可以尝试制造出下面的「诡异」现象？</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545367367146.png" alt="诡异"></p>
+<p>诡异之处在于，我们的目的是将“字段 c 和 id 值相等的行”的 c 值清零，但是发现更新语句执行成功后，c 的值并没有被清零！</p>
+<p><strong>答案</strong></p>
+<p>我们用如下操作流程就可以：</p>
+<table>
+<thead>
+<tr>
+<th>事务 A</th>
+<th>事务 B</th>
+<th>查询结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start transaction with consistent snapshot;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>start transaction with consistent snapshot;</td>
+<td></td>
+</tr>
+<tr>
+<td>select * from t;</td>
+<td></td>
+<td>1 2 3 4</td>
+</tr>
+<tr>
+<td></td>
+<td>update t set c = 5;</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>commit;</td>
+<td></td>
+</tr>
+<tr>
+<td>update t set c = 0 where id=c;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>select * from t;</td>
+<td></td>
+<td>1 2 3 4</td>
+</tr>
+<tr>
+<td>commit;</td>
+<td></td>
+</tr>
+<tr>
+<td>select * from t;</td>
+<td></td>
+<td>5 5 5 5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>原因分析</strong></p>
+<p>主要原因就算<strong>当前读</strong>！</p>
+<p>事务 B 是在事务 A 之后启动的，但是事务 B 的更新提交是在 事务 A 之前。</p>
+<p>事务 A 第一次查询时，由于<strong>可重复读</strong>，读取到的自然是 1 2 3 4。</p>
+<p>事务 A 更新时，根据<strong>当前读</strong>规则，此时 c 的值已经是 5，不再满足更新条件 <code>id=c</code>，因此更新不会真正执行。</p>
+<p>所以，事务 A 再次查询时，获取到的仍然是 1 2 3 4，事务 A 提交后，再查询时，获取到的自然是最新的数据了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/mysql-zhuanlan-08-current-read.html" title="MySQL实战 | 08 懵逼，可重复读好像失效了？">https://hoxis.github.io/mysql-zhuanlan-08-current-read.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+          
+            <a href="/tags/极客时间/" rel="tag"><i class="fa fa-tag"></i> 极客时间</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/why-are-they-so-excellent.html" rel="next" title="现在的年轻人好像都很优秀！">
+                <i class="fa fa-chevron-left"></i> 现在的年轻人好像都很优秀！
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/little-about-ipv6.html" rel="prev" title="IPv6 相关技术调研">
+                IPv6 相关技术调研 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-text">实验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因探索"><span class="nav-text">原因探索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-中的两个「视图」的区别"><span class="nav-text">MySQL 中的两个「视图」的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照是什么"><span class="nav-text">快照是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务启动时发生了什么"><span class="nav-text">事务启动时发生了什么</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验复盘"><span class="nav-text">实验复盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新的逻辑"><span class="nav-text">更新的逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题目"><span class="nav-text">课后题目</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

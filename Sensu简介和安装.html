@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Sensu,学习,教程,监控,uchiwa,安装">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍运维监控软件Sensu，主要包括Sensu的组成，事件处理流程，以及Sensu的安装过程。">
+<meta name="keywords" content="Sensu,学习,教程,监控,uchiwa,安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sensu简介和安装">
+<meta property="og:url" content="https://hoxis.github.io/Sensu简介和安装.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="本文主要介绍运维监控软件Sensu，主要包括Sensu的组成，事件处理流程，以及Sensu的安装过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1516862558667.jpg">
+<meta property="og:image" content="http://hoxis-image.oss-cn-hangzhou.aliyuncs.com/hoxis/md/2018-8-13-1534153561723.png">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/2018126143949.gif">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sensu简介和安装">
+<meta name="twitter:description" content="本文主要介绍运维监控软件Sensu，主要包括Sensu的组成，事件处理流程，以及Sensu的安装过程。">
+<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1516862558667.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/Sensu简介和安装.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>Sensu简介和安装 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/Sensu简介和安装.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Sensu简介和安装</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-27T20:49:02+08:00">
+                2018-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/运维监控/" itemprop="url" rel="index">
+                    <span itemprop="name">运维监控</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Sensu简介和安装.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Sensu简介和安装.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/Sensu简介和安装.html" class="leancloud_visitors" data-flag-title="Sensu简介和安装">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,994
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍运维监控软件<code>Sensu</code>，主要包括<code>Sensu</code>的组成，事件处理流程，以及<code>Sensu</code>的安装过程。</p>
+<a id="more"></a>
+<h1 id="Sensu-简介"><a href="#Sensu-简介" class="headerlink" title="Sensu 简介"></a>Sensu 简介</h1><p><code>Sensu</code>是由 Sonian 公司开发的一种监控框架，主要用于基础设施和应用的监控和检测。<code>Sensu</code>可以为基础设施、服务、应用运行状况以及业务的监控提供一个框架。<code>Sensu</code>专门设计用于解决现代基础设施平台在规模（即公共，私有和混合云）中混合使用静态，动态和短暂基础设施所带来的监控挑战。</p>
+<h2 id="Sensu的优势"><a href="#Sensu的优势" class="headerlink" title="Sensu的优势"></a>Sensu的优势</h2><ul>
+<li>可以监控服务器、服务、应用运行状态</li>
+<li>可以发送告警和通知</li>
+<li>支持客户端的动态注册</li>
+<li>基于分布式的设计，能够轻松的动态伸缩规模</li>
+<li>支持通过插件的形式自定义检查的内容，拥有丰富的插件库</li>
+<li>内置的集成工具，可用于和其它系统集成，如 <code>Graphite</code>、<code>Email</code>等</li>
+<li>提供丰富的<code>API</code>接口，支持通过<code>API</code>调用访问事件和客户端信息，触发检测等</li>
+</ul>
+<h1 id="Sensu-的组成部分"><a href="#Sensu-的组成部分" class="headerlink" title="Sensu 的组成部分"></a>Sensu 的组成部分</h1><h2 id="数据传输部分"><a href="#数据传输部分" class="headerlink" title="数据传输部分"></a>数据传输部分</h2><p><code>Sensu</code>使用消息总线（如<code>RabbitMQ</code>）来互信通信，<code>Sensu</code>的这种消息总线通信已被抽象为<code>Sensu Transport</code>。Sensu服务需要通过访问<code>Sensu Transport</code>实例（例如<code>RabbitMQ</code>群集）才能运行。Sensu检查请求和<code>Check Results</code>会作为<code>消息</code>发布到<code>Sensu Transport</code>，相应的<code>Sensu</code>服务可以通过订阅的方式来接收这些消息。</p>
+<h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><p>在<code>Sensu</code>体系中，只有<code>Sensu Server</code>、<code>API</code>和<code>dashboard</code>才需要访问数据存储。通过将数据存储在<code>Redis</code>中，<code>Sensu</code>服务本身可以保持无状态。主要存储以下数据：</p>
+<ul>
+<li>客户端注册表</li>
+<li><code>Check</code>历史</li>
+<li>事件注册表</li>
+<li><code>Stashes</code>（<code>Sensu API</code>提供的一个<code>key-value</code>形式的存储）</li>
+</ul>
+<h2 id="Check执行调度"><a href="#Check执行调度" class="headerlink" title="Check执行调度"></a>Check执行调度</h2><p><code>Sensu</code>可以通过服务端或者客户端来调度<code>Check</code>。服务端通过<code>发布/订阅模型</code>将<code>Check</code>请求发送给客户端，客户端会处理相应的<code>Check</code>，<code>Sensu</code>会确保在相应的系统上执行相应的<code>Check</code>。</p>
+<h2 id="监控客户端"><a href="#监控客户端" class="headerlink" title="监控客户端"></a>监控客户端</h2><p><code>Sensu</code>客户端提供了以下功能：</p>
+<ul>
+<li>动态自助注册</li>
+<li>客户订阅（用于监控通过<code>发布/订阅模式</code>配置的<code>Check</code>）</li>
+<li>本地<code>Check</code>执行调度</li>
+<li>用于监控本地系统、服务</li>
+<li>可以接收来自外部服务的信息输入</li>
+</ul>
+<h2 id="事件处理器"><a href="#事件处理器" class="headerlink" title="事件处理器"></a>事件处理器</h2><p><code>Sensu Server</code>是一个可伸缩的事件处理器，用于处理事件并采取行动。<code>Sensu</code>的事件处理功能包括：</p>
+<ul>
+<li>注册和注销客户</li>
+<li>处理检查结果</li>
+<li>使用<code>filters</code>，<code>mutators</code>，<code>handlers</code>处理监视事件 </li>
+</ul>
+<p>尽管事件处理程序由<code>Sensu Server</code>在本地执行，但可以运行<code>Sensu Server</code>的多个实例而无需任何其他配置。<code>Sensu</code>提供了内置的任务选择算法以避免<code>Sensu</code>服务器之间的调度冲突，并且<code>Sensu</code>可以通过循环算法将检查结果分发到不同的<code>Sensu Server</code>实例以进行处理，从而实现负载平衡。</p>
+<h2 id="RESTful-API"><a href="#RESTful-API" class="headerlink" title="RESTful API"></a>RESTful API</h2><p><code>Sensu</code>通过<code>RESTful HTTP JSON API</code>提供对监控数据和核心功能的访问，包括：</p>
+<ul>
+<li><code>Clients API</code> - 用于访问<code>client</code>数据，以及添加/删除<code>client</code></li>
+<li><code>Checks API</code> - 用于访问<code>Check</code>配置数据和发布<code>Check</code>请求</li>
+<li><code>Events API</code> - 用于访问<code>event</code>数据和处理<code>event</code></li>
+<li><code>Results API</code> - 用于访问<code>Check Results</code>数据并发布<code>Check Results</code></li>
+<li><code>Aggregates API</code> - 用于访问汇总过的<code>Check Results</code>数据，并可以删除汇总数据</li>
+<li><code>Stashes API</code> - 用于对<code>Redis</code>基础键值功能的读/写</li>
+</ul>
+<p>生产过程中<code>Sensu</code>主要由服务端、客户端、<code>RabbitMQ</code>、<code>Redis</code>和<code>API</code>五个部分构成。如图所示，<code>RabbitMQ</code>用于组件之间的通信，<code>Redis</code>用于持久化<code>Sensu</code>服务器和<code>Sensu API</code>的数据。因为客户端都是通过文件进行配置，并且不需要在服务器端配置客户端的信息，所以可以很轻易的增加和减少客户端的数量。从图中可以看到，为了解耦服务器和客户端，通信都是通过<code>RabbitMQ</code>进行的，如果只有单节点的<code>RabbitMQ</code>，这可能会带来通信上的瓶颈问题，不过可以通过<code>RabbitMQ</code>官方提供的集群部署解决方案来解决这个问题。</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1516862558667.jpg" alt="Sensu 的组成部分"></p>
+<p><img src="http://hoxis-image.oss-cn-hangzhou.aliyuncs.com/hoxis/md/2018-8-13-1534153561723.png" alt="Sensu 组件交互"></p>
+<h1 id="Sensu-的安装与配置"><a href="#Sensu-的安装与配置" class="headerlink" title="Sensu 的安装与配置"></a>Sensu 的安装与配置</h1><p>下面介绍针对单节点的情况的安装与配置。安装环境是<code>Centos7</code>。</p>
+<h2 id="RabbitMQ-和-Redis-的安装与配置"><a href="#RabbitMQ-和-Redis-的安装与配置" class="headerlink" title="RabbitMQ 和 Redis 的安装与配置"></a>RabbitMQ 和 Redis 的安装与配置</h2><h3 id="安装-RabbitMQ"><a href="#安装-RabbitMQ" class="headerlink" title="安装 RabbitMQ"></a>安装 RabbitMQ</h3><h4 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h4><ul>
+<li>安装 epel 源</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 erlang</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install erlang</span><br></pre></td></tr></table></figure>
+<p>过程较长。</p>
+<ul>
+<li>测试是否安装成功</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 home]<span class="comment"># erl</span></span><br><span class="line">Erlang R16B03-1 (erts-5.10.4) [<span class="built_in">source</span>] [64-bit] [async-threads:10] [hipe] [kernel-poll:<span class="literal">false</span>]</span><br><span class="line"></span><br><span class="line">Eshell V5.10.4  (abort with ^G)</span><br><span class="line">1&gt; 1+2.</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<h4 id="安装-RabbitMQ-1"><a href="#安装-RabbitMQ-1" class="headerlink" title="安装 RabbitMQ"></a>安装 RabbitMQ</h4><p>这里安装的是最新版本<code>3.6.15</code>，可以通过访问<a href="http://www.rabbitmq.com/releases/rabbitmq-server/" target="_blank" rel="noopener">http://www.rabbitmq.com/releases/rabbitmq-server/</a>获取。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc</span><br><span class="line">rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/rabbitmq-server-3.6.15-1.el7.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>验证是否安装成功</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 home]<span class="comment"># service rabbitmq-server status</span></span><br><span class="line">Redirecting to /bin/systemctl status  rabbitmq-server.service</span><br><span class="line">● rabbitmq-server.service - RabbitMQ broker</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/rabbitmq-server.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: inactive (dead)</span><br></pre></td></tr></table></figure>
+<h4 id="配置-RabbitMQ"><a href="#配置-RabbitMQ" class="headerlink" title="配置 RabbitMQ"></a>配置 RabbitMQ</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 home]<span class="comment"># chkconfig rabbitmq-server on</span></span><br><span class="line">[root@centos7 home]<span class="comment"># service rabbitmq-server start</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl add_vhost /sensu</span></span><br><span class="line">Creating vhost <span class="string">"/sensu"</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl add_user sensu secret</span></span><br><span class="line">Creating user <span class="string">"sensu"</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"</span></span><br><span class="line">Setting permissions <span class="keyword">for</span> user <span class="string">"sensu"</span> <span class="keyword">in</span> vhost <span class="string">"/sensu"</span></span><br></pre></td></tr></table></figure>
+<h3 id="安装-Redis"><a href="#安装-Redis" class="headerlink" title="安装 Redis"></a>安装 Redis</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install redis</span><br><span class="line">/sbin/chkconfig redis on</span><br><span class="line">service redis start</span><br></pre></td></tr></table></figure>
+<h2 id="Sensu-服务器和客户端的安装与配置"><a href="#Sensu-服务器和客户端的安装与配置" class="headerlink" title="Sensu 服务器和客户端的安装与配置"></a>Sensu 服务器和客户端的安装与配置</h2><p>Sensu服务器和客户端的安装过程是一致的，都是使用sensu的yum源进行安装。</p>
+<h3 id="安装-sensu"><a href="#安装-sensu" class="headerlink" title="安装 sensu"></a>安装 sensu</h3><h4 id="配置-sensu-的-yum-源"><a href="#配置-sensu-的-yum-源" class="headerlink" title="配置 sensu 的 yum 源"></a>配置 sensu 的 yum 源</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># echo '[sensu]</span></span><br><span class="line">name=sensu</span><br><span class="line">baseurl=https://sensu.global.ssl.fastly.net/yum/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1<span class="string">' | sudo tee /etc/yum.repos.d/sensu.repo</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># yum -y install sensu</span></span><br></pre></td></tr></table></figure>
+<h4 id="配置-sensu-服务器端"><a href="#配置-sensu-服务器端" class="headerlink" title="配置 sensu 服务器端"></a>配置 sensu 服务器端</h4><ul>
+<li>添加<code>/etc/sensu/conf.d/api.json</code>文件：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"api"</span>: &#123;</span><br><span class="line">        <span class="attr">"host"</span>: <span class="string">"localhost"</span>,</span><br><span class="line">        <span class="attr">"port"</span>: <span class="number">4567</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加redis配置<code>/etc/sensu/conf.d/redis.json</code></li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"redis"</span>: &#123;</span><br><span class="line">    <span class="attr">"host"</span>: <span class="string">"192.168.31.63"</span>,</span><br><span class="line">    <span class="attr">"port"</span>: <span class="number">6379</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加rabbitmq配置<code>/etc/sensu/conf.d/rabbitmq.json</code></li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"rabbitmq"</span>: &#123;</span><br><span class="line">    <span class="attr">"host"</span>: <span class="string">"192.168.31.63"</span>,</span><br><span class="line">    <span class="attr">"port"</span>: <span class="number">5672</span>,</span><br><span class="line">    <span class="attr">"vhost"</span>: <span class="string">"/sensu"</span>,</span><br><span class="line">    <span class="attr">"user"</span>: <span class="string">"sensu"</span>,</span><br><span class="line">    <span class="attr">"password"</span>: <span class="string">"secret"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加开机自启动</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig sensu-server on</span><br><span class="line">chkconfig sensu-api on</span><br></pre></td></tr></table></figure>
+<h4 id="配置-sensu-客户端"><a href="#配置-sensu-客户端" class="headerlink" title="配置 sensu 客户端"></a>配置 sensu 客户端</h4><ul>
+<li>添加rabbitmq配置<code>/etc/sensu/conf.d/rabbitmq.json</code></li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"rabbitmq"</span>: &#123;</span><br><span class="line">    <span class="attr">"host"</span>: <span class="string">"192.168.31.63"</span>,</span><br><span class="line">    <span class="attr">"port"</span>: <span class="number">5672</span>,</span><br><span class="line">    <span class="attr">"vhost"</span>: <span class="string">"/sensu"</span>,</span><br><span class="line">    <span class="attr">"user"</span>: <span class="string">"sensu"</span>,</span><br><span class="line">    <span class="attr">"password"</span>: <span class="string">"secret"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，还需添加描述客户端信息的配置文件，在客户端节点<code>/etc/sensu/conf.d/</code>目录下添加<code>client.json</code>文件：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"client"</span>: &#123;</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"client66"</span>,</span><br><span class="line">		<span class="attr">"address"</span>: <span class="string">"192.168.31.66"</span>,</span><br><span class="line">		<span class="attr">"subscriptions"</span>: [<span class="string">"test"</span>]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>添加开机自启动</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig sensu-client on</span><br></pre></td></tr></table></figure>
+<h2 id="Uchiwa-的安装与配置"><a href="#Uchiwa-的安装与配置" class="headerlink" title="Uchiwa 的安装与配置"></a>Uchiwa 的安装与配置</h2><p><code>Uchiwa</code>是 sensu 的用户管理界面，主要包含查看客户端和 check 相关信息的功能。下面简要介绍<code>uchiwa</code>的安装与配置。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://dl.bintray.com/palourde/uchiwa/uchiwa-1.1.1-1.x86_64.rpm</span><br><span class="line">rpm -Uvh uchiwa-0.10.2-1.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
+<p>配置/etc/sensu/uchiwa.json 文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"sensu"</span>: [&#123;</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"sensu31"</span>,</span><br><span class="line">		"host": "192.168.31.63", #API服务IP地址。</span><br><span class="line">		"port": 4567, #API服务的端口。</span><br><span class="line">		"timeout": 5</span><br><span class="line">	&#125;],</span><br><span class="line">	"uchiwa": &#123;</span><br><span class="line">		"host": "192.168.31.63",</span><br><span class="line">		"port": 3000,</span><br><span class="line">		"interval": 5</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="启动相关服务并验证是否安装成功"><a href="#启动相关服务并验证是否安装成功" class="headerlink" title="启动相关服务并验证是否安装成功"></a>启动相关服务并验证是否安装成功</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 etc]<span class="comment"># service sensu-server start</span></span><br><span class="line">Redirecting to /bin/systemctl start  sensu-server.service</span><br><span class="line"></span><br><span class="line">[root@centos7 etc]<span class="comment"># service sensu-server status</span></span><br><span class="line">Redirecting to /bin/systemctl status  sensu-server.service</span><br><span class="line">● sensu-server.service - sensu server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/sensu-server.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 五 2018-01-26 13:59:13 CST; 4s ago</span><br><span class="line"> Main PID: 15189 (sensu-server)</span><br><span class="line"></span><br><span class="line">[root@centos7 sensu]<span class="comment"># service uchiwa start</span></span><br><span class="line">uchiwa started.</span><br><span class="line"></span><br><span class="line">[root@centos7 sensu]<span class="comment"># service uchiwa status</span></span><br><span class="line">uchiwa is running</span><br></pre></td></tr></table></figure>
+<p>此时，<code>uchiwa</code>页面也可以成功启动访问<code>192.168.31.63:3000</code>：</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/2018126143949.gif" alt="uchiwa页面"></p>
+<p>至此，sensu的简单介绍和安装就完成了，后续结合实践对<code>check</code>、<code>handler</code>和<code>filter</code>等概念进行详细介绍。</p>
+<hr>
+<blockquote>
+<p>参考<br><a href="https://www.ibm.com/developerworks/cn/cloud/library/1607-sensu-monitoring-platform/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/cloud/library/1607-sensu-monitoring-platform/index.html</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/Sensu简介和安装.html" title="Sensu简介和安装">https://hoxis.github.io/Sensu简介和安装.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sensu/" rel="tag"><i class="fa fa-tag"></i> Sensu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ansible-system-modules.html" rel="next" title="【Ansible学习】- 常用系统模块之service/systemd/ping模块">
+                <i class="fa fa-chevron-left"></i> 【Ansible学习】- 常用系统模块之service/systemd/ping模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Sensu快速上手.html" rel="prev" title="Sensu快速上手">
+                Sensu快速上手 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Sensu-简介"><span class="nav-text">Sensu 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sensu的优势"><span class="nav-text">Sensu的优势</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sensu-的组成部分"><span class="nav-text">Sensu 的组成部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传输部分"><span class="nav-text">数据传输部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存储"><span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Check执行调度"><span class="nav-text">Check执行调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控客户端"><span class="nav-text">监控客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件处理器"><span class="nav-text">事件处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RESTful-API"><span class="nav-text">RESTful API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sensu-的安装与配置"><span class="nav-text">Sensu 的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RabbitMQ-和-Redis-的安装与配置"><span class="nav-text">RabbitMQ 和 Redis 的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-RabbitMQ"><span class="nav-text">安装 RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装准备"><span class="nav-text">安装准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-RabbitMQ-1"><span class="nav-text">安装 RabbitMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-RabbitMQ"><span class="nav-text">配置 RabbitMQ</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Redis"><span class="nav-text">安装 Redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sensu-服务器和客户端的安装与配置"><span class="nav-text">Sensu 服务器和客户端的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-sensu"><span class="nav-text">安装 sensu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-sensu-的-yum-源"><span class="nav-text">配置 sensu 的 yum 源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-sensu-服务器端"><span class="nav-text">配置 sensu 服务器端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-sensu-客户端"><span class="nav-text">配置 sensu 客户端</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uchiwa-的安装与配置"><span class="nav-text">Uchiwa 的安装与配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动相关服务并验证是否安装成功"><span class="nav-text">启动相关服务并验证是否安装成功</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

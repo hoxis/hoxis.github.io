@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,京东,京豆">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="今天带大家进行模拟京东登录，并进行签到获取京豆，1000 个京豆 = 10 元，毕竟「苍蝇也是肉」，每天用脚本可以获取大概 n 个京豆，是不是一个发现了一个「发家致富」的好路子？">
+<meta name="keywords" content="Python,京东,京豆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 实现京东自动签到领京豆">
+<meta property="og:url" content="https://hoxis.github.io/python-jd-beans.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="今天带大家进行模拟京东登录，并进行签到获取京豆，1000 个京豆 = 10 元，毕竟「苍蝇也是肉」，每天用脚本可以获取大概 n 个京豆，是不是一个发现了一个「发家致富」的好路子？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/201806261445.png">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1529828898141.jpg">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1529828527788.jpg">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1529922041245.jpg">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.501Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 实现京东自动签到领京豆">
+<meta name="twitter:description" content="今天带大家进行模拟京东登录，并进行签到获取京豆，1000 个京豆 = 10 元，毕竟「苍蝇也是肉」，每天用脚本可以获取大概 n 个京豆，是不是一个发现了一个「发家致富」的好路子？">
+<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/201806261445.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/python-jd-beans.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>Python 实现京东自动签到领京豆 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/python-jd-beans.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Python 实现京东自动签到领京豆</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T13:15:59+08:00">
+                2018-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/python-jd-beans.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/python-jd-beans.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/python-jd-beans.html" class="leancloud_visitors" data-flag-title="Python 实现京东自动签到领京豆">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,086
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天带大家进行模拟京东登录，并进行签到获取京豆，1000 个京豆 = 10 元，毕竟「苍蝇也是肉」，每天用脚本可以获取大概 n 个京豆，是不是一个发现了一个「发家致富」的好路子？</p>
+<a id="more"></a>
+<p>废话不多说，下面开始正题。</p>
+<p>整体流程如下：</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/201806261445.png" alt="京东自动签到流程"></p>
+<h1 id="1-模拟登录"><a href="#1-模拟登录" class="headerlink" title="1 模拟登录"></a>1 模拟登录</h1><p>首先我们需要的就是模拟京东登录，只有登录了才能进行签到领京豆等操作。模拟登录其实就是通过 HTTP 的 POST 请求讲用户的登录信息发送给服务器进行认证的过程。</p>
+<h2 id="1-1-登录数据分析"><a href="#1-1-登录数据分析" class="headerlink" title="1.1 登录数据分析"></a>1.1 登录数据分析</h2><p>登录过程表面上看着挺简单，我们只要在浏览器里输入用户名、密码，有时还需要输入一些连开发者都分辨不出的验证码。其实背后是浏览器帮忙做了很多工作（浏览器表示挺累的），因此我们要模拟登录，就要搞清楚浏览器在背后做了什么。</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1529828898141.jpg" alt="浏览器在做什么"></p>
+<p>同样的套路，进入到京东的登录页面：<a href="https://passport.jd.com/uc/login?ltype=logout" target="_blank" rel="noopener">https://passport.jd.com/uc/login?ltype=logout</a>，按下 <code>F12</code>，页面输入登录信息后，点击登录（可以尝试输入一个错误的密码，因为登录后页面直接跳转到了主页面，看不到我们要的数据了），可以看到一个 POST 请求：</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1529828527788.jpg" alt="京东登录"></p>
+<p>这里可以看到，浏览器发送了一个 POST 请求到 <a href="https://passport.jd.com/uc/loginService" target="_blank" rel="noopener">https://passport.jd.com/uc/loginService</a>，然后在请求头上面带上了一些基本的参数，其中有一个 <code>FormData</code>，这里就是浏览器向服务器提交的表单信息。</p>
+<p>看上去是不是一脸蒙蔽了，其实，这些信息大部分是可以在登录页面的源代码里找到的，源码中有一个 id 为 formlogin 的表单，其内容有：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"formlogin"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">onsubmit</span>=<span class="string">"return false;"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">id</span>=<span class="string">"sa_token"</span> <span class="attr">name</span>=<span class="string">"sa_token"</span> <span class="attr">value</span>=<span class="string">"B68C442BE64..."</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">id</span>=<span class="string">"uuid"</span> <span class="attr">name</span>=<span class="string">"uuid"</span> <span class="attr">value</span>=<span class="string">"cde6e309-9fed-4511-b517-4ffd7777d31f"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"eid"</span> <span class="attr">id</span>=<span class="string">"eid"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"fp"</span> <span class="attr">id</span>=<span class="string">"sessionId"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"_t"</span> <span class="attr">id</span>=<span class="string">"token"</span> <span class="attr">value</span>=<span class="string">"_t"</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"loginType"</span> <span class="attr">id</span>=<span class="string">"loginType"</span> <span class="attr">value</span>=<span class="string">"f"</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"main_flag"</span> <span class="attr">id</span>=<span class="string">"main_flag"</span> <span class="attr">value</span>=<span class="string">"main_flag"</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"pubKey"</span> <span class="attr">id</span>=<span class="string">"pubKey"</span> <span class="attr">value</span>=<span class="string">"MIGfMA0GCSq..."</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"qHPHrmjSKm"</span> <span class="attr">value</span>=<span class="string">"YKsoe"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到一批 <code>hidden</code>，其实这些都是浏览器后台「偷偷」传给服务器的参数，只不过它们是被隐藏了的，前端页面不可见而已。可以用 BeautifulSoup 获取这些登录信息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sa_token = soup.find(id=<span class="string">'sa_token'</span>)[<span class="string">'value'</span>]</span><br><span class="line">uuid = soup.find(id=<span class="string">'uuid'</span>)[<span class="string">'value'</span>]</span><br><span class="line">loginType = soup.find(id=<span class="string">'loginType'</span>)[<span class="string">'value'</span>]</span><br><span class="line">pubKey = soup.find(id=<span class="string">'pubKey'</span>)[<span class="string">'value'</span>]</span><br><span class="line">_t = soup.find(id=<span class="string">'token'</span>)[<span class="string">'value'</span>]</span><br><span class="line">fp = soup.find(id=<span class="string">'sessionId'</span>)[<span class="string">'value'</span>]</span><br><span class="line">eid = soup.find(id=<span class="string">'eid'</span>)[<span class="string">'value'</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-验证码的处理"><a href="#1-2-验证码的处理" class="headerlink" title="1.2 验证码的处理"></a>1.2 验证码的处理</h2><p>普通登陆的情况下验证码 authcode 只要为空即可，但是若京东认为有安全风险问题时，会出现验证码，那这个验证码如何处理呢？</p>
+<p>目前验证码处理仍然是一个比较困难的问题，处理方法一般可以分为<strong>自动识别</strong>和<strong>手动识别</strong>。</p>
+<ul>
+<li>手动处理：就是通过验证码链接将验证码图片下载到本地，然后手动敲入完成信息录入。</li>
+<li>自动识别：指使用一些高级的算法技术来完成的，如 OCR 文字识别，机器学习进行识别训练等。一般免费的文字识别算法识别率并不高，收费的识别效率还是可以接受的。</li>
+</ul>
+<p>本文就采用手动录入验证码的方式。</p>
+<p>首先，如何判断页面是否需要输入验证码？</p>
+<p>调试时，可以看到有这么一个请求：<a href="https://passport.jd.com/uc/showAuthCode" target="_blank" rel="noopener">https://passport.jd.com/uc/showAuthCode</a>：</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1529922041245.jpg" alt="showAuthCode"></p>
+<p>其返回值是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&#123;"verifycode":true&#125;)</span><br></pre></td></tr></table></figure>
+<p>显然，这个地址是用来判断是否该账号是否需要验证码的。</p>
+<p>点击一下「换一张图片」，可以看到验证码的请求地址是：<a href="https://authcode.jd.com/verify/image?a=1&amp;acid=36f24f99-f86d-4e1b-957e-bd51cd3257a4&amp;uid=36f24f99-f86d-4e1b-957e-bd51cd3257a4&amp;yys=1529922165515。" target="_blank" rel="noopener">https://authcode.jd.com/verify/image?a=1&amp;acid=36f24f99-f86d-4e1b-957e-bd51cd3257a4&amp;uid=36f24f99-f86d-4e1b-957e-bd51cd3257a4&amp;yys=1529922165515。</a></p>
+<p>同时，在登录页面源码中可以得到图片的地址信息：src2=”//authcode.jd.com/verify/image?a=1&amp;acid=37fe7934-fbc9-413d-b0a8-e0492e1d01b7&amp;uid=37fe7934-fbc9-413d-b0a8-e0492e1d01b7”，显然图片的获取地址是由 <code>http: + src2 + yys= + Unix时间戳</code> 拼接组成:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auth_code_url = soup.find(id=<span class="string">'JD_Verification1'</span>).get(<span class="string">'src2'</span>)</span><br><span class="line">auth_code_url = <span class="string">'http:&#123;&#125;&amp;yys=&#123;&#125;'</span>.format(url, str(int(time.time()*<span class="number">1000</span>)))</span><br></pre></td></tr></table></figure>
+<p>这样我们就能得到图片的下载地址，将其下载到本地，然后根据图片内容输入验证码即可。</p>
+<h2 id="1-3-会话保持"><a href="#1-3-会话保持" class="headerlink" title="1.3 会话保持"></a>1.3 会话保持</h2><p>假设我们已经登录成功，那该如何保持会话呢？也就是我们切换到其他网页后，如何保持会话状态，不用再次登录。</p>
+<p>其实在后续访问其他页面时只要在 header 中包含用户 cookie 的话，不需用户名密码即可登录。</p>
+<p>这里就要用到会话对象 <code>requests.Session</code>，会话对象让你能够跨请求保持某些参数。它也会在同一个 Session 实例发出的所有请求之间保持某些参数，比如 <code>cookies</code>，并且 requests 模块每次会自动处理 cookies，不需要我们手动来处理 cookie，是不是很方便！</p>
+<p>所以如果你向同一主机发送多个请求，底层的 TCP 连接将会被重用，从而也可以带来显著的性能提升。其高级用法可以参考文档：<a href="http://docs.python-requests.org/zh_CN/latest/user/advanced.html" target="_blank" rel="noopener">http://docs.python-requests.org/zh_CN/latest/user/advanced.html</a>。</p>
+<h1 id="2-获取京豆"><a href="#2-获取京豆" class="headerlink" title="2 获取京豆"></a>2 获取京豆</h1><p>通过上面的分析，我们解决了京东的登录问题，下面要做的就是京豆的领取啦。</p>
+<p>领取京豆店铺签到的地址：<a href="http://bean.jd.com/myJingBean/list" target="_blank" rel="noopener">http://bean.jd.com/myJingBean/list</a></p>
+<p>分析店铺签到的页面源码（这里仅列出部分源码）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"bean-shop-list"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"s-bean"</span>&gt;</span>店内签到最多可领<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"ftc03"</span>&gt;</span>1京豆<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://misney.jd.com"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">class</span>=<span class="string">"s-btn"</span> <span class="attr">clstag</span>=<span class="string">"pageclick|keycount|myJingBean_201707111|18"</span>&gt;</span>去签到<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看出，店铺列表是被 <code>class=&quot;bean-shop-list&quot;</code> 包裹的 <code>li</code> 组成，其中有店铺的超链接，我们需要访问这些链接地址进入到店铺主页进行签到。</p>
+<p>随便访问一个签到店铺，查看签到的源码是一个地址：<a href="https://mall.jd.com/shopSign-1000006984.html，发现是由" target="_blank" rel="noopener">https://mall.jd.com/shopSign-1000006984.html，发现是由</a> <code>固定地址 + 店铺 id</code> 拼接而成的，那我们主要的工作就是获取店铺 id 了。</p>
+<p>另外，在访问店铺时，在其 response 是包含 shop_id 的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">id</span>=<span class="string">"shop_id"</span> <span class="attr">value</span>=<span class="string">"1000003179"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>那我们就可以直接使用 BeautifulSoup 获取，然后拼接成签到地址：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取店铺 id</span></span><br><span class="line">shop_id = soup.find(id=<span class="string">'shop_id'</span>)[<span class="string">'value'</span>]</span><br><span class="line"><span class="comment"># 拼接签到地址</span></span><br><span class="line">sign_url = <span class="string">'https://mall.jd.com/shopSign-&#123;&#125;.html'</span>.format(shop_id)</span><br></pre></td></tr></table></figure>
+<p>这样就可以直接访问签到地址进行签到啦~</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ python jd_beans.py</span><br><span class="line">请输入京东账号：xxxx</span><br><span class="line">请输入京东密码：xxxx</span><br><span class="line">请根据下载图片 authcode.jpg 输入验证码：et3r</span><br><span class="line"><span class="number">1.</span> 获取登录信息成功</span><br><span class="line"><span class="number">2.</span> 登录成功</span><br><span class="line">签到失败：http://sjhpchaju.jd.com</span><br><span class="line"><span class="type">HTTPConnectionPool</span>(host='sjhpchaju.jd.com', <span class="keyword">port</span>=80): Max retries exceeded with url: / (<span class="type">Caused</span> by <span class="type">NewConnectionError</span>('&lt;urllib3.connection.<span class="type">HTTPConnection</span> object at 0x7f0bd105cf60&gt;: <span class="type">Failed</span> to establish a new connection: [<span class="type">Errno</span> -3] <span class="type">Temporary</span> failure in name resolution',))</span><br><span class="line">签到失败：http://huliuxiang.jd.com</span><br><span class="line">HTTPConnectionPool(host='huliuxiang.jd.com', port=80): Max retries exceeded with url: / (<span class="type">Caused</span> by <span class="type">NewConnectionError</span>('&lt;urllib3.connection.<span class="type">HTTPConnection</span> object at 0x7f0bd0a2d0b8&gt;: <span class="type">Failed</span> to establish a new connection: [<span class="type">Errno</span> -3] <span class="type">Temporary</span> failure in name resolution',))</span><br></pre></td></tr></table></figure>
+<p>由于网络原因，部分店铺签到失败。</p>
+<p>P.S. 签到后，在京东记录页面好像没找到京东增加的记录，泪奔，不过我们是来学技术的，不要在乎这些蝇头小利。</p>
+<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3 总结"></a>3 总结</h1><p>本文的难点在于京东的登录过程，涉及到了 验证码、cookie 的处理，业务逻辑也稍微有些绕，需要判断是否需要验证码、是否登录成功等。其实，主要的就是在 HTTP 交互过程中抽取我们所要的目标数据。</p>
+<p>另外，验证码处理部分还是有些问题，比如前面判断出登录不需要验证码，但是在登录时仍返回「请输入验证码」。还有，有兴趣的同学也可以进行扩展，比如秒杀、抢购等。</p>
+<p>获取源码可以关注下面的公众号，回复「京东」即可。</p>
+<hr>
+<p>参考：</p>
+<p><a href="https://segmentfault.com/a/1190000013170936" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013170936</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/python-jd-beans.html" title="Python 实现京东自动签到领京豆">https://hoxis.github.io/python-jd-beans.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"><i class="fa fa-tag"></i> 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python-list-comprehension.html" rel="next" title="Python 语法糖之「列表推导式」">
+                <i class="fa fa-chevron-left"></i> Python 语法糖之「列表推导式」
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/python-gaokao-2018.html" rel="prev" title="Python 助你填写高考志愿">
+                Python 助你填写高考志愿 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-模拟登录"><span class="nav-text">1 模拟登录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-登录数据分析"><span class="nav-text">1.1 登录数据分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-验证码的处理"><span class="nav-text">1.2 验证码的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-会话保持"><span class="nav-text">1.3 会话保持</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-获取京豆"><span class="nav-text">2 获取京豆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-总结"><span class="nav-text">3 总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

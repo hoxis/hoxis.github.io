@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ansible,优化,facts缓存">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="什么是 Ansible factsAnsible facts 是远程系统的信息，主要包含IP地址，操作系统，以太网设备，mac 地址，时间/日期相关数据，硬件信息等信息。">
+<meta name="keywords" content="ansible,优化,facts缓存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible 进阶 | facts 缓存">
+<meta property="og:url" content="https://hoxis.github.io/ansible-facts-cache.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="什么是 Ansible factsAnsible facts 是远程系统的信息，主要包含IP地址，操作系统，以太网设备，mac 地址，时间/日期相关数据，硬件信息等信息。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible 进阶 | facts 缓存">
+<meta name="twitter:description" content="什么是 Ansible factsAnsible facts 是远程系统的信息，主要包含IP地址，操作系统，以太网设备，mac 地址，时间/日期相关数据，硬件信息等信息。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/ansible-facts-cache.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>Ansible 进阶 | facts 缓存 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/ansible-facts-cache.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Ansible 进阶 | facts 缓存</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T15:47:39+08:00">
+                2018-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ansible/" itemprop="url" rel="index">
+                    <span itemprop="name">Ansible</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/ansible-facts-cache.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/ansible-facts-cache.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/ansible-facts-cache.html" class="leancloud_visitors" data-flag-title="Ansible 进阶 | facts 缓存">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,233
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是-Ansible-facts"><a href="#什么是-Ansible-facts" class="headerlink" title="什么是 Ansible facts"></a>什么是 Ansible facts</h1><p>Ansible facts 是远程系统的信息，主要包含IP地址，操作系统，以太网设备，mac 地址，时间/日期相关数据，硬件信息等信息。</p>
+<a id="more"></a>
+<p>Ansible facts 对于需要根据远程主机的信息作为执行条件操作的场景非常有用。例如，根据远程服务器使用的操作系统版本，可以安装不同版本的软件包。或者也可以显示与每台远程计算机相关的一些信息，例如每台设备上有多少 RAM 可用。</p>
+<h1 id="如何获取-Ansible-facts"><a href="#如何获取-Ansible-facts" class="headerlink" title="如何获取 Ansible facts"></a>如何获取 Ansible facts</h1><p>默认情况下，在使用 Ansible 对远程主机执行任何一个 playbook 之前，总会先通过 setup 模块获取 facts，并暂存在内存中，直至该 playbook 执行结束。</p>
+<p>这意味着，想要在 playbook 中引用主机变量，至少先与该主机通信一次，以便 Ansible 能够访问其 facts，尽管有时候只需要来自该主机的少量信息。</p>
+<p>Ansible 提供了 setup 模块来收集主机的系统信息，这些 facts 信息可以直接以变量的形式使用。</p>
+<p>如果想查看 setup 模块获取到的数据，可以在命令行上通过调用 setup 模块命令查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -m setup</span><br></pre></td></tr></table></figure>
+<p>将会返回一大大堆数据，文章篇幅有限，这里就不再展示。</p>
+<p>获取这么多数据是非常耗时的，通过 <code>time</code> 指令可以看出，获取一台主机的 facts 数据就用了 3 秒多时间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">time ansible localhost -m setup</span><br><span class="line"></span><br><span class="line">real	0m3.321s</span><br><span class="line">user	0m1.797s</span><br><span class="line">sys	0m0.205s</span><br></pre></td></tr></table></figure>
+<p>在被控主机较少的情况下，收集信息还可以容忍，如果被控主机数量非常大，收集 facts 信息会消耗掉非常多时间。</p>
+<p>那怎么办呢？优化 Ansible 运行速度，最简单的莫过于设置 facts 缓存了。</p>
+<h1 id="设置-facts-缓存"><a href="#设置-facts-缓存" class="headerlink" title="设置 facts 缓存"></a>设置 facts 缓存</h1><p>我们可以设置 <code>gather_facts: no</code> 来禁止 Ansible 收集 facts 信息，但是有时候又需要使用 facts 中的内容，这时候可以设置 facts 的缓存。</p>
+<p>例如，我们可以在空闲的时候收集 facts，缓存下来，在需要的时候直接读取缓存进行引用。</p>
+<p>Ansible 1.8 版本开始，引入了 facts 缓存功能。</p>
+<p>Ansible 的配置文件中可以修改 gathering 的值为 <code>smart</code>、<code>implicit</code> 或者 <code>explicit</code>。</p>
+<ul>
+<li>smart 表示默认收集 facts，但 facts 已有的情况下不会收集，即使用缓存 facts；</li>
+<li>implicit 表示默认收集 facts，要禁止收集，必须使用 <code>gather_facts: False</code>；</li>
+<li>explicit 则表示默认不收集，要显式收集，必须使用 <code>gather_facts: Ture</code>。</li>
+</ul>
+<p>在使用 facts 缓存时（即设置为 smart），Ansible 支持两种 facts 缓存：redis 和 jsonfile。</p>
+<h2 id="使用-redis-缓存"><a href="#使用-redis-缓存" class="headerlink" title="使用 redis 缓存"></a>使用 redis 缓存</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gathering</span> = smart</span><br><span class="line"><span class="attr">fact_caching_timeout</span> = <span class="number">86400</span></span><br><span class="line"><span class="attr">fact_caching</span> = redis</span><br><span class="line"><span class="attr">fact_caching_connection</span> = <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若 redis 设置了密码</span></span><br><span class="line"><span class="comment"># fact_caching_connection = localhost:6379:0:admin</span></span><br></pre></td></tr></table></figure>
+<p>在使用 redis 缓存后，出现异常（若未出现，请忽略）：<code>TypeError: the JSON object must be str, not &#39;bytes&#39;</code>，加上 <code>-vvv</code> 打印出调试信息后，定位到 /usr/local/lib/python3.5/dist-packages/ansible-2.5.0-py3.5.egg/ansible/plugins/cache/redis.py 文件中的 第 90 行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self._cache[key] = json.loads(value)</span><br></pre></td></tr></table></figure>
+<p>将其修改为如下即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self._cache[key] = json.loads(value.decode(<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="使用-json-文件环境"><a href="#使用-json-文件环境" class="headerlink" title="使用 json 文件环境"></a>使用 json 文件环境</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 json 文件缓存</span></span><br><span class="line"><span class="attr">fact_caching</span> = jsonfile</span><br><span class="line"><span class="attr">fact_caching_connection</span> = /tmp/mycachedir</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：这个目录需要是一个可读写的目录。</p>
+</blockquote>
+<h2 id="效果测试"><a href="#效果测试" class="headerlink" title="效果测试"></a>效果测试</h2><p>随便新建一个剧本，这里我们随便执行一个 command 指令：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- hosts:</span> <span class="number">192.168</span><span class="number">.9</span><span class="number">.21</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">test</span> <span class="string">ping</span></span><br><span class="line"><span class="attr">      command:</span> <span class="string">whoami</span></span><br></pre></td></tr></table></figure>
+<p>未使用 facts 缓存的耗时：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># time ansible-playbook ping.yml</span></span><br><span class="line"></span><br><span class="line">PLAY [10.254.9.21] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*</span><br><span class="line"></span><br><span class="line">TASK [Gathering Facts] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>ok: [10.254.9.21]</span><br><span class="line"></span><br><span class="line">TASK [test ping] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*changed: [10.254.9.21]</span><br><span class="line"></span><br><span class="line">PLAY RECAP <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>**10.254.9.21                : ok=2    changed=1    unreachable=0    failed=0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">real    0m15.870s</span><br><span class="line">user    0m2.766s</span><br><span class="line">sys     0m0.938s</span><br></pre></td></tr></table></figure>
+<p>使用缓存的耗时：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># time ansible-playbook ping.yml</span></span><br><span class="line"></span><br><span class="line">PLAY [10.254.9.21] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*</span><br><span class="line"></span><br><span class="line">TASK [test ping] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*changed: [10.254.9.21]</span><br><span class="line"></span><br><span class="line">PLAY RECAP <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>**10.254.9.21                : ok=1    changed=1    unreachable=0    failed=0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">real    0m3.037s</span><br><span class="line">user    0m1.469s</span><br><span class="line">sys     0m0.813s</span><br></pre></td></tr></table></figure>
+<p>可以发现，速度提升很多，由 15s 减少到只有 3s！</p>
+<p>运行结束后，在 redis 中可以看到有如下数据：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli</span><br><span class="line"><span class="meta">127.0.0.1:6379&gt;</span> keys *</span><br><span class="line"><span class="number">1</span>) <span class="string">"ansible_facts10.254.9.21"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"ansible_cache_keys"</span></span><br></pre></td></tr></table></figure>
+<p>若使用的是 json 缓存，配置的目录中会生成如下文件：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ tree facts_cache/</span><br><span class="line">facts_cache/</span><br><span class="line">└── <span class="number">10.254</span><span class="number">.9</span><span class="number">.21</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span> directories, <span class="number">1</span> file</span><br></pre></td></tr></table></figure>
+<p>其中存放的就是主机的 facts 信息。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>不同网络环境下的耗时肯定是不同的，但是设置缓存是肯定可以加快 Ansible 运行速度的，特别是 playbook 的运行。</p>
+<p>另外，可以在空闲时间手动进行 facts 缓存的更新，从而避免执行真正的任务时再去更新缓存。</p>
+<p>当然，优化 Ansible 运行速度还有其他方法，后面我再继续给大家分享。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/ansible-facts-cache.html" title="Ansible 进阶 | facts 缓存">https://hoxis.github.io/ansible-facts-cache.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ansible/" rel="tag"><i class="fa fa-tag"></i> ansible</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python-static-check.html" rel="next" title="Python 常用静态代码检查工具">
+                <i class="fa fa-chevron-left"></i> Python 常用静态代码检查工具
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/python-shell.html" rel="prev" title="交互式 shell 玩转 Python">
+                交互式 shell 玩转 Python <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是-Ansible-facts"><span class="nav-text">什么是 Ansible facts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何获取-Ansible-facts"><span class="nav-text">如何获取 Ansible facts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置-facts-缓存"><span class="nav-text">设置 facts 缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-redis-缓存"><span class="nav-text">使用 redis 缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-json-文件环境"><span class="nav-text">使用 json 文件环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果测试"><span class="nav-text">效果测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

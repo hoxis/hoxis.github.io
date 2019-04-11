@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="之前一直在看《Spring实战》第三版，看到第五章时发现很多东西已经过时被废弃了，于是现在开始读《Spring实战》第四版了，章节安排与之前不同了，里面应用的应该是最新的技术。  本章中，将会接触到Spring MVC基础，以及如何编写控制器来处理web请求，如何通明地绑定请求参数到业务对象上，同时还可以提供数据校验和错误处理的功能。">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Spring实战》学习笔记-第五章：构建Spring web应用">
+<meta property="og:url" content="https://hoxis.github.io/《Spring实战》学习笔记-第五章：构建Spring web应用.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="之前一直在看《Spring实战》第三版，看到第五章时发现很多东西已经过时被废弃了，于是现在开始读《Spring实战》第四版了，章节安排与之前不同了，里面应用的应该是最新的技术。  本章中，将会接触到Spring MVC基础，以及如何编写控制器来处理web请求，如何通明地绑定请求参数到业务对象上，同时还可以提供数据校验和错误处理的功能。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://hoxis-github-io.qiniudn.com/160118-spring-in-action-5.1.png">
+<meta property="og:image" content="http://hoxis-github-io.qiniudn.com/160118-spring-in-action-homepage.png">
+<meta property="og:image" content="http://hoxis-github-io.qiniudn.com/160215-spring-in-action-rigister.png">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.521Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Spring实战》学习笔记-第五章：构建Spring web应用">
+<meta name="twitter:description" content="之前一直在看《Spring实战》第三版，看到第五章时发现很多东西已经过时被废弃了，于是现在开始读《Spring实战》第四版了，章节安排与之前不同了，里面应用的应该是最新的技术。  本章中，将会接触到Spring MVC基础，以及如何编写控制器来处理web请求，如何通明地绑定请求参数到业务对象上，同时还可以提供数据校验和错误处理的功能。">
+<meta name="twitter:image" content="http://hoxis-github-io.qiniudn.com/160118-spring-in-action-5.1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/《Spring实战》学习笔记-第五章：构建Spring web应用.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>《Spring实战》学习笔记-第五章：构建Spring web应用 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/《Spring实战》学习笔记-第五章：构建Spring web应用.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">《Spring实战》学习笔记-第五章：构建Spring web应用</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-08T21:46:26+08:00">
+                2019-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/《Spring实战》学习笔记-第五章：构建Spring web应用.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/《Spring实战》学习笔记-第五章：构建Spring web应用.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/《Spring实战》学习笔记-第五章：构建Spring web应用.html" class="leancloud_visitors" data-flag-title="《Spring实战》学习笔记-第五章：构建Spring web应用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7,198
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  31
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>之前一直在看《Spring实战》第三版，看到第五章时发现很多东西已经过时被废弃了，于是现在开始读《Spring实战》第四版了，章节安排与之前不同了，里面应用的应该是最新的技术。</p>
+</blockquote>
+<p>本章中，将会接触到Spring MVC基础，以及如何编写控制器来处理web请求，如何通明地绑定请求参数到业务对象上，同时还可以提供数据校验和错误处理的功能。</p>
+<a id="more"></a>
+<h1 id="Spring-MVC初探"><a href="#Spring-MVC初探" class="headerlink" title="Spring MVC初探"></a>Spring MVC初探</h1><h2 id="跟踪Spring-MVC请求"><a href="#跟踪Spring-MVC请求" class="headerlink" title="跟踪Spring MVC请求"></a>跟踪Spring MVC请求</h2><p><img src="http://hoxis-github-io.qiniudn.com/160118-spring-in-action-5.1.png" alt="请求会由DispatcherServlet分配给控制器（根据处理器映射来确定），在控制器完成处理后，接着请求会被发送给一个视图来呈现结果"></p>
+<p>在请求离开浏览器时，会带有用户所请求内容的信息，例如请求的URL、用户提交的表单信息。</p>
+<p>请求旅程的第一站是Spring的DispatcherServlet。Spring MVC所有的请求都会通过一个前端控制器Servlet。前端控制器是常用的Web应用程序模式，在这里一个单实例的Servlet将请求委托给应用程序的其他组件来执行实际的处理。在Spring MVC中，DispatcherServlet 就是前端控制器。</p>
+<p>DispatcherServlet的任务是将请求发送给Spring MVC<strong>控制器</strong>。控制器是一个用于处理请求的Spring组件。在典型的应用程序中可能会有多个控制器， Dispatcher Servlet需要知道应该将请求发送给哪个控制器。所以DispatcherServlet会查询一个或多个处理器映射来确定请求的下一站在哪里。<strong>处理器映射</strong>会根据请求所携带的URL信息来进行决策。</p>
+<p>一旦选择了合适的控制器，DispatcherServlet会将请求发送给选中的控制器。到达了控制器，请求会卸下其负载（用户提交的信息）并等待控制器处理这些信息（实际上，设计良好的控制器本身只处理很少甚至不处理工作，而是将业务逻辑委托给个或多个服务对象）。</p>
+<p>控制器在完成逻辑处理后通常会产生一些信息，这些信息需要返回给用户并在浏览器上显示。这些信息被称为<strong>模型</strong>（Model）。不过仅仅给用户返回原始的信息是不够的–这些信息需要以用户友好的方式进行格式化，一般是HTML。所以，信息需要发送给—个<strong>视图</strong>（View），通常会是JSP。</p>
+<p>控制器所做的最后一件事是<strong>将模型数据打包</strong>，并且标示出用于渲染输出的视图名称。它接下来会将请求连同模型和视图名称发送回DispatcherServlet。</p>
+<p>这样，控制器就不会与特定的视图相耦合，传递给DispatcherServlet的视图名称并不直接表示某个特定的JSP。它仅仅传递了一个逻辑名，这个名字将会用来查找用来产生结果的真正视图。DispatcherServlet将会使用<strong>视图解析器</strong>来将逻辑视图名匹配为一个特定的视图实现。</p>
+<p>既然DispatcherServlet已经知道由哪个视图渲染结果，那么请求的任务基本上也就完成了。它的最后一站是视图的实现（可能是JSP），在这里它交付模型数据。请求的任务就完成了。视图将使用模型数据渲染输出，并通过这个输出将响应对象传递给客户端。</p>
+<h2 id="搭建Spring-MVC"><a href="#搭建Spring-MVC" class="headerlink" title="搭建Spring MVC"></a>搭建Spring MVC</h2><h3 id="配置DispatcherServlet"><a href="#配置DispatcherServlet" class="headerlink" title="配置DispatcherServlet"></a>配置DispatcherServlet</h3><p>DispatcherServlet是Spring MVC的核心，它负责将请求分发到其他各个组件。</p>
+<p>在旧版本中，DispatcherServlet之类的servlet一般在<code>web.xml</code>文件中配置，该文件一般会打包进最后的war包种；但是Spring3引入了注解，我们在这一章将展示如何基于注解配置Spring MVC。</p>
+<p><strong>注意：</strong><br>在使用maven构建web工程时，由于缺少web.xml文件，可能会出现<code>web.xml is missing and &lt;failOnMissingWebXml&gt; is set to true</code>这样的错误，那么可以通过在pom.xml文件中添加如下配置来避免这种错误：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-war-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">failOnMissingWebXml</span>&gt;</span>false<span class="tag">&lt;/<span class="name">failOnMissingWebXml</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>既然不适用<code>web.xml</code>文件，你需要在servlet容器中使用Java配置DispatcherServlet，具体的代码列举如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpittrWebAppInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> String[] getServletMappings() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> String[] &#123; <span class="string">"/"</span> &#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[] &#123; RootConfig.class &#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> Class&lt;?&gt;[] getServletConfigClasses() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Class&lt;?&gt;[] &#123; WebConfig.class &#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>任意继承自<code>AbstractAnnotationConfigDispatcherServletInitializer</code>的类都会被自动用来配置DispatcherServlet，这个类负责<strong>配置DispatcherServlet</strong>、<strong>初始化Spring MVC容器和Spring容器</strong>。</p>
+<p>SpittrWebAppInitializer重写了三个方法，<code>getRootConfigClasses()</code>方法用于获取Spring应用容器的配置文件，这里我们给定预先定义的RootConfig.class；<code>getServletConfigClasses()</code>负责获取SpringMVC应用容器，这里传入预先定义好的WebConfig.class；<code>getServletMappings()</code>方法负责指定需要由DispatcherServlet映射的路径，这里给定的是”/“，意思是由DispatcherServlet处理所有向该应用发起的请求。</p>
+<h3 id="两种应用上下文"><a href="#两种应用上下文" class="headerlink" title="两种应用上下文"></a>两种应用上下文</h3><p>当DispatcherServlet启动时，会创建一个Spring应用上下文并且会加载配置文件中声明的bean，通过<code>getServletConfigClasses()</code>方法，DispatcherServlet会加载<code>WebConfig</code>配置类中所配置的bean。</p>
+<p>在Spring web应用中，通常还有另外一种应用上下文：<code>ContextLoaderListener</code>。</p>
+<p>DispatcherServlet用来加载web组件bean，如控制器（controllers）、视图解析器（view resolvers）以及处理器映射（handler mappings）等。而ContextLoaderListener则用来加载应用中的其他bean，如运行在应用后台的中间层和数据层组件。</p>
+<p>AbstractAnnotationConfigDispatcherServletInitializer会同时创建DispatcherServlet和ContextLoaderListener。<code>getServletConfigClasses()</code>方法返回的<code>@Configuration</code>类会定义DispatcherServlet应用上下文的bean。同时，<code>getRootConfigClasses()</code>返回的<code>@Configuration</code>类用来配置ContextLoaderListener上下文创建的bean。</p>
+<p>相对于传统的<code>web.xml</code>文件配置的方式，通过AbstractAnnotationConfigDispatcherServletInitializer来配置DispatcherServlet是一种替代方案。需要注意的是，这种配置只适用于<strong>Servlet 3.0</strong>，例如Apache Tomcat 7或者更高。</p>
+<h3 id="激活Spring-MVC"><a href="#激活Spring-MVC" class="headerlink" title="激活Spring MVC"></a>激活Spring MVC</h3><p>正如有多种方式可以配置DispatcherServlet，激活Spring MVC组件也有不止一种方法。一般的，都会通过XML配置文件的方式来配置Spring，例如可以通过<code>&lt;mvc:annotation-driven&gt;</code>来激活基于注解的Spring MVC。  </p>
+<p>最简单的配置Spring MVC的一种方式是通过<code>@EnableWebMvc</code>注解：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.EnableWebMvc;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>@Configuration</code>表示这是Java配置类；<code>@EnableWebMvc</code>注解用于启动Spring MVC特性。</p>
+<p>这样就可以激活Spring MVC了，但是还有其他一些问题：</p>
+<ul>
+<li>没有配置视图解析器（view resolvers），这种情况下，Spring会默认使用<code>BeanNameViewResolver</code>，它会通过寻找那些与视图id匹配的bean以及实现了View接口的类进行视图解析；</li>
+<li>没有激活组件扫描：这样Spring会寻找配置中明确声明的任意控制器；</li>
+<li>DispatcherServlet会处理所有的请求，包括静态资源请求，如图片和样式（这些往往不是我们想要的）。</li>
+</ul>
+<p>因此，需要为WebConfig增加一些配置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ComponentScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ViewResolver;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.EnableWebMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.view.InternalResourceViewResolver;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebMvc</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(<span class="string">"spitter.web"</span>) <span class="comment">// 激活Spring MVC</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 配置一个JSP视图解析器</span></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ViewResolver <span class="title">viewResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		InternalResourceViewResolver resolver = <span class="keyword">new</span> InternalResourceViewResolver();</span><br><span class="line">		resolver.setPrefix(<span class="string">"/WEB_INF/views/"</span>);</span><br><span class="line">		resolver.setSuffix(<span class="string">".jsp"</span>);</span><br><span class="line">		resolver.setExposeContextBeansAsAttributes(<span class="keyword">true</span>);</span><br><span class="line">		<span class="keyword">return</span> resolver;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureDefaultServletHandling</span><span class="params">(DefaultServletHandlerConfigurer configurer)</span> </span>&#123;</span><br><span class="line">		configurer.enable();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先需要注意的是，<code>WebConfig</code>使用了<code>@ComponentScan</code>注解，因此会在<code>spitter.web</code>包下扫描寻找组件，这些组件包括使用<code>@Controller</code>进行注解的控制器。这样就不再需要在配置类中显式地声明其他控制器。</p>
+<p>接下来，添加了一个<code>ViewResolver</code>bean，即<code>InternalResourceViewResolver</code>。它通过匹配符合设置的前缀和后缀的视图来用来寻找对应的JSP文件，比如视图home会被解析为/WEB-INF/views/home.jsp。这里的三个函数的含义依次是：<code>setPrefix()</code>方法用于设置视图路径的前缀；<code>setSuffix()</code>用于设置视图路径的后缀，即如果给定一个逻辑视图名称——“home”，则会被解析成”/WEB-INF/views/home.jsp”； <code>setExposeContextBeansAsAttributes(true)</code>使得可以在JSP页面中通过${}访问容器中的bean。</p>
+<p>然后，<code>WebConfig</code>继承自<code>WebMvcConfigurerAdapter</code>，并且重写了<code>configureDefaultServletHandling()</code>方法，通过调用<code>enable()</code>方法从而可以让DispatcherServlet将静态资源的请求转发给默认的servlet。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ComponentScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ComponentScan.Filter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.FilterType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.EnableWebMvc;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(basePackages = &#123; <span class="string">"spitter"</span> &#125;, excludeFilters = &#123;</span><br><span class="line">		<span class="meta">@Filter</span>(type = FilterType.ANNOTATION, value = EnableWebMvc.class) &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RootConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的一点是，RootConfig 使用了<code>@ComponentScan</code>注解。</p>
+<h2 id="Spittr应用介绍"><a href="#Spittr应用介绍" class="headerlink" title="Spittr应用介绍"></a>Spittr应用介绍</h2><p>这一章要用的例子应用，从Twitter获取了一些灵感，因此最开始叫Spitter；然后又借鉴了最近比较流行的网站Flickr，因此我们也把e去掉，最终形成Spittr这个名字。这也有利于区分领域名称（类似于twitter，这里用spring实现，因此叫spitter）和应用名称。</p>
+<p>Spittr类似于Twitter，用户可以通过它添加一些推文。Spittr有两个重要的概念：<em>spitter</em>（应用的用户）和<em>spittle</em>（用户发布简单状态）。本章将会构建该应用的web层、创建用于展示spittle的控制器以及用户注册流程。</p>
+<h1 id="编写简单的控制器"><a href="#编写简单的控制器" class="headerlink" title="编写简单的控制器"></a>编写简单的控制器</h1><p>Spring MVC中，控制器仅仅是拥有<code>@RequestMapping</code>注解方法的类，从而可以声明它们可以处理何种请求。</p>
+<p>在开始之前，我们先假设一个控制器，它可以处理匹配<code>/</code>的请求并会跳转到主页面。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span> <span class="comment">// 声明一个控制器</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@RequestMapping</span>(value = <span class="string">"/"</span>, method = RequestMethod.GET) <span class="comment">// 处理GET请求</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"home"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>@Controller</code>是一个构造型注解，它基于<code>@Component</code>，组件扫描器会自动地将HomeController声明为Spring上下文的一个bean。</p>
+<p>home()方法采用了<code>@RequestMapping</code>注解，属性<code>value</code>指定了该方法处理的请求路径，<code>method</code>方法指定了可以处理的HTTP方法。这种情况下，当一个来自<code>/</code>的GET方法请求时，就会调用home()方法。</p>
+<p>home()方法仅仅返回了一个”home”的String值，Spring MVC会对这个String值进行解析并跳转到指定的视图上。<code>DispatcherServlet</code>则会请求视图解析器将这个逻辑视图解析到真实视图上。</p>
+<p>我们已经配置了InternalResourceViewResolver，“home”视图会被解析到<code>/WEB-INF/views/home.jsp</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"c"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/core"</span>%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"spring"</span> <span class="attr">uri</span>=<span class="string">"http://www.springframework.org/tags"</span>%&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Spittr<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">href</span>=<span class="string">"&lt;c:url value="</span>/<span class="attr">resources</span>/<span class="attr">style.css</span>" /&gt;</span>"&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to Spittr<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&lt;c:url value="</span>/<span class="attr">spittles</span>" /&gt;</span>"&gt;Spittles<span class="tag">&lt;/<span class="name">a</span>&gt;</span> |</span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&lt;c:url value="</span>/<span class="attr">spitter</span>/<span class="attr">register</span>" /&gt;</span>"&gt;Register<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>下面对HomeController进行测试。</p>
+<h2 id="测试控制器"><a href="#测试控制器" class="headerlink" title="测试控制器"></a>测试控制器</h2><p>一般的web测试需要将工程发布到一个web容器中，启动后才能观察运行结果。<br>如：<br><img src="http://hoxis-github-io.qiniudn.com/160118-spring-in-action-homepage.png" alt="主页"></p>
+<p>从另外的角度来看，HomeController其实是一个简单的POJO对象，那么可以使用下面的方法对其进行测试：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.result.MockMvcResultMatchers;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.setup.MockMvcBuilders;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeControllerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHomePage</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		HomeController controller = <span class="keyword">new</span> HomeController();</span><br><span class="line">		<span class="comment">// 设置MockMvc</span></span><br><span class="line">		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();</span><br><span class="line">		mockMvc.perform(MockMvcRequestBuilders.get(<span class="string">"/"</span>)).andExpect(MockMvcResultMatchers.view().name(<span class="string">"home"</span>));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>相对于直接调用home()方法测试它的返回值，上面的测试中发起了一个来自<code>/</code>的 GET 请求，并且对其结果视图进行断言。将HomeController的实例传送给<code>MockMvcBuilders.standaloneSetup</code>，并且调用<code>build()</code>方法来创建一个<code>MockMvc</code>实例。然后，使用<code>MockMvc</code>实例产生了一个GET请求，并且设置了视图的期望。</p>
+<h2 id="定义类层级的请求处理"><a href="#定义类层级的请求处理" class="headerlink" title="定义类层级的请求处理"></a>定义类层级的请求处理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span> <span class="comment">// 声明一个控制器</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/"</span>) <span class="comment">// 控制器匹配路径</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@RequestMapping</span>(method = RequestMethod.GET) <span class="comment">// 处理GET请求</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"home"</span>;<span class="comment">// 视图名称</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个新版的HomeController中，将请求匹配路径移到了类层级，HTTP方法的匹配仍处在方法层级。当有控制类中有一个类层级的<code>@RequestMapping</code>，该类中所有的用<code>@RequestMapping</code>注解的处理方法共同组成了类层级的<code>@RequestMapping</code>。</p>
+<p><code>@RequestMapping</code>的value属性接受String数组，那么就可以使用如下配置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span> <span class="comment">// 声明一个控制器</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/"</span>, <span class="string">"/homepage"</span>) <span class="comment">// 控制器匹配路径</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下，home()方法就可以处理来自<code>/</code>和<code>/homepage</code>的GET请求。</p>
+<h2 id="将model数据传送给视图"><a href="#将model数据传送给视图" class="headerlink" title="将model数据传送给视图"></a>将model数据传送给视图</h2><p>在Spittr应用中，需要一个页面，用来显示最近提交的spittle清单。首先需要定义一个数据访问的仓库，用来抓取spittle：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.data;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> spittr.Spittle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SpittleRepository</span> </span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> max</span></span><br><span class="line"><span class="comment">	 *            待返回的最大的Spittle ID</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> count</span></span><br><span class="line"><span class="comment">	 *            返回Spittle对象的个数</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">List&lt;Spittle&gt; <span class="title">findSpittles</span><span class="params">(<span class="keyword">long</span> max, <span class="keyword">int</span> count)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果要获取最近的20个Spittle对象，那么只需调用这样调用：<br><code>List&lt;Spittle&gt; recent = spittleRepository.findSpittles(Long.MAX_VALUE, 20);</code></p>
+<p>下面对Spittle进行定义：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.builder.EqualsBuilder;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.builder.HashCodeBuilder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Spittle</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Long id;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> String message;<span class="comment">// 消息</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Date time;<span class="comment">// 时间戳</span></span><br><span class="line">	<span class="keyword">private</span> Double latitude;</span><br><span class="line">	<span class="keyword">private</span> Double longitude;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Spittle</span><span class="params">(String message, Date time)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>(message, time, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Spittle</span><span class="params">(String message, Date time, Double latitude, Double longitude)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">this</span>.message = message;</span><br><span class="line">		<span class="keyword">this</span>.time = time;</span><br><span class="line">		<span class="keyword">this</span>.latitude = latitude;</span><br><span class="line">		<span class="keyword">this</span>.longitude = longitude;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object that)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> EqualsBuilder.reflectionEquals(<span class="keyword">this</span>, that, <span class="string">"id"</span>, <span class="string">"time"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> HashCodeBuilder.reflectionHashCode(<span class="keyword">this</span>, <span class="string">"id"</span>, <span class="string">"time"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//getters and setters</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Spittle对象中现在包含信息、时间戳、位置这几个属性。</p>
+<p>下面利用Spring的<code>MockMvc</code>来断言新的控制器的行为是否正确：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>上面的测试通过创建一个SpittleRepository接口的mock实现，该实现会通过findSpittles()方法返回一个包含20个Spittle对象的集合。然后将这个bean注入到SpittleController实例中，并设置MockMvc使用该实例。</p>
+<p>不同于HomeControllerTest，该测试使用了<code>setSingleView()</code>，发起一个<code>/spittles</code>的GET请求，并断言视图是否为spittles以及model是否含有一个spittleList的属性值。</p>
+<p>当然，现在运行这个测试代码肯定是会出错的，因为还没有SpittleController。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.hamcrest.core.IsCollectionContaining;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.mockito.Mockito;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.result.MockMvcResultMatchers;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.setup.MockMvcBuilders;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.view.InternalResourceView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> spittr.Spittle;</span><br><span class="line"><span class="keyword">import</span> spittr.data.SpittleRepository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpittleControllerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shouldShowRecentSpittles</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		List&lt;Spittle&gt; expectedSpittles = createSpittleList(<span class="number">20</span>);</span><br><span class="line">		SpittleRepository mockRepository = Mockito.mock(SpittleRepository.class);</span><br><span class="line">		Mockito.when(mockRepository.findSpittles(Long.MAX_VALUE, <span class="number">20</span>)).thenReturn(expectedSpittles);</span><br><span class="line"></span><br><span class="line">		SpittleController controller = <span class="keyword">new</span> SpittleController(mockRepository);</span><br><span class="line">		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller)</span><br><span class="line">				.setSingleView(<span class="keyword">new</span> InternalResourceView(<span class="string">"/WEB_INF/views/spittles.jsp"</span>)).build();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 调用MockMvc.perform(RequestBuilder requestBuilder)发起一个http请求，然后将得到ResultActions</span></span><br><span class="line">		mockMvc.perform(MockMvcRequestBuilders.get(<span class="string">"/spittles"</span>))<span class="comment">// 添加验证断言来判断执行请求后的结果是否是预期的；</span></span><br><span class="line">				.andExpect(MockMvcResultMatchers.view().name(<span class="string">"spittles"</span>))<span class="comment">// view()：得到视图验证器；</span></span><br><span class="line">				<span class="comment">// 得到相应的***ResultMatchers后，接着再调用其相应的API得到ResultMatcher，</span></span><br><span class="line">				<span class="comment">// 如ModelResultMatchers.attributeExists(final String... names)判断Model属性是否存在。</span></span><br><span class="line">				.andExpect(MockMvcResultMatchers.model().attributeExists(<span class="string">"spittleList"</span>))<span class="comment">// model()：得到模型验证器；</span></span><br><span class="line">				.andExpect(MockMvcResultMatchers.model().attribute(<span class="string">"spittleList"</span>, IsCollectionContaining.hasItems(expectedSpittles.toArray())));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> List&lt;Spittle&gt; <span class="title">createSpittleList</span><span class="params">(<span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">		List&lt;Spittle&gt; spittles = <span class="keyword">new</span> ArrayList&lt;Spittle&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">			spittles.add(<span class="keyword">new</span> Spittle(<span class="string">"Spittle "</span>, <span class="keyword">new</span> Date()));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> spittles;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>SpittleController中，使用@Autowired注解注入了spittleRepository属性。</p>
+<p>需要注意的是<code>spittles()</code>方法使用了Model（<em>控制器和视图之间传递的数据</em>）作为入参，Model本质上是一个map，它会被传送至view，因此数据可以提供给客户端。如果在调用<code>addAttribute()</code>方法时没有指定key，那么就会从传入的对象中获取，比如代码中传入的参数属性是List<spittle>，那么key就是spittleList。最后，该方法返回spittles作为传动给model的视图名称。</spittle></p>
+<p>也可以显示的指定key：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.addAttribute(spittleRepository.findSpittles(Long.MAX_VALUE, <span class="number">20</span>));</span><br></pre></td></tr></table></figure></p>
+<p>也可以直接采用map的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(method = RequestMethod.GET)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">spittles</span><span class="params">(Map model)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 将spittles添加到model中</span></span><br><span class="line">	model.put(<span class="string">"spittles"</span>, spittleRepository.findSpittles(Long.MAX_VALUE, <span class="number">20</span>));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 返回视图名称</span></span><br><span class="line">	<span class="keyword">return</span> <span class="string">"spittles"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>不管采用何种方式实现spittles()方法，结果都是一样的。一个Spittle对象集合会存储在model中，并分配到名为spittles的view中，根据测试方法中的配置，该视图就是/WEB-INF/views/spittles.jsp。</p>
+<p>现在model已经有数据了，那么JSP页面中如何获取数据呢？当视图是一个JSP页面时，model数据会作为请求属性被拷贝到请求中，因此可以通过JSTL（JavaServer Pages Standard Tag Library）<code>&lt;c:forEach&gt;</code>来获取：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:forEach</span> <span class="attr">items</span>=<span class="string">"$&#123;spittleList&#125;"</span> <span class="attr">var</span>=<span class="string">"spittle"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">"spittle_&lt;c:out value="</span><span class="attr">spittle.id</span>"/&gt;</span>"&gt;</span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spittleMessage"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">c:out</span> <span class="attr">value</span>=<span class="string">"$&#123;spittle.message&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"spittleTime"</span>&gt;</span><span class="tag">&lt;<span class="name">c:out</span> <span class="attr">value</span>=<span class="string">"$&#123;spittle.time&#125;"</span> /&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"spittleLocation"</span>&gt;</span> (<span class="tag">&lt;<span class="name">c:out</span></span></span><br><span class="line"><span class="tag">					<span class="attr">value</span>=<span class="string">"$&#123;spittle.latitude&#125;"</span> /&gt;</span>, <span class="tag">&lt;<span class="name">c:out</span></span></span><br><span class="line"><span class="tag">					<span class="attr">value</span>=<span class="string">"$&#123;spittle.longitude&#125;"</span> /&gt;</span>)</span><br><span class="line">			<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:forEach</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>下面对SpittleController进行扩展，让它可以处理一些输入。</p>
+<h1 id="接受输入请求"><a href="#接受输入请求" class="headerlink" title="接受输入请求"></a>接受输入请求</h1><p>Spring MVC提供了如下方式供客户端传递数据到控制器处理方法：</p>
+<ul>
+<li>Query parameters</li>
+<li>Form parameters</li>
+<li>Path variables</li>
+</ul>
+<h2 id="处理查询参数：-RequestParam"><a href="#处理查询参数：-RequestParam" class="headerlink" title="处理查询参数：@RequestParam"></a>处理查询参数：@RequestParam</h2><p>Spittr应用的一个需求就是要对spittle列表分页展示，但是SpittleController仅仅展示最近的spittle。如果要让用户可以每次得到一页的spittle记录，那么就需要让用户可以通过某种方式将他们想看的spittle记录的参数传递到后台。</p>
+<p>在浏览spittle时，如果想要查看下一页的spittle，那么就需要传递比当前页的最后一个spittle的id小一位的id，也可以传递想要展示的spittle的数量。</p>
+<p>为了实现分页，需要编写一个控制器满足：</p>
+<ul>
+<li><code>before</code>参数，结果中的spittle的id都要在这个参数之前；</li>
+<li><code>count</code>参数，结果中要包含的spittle的个数</li>
+</ul>
+<p>下面我们对上面的<code>spittles()</code>方法进行小小的改动，让它可以使用before和count参数。首先对测试方法进行改动：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shouldShowRecentSpittles</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	List&lt;Spittle&gt; expectedSpittles = createSpittleList(<span class="number">20</span>);</span><br><span class="line">	SpittleRepository mockRepository = Mockito.mock(SpittleRepository.class);</span><br><span class="line">	Mockito.when(mockRepository.findSpittles(<span class="number">238900</span>, <span class="number">50</span>)).thenReturn(expectedSpittles);</span><br><span class="line"></span><br><span class="line">	SpittleController controller = <span class="keyword">new</span> SpittleController(mockRepository);</span><br><span class="line">	MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller)</span><br><span class="line">			.setSingleView(<span class="keyword">new</span> InternalResourceView(<span class="string">"/WEB_INF/views/spittles.jsp"</span>)).build();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 调用MockMvc.perform(RequestBuilder requestBuilder)发起一个http请求，然后将得到ResultActions</span></span><br><span class="line">	mockMvc.perform(MockMvcRequestBuilders.get(<span class="string">"/spittles?max=238900&amp;count=50"</span>))<span class="comment">// 添加验证断言来判断执行请求后的结果是否是预期的；</span></span><br><span class="line">			.andExpect(MockMvcResultMatchers.view().name(<span class="string">"spittles"</span>))<span class="comment">// view()：得到视图验证器；</span></span><br><span class="line">			<span class="comment">// 得到相应的***ResultMatchers后，接着再调用其相应的API得到ResultMatcher，</span></span><br><span class="line">			<span class="comment">// 如ModelResultMatchers.attributeExists(final String... names)判断Model属性是否存在。</span></span><br><span class="line">			.andExpect(MockMvcResultMatchers.model().attributeExists(<span class="string">"spittleList"</span>))<span class="comment">// model()：得到模型验证器；</span></span><br><span class="line">			.andExpect(MockMvcResultMatchers.model().attribute(<span class="string">"spittleList"</span>, IsCollectionContaining.hasItems(expectedSpittles.toArray())));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个测试方法的主要改动就是它发起的GET请求传递了两个参数：max和count。对<code>spittles()</code>进行修改：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(method=RequestMethod.GET)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Spittle&gt; <span class="title">spittles</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		@RequestParam(value=<span class="string">"max"</span>, defaultValue=MAX_LONG_AS_STRING)</span> <span class="keyword">long</span> max, </span></span><br><span class="line"><span class="function">		@<span class="title">RequestParam</span><span class="params">(value=<span class="string">"count"</span>, defaultValue=<span class="string">"20"</span>)</span> <span class="keyword">int</span> count) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> spittleRepository.findSpittles(max, count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下，如果没有max参数没有指定，那么就会使用默认的设置。由于查询参数是String类型的，因此<code>defaultValue</code>属性值也需要设置为String类型，需要对Long.MAX_VALUE进行设置：<br><code>private static final String MAX_LONG_AS_STRING = &quot;9223372036854775807&quot;;</code></p>
+<p>虽然，这里defaultValue的属性为String类型，当运行到函数时，将会根据函数的参数类型进行转换。</p>
+<p>查询参数是请求中传送信息给控制器的最常用方式，另外一种流行的方式就是将参数作为请求路径的一部分。</p>
+<h2 id="通过路径参数传递数据：-PathVariable"><a href="#通过路径参数传递数据：-PathVariable" class="headerlink" title="通过路径参数传递数据：@PathVariable"></a>通过路径参数传递数据：@PathVariable</h2><p>假设现在应用需要展示单独的一篇Spittle，那么就需要一个id作为查询参数，对应的处理方法可以是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"show"</span>, method=RequestMethod.GET)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">showSpittle</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		@RequestParam(<span class="string">"spittle_id"</span>)</span> <span class="keyword">long</span> spittleId,</span></span><br><span class="line"><span class="function">		Model model</span></span><br><span class="line"><span class="function">		) </span>&#123;</span><br><span class="line">	model.addAttribute(spittleRepository.findOne(spittleId));</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"spittle"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个handler方法将会处理形如<code>/spittles/show?spittle_id=12345</code>的请求，但是这并不符合资源导向的观点。理想情况下，应该使用URL路径对资源进行区分，而不是查询参数，即应该使用<code>/spittles/12345</code>这种形式。</p>
+<p>为了实现资源导向的控制器，我们先在测试中获得这个需求（使用了静态引入）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSpittle</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	Spittle expectedSpittle = <span class="keyword">new</span> Spittle(<span class="string">"Hello"</span>, <span class="keyword">new</span> Date());</span><br><span class="line">	SpittleRepository mockRepository = Mockito.mock(SpittleRepository.class);</span><br><span class="line">	when(mockRepository.findOne(<span class="number">12345</span>)).thenReturn(expectedSpittle);</span><br><span class="line">	</span><br><span class="line">	SpittleController controller = <span class="keyword">new</span> SpittleController(mockRepository);</span><br><span class="line">	MockMvc mockMvc = standaloneSetup(controller).build();</span><br><span class="line">	</span><br><span class="line">	mockMvc.perform(get(<span class="string">"/spittles/12345"</span>))</span><br><span class="line">	.andExpect(view().name(<span class="string">"spittle"</span>))</span><br><span class="line">	.andExpect(model().attributeExists(<span class="string">"spittle"</span>))</span><br><span class="line">	.andExpect(model().attribute(<span class="string">"spittle"</span>, expectedSpittle));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该测试中发起了一个<code>/spittles/12345</code>的GET请求，并且对其返回结果视图进行断言。</p>
+<p>为了满足路径参数，Spring MVC允许在<code>@RequestMapping</code>路径中使用占位符（需要用大括号包围），下面是使用占位符来接受一个id作为路径的一部分：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/&#123;spittleId&#125;"</span>, method=RequestMethod.GET)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">spittle</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		@PathVariable(<span class="string">"spittleId"</span>)</span> <span class="keyword">long</span> spittleId,</span></span><br><span class="line"><span class="function">		Model model</span></span><br><span class="line"><span class="function">		) </span>&#123;</span><br><span class="line">	model.addAttribute(spittleRepository.findOne(spittleId));</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"spittle"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>spittle()方法的spittleId入参使用了<code>@PathVariable(&quot;spittleId&quot;)</code>注解，表明请求中占位符位置的值都会被传送到handler的spittleId参数。<em>@RequestMapping中value属性的占位符必须和@PathVariable包裹的参数一致</em>。如果@PathVariable中没有给定参数，那么将默认使用入参的册数参数名。即可以使用下面的方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/&#123;spittleId&#125;"</span>, method=RequestMethod.GET)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">spittle</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		@PathVariable <span class="keyword">long</span> spittleId,</span></span></span><br><span class="line"><span class="function"><span class="params">		Model model</span></span></span><br><span class="line"><span class="function"><span class="params">		)</span> </span>&#123;</span><br><span class="line">	model.addAttribute(spittleRepository.findOne(spittleId));</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"spittle"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>spittle()方法会将接收的参数值传递给spittleRepository的findOne()方法并查找到一个Spittle，并将其放置到model中，model的key值会是spittle，接下来就可以在视图中引用这个Spittle：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spittleView"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"spittleMessage"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">c:out</span> <span class="attr">value</span>=<span class="string">"$&#123;spittle.message&#125;"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"spittleTime"</span>&gt;</span><span class="tag">&lt;<span class="name">c:out</span> <span class="attr">value</span>=<span class="string">"$&#123;spittle.time&#125;"</span> /&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>查询参数和路径参数可以处理一些少量的请求数据，但是当请求数据过大时，它们就不再适用，下面就来讲解一下如何处理表单数据。</p>
+<h1 id="处理表单"><a href="#处理表单" class="headerlink" title="处理表单"></a>处理表单</h1><p>Web应用不仅仅是将内容推送给用户，它同时也会让用户填写表单并将数据提交给应用。</p>
+<p>对于表单有两种处理方式：展示表单以及处理用户提交的表单数据。在Spittr中，需要提供一个供新用户进行注册的表单。</p>
+<p><code>SpitterController</code>：展示用户注册表单<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/spitter"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpitterController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 处理来自/spitter/register的get请求</span></span><br><span class="line">	<span class="meta">@RequestMapping</span>(value = <span class="string">"/register"</span>, method = RequestMethod.GET)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">showRegistrationForm</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"registerForm"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>showRegistrationForm</code>方法的<code>@RequestMapping</code>注解，以及类级别的注解<code>@RequestMapping</code>，表明了这个方法会处理来自/spitter/register的get请求，该方法仅仅返回了一个名为registerForm的逻辑视图。根据之前在<code>InternalResourceViewResolver</code>中的配置，这个逻辑视图会导向到<code>/WEB-INF/views/registerForm.jsp</code>该界面。</p>
+<p>对应的测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> spittr.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.setup.MockMvcBuilders.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpitterControllerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shouldShowRegistration</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		SpitterController controller = <span class="keyword">new</span> SpitterController();</span><br><span class="line">		MockMvc mockMvc = standaloneSetup(controller).build();</span><br><span class="line">		mockMvc.perform(get(<span class="string">"/spitter/register"</span>)).andExpect(view().name(<span class="string">"registerForm"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以通过启动项目访问界面的方式验证：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> <span class="attr">prefix</span>=<span class="string">"c"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">session</span>=<span class="string">"false"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Spitter<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"&lt;c:url value="</span>/<span class="attr">resources</span>/<span class="attr">style.css</span>" /&gt;</span>" &gt;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Register<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line">      First Name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"firstName"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      Last Name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"lastName"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      Username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      Password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Register"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://hoxis-github-io.qiniudn.com/160215-spring-in-action-rigister.png" alt="该界面提供了用户注册的功能"></p>
+<p>接下来需要对提交的表单进行处理。</p>
+<h2 id="编写表单处理控制器"><a href="#编写表单处理控制器" class="headerlink" title="编写表单处理控制器"></a>编写表单处理控制器</h2><p>在处理POST请求时，控制器需要接受表单数据并且将这些数据存储为一个Spitter对象。为了避免重复提交，应该重定向到一个新的界面：用户信息页。在处理post请求时，一个聪明的做法就是在处理完成后发送一个重定向的请求，从而可以避免重复提交。</p>
+<p>下面来实现控制器方法，从而可以处理注册请求。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> SpitterRepository spitterRepository;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SpitterController</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 注入SpitterRepository</span></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SpitterController</span><span class="params">(SpitterRepository spitterRepository)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.spitterRepository = spitterRepository;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">processRegistration</span><span class="params">(Spitter spitter)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 保存Spitter</span></span><br><span class="line">		spitterRepository.save(spitter);</span><br><span class="line">		<span class="comment">// 重定向到新的页面</span></span><br><span class="line">		<span class="keyword">return</span> <span class="string">"redirect:/spitter/"</span> + spitter.getUsername();</span><br><span class="line">	&#125;</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
+<p>processRegistration方法使用Spitter对象作为入参，该对象的属性会从请求中填充。该方法中调用了spitterRepository的save方法对Spitter对象进行存储。最后返回了一个带有<code>redirect:</code>的字符串。</p>
+<p>当InternalResourceViewResolver遇到<code>redirect:</code>时，它会自动地将其当做一个重定向请求，从而可以重定向到用户详情页面，如/spitter/xiaoming。</p>
+<p>同时，InternalResourceViewResolver也可以识别前缀<code>forward:</code>，这种情况下，请求会被转向到给定的URL地址。</p>
+<p>下面需要编写处理处理用户详情页面的方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/&#123;username&#125;"</span>, method = RequestMethod.GET)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">showSpitterProfile</span><span class="params">(@PathVariable(<span class="string">"username"</span>)</span> String username, Model model) </span>&#123;</span><br><span class="line">	Spitter spitter = spitterRepository.findByUsername(username);</span><br><span class="line">	model.addAttribute(spitter);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"profile"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="参数校验"><a href="#参数校验" class="headerlink" title="参数校验"></a>参数校验</h2><p>从Spring3.0开始，Spring支持Java校验api，从而可以从而可以不需要添加其他配置，仅仅需要有一个Java API 的实现，如Hibernate Validator。</p>
+<p>Java Validation API定义了许多注解，可以使用这些注解来约束参数的值，所有的注解都在包<code>javax.validation.constraints</code>中。</p>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@AssertFalse（@AssertTrue）</td>
+<td>对象必须是布尔类型，并且必须为false（true）</td>
+</tr>
+<tr>
+<td>@DecimalMax(value)、@DecimalMin(value)</td>
+<td>限制对象必须是一个数字，其值不大于（不小于）指定的BigDecimalString值</td>
+</tr>
+<tr>
+<td>@Digits(integer,fraction)</td>
+<td>对象必须为一个小数，且整数部分的位数不能超过integer，小数部分的位数不能超过fraction</td>
+</tr>
+<tr>
+<td>@Future</td>
+<td>必须是一个将来的日期</td>
+</tr>
+<tr>
+<td>@Max(value)、@Min(value)</td>
+<td>必须为一个不大于（不小于）指定值的数字</td>
+</tr>
+<tr>
+<td>@NotNull</td>
+<td>限制对象不能为空</td>
+</tr>
+<tr>
+<td>@Null</td>
+<td>限制对象必须为空</td>
+</tr>
+<tr>
+<td>@Past</td>
+<td>必须是一个过去的日期</td>
+</tr>
+<tr>
+<td>@Pattern(value)</td>
+<td>必须符合指定的正则表达式</td>
+</tr>
+<tr>
+<td>@Size(min,max)</td>
+<td>限制字符长度必须在min到max之间</td>
+</tr>
+</tbody>
+</table>
+<p>使用示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Spitter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@NotNull</span></span><br><span class="line">	<span class="meta">@Size</span>(min = <span class="number">5</span>, max = <span class="number">16</span>)</span><br><span class="line">	<span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@NotNull</span></span><br><span class="line">	<span class="meta">@Size</span>(min = <span class="number">5</span>, max = <span class="number">25</span>)</span><br><span class="line">	<span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@NotNull</span></span><br><span class="line">	<span class="meta">@Size</span>(min = <span class="number">2</span>, max = <span class="number">30</span>)</span><br><span class="line">	<span class="keyword">private</span> String firstName;</span><br><span class="line">	</span><br><span class="line">	...</span><br></pre></td></tr></table></figure></p>
+<p>既然已经对Spitter的参数添加了约束，那么就需要改动processRegistration方法来应用校验：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/register"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processRegistration</span><span class="params">(@Valid Spitter spitter, Errors errors)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 若校验中出现错误，那么就返回到注册界面</span></span><br><span class="line">	<span class="keyword">if</span> (errors.hasErrors()) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"registerForm"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 保存Spitter</span></span><br><span class="line">	spitterRepository.save(spitter);</span><br><span class="line">	<span class="comment">// 重定向到新的页面</span></span><br><span class="line">	<span class="keyword">return</span> <span class="string">"redirect:/spitter/"</span> + spitter.getUsername();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这一章比较适合Spring MVC的入门学习资料。主要涵盖了Spring MVC处理web请求的处理过程、如何写简单的控制器和控制器方法来处理Http请求、如何使用mockito框架测试控制器方法。</p>
+<p>基于Spring MVC的应用有三种方式读取数据：查询参数、路径参数和表单输入。本章用两节介绍了这些内容，并给出了类似错误处理和参数验证等关键知识点。</p>
+<p>由于缺少真正的入库操作，因此本章节的一些方法不能真正的运作。</p>
+<p>在接下来的章节中，我们会对Spring视图进行深入了解，对如何在JSP页面中使用Spring标签库进行展开。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/《Spring实战》学习笔记-第五章：构建Spring web应用.html" title="《Spring实战》学习笔记-第五章：构建Spring web应用">https://hoxis.github.io/《Spring实战》学习笔记-第五章：构建Spring web应用.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/《Spring实战》学习笔记-第三章：最小化SpringXML配置.html" rel="next" title="《Spring实战》学习笔记-第三章：最小化SpringXML配置">
+                <i class="fa fa-chevron-left"></i> 《Spring实战》学习笔记-第三章：最小化SpringXML配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/《Spring实战》学习笔记-第二章：装配Bean.html" rel="prev" title="《Spring实战》学习笔记-第二章：装配Bean">
+                《Spring实战》学习笔记-第二章：装配Bean <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-MVC初探"><span class="nav-text">Spring MVC初探</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#跟踪Spring-MVC请求"><span class="nav-text">跟踪Spring MVC请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建Spring-MVC"><span class="nav-text">搭建Spring MVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置DispatcherServlet"><span class="nav-text">配置DispatcherServlet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种应用上下文"><span class="nav-text">两种应用上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活Spring-MVC"><span class="nav-text">激活Spring MVC</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spittr应用介绍"><span class="nav-text">Spittr应用介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写简单的控制器"><span class="nav-text">编写简单的控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试控制器"><span class="nav-text">测试控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义类层级的请求处理"><span class="nav-text">定义类层级的请求处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将model数据传送给视图"><span class="nav-text">将model数据传送给视图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接受输入请求"><span class="nav-text">接受输入请求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#处理查询参数：-RequestParam"><span class="nav-text">处理查询参数：@RequestParam</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过路径参数传递数据：-PathVariable"><span class="nav-text">通过路径参数传递数据：@PathVariable</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理表单"><span class="nav-text">处理表单</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编写表单处理控制器"><span class="nav-text">编写表单处理控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数校验"><span class="nav-text">参数校验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

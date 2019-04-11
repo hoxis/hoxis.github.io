@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ansible,技巧">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="最近一直在用 Ansible 做一些东西，决定分享我在学习过程中学到的一些东西，我认为你应该知道的关于 Ansible 的 15 件事的清单。 如果你觉得有什么遗漏的，欢迎留言分享！">
+<meta name="keywords" content="ansible,技巧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你应该知道的关于Ansible的15件事">
+<meta property="og:url" content="https://hoxis.github.io/15-things-about-ansible.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="最近一直在用 Ansible 做一些东西，决定分享我在学习过程中学到的一些东西，我认为你应该知道的关于 Ansible 的 15 件事的清单。 如果你觉得有什么遗漏的，欢迎留言分享！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.453Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你应该知道的关于Ansible的15件事">
+<meta name="twitter:description" content="最近一直在用 Ansible 做一些东西，决定分享我在学习过程中学到的一些东西，我认为你应该知道的关于 Ansible 的 15 件事的清单。 如果你觉得有什么遗漏的，欢迎留言分享！">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/15-things-about-ansible.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>你应该知道的关于Ansible的15件事 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/15-things-about-ansible.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">你应该知道的关于Ansible的15件事</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T10:20:49+08:00">
+                2019-01-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ansible/" itemprop="url" rel="index">
+                    <span itemprop="name">Ansible</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/15-things-about-ansible.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/15-things-about-ansible.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/15-things-about-ansible.html" class="leancloud_visitors" data-flag-title="你应该知道的关于Ansible的15件事">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,068
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近一直在用 Ansible 做一些东西，决定分享我在学习过程中学到的一些东西，我认为你应该知道的关于 Ansible 的 15 件事的清单。 如果你觉得有什么遗漏的，欢迎留言分享！</p>
+<a id="more"></a>
+<h1 id="1-您可以将参数传递给角色"><a href="#1-您可以将参数传递给角色" class="headerlink" title="1 - 您可以将参数传递给角色"></a>1 - 您可以将参数传递给角色</h1><p>创建角色来组织您的剧本是一个很好的做法。 假设我们想要创建一个安装Jenkins的角色。 此角色的文件夹结构可能如下所示：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">jenkins/</span><br><span class="line">   <span class="keyword">files</span>/</span><br><span class="line">   templates/</span><br><span class="line">   tasks/</span><br><span class="line">   handlers/</span><br><span class="line">   defaults/</span><br></pre></td></tr></table></figure>
+<p>文件夹 <code>defaults</code> 用于存储角色的默认变量值。在其中我们可以有这个 <code>main.yml</code> 文件：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">jenkins_port:</span> <span class="number">8080</span></span><br><span class="line"><span class="symbol">jenkins_context_path:</span> /jenkins</span><br><span class="line"><span class="symbol">jenkins_home:</span> /jenkins</span><br></pre></td></tr></table></figure>
+<p>您可以通过将不同的参数传递给角色来覆盖默认变量，如下所示：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">roles</span>:</span><br><span class="line">   <span class="selector-tag">-</span> &#123; <span class="attribute">role</span>: jenkins, jenkins_port: <span class="number">8181</span>, jenkins_home: <span class="string">'/jenkins1'</span> &#125;</span><br><span class="line">   <span class="selector-tag">-</span> &#123; <span class="attribute">role</span>: jenkins, jenkins_port: <span class="number">8080</span>, jenkins_home: <span class="string">'/jenkins2'</span> &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-如何使命令模块具有幂等性"><a href="#2-如何使命令模块具有幂等性" class="headerlink" title="2 - 如何使命令模块具有幂等性"></a>2 - 如何使命令模块具有幂等性</h1><p>幂等性是某些操作的属性，可以多次执行而不改变初始应用程序的结果。 这个概念出现在大多数Ansible模块中：您指定了所需的最终状态，Ansible决定是否应该运行任务。 默认情况下，此原则不适用于command模块。 默认情况下，如果您在playbook中有以下任务，它将始终运行：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">command:</span> <span class="regexp">/usr/</span>bin/create-database.sh</span><br></pre></td></tr></table></figure>
+<p>为了实现幂等性，您可以使用属性creates 。 如果存在，Ansible将仅在模式指定的文件不存在时运行命令任务。 或者，您可以使用removes ，它仅在指定的文件存在时才执行任务。</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">command </span>: /<span class="string">usr/</span><span class="string">bin/</span><span class="built_in">create-database.sh</span> <span class="string">creates </span>= /<span class="string">path/</span><span class="string">to/</span><span class="string">database</span></span><br></pre></td></tr></table></figure>
+<p>始终要记住，Ansible有很多模块，大多数常见操作都不需要使用命令模块。 例如，有一些模块用于创建文件系统 ， 修改iptables和管理cron条目 。 默认情况下，所有这些模块都是幂等的，因此您始终应该更喜欢它们。</p>
+<h1 id="3-使用Ansible安装程序模块收集有关主机的信息"><a href="#3-使用Ansible安装程序模块收集有关主机的信息" class="headerlink" title="3 - 使用Ansible安装程序模块收集有关主机的信息"></a>3 - 使用Ansible安装程序模块收集有关主机的信息</h1><p>你可能已经看到Ansible在运行一个剧本时所做的第一件事是这样的：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TASK [ setup] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>* ok: [ servername]</span><br></pre></td></tr></table></figure>
+<p>发生这种情况是因为Ansible在执行第一个任务之前调用特殊模块setup 。 设置模块连接到主机并收集各种详细信息：IP地址，磁盘空间，CPU架构，可用内存等。 手动调用此模块可能很有用，可以快速收集有关主机的信息。 为此，只需运行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ansible localhost -m setup</span></span><br><span class="line">localhost | SUCCESS =&gt; &#123;</span><br><span class="line">  "ansible_facts": &#123;</span><br><span class="line">    "ansible_all_ipv4_addresses": [</span><br><span class="line">        "10.27.12.77",</span><br><span class="line">        "192.168.33.1"</span><br><span class="line">    ],</span><br><span class="line">    (MANY more facts)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="4-您可以列出剧本的所有任务"><a href="#4-您可以列出剧本的所有任务" class="headerlink" title="4 - 您可以列出剧本的所有任务"></a>4 - 您可以列出剧本的所有任务</h1><p>想要记住剧本的作用吗？ 使用–list-tasks标志运行ansible-playbook ，Ansible将列出其所有任务：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook install-jenkins.yml <span class="comment">--list-tasks</span></span><br><span class="line">PLAY: #<span class="number">1</span></span><br><span class="line">  tasks:</span><br><span class="line">    <span class="keyword">TASK</span>: meta</span><br><span class="line">    <span class="keyword">TASK</span>: open-jdk : <span class="type">Install</span> open jdk <span class="number">1.8</span></span><br><span class="line">    <span class="keyword">TASK</span>: mount-partition : <span class="type">Creating</span> the filesystem <span class="keyword">for</span> the device &#123;&#123; device &#125;&#125;  (<span class="keyword">if</span> needed)</span><br><span class="line">    <span class="keyword">TASK</span>: mount-partition : <span class="type">Mounting</span> the device &#123;&#123; device &#125;&#125; on path &#123;&#123; path &#125;&#125;</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Ensure</span> Jenkins repo <span class="keyword">is</span> installed.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Add</span> Jenkins repo GPG key.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Ensure</span> Jenkins <span class="keyword">is</span> present.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Ensures</span> that the home directory exists</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">include</span></span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Ensure</span> Jenkins <span class="keyword">is</span> started <span class="keyword">and</span> runs on startup.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Wait</span> <span class="keyword">for</span> Jenkins to start up before proceeding.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Get</span> the jenkins-cli jarfile from the Jenkins server.</span><br></pre></td></tr></table></figure>
+<h1 id="5-如果要存储敏感信息，请使用ansible-vault"><a href="#5-如果要存储敏感信息，请使用ansible-vault" class="headerlink" title="5 - 如果要存储敏感信息，请使用ansible-vault"></a>5 - 如果要存储敏感信息，请使用ansible-vault</h1><p>如果您的某个任务需要敏感信息（比如数据库用户和密码），最好将这些信息加密，而不是以纯文本形式存储。</p>
+<p>Ansible附带一个名为ansible-vault的命令行工具，允许您创建和管理加密文件。 这样，您可以将加密文件提交到源代码控制，只有拥有解密密码的用户才能读取它。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Encrypt an existing file. You'll need to create an encryption password.</span></span><br><span class="line">ansible-vault encrypt secrets.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Creates a new, encrypted file. You'll need to create an encryption password.</span></span><br><span class="line">ansible-vault create secrets.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Decrypt a file. You'll have to enter password used for encryption.</span></span><br><span class="line"><span class="comment"># Use it with caution! Don't leave your files unecrypted.</span></span><br><span class="line">ansible-vault decrypt secrets.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Edit an encrypted file (uses vim by default, can be overriden by the environment variable $EDITOR)</span></span><br><span class="line">ansible-vault <span class="builtin-name">edit</span> secrets.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print the contents of the encrypted file</span></span><br><span class="line">ansible-vault <span class="builtin-name">edit</span> secrets.yml</span><br></pre></td></tr></table></figure>
+<p>如果您在Playbook中导入vars_file secrets.yml，Ansible将失败，因为它不知道如何读取加密文件。 您必须指定命令行参数–ask-vault-pass ，这将使Ansible提示您加密文件的密码。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook playbook<span class="selector-class">.yml</span> -<span class="selector-tag">i</span> hosts --ask-vault-password</span><br></pre></td></tr></table></figure>
+<p>另一种方法是将密码存储在一个文件中（不应该提交），并使用–vault-password-file参数指定文件的路径。 如果此文件标记为可执行文件，Ansible将运行它并使用输出作为密码。</p>
+<h1 id="6-使用with-items可能是个好主意"><a href="#6-使用with-items可能是个好主意" class="headerlink" title="6 - 使用with_items可能是个好主意"></a>6 - 使用with_items可能是个好主意</h1><p>当您使用with_items子句时，Ansible将创建一个名为{ {item } }的变量，其中包含当前迭代的值。 有些模块可以很好地处理项目集合，实际上比使用不同参数多次运行相同任务更快。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Installing all packages with one task (faster)</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">install</span> <span class="string">required</span> <span class="string">packages</span> <span class="string">using</span> <span class="string">the</span> <span class="string">apt</span> <span class="string">module</span></span><br><span class="line"><span class="attr">    apt:</span> <span class="string">package=&#123;&#123;</span> <span class="string">item</span> <span class="string">&#125;&#125;</span>  <span class="string">update_cache=yes</span></span><br><span class="line"><span class="attr">    sudo:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">    with_items:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">memcached</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">nginx</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Installing packages individually (slower)</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">install</span> <span class="string">git</span></span><br><span class="line"><span class="attr">    apt:</span> <span class="string">package=git</span> <span class="string">update_cache=yes</span></span><br><span class="line"><span class="attr">    sudo:</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">install</span> <span class="string">memcached</span></span><br><span class="line"><span class="attr">    apt:</span> <span class="string">package=memcached</span> <span class="string">update_cache=yes</span></span><br><span class="line"><span class="attr">    sudo:</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">install</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">    apt:</span> <span class="string">package=nginx</span> <span class="string">update_cache=yes</span></span><br><span class="line"><span class="attr">    sudo:</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h1 id="7-本地行动的运作方式"><a href="#7-本地行动的运作方式" class="headerlink" title="7 - 本地行动的运作方式"></a>7 - 本地行动的运作方式</h1><p>有时您可能希望在本地计算机上运行任务，而不是在远程计算机上运行它。 当我们想要等待服务器启动（如果它刚刚启动）或者我们想要在负载均衡器池中添加一些节点（或删除它们）时，这可能很有用：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tasks:</span><br><span class="line"> - name: take out of load balancer pool</span><br><span class="line">   local_action: &gt;</span><br><span class="line">      command /usr/bin/take_out_of_pool &#123;&#123; inventory_hostname &#125;&#125;</span><br><span class="line"></span><br><span class="line"> - name: update application</span><br><span class="line">   yum: <span class="attribute">name</span>=acme-web-stack <span class="attribute">state</span>=latest</span><br><span class="line"></span><br><span class="line"> - name: <span class="builtin-name">add</span> back <span class="keyword">to</span> load balancer pool</span><br><span class="line">   local_action: &gt;</span><br><span class="line">      command /usr/bin/take_out_of_pool &#123;&#123; inventory_hostname &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是如何启动EC2实例并等待其可用的示例：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- name: Launching EC2 Instance</span><br><span class="line">    #<span class="built_in"> instance </span>options here</span><br><span class="line">  register: ec2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- name: Waiting <span class="keyword">for</span> ec2 instances <span class="keyword">to</span> listen on<span class="built_in"> port </span>22</span><br><span class="line">  wait_for:</span><br><span class="line">    <span class="attribute">state</span>=started</span><br><span class="line">    host=&#123;&#123; item.public_dns_name &#125;&#125;</span><br><span class="line">    <span class="attribute">port</span>=22</span><br><span class="line">  with_items: ec2.instances</span><br></pre></td></tr></table></figure>
+<h1 id="8-您可以告诉Ansible仅运行一次任务"><a href="#8-您可以告诉Ansible仅运行一次任务" class="headerlink" title="8 - 您可以告诉Ansible仅运行一次任务"></a>8 - 您可以告诉Ansible仅运行一次任务</h1><p>有时您可能只想运行一次任务，即使有多个主机也是如此。 例如，假设您有多个连接到同一数据库的应用程序服务器，并且您有一个执行数据库迁移的任务。 在这种情况下，您只需运行此任务一次。</p>
+<p>要实现这一点，您可以使用run_once参数告诉Ansible只运行一次命令：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">run</span> <span class="string">the</span> <span class="string">database</span> <span class="string">migrations</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">bundle</span> <span class="string">exec</span> <span class="string">rake</span> <span class="attr">db:migrate</span></span><br><span class="line"><span class="attr">  run_once:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h1 id="9-处理程序是特殊类型的任务"><a href="#9-处理程序是特殊类型的任务" class="headerlink" title="9 - 处理程序是特殊类型的任务"></a>9 - 处理程序是特殊类型的任务</h1><p>处理程序是具有唯一名称的任务，只有在被另一个任务通知时才会执行。 它们对于重新启动服务或重新引导系统非常有用。</p>
+<p>被通知的处理程序将在剧本结束时执行一次 ，无论他们被通知多少次。 您可以使用handler子句声明它们并使用notify触发它们。</p>
+<p>下面是一个示例，说明当文件内容发生更改时如何重新启动两个服务，但仅当文件更改时（从Ansible 文档中提取）：</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> <span class="symbol">name:</span> template configuration file</span></span><br><span class="line"><span class="ruby">  <span class="symbol">template:</span> src=template.j2 dest=<span class="regexp">/etc/foo</span>.conf</span></span><br><span class="line"><span class="ruby">  <span class="symbol">notify:</span></span></span><br><span class="line"><span class="ruby">     - restart memcached</span></span><br><span class="line"><span class="ruby">     - restart apache</span></span><br></pre></td></tr></table></figure>
+<p>应该在你的剧本中的其他地方声明处理程序：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">handlers:</span><br><span class="line">    - name: restart memcached</span><br><span class="line">      # The<span class="built_in"> service </span>module was used, but you could use whatever module you wanted</span><br><span class="line">      service: <span class="attribute">name</span>=memcached <span class="attribute">state</span>=restarted</span><br><span class="line">    - name: restart apache</span><br><span class="line">      service: <span class="attribute">name</span>=apache <span class="attribute">state</span>=restarted</span><br></pre></td></tr></table></figure>
+<p>10 - 用流水线加速<br>您可以采取一些措施使Ansible运行得更快：</p>
+<ul>
+<li>启用流水线操作 </li>
+</ul>
+<p>启用流水线操作可以减少在远程服务器上执行模块所需的SSH操作数，方法是将脚本传送到SSH会话而不是复制它。 启用后，这可以显着提高性能。</p>
+<p>不过你应该小心。 只有在sudoers文件（/ etc / sudoers）中的所有远程计算机上禁用选项requiretty管道requiretty才有效。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[ssh_connection]</span></span><br><span class="line"><span class="attr">pipelining</span> = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>关闭事实收集或启用事实缓存 </li>
+</ul>
+<p>如果您未在任务中使用任何Ansible事实，则可以禁用“事实收集”步骤以提高速度。 为此，只需在playbook中添加属性gather_facts: False ：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- hosts:</span> <span class="string">servername</span></span><br><span class="line"><span class="attr">  gather_facts:</span> <span class="literal">False</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">...</span></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<p>或者，如果您确实需要使用Ansible事实（由安装任务自动收集），您可以缓存它们，以便后续执行更快。 Ansible文档在此详细介绍了这一点 ，如果您想了解更多信息。</p>
+<h1 id="11-Ansible有几个通知模块"><a href="#11-Ansible有几个通知模块" class="headerlink" title="11 - Ansible有几个通知模块"></a>11 - Ansible有几个通知模块</h1><p>使用Ansible自动进行蓝绿部署？ 运行Playbooks以在AWS上配置新实例？ 让您的团队使用其中一个通知模块。 例如，下面的任务将发送带有自定义消息的松弛通知：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- hosts: servername</span><br><span class="line">  tasks:</span><br><span class="line">    - name: Send notification message via Slack</span><br><span class="line">      local_action:</span><br><span class="line">        module: slack</span><br><span class="line">        # <span class="keyword">To</span> retrieve your slack token, open your team<span class="built_in"> settings </span><span class="keyword">and</span> look <span class="keyword">for</span> the</span><br><span class="line">        #<span class="built_in"> Incoming </span>Webhooks plugin</span><br><span class="line">        token: &lt;your&gt;/&lt;token&gt;/&lt;goes here&gt;</span><br><span class="line">        msg: <span class="string">"Hello team! I just finished updating our production environment."</span></span><br><span class="line">        channel: <span class="string">"#general"</span></span><br><span class="line">        username: <span class="string">"ansible-bot"</span></span><br></pre></td></tr></table></figure>
+<p>还有一些模块可用于通知irc，twillio，hipchat，jabber 等等 。</p>
+<h1 id="12-EC2实例按其标签自动分组"><a href="#12-EC2实例按其标签自动分组" class="headerlink" title="12 - EC2实例按其标签自动分组"></a>12 - EC2实例按其标签自动分组</h1><p>使用Amazon Web Services和Ansible的EC2动态库存脚本时，所有实例都将根据其特征（例如类型，密钥对和标记）进行分组。 EC2标签只是key =与您的实例关联的名称值，您可以随意使用它们。 有些人使用标签对其生产/登台服务器进行分组，在蓝绿部署期间标记Web服务器甚至“活动”服务器。</p>
+<p>当按标记对主机进行分组时，EC2动态库存脚本使用以下模式（不带括号）：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tag_<span class="string">[TAG_NAME]</span>_<span class="string">[TAG_VALUE]</span></span><br></pre></td></tr></table></figure>
+<p>因此，如果要在标签为env=staging所有主机上运行任务，只需将其添加到您的playbook：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hosts: tag_env_staging</span><br><span class="line">tasks:</span><br><span class="line">  - <span class="built_in">name</span>: This task will be <span class="built_in">run</span> <span class="keyword">on</span> all servers <span class="keyword">with</span> env == staging</span><br><span class="line">  <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<p>为了使它更有趣，您可以使用Ansible模式（ <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;ie=UTF8&amp;prev=_t&amp;rurl=translate.google.com.hk&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=http://docs.ansible.com/ansible/intro_patterns.html&amp;xid=17259,15700002,15700021,15700124,15700149,15700168,15700186,15700190,15700201&amp;usg=ALkJrhg4HaH3ukvAR_yhK0DatD4s2Azekg#patterns" target="_blank" rel="noopener">docs</a> ）更具体地说明哪些主机应该受任务影响。 例如，如果要在生产数据库服务器上执行特定任务（假设它们已正确标记），则可以使用交叉模式（ <code>:&amp;</code> ），如下所示：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">host<span class="variable">s:</span> tag_env_production&amp;:tag_type_db</span><br><span class="line">task<span class="variable">s:</span></span><br><span class="line">  - name: This task will <span class="keyword">be</span> run <span class="keyword">on</span> <span class="keyword">all</span> servers with <span class="keyword">tags</span> <span class="string">'env=production'</span> <span class="built_in">and</span> <span class="string">'type=db'</span></span><br><span class="line">  # ...</span><br></pre></td></tr></table></figure>
+<h1 id="13-您可以在“Dry-Run”模式下运行"><a href="#13-您可以在“Dry-Run”模式下运行" class="headerlink" title="13 - 您可以在“Dry Run”模式下运行"></a>13 - 您可以在“Dry Run”模式下运行</h1><p>Ansible支持在干运行模式下运行一个剧本（也称为检查模式），在这种模式下，Ansible 不会对你的主机进行任何更改，而只是报告如果没有这个标志运行剧本就会发生什么变化。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ansible-playbook --check playbook.yml</span></span><br></pre></td></tr></table></figure>
+<p>虽然这在某些情况下很有用，但如果您的任务使用条件步骤，它可能无法正常工作。</p>
+<h1 id="14-任务可以一步一步地进行"><a href="#14-任务可以一步一步地进行" class="headerlink" title="14 - 任务可以一步一步地进行"></a>14 - 任务可以一步一步地进行</h1><p>有时您不想在游戏手册中运行所有任务。 当你编写一个新的剧本并想要测试它时，这有点常见。 Ansible提供了一种方法，通过使用–step标志，让您决定要运行哪些任务。 它会让你选择是否要运行任务（y），跳过它（n）或（c）ontinue而不要求。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># playbook.yml</span><br><span class="line">- hosts: servername</span><br><span class="line">  tasks:</span><br><span class="line">    - name: First <span class="keyword">task</span></span><br><span class="line">      # ...</span><br><span class="line">    - name: Second <span class="keyword">task</span></span><br><span class="line">      # ...</span><br><span class="line"></span><br><span class="line">$ ansible-playbook provision.yml -i hosts --<span class="keyword">step</span></span><br><span class="line"></span><br><span class="line">&gt; Perform <span class="keyword">task</span>: <span class="keyword">TASK</span>: setup  (y<span class="regexp">/n/</span>c): n  #</span><br><span class="line">&gt; Perform <span class="keyword">task</span>: <span class="keyword">TASK</span>: First <span class="keyword">task</span> (y<span class="regexp">/n/</span>c): n</span><br><span class="line">&gt; Perform <span class="keyword">task</span>: <span class="keyword">TASK</span>: Second <span class="keyword">task</span> (y<span class="regexp">/n/</span>c): y</span><br></pre></td></tr></table></figure>
+<h1 id="15-可以根据标签运行任务"><a href="#15-可以根据标签运行任务" class="headerlink" title="15 - 可以根据标签运行任务"></a>15 - 可以根据标签运行任务</h1><p>您可以将一个或多个标签添加到任务或游戏中。 为此，只需使用tags属性标记要标记的内容：</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># playbook.yml</span><br><span class="line">-<span class="ruby"> <span class="symbol">hosts:</span> servername</span></span><br><span class="line"><span class="ruby">  <span class="symbol">tags:</span></span></span><br><span class="line"><span class="ruby">    - server</span></span><br><span class="line"><span class="ruby">  <span class="symbol">tasks:</span></span></span><br><span class="line"><span class="ruby">    - <span class="symbol">name:</span> Download optional files</span></span><br><span class="line"><span class="ruby">      <span class="symbol">tags:</span></span></span><br><span class="line"><span class="ruby">        - download</span></span><br><span class="line"><span class="ruby">        - optional</span></span><br><span class="line"><span class="ruby">    - <span class="symbol">name:</span> Install dependencies</span></span><br><span class="line"><span class="ruby">      <span class="symbol">tags:</span></span></span><br><span class="line"><span class="ruby">        - dependencies</span></span><br></pre></td></tr></table></figure>
+<p>稍后您可以使用标志–tags <tagname> （或简称-t ）和–skip-tags <tagnames> –tags <tagname>来决定运行或跳过哪些标签：</tagname></tagnames></tagname></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># will run only tasks with the tag 'dependencies'</span></span><br><span class="line">$ ansible-playbook <span class="attribute">--tags</span>=dependencies playbook.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># will run all tasks except the ones that contain the tag 'optional'</span></span><br><span class="line">$ ansible-playbook <span class="attribute">--skip-tags</span>=optional playbook.yml</span><br></pre></td></tr></table></figure>
+<p>您可以通过用逗号分隔来指定多个标记。</p>
+<p>参考：</p>
+<p><a href="http://codeheaven.io/15-things-you-should-know-about-ansible/" target="_blank" rel="noopener">http://codeheaven.io/15-things-you-should-know-about-ansible/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/15-things-about-ansible.html" title="你应该知道的关于Ansible的15件事">https://hoxis.github.io/15-things-about-ansible.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ansible/" rel="tag"><i class="fa fa-tag"></i> ansible</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ansible-jump-server.html" rel="next" title="Ansible：如何穿过跳板机？">
+                <i class="fa fa-chevron-left"></i> Ansible：如何穿过跳板机？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/mysql-zhuanlan-09-chose-index.html" rel="prev" title="MySQL实战 | 09 普通索引还是唯一索引？">
+                MySQL实战 | 09 普通索引还是唯一索引？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-您可以将参数传递给角色"><span class="nav-text">1 - 您可以将参数传递给角色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-如何使命令模块具有幂等性"><span class="nav-text">2 - 如何使命令模块具有幂等性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-使用Ansible安装程序模块收集有关主机的信息"><span class="nav-text">3 - 使用Ansible安装程序模块收集有关主机的信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-您可以列出剧本的所有任务"><span class="nav-text">4 - 您可以列出剧本的所有任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-如果要存储敏感信息，请使用ansible-vault"><span class="nav-text">5 - 如果要存储敏感信息，请使用ansible-vault</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-使用with-items可能是个好主意"><span class="nav-text">6 - 使用with_items可能是个好主意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-本地行动的运作方式"><span class="nav-text">7 - 本地行动的运作方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-您可以告诉Ansible仅运行一次任务"><span class="nav-text">8 - 您可以告诉Ansible仅运行一次任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-处理程序是特殊类型的任务"><span class="nav-text">9 - 处理程序是特殊类型的任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-Ansible有几个通知模块"><span class="nav-text">11 - Ansible有几个通知模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-EC2实例按其标签自动分组"><span class="nav-text">12 - EC2实例按其标签自动分组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-您可以在“Dry-Run”模式下运行"><span class="nav-text">13 - 您可以在“Dry Run”模式下运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-任务可以一步一步地进行"><span class="nav-text">14 - 任务可以一步一步地进行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-可以根据标签运行任务"><span class="nav-text">15 - 可以根据标签运行任务</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

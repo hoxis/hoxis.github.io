@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ansible,copy模块,学习,教程">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="简介 copy模块用于将本地或远程机器上的文件拷贝到远程主机上。">
+<meta name="keywords" content="ansible,copy模块,学习,教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Ansible学习】- 常用文件操作模块之copy模块">
+<meta property="og:url" content="https://hoxis.github.io/ansible-files-modules-copy.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="简介 copy模块用于将本地或远程机器上的文件拷贝到远程主机上。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1515735589022.jpg">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1515735813520.jpg">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1515736646487.jpg">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1515736690411.jpg">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Ansible学习】- 常用文件操作模块之copy模块">
+<meta name="twitter:description" content="简介 copy模块用于将本地或远程机器上的文件拷贝到远程主机上。">
+<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1515735589022.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/ansible-files-modules-copy.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>【Ansible学习】- 常用文件操作模块之copy模块 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/ansible-files-modules-copy.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">【Ansible学习】- 常用文件操作模块之copy模块</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-12T11:29:10+08:00">
+                2018-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ansible/" itemprop="url" rel="index">
+                    <span itemprop="name">Ansible</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/ansible-files-modules-copy.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/ansible-files-modules-copy.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/ansible-files-modules-copy.html" class="leancloud_visitors" data-flag-title="【Ansible学习】- 常用文件操作模块之copy模块">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,100
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li><code>copy</code>模块用于将本地或远程机器上的文件拷贝到远程主机上。</li>
+</ul>
+<a id="more"></a>
+<h2 id="模块参数"><a href="#模块参数" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">必选</th>
+<th>默认值</th>
+<th>可选值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">backup</td>
+<td style="text-align:center">no</td>
+<td>no</td>
+<td><code>yes</code>/<code>no</code></td>
+<td>在覆盖之前将原文件备份，备份文件包含时间信息</td>
+</tr>
+<tr>
+<td style="text-align:center">content</td>
+<td style="text-align:center">no</td>
+<td></td>
+<td></td>
+<td>当用content代替src参数的时候，可以把文档的内容设置到特定的值</td>
+</tr>
+<tr>
+<td style="text-align:center">dest</td>
+<td style="text-align:center">yes</td>
+<td></td>
+<td></td>
+<td>目标绝对路径。如果<code>src</code>是一个目录，<code>dest</code>也必须是一个目录。如果<code>dest</code>是不存在的路径，并且如果dest以<code>/</code>结尾或者src是目录，则dest被创建。如果<code>src</code>和<code>dest</code>是文件，如果<code>dest</code>的父目录不存在，任务将失败</td>
+</tr>
+<tr>
+<td style="text-align:center">follow</td>
+<td style="text-align:center">no</td>
+<td>no</td>
+<td><code>yes</code>/<code>no</code></td>
+<td>是否遵循目的机器中的文件系统链接</td>
+</tr>
+<tr>
+<td style="text-align:center">force</td>
+<td style="text-align:center">no</td>
+<td>yes</td>
+<td><code>yes</code>/<code>no</code></td>
+<td>当内容不同于源时，将替换远程文件。设置为<code>no</code>，则只有在目标不存在的情况下才会传输文件</td>
+</tr>
+<tr>
+<td style="text-align:center">group</td>
+<td style="text-align:center">no</td>
+<td></td>
+<td></td>
+<td>设置文件/目录的所属组，将被馈送到chown</td>
+</tr>
+<tr>
+<td style="text-align:center">local_follow</td>
+<td style="text-align:center">no</td>
+<td>yes</td>
+<td><code>yes</code>/<code>no</code></td>
+<td>是否遵循本地机器中的文件系统链接</td>
+</tr>
+<tr>
+<td style="text-align:center">mode</td>
+<td style="text-align:center">no</td>
+<td></td>
+<td></td>
+<td>设置文件权限，模式实际上是八进制数字（如0644），少了前面的零可能会有意想不到的结果。从版本1.8开始，可以将模式指定为符号模式（例如u+rwx或u=rw,g=r,o=r）</td>
+</tr>
+<tr>
+<td style="text-align:center">owner</td>
+<td style="text-align:center">no</td>
+<td></td>
+<td></td>
+<td>设置文件/目录的所属用户，将被馈送到chown</td>
+</tr>
+<tr>
+<td style="text-align:center">remote_src(2.0+)</td>
+<td style="text-align:center">no</td>
+<td>no</td>
+<td><code>yes</code>/<code>no</code></td>
+<td>如果yes它会从目标机上搜索src文件</td>
+</tr>
+<tr>
+<td style="text-align:center">src</td>
+<td style="text-align:center">no</td>
+<td></td>
+<td></td>
+<td>将本地路径复制到远程服务器; 可以是绝对路径或相对的。如果是一个目录，它将被递归地复制。如果路径以<code>/</code>结尾，则只有该目录下内容被复制到目的地，如果没有使用<code>/</code>来结尾，则包含目录在内的整个内容全部复制</td>
+</tr>
+<tr>
+<td style="text-align:center">unsafe_writes</td>
+<td style="text-align:center">no</td>
+<td></td>
+<td><code>yes</code>/<code>no</code></td>
+<td>是否以不安全的方式进行，可能导致数据损坏</td>
+</tr>
+<tr>
+<td style="text-align:center">validate</td>
+<td style="text-align:center">no</td>
+<td>None</td>
+<td></td>
+<td>复制前是否检验需要复制目的地的路径</td>
+</tr>
+</tbody>
+</table>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="拷贝前备份-backup"><a href="#拷贝前备份-backup" class="headerlink" title="拷贝前备份 - backup"></a>拷贝前备份 - backup</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m copy -a "src=test.sh backup=yes dest=/root"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup_file"</span>: <span class="string">"/root/test.sh.4315.2018-01-12@13:35:35~"</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"checksum"</span>: <span class="string">"e989084b3f4610a41811c5ea280b14f7c5e855f5"</span>, </span><br><span class="line">    <span class="string">"dest"</span>: <span class="string">"/root/test.sh"</span>, </span><br><span class="line">    <span class="string">"gid"</span>: 0, </span><br><span class="line">    <span class="string">"group"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"md5sum"</span>: <span class="string">"7c211ce4c7941a5bb064e77d69e3d9ff"</span>, </span><br><span class="line">    <span class="string">"mode"</span>: <span class="string">"0755"</span>, </span><br><span class="line">    <span class="string">"owner"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"secontext"</span>: <span class="string">"unconfined_u:object_r:admin_home_t:s0"</span>, </span><br><span class="line">    <span class="string">"size"</span>: 23, </span><br><span class="line">    <span class="string">"src"</span>: <span class="string">"/root/.ansible/tmp/ansible-tmp-1515735334.86-21848883747071/source"</span>, </span><br><span class="line">    <span class="string">"state"</span>: <span class="string">"file"</span>, </span><br><span class="line">    <span class="string">"uid"</span>: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="src和dest都是文件"><a href="#src和dest都是文件" class="headerlink" title="src和dest都是文件"></a>src和dest都是文件</h3><p>若dest的文件的父目录不存在将报错<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m copy -a "src=test.sh dest=/root/liuhao/test"</span></span><br><span class="line">172.20.21.121 | FAILED! =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"checksum"</span>: <span class="string">"e989084b3f4610a41811c5ea280b14f7c5e855f5"</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"Destination directory /root/liuhao does not exist"</span></span><br><span class="line">&#125;</span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m copy -a "src=test.sh dest=/root/liuhao/"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"checksum"</span>: <span class="string">"e989084b3f4610a41811c5ea280b14f7c5e855f5"</span>, </span><br><span class="line">    <span class="string">"dest"</span>: <span class="string">"/root/liuhao/test.sh"</span>, </span><br><span class="line">    <span class="string">"gid"</span>: 0, </span><br><span class="line">    <span class="string">"group"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"md5sum"</span>: <span class="string">"7c211ce4c7941a5bb064e77d69e3d9ff"</span>, </span><br><span class="line">    <span class="string">"mode"</span>: <span class="string">"0644"</span>, </span><br><span class="line">    <span class="string">"owner"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"secontext"</span>: <span class="string">"system_u:object_r:admin_home_t:s0"</span>, </span><br><span class="line">    <span class="string">"size"</span>: 23, </span><br><span class="line">    <span class="string">"src"</span>: <span class="string">"/root/.ansible/tmp/ansible-tmp-1515736119.26-238832413210409/source"</span>, </span><br><span class="line">    <span class="string">"state"</span>: <span class="string">"file"</span>, </span><br><span class="line">    <span class="string">"uid"</span>: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="设置文件权限-owner-group-mode"><a href="#设置文件权限-owner-group-mode" class="headerlink" title="设置文件权限 - owner\group\mode"></a>设置文件权限 - owner\group\mode</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m copy -a "src=test.sh dest=/root dest=/tmp owner=liuhao group=liuhao mode=0644"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"checksum"</span>: <span class="string">"e989084b3f4610a41811c5ea280b14f7c5e855f5"</span>, </span><br><span class="line">    <span class="string">"dest"</span>: <span class="string">"/tmp/test.sh"</span>, </span><br><span class="line">    <span class="string">"gid"</span>: 1000, </span><br><span class="line">    <span class="string">"group"</span>: <span class="string">"liuhao"</span>, </span><br><span class="line">    <span class="string">"md5sum"</span>: <span class="string">"7c211ce4c7941a5bb064e77d69e3d9ff"</span>, </span><br><span class="line">    <span class="string">"mode"</span>: <span class="string">"0644"</span>, </span><br><span class="line">    <span class="string">"owner"</span>: <span class="string">"liuhao"</span>, </span><br><span class="line">    <span class="string">"secontext"</span>: <span class="string">"unconfined_u:object_r:admin_home_t:s0"</span>, </span><br><span class="line">    <span class="string">"size"</span>: 23, </span><br><span class="line">    <span class="string">"src"</span>: <span class="string">"/root/.ansible/tmp/ansible-tmp-1515735466.22-33633697447932/source"</span>, </span><br><span class="line">    <span class="string">"state"</span>: <span class="string">"file"</span>, </span><br><span class="line">    <span class="string">"uid"</span>: 1000</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1515735589022.jpg" alt="目标机器上的结果"></p>
+<h3 id="content参数"><a href="#content参数" class="headerlink" title="content参数"></a>content参数</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m copy -a "content='liuhao \n test\n' dest=/root/liuhaotest"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"checksum"</span>: <span class="string">"bd3aa5bf19112271f30c07be425f9a5c08463568"</span>, </span><br><span class="line">    <span class="string">"dest"</span>: <span class="string">"/root/liuhaotest"</span>, </span><br><span class="line">    <span class="string">"gid"</span>: 0, </span><br><span class="line">    <span class="string">"group"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"md5sum"</span>: <span class="string">"7585dc638fd8e219c453c3b1330c7e14"</span>, </span><br><span class="line">    <span class="string">"mode"</span>: <span class="string">"0644"</span>, </span><br><span class="line">    <span class="string">"owner"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"secontext"</span>: <span class="string">"system_u:object_r:admin_home_t:s0"</span>, </span><br><span class="line">    <span class="string">"size"</span>: 14, </span><br><span class="line">    <span class="string">"src"</span>: <span class="string">"/root/.ansible/tmp/ansible-tmp-1515735713.37-60072089981042/source"</span>, </span><br><span class="line">    <span class="string">"state"</span>: <span class="string">"file"</span>, </span><br><span class="line">    <span class="string">"uid"</span>: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1515735813520.jpg" alt="content参数"></p>
+<h3 id="force参数"><a href="#force参数" class="headerlink" title="force参数"></a>force参数</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m copy -a "src=test.sh dest=/root/liuhaotest force=no"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"dest"</span>: <span class="string">"/root/liuhaotest"</span>, </span><br><span class="line">    <span class="string">"src"</span>: <span class="string">"/root/test.sh"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="src是目录时"><a href="#src是目录时" class="headerlink" title="src是目录时"></a>src是目录时</h3><p>源目录以<code>/</code>结尾，只拷贝了目录下的内容：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 <span class="built_in">test</span>]<span class="comment"># ansible test -m copy -a "src=/root/test/ dest=/tmp/"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"checksum"</span>: <span class="string">"da39a3ee5e6b4b0d3255bfef95601890afd80709"</span>, </span><br><span class="line">    <span class="string">"dest"</span>: <span class="string">"/tmp/1"</span>, </span><br><span class="line">    <span class="string">"gid"</span>: 0, </span><br><span class="line">    <span class="string">"group"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"md5sum"</span>: <span class="string">"d41d8cd98f00b204e9800998ecf8427e"</span>, </span><br><span class="line">    <span class="string">"mode"</span>: <span class="string">"0644"</span>, </span><br><span class="line">    <span class="string">"owner"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"secontext"</span>: <span class="string">"unconfined_u:object_r:admin_home_t:s0"</span>, </span><br><span class="line">    <span class="string">"size"</span>: 0, </span><br><span class="line">    <span class="string">"src"</span>: <span class="string">"/root/.ansible/tmp/ansible-tmp-1515736521.16-258766767883601/source"</span>, </span><br><span class="line">    <span class="string">"state"</span>: <span class="string">"file"</span>, </span><br><span class="line">    <span class="string">"uid"</span>: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1515736646487.jpg" alt="只拷贝了目录下的内容"></p>
+<p>源目录未以<code>/</code>结尾，直接将src目录本身拷贝到目的地：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 <span class="built_in">test</span>]<span class="comment"># ansible test -m copy -a "src=/root/test dest=/tmp/"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"checksum"</span>: <span class="string">"da39a3ee5e6b4b0d3255bfef95601890afd80709"</span>, </span><br><span class="line">    <span class="string">"dest"</span>: <span class="string">"/tmp/test/1"</span>, </span><br><span class="line">    <span class="string">"gid"</span>: 0, </span><br><span class="line">    <span class="string">"group"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"md5sum"</span>: <span class="string">"d41d8cd98f00b204e9800998ecf8427e"</span>, </span><br><span class="line">    <span class="string">"mode"</span>: <span class="string">"0644"</span>, </span><br><span class="line">    <span class="string">"owner"</span>: <span class="string">"root"</span>, </span><br><span class="line">    <span class="string">"secontext"</span>: <span class="string">"unconfined_u:object_r:admin_home_t:s0"</span>, </span><br><span class="line">    <span class="string">"size"</span>: 0, </span><br><span class="line">    <span class="string">"src"</span>: <span class="string">"/root/.ansible/tmp/ansible-tmp-1515736532.2-82893359525841/source"</span>, </span><br><span class="line">    <span class="string">"state"</span>: <span class="string">"file"</span>, </span><br><span class="line">    <span class="string">"uid"</span>: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1515736690411.jpg" alt="直接将src目录本身拷贝到目的地"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/ansible-files-modules-copy.html" title="【Ansible学习】- 常用文件操作模块之copy模块">https://hoxis.github.io/ansible-files-modules-copy.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ansible/" rel="tag"><i class="fa fa-tag"></i> ansible</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ansible-commands-modules-command-shell-raw.html" rel="next" title="【Ansible学习】- 命令相关模块之command, shell, raw模块">
+                <i class="fa fa-chevron-left"></i> 【Ansible学习】- 命令相关模块之command, shell, raw模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ansible-modules.html" rel="prev" title="Ansible常用模块汇总">
+                Ansible常用模块汇总 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝前备份-backup"><span class="nav-text">拷贝前备份 - backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#src和dest都是文件"><span class="nav-text">src和dest都是文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置文件权限-owner-group-mode"><span class="nav-text">设置文件权限 - owner\group\mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#content参数"><span class="nav-text">content参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#force参数"><span class="nav-text">force参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#src是目录时"><span class="nav-text">src是目录时</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,知识星球">
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="是不是有时星球内容太多刷不过来？是不是想把星球精华内容撸下来做个电子书？ 本文就带你实现用 Python 抓取星球内容，并生产 PDF 电子书。">
+<meta name="keywords" content="Python,知识星球">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Python 抓取知识星球内容生成电子书">
+<meta property="og:url" content="https://hoxis.github.io/python-zsxq-ebook.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="是不是有时星球内容太多刷不过来？是不是想把星球精华内容撸下来做个电子书？ 本文就带你实现用 Python 抓取星球内容，并生产 PDF 电子书。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536814097226.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297117733.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297150152.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297183265.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297217439.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297249605.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297277207.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297303333.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297336588.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297361623.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297387354.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297409523.jpg">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 抓取知识星球内容生成电子书">
+<meta name="twitter:description" content="是不是有时星球内容太多刷不过来？是不是想把星球精华内容撸下来做个电子书？ 本文就带你实现用 Python 抓取星球内容，并生产 PDF 电子书。">
+<meta name="twitter:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1536814097226.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/python-zsxq-ebook.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>Python 抓取知识星球内容生成电子书 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h2 class="post-title" itemprop="name headline">Python 抓取知识星球内容生成电子书</h2>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body han-init-context">
+        
+        
+          <p>是不是有时星球内容太多刷不过来？是不是想把星球精华内容撸下来做个电子书？</p>
+<p>本文就带你实现用 Python 抓取星球内容，并生产 PDF 电子书。</p>
+<a id="more"></a>
+<p>先上效果：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536814097226.jpg" alt="最终效果图"></p>
+<blockquote>
+<p>内容基于 <a href="https://github.com/96chh/crawl-zsxq" target="_blank" rel="noopener">https://github.com/96chh/crawl-zsxq</a> 进行的优化，主要优化内容在于，翻页时间的处理、大段空白处理、评论抓取、超链接处理等。</p>
+<p>涉及到隐私问题，这里我们以免费星球「万人学习分享群」为爬取对象。</p>
+</blockquote>
+<h1 id="过程分析"><a href="#过程分析" class="headerlink" title="过程分析"></a>过程分析</h1><h2 id="模拟登录"><a href="#模拟登录" class="headerlink" title="模拟登录"></a>模拟登录</h2><p>爬取的是网页版知识星球，<a href="https://wx.zsxq.com/dweb/。" target="_blank" rel="noopener">https://wx.zsxq.com/dweb/。</a></p>
+<p>这个网站并不是依靠 cookie 来判断你是否登录，而是请求头中的 Authorization 字段。</p>
+<p>所以，需要把 Authorization，User-Agent 换成你自己的。（注意 User-Agent 也要换成你自己的）</p>
+<p>一般来说，星球使用微信扫码登录后，可以获取到一个 Authorization，这个歌有效期很长反正，真的很长。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    'Authorization': 'C08AEDBB-A627-F9F1-1223-7E212B1C9D7D',</span><br><span class="line">    'x-request-id': "7b898dff-e40f-578e-6cfd-9687a3a32e49",</span><br><span class="line">    'accept': "application/json, text/plain, */*",</span><br><span class="line">    'host': "api.zsxq.com",</span><br><span class="line">    'connection': "keep-alive",</span><br><span class="line">    'referer': "https://wx.zsxq.com/dweb/",</span><br><span class="line">    'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36",</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="页面内容分析"><a href="#页面内容分析" class="headerlink" title="页面内容分析"></a>页面内容分析</h2><p>登录成功后，一般我习惯右键、检查或者查看源代码。</p>
+<p>但是这个页面比较特殊，它不把内容放到当前地址栏 URL 下，而是通过异步加载（XHR），只要找对接口就可以了。</p>
+<p>精华区的接口：<a href="https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&amp;count=20" target="_blank" rel="noopener">https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&amp;count=20</a></p>
+<p>这个接口是最新 20 条数据的，还有后面数据对应不同接口，这就是后面要说的翻页。</p>
+<h2 id="制作-PDF-电子书"><a href="#制作-PDF-电子书" class="headerlink" title="制作 PDF 电子书"></a>制作 PDF 电子书</h2><p>需安装模块： </p>
+<ol>
+<li>wkhtmltopdf，用作导出 PDF，安装完成后可用命令生成 PDF，例如：<code>wkhtmltopdf http://www.google.com.hk google.pdf</code></li>
+<li>pdfkit，是 python 对 wkhtmltopdf 调用的封装，支持 URL、本地文件、文本内容到 PDF 的转换，实际转换还是最终调用 wkhtmltopdf 命令</li>
+</ol>
+<p>本来精华区是没有标题的，我把每个问题的前 6 个字符当做标题，以此区分不同问题。</p>
+<h2 id="爬取图片"><a href="#爬取图片" class="headerlink" title="爬取图片"></a>爬取图片</h2><p>很明显，在返回的数据中的 images 键就是图片，只需提取 large 的，即高清的 url 即可。</p>
+<p>关键在于将图片标签 img 插入到 HTML 文档。我使用 BeautifulSoup 操纵 DOM 的方式。</p>
+<p>需要注意的是，有可能图片不止一张，所以需要用 for 循环全部迭代出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> content.get(<span class="string">'images'</span>):</span><br><span class="line">    soup = BeautifulSoup(html_template, <span class="string">'html.parser'</span>)</span><br><span class="line">    <span class="keyword">for</span> img <span class="keyword">in</span> content.get(<span class="string">'images'</span>):</span><br><span class="line">        url = img.get(<span class="string">'large'</span>).get(<span class="string">'url'</span>)</span><br><span class="line">        img_tag = soup.new_tag(<span class="string">'img'</span>, src=url)</span><br><span class="line">        soup.body.append(img_tag)</span><br><span class="line">        html_img = str(soup)</span><br><span class="line">        html = html_img.format(title=title, text=text)</span><br></pre></td></tr></table></figure>
+<h2 id="制作精美-PDF"><a href="#制作精美-PDF" class="headerlink" title="制作精美 PDF"></a>制作精美 PDF</h2><p>通过 css 样式来控制字体大小、布局、颜色等，详见 test.css 文件。</p>
+<p>再将此文件引入到 options 字段中。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">options = &#123;</span><br><span class="line">    "user-style-sheet": "test.css",</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="难点分析"><a href="#难点分析" class="headerlink" title="难点分析"></a>难点分析</h1><h2 id="翻页逻辑"><a href="#翻页逻辑" class="headerlink" title="翻页逻辑"></a>翻页逻辑</h2><p>爬取地址是：{url}?scope=digests&amp;count=20&amp;end_time=2018-04-12T15%3A49%3A13.443%2B0800</p>
+<p>路径后面的 <code>end_time</code> 表示加载帖子的最后日期，以此达到翻页。</p>
+<p>这个 <code>end_time</code> 是经过 url 转义了的，可以通过 urllib.parse.quote 方法进行转义，关键是找出这个 end_time 是从那里来的。</p>
+<p>经过我细细观察发现：每次请求返回 20 条帖子，最后一条贴子就与下一条链接的 end_time 有关系。</p>
+<p>例如最后一条帖子的 create_time 是 2018-01-10T11:49:39.668+0800，那么下一条链接的 end_time 就是 2018-01-10T11:49:39.667+0800，注意，一个 668，一个 667 , 两者相差，于是我们便得到了获取 end_time 的公式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">end_time = create_time[:<span class="number">20</span>]+str(int(create_time[<span class="number">20</span>:<span class="number">23</span>])<span class="number">-1</span>)+create_time[<span class="number">23</span>:]</span><br></pre></td></tr></table></figure>
+<p>不过事情没有那么简单，因为上一个 create_time 有可能是 2018-03-06T22%3A29%3A59.000%2B0800，<code>-1</code> 后出现了负数！</p>
+<p>由于时分秒都有出现 0 的可能，看来最好的方法是，若出现 <code>000</code>，则利用时间模块 datetime 获取 create_time 的上一秒，然后在拼接 <code>999</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># int -1 后需要进行补 0 处理，test_str.zfill(3)</span></span><br><span class="line">end_time = create_time[:<span class="number">20</span>]+str(int(create_time[<span class="number">20</span>:<span class="number">23</span>])<span class="number">-1</span>).zfill(<span class="number">3</span>)+create_time[<span class="number">23</span>:]</span><br><span class="line"><span class="comment"># 时间出现整点时需要特殊处理，否则会出现 -1</span></span><br><span class="line"><span class="keyword">if</span> create_time[<span class="number">20</span>:<span class="number">23</span>] == <span class="string">'000'</span>:</span><br><span class="line">    temp_time = datetime.datetime.strptime(create_time, <span class="string">"%Y-%m-%dT%H:%M:%S.%f+0800"</span>)</span><br><span class="line">    temp_time += datetime.timedelta(seconds=<span class="number">-1</span>)</span><br><span class="line">    end_time = temp_time.strftime(<span class="string">"%Y-%m-%dT%H:%M:%S"</span>) + <span class="string">'.999+0800'</span></span><br><span class="line">end_time = quote(end_time)</span><br><span class="line"></span><br><span class="line">next_url = start_url + <span class="string">'&amp;end_time='</span> + end_time</span><br></pre></td></tr></table></figure>
+<p>处理过程有点啰嗦，原谅我时间后面的 <code>000</code> 我没找到直接处理的办法，只能这样曲线救国了。</p>
+<h2 id="判断最后一页"><a href="#判断最后一页" class="headerlink" title="判断最后一页"></a>判断最后一页</h2><p>翻页到最后返回的数据是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"succeeded"</span>:true,<span class="string">"resp_data"</span>:&#123;<span class="string">"topics"</span>:[]&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>故以 <code>next_page = rsp.json().get(&#39;resp_data&#39;).get(&#39;topics&#39;)</code> 来判断是否有下一页。</p>
+<h2 id="评论爬取"><a href="#评论爬取" class="headerlink" title="评论爬取"></a>评论爬取</h2><p>发现评论里也有很多有用的内容，评论的格式如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"comment_id"</span>: <span class="number">15118288421852</span>,</span><br><span class="line">    <span class="attr">"create_time"</span>: <span class="string">"2018-08-16T16:19:39.216+0800"</span>,</span><br><span class="line">    <span class="attr">"owner"</span>: &#123;</span><br><span class="line">        <span class="attr">"user_id"</span>: <span class="number">1484141222</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"xxx"</span>,</span><br><span class="line">        <span class="attr">"alias"</span>: <span class="string">"xxx"</span>,</span><br><span class="line">        <span class="attr">"avatar_url"</span>: <span class="string">"https://images.xxx"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"text"</span>: <span class="string">"他这个资源不做投资才傻"</span>,</span><br><span class="line">    <span class="attr">"likes_count"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"rewards_count"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"repliee"</span>: &#123;</span><br><span class="line">        <span class="attr">"user_id"</span>: <span class="number">484552118</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"Kiwi"</span>,</span><br><span class="line">        <span class="attr">"avatar_url"</span>: <span class="string">"https://images.zsxqxxxTRQKsci9Q="</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们主要解析其中的 <code>owner.name</code> 和 <code>text</code>，其他信息我们暂时不关心，比如是对谁谁谁的回复，我们暂时只把评论列举出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 评论解析</span></span><br><span class="line">comments = topic.get(<span class="string">'show_comments'</span>)</span><br><span class="line">comments_str = <span class="string">''</span></span><br><span class="line"><span class="keyword">if</span> comments:</span><br><span class="line">    <span class="keyword">for</span> comment <span class="keyword">in</span> comments:</span><br><span class="line">        comments_str += comment.get(<span class="string">'owner'</span>).get(<span class="string">'name'</span>) + <span class="string">" : "</span> + handle_link(comment.get(<span class="string">'text'</span>))</span><br><span class="line">        comments_str += <span class="string">'&lt;br&gt;&lt;br&gt;'</span></span><br></pre></td></tr></table></figure>
+<p>最终评论展示效果：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297117733.jpg" alt="评论展示效果"></p>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><h2 id="中文问题"><a href="#中文问题" class="headerlink" title="中文问题"></a>中文问题</h2><p>生成 PDF 后，打开发现中文全部显示为方框，如下图：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297150152.jpg" alt="中文显示问题"></p>
+<p>这表示服务器未安装中文字体，安装字体即可，安装下面说明；</p>
+<pre><code>1. 查看目前安装字体：fc-list
+2. 下载所需字体，例如 fangsong_GB2312.ttf
+3. mkdir /usr/share/fonts/zh_CN
+4. cp fangsong_GB2312.ttf /usr/share/fonts/zh_CN
+5. 执行fc-cache -fv
+6. 查看是否安装成功：fc-list，查看是已安装
+</code></pre><p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297183265.jpg" alt="查看字体列表"></p>
+<p>重新生成后，一切 OK：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297217439.jpg" alt="显示正常的中文"></p>
+<h2 id="页面空白优化"><a href="#页面空白优化" class="headerlink" title="页面空白优化"></a>页面空白优化</h2><p>生成成功，但是返现每篇文章默认都是新的一页，出现大块空白，阅读时非常别扭，于是我想着是否可以进行优化。</p>
+<p>之所以是一篇星球推文显示成单独的一页，是因为原作者处理时，是将推文分别保存成 HTML 文件进行处理，然后再转换成 PDF。</p>
+<p>那么我的思路就是，将每篇推文放在单独的 <code>&lt;body&gt;</code> 里，最后合并成一个 HTML，这样最终显示的就是连续的页面了。</p>
+<p>修改前：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297249605.jpg" alt="大段空白"></p>
+<p>修改后：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297277207.jpg" alt="连续的页面"></p>
+<h2 id="超链接优化"><a href="#超链接优化" class="headerlink" title="超链接优化"></a>超链接优化</h2><p>在原作者的代码中，没有对超链接进行处理，而星球中有大部分都是进行超链接的分享。</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297303333.jpg" alt="其实这是分享的超链接"></p>
+<p>没有处理的原因是，抓取到的代码中，超链接是这种形式的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">e</span> <span class="attr">type</span>=<span class="string">"web"</span> <span class="attr">href</span>=<span class="string">"https%3A%2F%2Fmp.weixin.qq.com%2Fs%2Fw8geobayB8sIRWYcxmvCSQ"</span> <span class="attr">title</span>=<span class="string">"5000%E5%AD%97%E9%95%BF%E6%96%87%E5%91%8A%E8%AF%89%E4%BD%A0%EF%BC%8CSEO%E6%AF%8F%E6%97%A5%E6%B5%81%E9%87%8F%E5%A6%82%E4%BD%95%E4%BB%8E0%E5%88%B010000%2B"</span> <span class="attr">cache</span>=<span class="string">"http%3A%2F%2Fcache.zsxq.com%2F201808%2F732760494981a6500d8aadf0469efbf205c21d23ca472826f13e127799973455"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>发现是用 <code>&lt;e&gt;</code> 标签包围的，这不是 HTML 原生标签，所以导致无法解析，进而页面也无法展示，我们要做的就是从中解析出超链接内容，并拼接成 HTML 中的超链接。</p>
+<p>另外，发现超链接的 URL 是转码后的内容，我们也需要对其进行处理。</p>
+<p>这部分的处理代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对文本进行 URL 解码，要不后面解析处理也无法点击</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_link</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="comment"># 星球中用 &lt;e&gt; 表示超链接</span></span><br><span class="line">    <span class="comment"># 这里我们进行转换</span></span><br><span class="line">    soup = BeautifulSoup(text,<span class="string">"html.parser"</span>)</span><br><span class="line">    links = soup.find_all(<span class="string">'e'</span>, attrs=&#123;<span class="string">'type'</span>:<span class="string">'web'</span>&#125;)</span><br><span class="line">    <span class="keyword">if</span> len(links):</span><br><span class="line">        <span class="keyword">for</span> link <span class="keyword">in</span> links:</span><br><span class="line">            title = link.attrs[<span class="string">'title'</span>]</span><br><span class="line">            href = link.attrs[<span class="string">'href'</span>]</span><br><span class="line">            s = <span class="string">'&lt;a href=&#123;&#125;&gt;&#123;&#125; &lt;/a&gt;'</span>.format(href,title)</span><br><span class="line">            text += s</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 清理原文中的 &lt;e&gt; 标签</span></span><br><span class="line">    <span class="comment"># 这里不清理也没问题，HTML 解析不了，页面也不会显示</span></span><br><span class="line">    <span class="comment"># 但是，强迫症。</span></span><br><span class="line">    text = re.sub(<span class="string">r'&lt;e[^&gt;]*&gt;'</span>, <span class="string">''</span>, text).strip()</span><br><span class="line">    <span class="keyword">return</span> text</span><br></pre></td></tr></table></figure>
+<p>处理后：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297336588.jpg" alt="超链接处理效果"></p>
+<p>当然，最好的方式是把超链接的内容也爬取出来，一并放在 PDF 里，这里我就不搞了，有兴趣的尝试下吧。</p>
+<h2 id="换行处理"><a href="#换行处理" class="headerlink" title="换行处理"></a>换行处理</h2><p>换行在星球上显示是这样的：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297361623.jpg" alt="星球显示"></p>
+<p>但是到 PDF 后，换行全部没了，大段文字看起来很费劲：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297387354.jpg" alt="换行失败"></p>
+<p>这个处理起来就比较简单了，只要将返回数据中的 <code>\n</code> 替换为 HTML 中的换行标签 <code>&lt;br&gt;</code> 即可：</p>
+<p>例如获取精华正文时：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text = handle_link(<span class="name">unquote</span>(<span class="name">content</span>.get('text', '').replace(<span class="string">"\n"</span>, <span class="string">"&lt;br&gt;"</span>)))</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，需要在解码之前进行替换。</p>
+<p>效果：</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297409523.jpg" alt="换行处理效果"></p>
+<p>至此，基本需求已完成。</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过程分析"><span class="nav-text">过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟登录"><span class="nav-text">模拟登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面内容分析"><span class="nav-text">页面内容分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作-PDF-电子书"><span class="nav-text">制作 PDF 电子书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬取图片"><span class="nav-text">爬取图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作精美-PDF"><span class="nav-text">制作精美 PDF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#难点分析"><span class="nav-text">难点分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#翻页逻辑"><span class="nav-text">翻页逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断最后一页"><span class="nav-text">判断最后一页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论爬取"><span class="nav-text">评论爬取</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中文问题"><span class="nav-text">中文问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面空白优化"><span class="nav-text">页面空白优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超链接优化"><span class="nav-text">超链接优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#换行处理"><span class="nav-text">换行处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

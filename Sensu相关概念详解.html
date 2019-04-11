@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Sensu,监控,学习,教程">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="在前文中，我们通过一个实例配置对Sensu有了初步地了解，但是对其中的一些概念只是有一个模糊的印象，本文将对Sensu中的几个重要概念或者说是术语，进行详尽的介绍。">
+<meta name="keywords" content="Sensu,监控,学习,教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sensu相关概念详解">
+<meta property="og:url" content="https://hoxis.github.io/Sensu相关概念详解.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="在前文中，我们通过一个实例配置对Sensu有了初步地了解，但是对其中的一些概念只是有一个模糊的印象，本文将对Sensu中的几个重要概念或者说是术语，进行详尽的介绍。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1517289305111.jpg">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1517289462692.jpg">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/2018130154641.gif">
+<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/sensu-diagram.gif">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sensu相关概念详解">
+<meta name="twitter:description" content="在前文中，我们通过一个实例配置对Sensu有了初步地了解，但是对其中的一些概念只是有一个模糊的印象，本文将对Sensu中的几个重要概念或者说是术语，进行详尽的介绍。">
+<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1517289305111.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/Sensu相关概念详解.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>Sensu相关概念详解 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/Sensu相关概念详解.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Sensu相关概念详解</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T13:18:27+08:00">
+                2018-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/运维监控/" itemprop="url" rel="index">
+                    <span itemprop="name">运维监控</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Sensu相关概念详解.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Sensu相关概念详解.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/Sensu相关概念详解.html" class="leancloud_visitors" data-flag-title="Sensu相关概念详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,750
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在前文中，我们通过一个实例配置对Sensu有了初步地了解，但是对其中的一些概念只是有一个模糊的印象，本文将对Sensu中的几个重要概念或者说是术语，进行详尽的介绍。</p>
+<a id="more"></a>
+<p>Sensu的设计中涵盖了一些自定义的概念，比如check、event、<code>Handler</code>、<code>Filter</code>等。</p>
+<h1 id="Check"><a href="#Check" class="headerlink" title="Check"></a>Check</h1><p>Check是指在客户端运行的可执行程序，用于检测和监控客户端上的各种服务、资源和应用程序的运行状态等，比如监控HTTP的运行状态，或者收集机器的可用内存值。Check实际上是一个可执行的脚本，它的输出数据是<code>STDOUT</code>或者<code>STDERR</code>，并且在执行后会返回一个值来表示所检测内容的状态。通常使用<code>0</code>表示<code>OK</code>，<code>1</code>表示<code>WARNING</code>，<code>2</code>表示<code>CRITICAL</code>，<code>3</code>以及更大的值表示<code>UNKNOWN</code>或其他用户自定义状态。Sensu的check配置和Nagios是相同的，因此Nagios中的Check插件可以直接在Sensu中使用。</p>
+<p>根据Check的调度方式不同，可以分为<code>发布/订阅</code>模式，即由服务端来调度和推送check的执行请求，发布/订阅模式下的check则是在服务器端配置，在配置的时候需要为check设置订阅主题。当要执行该check时，服务器会根据订阅主题分发执行请求，所有订阅了相应主题的客户端会收到执行的请求，从而运行check程序。同样的，执行的返回结果也会通过消息队列返回给服务器；</p>
+<p>另外一种是<code>Standalone</code>模式，该模式下的check直接在客户端进行配置，不需要服务器端发出执行的请求，可以根据配置的时间间隔在客户端自主执行，每次执行后会将结果通过消息队列返回给服务器。</p>
+<h2 id="Check定义参数"><a href="#Check定义参数" class="headerlink" title="Check定义参数"></a>Check定义参数</h2><table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>描述</th>
+<th>必填</th>
+<th>类型</th>
+<th>默认值</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>Check类型，<code>standard</code>/<code>metric</code></td>
+<td>no</td>
+<td>String</td>
+<td>standard</td>
+<td><code>&quot;type&quot;: &quot;metric&quot;</code></td>
+</tr>
+<tr>
+<td>command</td>
+<td>执行的check命令</td>
+<td>true（除非配置了<code>extension</code>）</td>
+<td>String</td>
+<td></td>
+<td><code>&quot;command&quot;: &quot;check-process.rb -p cron&quot;</code></td>
+</tr>
+<tr>
+<td>extension</td>
+<td>可以替换command使用，不常用</td>
+<td>true（除非配置了<code>command</code>）</td>
+<td>String</td>
+<td></td>
+<td><code>&quot;extension&quot;: &quot;system_profile&quot;</code></td>
+</tr>
+<tr>
+<td>standalone</td>
+<td>是否是standalone模式</td>
+<td>false</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>&quot;standalone&quot;: true</code></td>
+</tr>
+<tr>
+<td>subscribers</td>
+<td>订阅者</td>
+<td>true（除非配置了<code>standalone</code>）</td>
+<td>Array<string></string></td>
+<td></td>
+<td><code>&quot;subscribers&quot;: [&quot;test&quot;]</code></td>
+</tr>
+<tr>
+<td>publish</td>
+<td>是否发布</td>
+<td>false</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>&quot;publish&quot;: false</code></td>
+</tr>
+<tr>
+<td>interval</td>
+<td>执行周期</td>
+<td>true（除非<code>publish</code>配为<code>false</code>，或者配置了<code>cron</code>）</td>
+<td>Integer</td>
+<td></td>
+<td><code>&quot;interval&quot;: 60</code></td>
+</tr>
+<tr>
+<td>cron</td>
+<td>执行周期可以配置为cron表达式</td>
+<td>true（除非<code>publish</code>配为<code>false</code>，或者配置了<code>interval</code>）</td>
+<td>String</td>
+<td></td>
+<td><code>&quot;cron&quot;: &quot;0 0 * * *&quot;</code></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>超时时间</td>
+<td>false</td>
+<td>Integer</td>
+<td></td>
+<td><code>&quot;timeout&quot;: 30</code></td>
+</tr>
+<tr>
+<td>stdin</td>
+<td>是否将检查结果写入到进程STDIN</td>
+<td>false</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>&quot;stdin&quot;: true</code></td>
+</tr>
+<tr>
+<td>auto_resolve</td>
+<td>当Check由<code>CRITICAL</code>或者<code>WARNING</code>切换到<code>OK</code>状态时，是否自动清除之前产生的event，当需要手动清除时可以设置为false时</td>
+<td>false</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>&quot;auto_resolve&quot;: false</code></td>
+</tr>
+<tr>
+<td>force_resolve</td>
+<td>强制将event置为解决状态</td>
+<td>false</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>&quot;force_resolve&quot;: true</code></td>
+</tr>
+<tr>
+<td>handle</td>
+<td>是否处理Check产生的event</td>
+<td>false</td>
+<td>Boolean</td>
+<td>true</td>
+<td><code>&quot;handle&quot;: true</code></td>
+</tr>
+<tr>
+<td>handler</td>
+<td>用来指定处理Check产生的event的handler的名称</td>
+<td>false</td>
+<td>String</td>
+<td></td>
+<td><code>&quot;handler&quot;: &quot;file&quot;</code></td>
+</tr>
+<tr>
+<td>handlers</td>
+<td>可以同时指定多个handler</td>
+<td>false</td>
+<td>Array<string></string></td>
+<td></td>
+<td><code>&quot;handlers&quot;: [&quot;file&quot;, &quot;email&quot;</code></td>
+</tr>
+<tr>
+<td>truncate_output</td>
+<td>是否对output进行截短，对metric类型的check默认为true，其他默认为false</td>
+<td>false</td>
+<td>Boolean</td>
+<td>false</td>
+<td><code>&quot;truncate_output&quot;: false</code></td>
+</tr>
+<tr>
+<td>truncate_output_length</td>
+<td>设置output的最大长度，超过部分会截短</td>
+<td>false</td>
+<td>Integer</td>
+<td>255</td>
+<td><code>&quot;truncate_output_length&quot;: 1024</code></td>
+</tr>
+</tbody>
+</table>
+<p>其他高级参数配置可以参考<a href="https://sensuapp.org/docs/1.2/reference/checks.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<h2 id="Check配置"><a href="#Check配置" class="headerlink" title="Check配置"></a>Check配置</h2><h3 id="安装检测插件"><a href="#安装检测插件" class="headerlink" title="安装检测插件"></a>安装检测插件</h3><p>脚本<code>check-process.rb</code>可以用于检测服务进程是否在运行，可以使用下面的命令在客户端进行安装。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sensu-install -<span class="selector-tag">p</span> process-checks</span><br></pre></td></tr></table></figure>
+<h3 id="发布-订阅模式示例"><a href="#发布-订阅模式示例" class="headerlink" title="发布/订阅模式示例"></a>发布/订阅模式示例</h3><p>在<strong>服务端</strong>新建文件<code>/etc/sensu/conf.d/check_cron.json</code>，文件内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checks"</span>: &#123;</span><br><span class="line">    <span class="attr">"cron"</span>: &#123;</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"check-process.rb -p cron"</span>,</span><br><span class="line">      <span class="attr">"subscribers"</span>: [</span><br><span class="line">        <span class="string">"test"</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">"interval"</span>: <span class="number">60</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该Check会发送到<code>test</code>订阅客户端上运行。<br>在<a href="https://hoxis.github.io/Sensu%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B.html">上一篇文章</a>中已经使用了发布/订阅模式，这里基于之前搭建的系统，我们主要来讲下Standalone模式的Check。</p>
+<h3 id="Standalone模式示例"><a href="#Standalone模式示例" class="headerlink" title="Standalone模式示例"></a>Standalone模式示例</h3><p>在<strong>客户端</strong>新建文件<code>/etc/sensu/conf.d/check_cron.json</code>，文件内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checks"</span>: &#123;</span><br><span class="line">    <span class="attr">"cron"</span>: &#123;</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"check-process.rb -p cron"</span>,</span><br><span class="line">      <span class="attr">"standalone"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">"interval"</span>: <span class="number">60</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过配置<code>&quot;standalone&quot;: true</code>表明这是一个Standalone模式的Check，该Check会在客户端每60s运行一次。</p>
+<p>不像发布/订阅模式，Standalone模式的Check在<code>uchiwa</code>页面是看不到的，只有在Check状态不正常时，在页面才会收到告警。</p>
+<p>正常情况下的可以通过client端的日志查看Check的执行过程：</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1517289305111.jpg" alt="client端的Check日志"></p>
+<p>我们将Check中的<code>cron</code>进程修改为一个不存在的进程，再次观察，可以发现uchiwa页面可以收到Check告警信息：</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/1517289462692.jpg" alt="uchiwa页面的告警信息"></p>
+<h2 id="指标采集"><a href="#指标采集" class="headerlink" title="指标采集"></a>指标采集</h2><p>Check还可以分为两种类型：标准采集<code>standard</code>和指标采集<code>metric</code>。</p>
+<ul>
+<li>对于标准类型的check来说，Sensu不会在每次执行后都生成event，而只是在check所返回的结果为<code>非0</code>或者是从<code>非0</code>变为<code>0</code>的时候才会生成event。这样带来的好处是降低了负载，适用于那些只关注于<strong>非正常状态</strong>，而在正常的状态无需采取措施的监控场景。</li>
+<li>指标采集类型的check则会在每次执行后，无论其返回的结果是什么都会生成event。此类型的check一般用于获取监控指标的信息，除了check所返回的状态值，还有一些其它的输出信息可以通过event进行收集，然后返回给Sensu服务器。</li>
+</ul>
+<p>之前我们接触的一致都是standard类型的check，比如HTTP状态、cron服务状态的监控等。下面我们来配置一个metric采集的Check。</p>
+<h3 id="安装采集插件"><a href="#安装采集插件" class="headerlink" title="安装采集插件"></a>安装采集插件</h3><p>脚本<code>metrics-cpu.rb</code>用来采集和输出<code>CPU</code>指标，可以在客户端执行如下命令进行安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sensu-install -p cpu-checks</span><br></pre></td></tr></table></figure>
+<h3 id="Check定义"><a href="#Check定义" class="headerlink" title="Check定义"></a>Check定义</h3><p>在客户端新建文件<code>/etc/sensu/conf.d/cpu_metrics.json</code>，内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checks"</span>: &#123;</span><br><span class="line">    <span class="attr">"cpu_metrics"</span>: &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"metric"</span>,</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"metrics-cpu.rb"</span>,</span><br><span class="line">      <span class="attr">"interval"</span>: <span class="number">10</span>,</span><br><span class="line">      <span class="attr">"standalone"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">"truncate_output"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"handler"</span>: <span class="string">"debug"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里采用Standalone模式进行配置，另外参数<code>truncate_output</code>的设置为<code>false</code>的目的是不用截短output。因为指标采集的输出通常较长，默认会对output进行截短。也可以通过<code>&quot;truncate_output_length&quot;: 666</code>设置output的长度。</p>
+<h3 id="指标采集结果"><a href="#指标采集结果" class="headerlink" title="指标采集结果"></a>指标采集结果</h3><p>重启<code>sensu-client</code>服务后，可以在uchiwa页面看到指标采集结果。</p>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/2018130154641.gif" alt="指标采集结果"></p>
+<h2 id="Check结果"><a href="#Check结果" class="headerlink" title="Check结果"></a>Check结果</h2><p>Check结果结果是客户端再check执行完成后推送到<code>Sensu transport</code>中的JSON格式的数据，一般包含如下信息：</p>
+<ul>
+<li>check定义相关，如command，subscribers，interval，name等，以及check输出</li>
+<li><p>客户端名称</p>
+</li>
+<li><p>check结果示例</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"client"</span>: <span class="string">"client66"</span>,</span><br><span class="line">	<span class="attr">"check"</span>: &#123;</span><br><span class="line">		<span class="attr">"command"</span>: <span class="string">"/usr/lib64/nagios/plugins/check_http -I 127.0.0.1"</span>,</span><br><span class="line">		<span class="attr">"handler"</span>: <span class="string">"file"</span>,</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"check_http"</span>,</span><br><span class="line">		<span class="attr">"issued"</span>: <span class="number">1517317008</span>,</span><br><span class="line">		<span class="attr">"executed"</span>: <span class="number">1517317024</span>,</span><br><span class="line">		<span class="attr">"duration"</span>: <span class="number">0.006</span>,</span><br><span class="line">		<span class="attr">"output"</span>: <span class="string">"HTTP OK: HTTP/1.1 200 OK - 289 bytes in 0.001 second response time |time=0.000647s;;;0.000000 size=289B;;;0\n"</span>,</span><br><span class="line">		<span class="attr">"status"</span>: <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其中各个字段的含义为：</p>
+<ul>
+<li><code>issued</code> - check请求发出的时间</li>
+<li><code>executed</code> - 客户端执行check的时间</li>
+<li><code>duration</code> - 客户端执行check所耗时长</li>
+<li><code>output</code> - check命令的输出</li>
+<li><code>status</code> - check运行的退出状态码</li>
+</ul>
+<h1 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h1><p>Sensu使用event来通知所监控内容的状态变化。比如当check执行后返回<code>2</code>，这表示所监控的内容出现了较为严重的问题，那么Sensu会生成event来报告这个问题，event会绑定一个或多个<code>handler</code>来对所报告的问题进行处理。event包含有一些上下文信息，即<code>event data</code>，主要包括执行check的客户端信息和check运行后的结果信息。通常event数据是以<code>JSON</code>格式传递的，以下是一个event的示例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">"event": &#123;</span><br><span class="line">	"client": &#123;</span><br><span class="line">		"name": "client66",</span><br><span class="line">		"address": "192.168.2.196",</span><br><span class="line">		"subscriptions": ["test",</span><br><span class="line">		"client:client66"],</span><br><span class="line">		"version": "1.2.0",</span><br><span class="line">		"timestamp": 1517148354</span><br><span class="line">	&#125;,</span><br><span class="line">	"check": &#123;</span><br><span class="line">		"command": "/usr/lib64/nagios/plugins/check_http -I 127.0.0.1",</span><br><span class="line">		"interval": 10,</span><br><span class="line">		"subscribers": ["test"],</span><br><span class="line">		"name": "check_http",</span><br><span class="line">		"issued": 1517066088,</span><br><span class="line">		"executed": 1517148355,</span><br><span class="line">		"duration": 0.005,</span><br><span class="line">		"output": "connect to address 127.0.0.1 and port 80: 拒绝连接\nHTTP CRITICAL - Unable to open TCP socket\n",</span><br><span class="line">		"status": 2,</span><br><span class="line">		"type": "standard",</span><br><span class="line">		"history": ["2","2"],</span><br><span class="line">		"total_state_change": 0</span><br><span class="line">	&#125;,</span><br><span class="line">	"occurrences": 33,</span><br><span class="line">	"occurrences_watermark": 34,</span><br><span class="line">	"action": "create",</span><br><span class="line">	"timestamp": 1517066088,</span><br><span class="line">	"id": "9287299a-cebc-4708-893f-213257d105ca",</span><br><span class="line">	"last_state_change": 1517065768,</span><br><span class="line">	"last_ok": 1517065428,</span><br><span class="line">	"silenced": false,</span><br><span class="line">	"silenced_by": []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，event数据包含了Sensu客户端的基本信息，包括名称、IP等，同时也包含了所执行的check信息，客户端执行了该check并返回了状态值为2，同时输出内容<code>HTTP CRITICAL: HTTP/1.1 503 Service Temporarily Unavailable</code>，可以用来帮助handler对问题进行处理。</p>
+<h2 id="Event属性"><a href="#Event属性" class="headerlink" title="Event属性"></a>Event属性</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>类型</th>
+<th>可取值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>event的唯一id</td>
+<td>String</td>
+<td>任意的uuid</td>
+<td></td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>event的发生时间</td>
+<td>Integer</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>action</td>
+<td>event动作</td>
+<td>String</td>
+<td><code>create</code>/<code>resolve</code>/<code>flapping</code></td>
+<td><code>create</code></td>
+</tr>
+<tr>
+<td>occurrences</td>
+<td>已发生次数</td>
+<td>Integer</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td>check</td>
+<td>check结果和check相关属性</td>
+<td>Hash</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>check.history</td>
+<td>check的历史退出状态，最多21个</td>
+<td>Array</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>client</td>
+<td>客户端属性</td>
+<td>Hash</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>silenced</td>
+<td>是否沉默</td>
+<td>Boolean</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>silenced_by</td>
+<td>匹配该event的沉默的、条目ID列表</td>
+<td>Array</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h1><p><code>Sensu handler</code>用于处理<code>Sensu event</code>，例如发生告警邮件，将采集指标存放到时序数据库等。Handler在check的配置文件中指定，可以同时指定多个handler对event进行处理。Sensu包括以下几种类型的<code>handler</code>：</p>
+<ul>
+<li><code>Pipe handler</code> - 最常用，将event数据通过<code>STDIN</code>传递给处理程序；</li>
+<li><code>TCP/UDP handler</code> - 将event数据发送给一个远程的<code>socket</code>，如外部API；</li>
+<li><code>Transport handler</code> - 将数据发送给<code>Sensu transport</code>（默认为<code>RabbitMQ</code>）</li>
+<li><code>Set handler</code> - 用于组成一个<code>event handler</code>集合，使得能够同时管理多个特定类型的event</li>
+</ul>
+<h2 id="默认handler"><a href="#默认handler" class="headerlink" title="默认handler"></a>默认handler</h2><p>当check中没有指定handler时，Sensu会尝试使用<code>default</code>的handler，若没有定义名为<code>default</code>的handler，Sensu会在日志中报错。</p>
+<h2 id="handler配置"><a href="#handler配置" class="headerlink" title="handler配置"></a>handler配置</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/sensu/plugins/event-file.rb http://sensuapp.org/docs/1.2/files/event-file.rb</span><br><span class="line">chmod +x /etc/sensu/plugins/event-file.rb</span><br></pre></td></tr></table></figure>
+<p>由于<code>event-file.rb</code>需要<code>Ruby</code>运行环境，因此需要安装相关依赖：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ruby ruby-devel</span><br></pre></td></tr></table></figure></p>
+<h3 id="定义handler"><a href="#定义handler" class="headerlink" title="定义handler"></a>定义handler</h3><p>这里以pipe类型为例，新增文件<code>/etc/sensu/conf.d/event_file.json</code>，内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"handlers"</span>: &#123;</span><br><span class="line">    <span class="attr">"file"</span>: &#123;</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"/etc/sensu/plugins/event-file.rb"</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"pipe"</span>,</span><br><span class="line">      <span class="attr">"timeout"</span>: <span class="number">10</span>,</span><br><span class="line">      <span class="attr">"severities"</span>: [<span class="string">"critical"</span>, <span class="string">"unknown"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="TCP-UDP-handler示例"><a href="#TCP-UDP-handler示例" class="headerlink" title="TCP/UDP handler示例"></a>TCP/UDP handler示例</h3><p>下面的示例定义了一个TCP handler，会将event数据转发到定义的socket上。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"handlers"</span>: &#123;</span><br><span class="line">    <span class="attr">"example_tcp_handler"</span>: &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"tcp"</span>,</span><br><span class="line">      <span class="attr">"timeout"</span>: <span class="number">30</span>,</span><br><span class="line">      <span class="attr">"socket"</span>: &#123;</span><br><span class="line">        <span class="attr">"host"</span>: <span class="string">"10.0.1.99"</span>,</span><br><span class="line">        <span class="attr">"port"</span>: <span class="number">4444</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Transport-handler示例"><a href="#Transport-handler示例" class="headerlink" title="Transport handler示例"></a>Transport handler示例</h3><p>该handler会将event数据推送到名为<code>example_handler_queue</code>的Sensu transport，其他组件可以通过订阅该消息队列来处理该event。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"handlers"</span>: &#123;</span><br><span class="line">    <span class="attr">"example_transport_handler"</span>: &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"transport"</span>,</span><br><span class="line">      <span class="attr">"pipe"</span>: &#123;</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"direct"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"example_handler_queue"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Set-handler示例"><a href="#Set-handler示例" class="headerlink" title="Set handler示例"></a>Set handler示例</h3><p>相当于一个handler的结合，在check中引用时就可以通过<code>notify_all_the_things</code>来引用其中定义的多个handler。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"handlers"</span>: &#123;</span><br><span class="line">    <span class="attr">"notify_all_the_things"</span>: &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"set"</span>,</span><br><span class="line">      <span class="attr">"handlers"</span>: [</span><br><span class="line">        <span class="string">"file"</span>,</span><br><span class="line">        <span class="string">"example_tcp_handler"</span>,</span><br><span class="line">        <span class="string">"example_transport_handler"</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="handler属性"><a href="#handler属性" class="headerlink" title="handler属性"></a>handler属性</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必须</th>
+<th>类型</th>
+<th>可取值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>类型</td>
+<td>true</td>
+<td>String</td>
+<td><code>pipe</code>/<code>tcp</code>/<code>udp</code>/<code>transport</code>/<code>set</code></td>
+<td></td>
+</tr>
+<tr>
+<td>filter</td>
+<td>过滤器</td>
+<td>false</td>
+<td>String</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>filters</td>
+<td>可以同时配置多个过滤器</td>
+<td>false</td>
+<td>Array<string></string></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>severities</td>
+<td>定义处理哪个级别的event</td>
+<td>false</td>
+<td>Array<string></string></td>
+<td><code>ok</code>/<code>warning</code>/<code>critical</code>/<code>unknown</code></td>
+<td></td>
+</tr>
+<tr>
+<td>mutator</td>
+<td>转换器</td>
+<td>false</td>
+<td>String</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>超时时长，只在<code>pipe</code>和<code>tcp</code>中适用</td>
+<td>false</td>
+<td>Integer</td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>handle_silenced</td>
+<td>是否处理沉默的event</td>
+<td>false</td>
+<td>Boolean</td>
+<td></td>
+<td>false</td>
+</tr>
+<tr>
+<td>handle_flapping</td>
+<td>是否处理跃动状态的event</td>
+<td>false</td>
+<td>Boolean</td>
+<td></td>
+<td>false</td>
+</tr>
+<tr>
+<td>command</td>
+<td>handler的执行命令</td>
+<td>true（<code>type==pipe</code>）</td>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h1><p>Sensu Filter用来过滤一些Sensu event。Filter会检查event中的数据和定义的过滤规则是否匹配，然后判断是否将event发送给handler。需要注意的是filter只能针对单个的handler配置有效，在handler set配置中是无效的。</p>
+<h2 id="Filter处理流程"><a href="#Filter处理流程" class="headerlink" title="Filter处理流程"></a>Filter处理流程</h2><ul>
+<li>Sensu在处理event时，会检查handler的定义文件，在执行handler之前，会先执行该handler配置的filter，若配置了多个filter，会顺序执行；</li>
+<li>将filter属性和event数据进行比较；</li>
+<li>若filter将event删除了，那么之后就不会有的分析和处理</li>
+</ul>
+<h2 id="Filter分类"><a href="#Filter分类" class="headerlink" title="Filter分类"></a>Filter分类</h2><p>Sensu filter包含两种过滤方式：<code>Inclusive</code>包含和<code>Exclusive</code>排除。</p>
+<ul>
+<li>包含式：默认的处理方式，只有符合filter定义的event才会被处理，可以用个参数<code>&quot;negate&quot;: false</code>设置，如果同时使用多个，需要同时满足（<code>x AND y AND z</code>）才会处理</li>
+<li>排除式：会过滤掉符合filter定义的event，可以用个参数<code>&quot;negate&quot;: true</code>设置</li>
+</ul>
+<p>包含方式指定的是含有相应信息的event才会被发送至<code>handler</code><br>排除方式则相反，含有指定信息的event会被过滤掉，不会被发送到<code>handler</code>进行处理。值得注意的是，可以同时指定多个<code>filter</code>，此时event需要同时匹配所有指定的<code>filter</code>规则。</p>
+<h2 id="Filter示例"><a href="#Filter示例" class="headerlink" title="Filter示例"></a>Filter示例</h2><h3 id="Filter属性直接比较"><a href="#Filter属性直接比较" class="headerlink" title="Filter属性直接比较"></a>Filter属性直接比较</h3><p>该filter会匹配数据中包含客户端属性<code>&quot;environment&quot;: &quot;test&quot;</code>的event。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"filters"</span>: &#123;</span><br><span class="line">    <span class="attr">"production_filter"</span>: &#123;</span><br><span class="line">      <span class="attr">"negate"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"attributes"</span>: &#123;</span><br><span class="line">        <span class="attr">"client"</span>: &#123;</span><br><span class="line">          <span class="attr">"environment"</span>: <span class="string">"test"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="处理状态改变的event"><a href="#处理状态改变的event" class="headerlink" title="处理状态改变的event"></a>处理状态改变的event</h3><p>下面定义的filter可以用来匹配状态变化的event，因为在每次event状态改变时，<code>occurrences</code>的数值都会被重置，或者event的<code>action</code>是<code>resolve</code>状态，因为当check结果状态由<code>非0</code>到<code>0</code>时出action会切换到resolve状态。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"filters"</span>: &#123;</span><br><span class="line">    <span class="attr">"state_change_only"</span>: &#123;</span><br><span class="line">      <span class="attr">"negate"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"attributes"</span>: &#123;</span><br><span class="line">        <span class="attr">"occurrences"</span>: <span class="string">"eval: value == 1 || ':::action:::' == 'resolve'"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="重复event的处理"><a href="#重复event的处理" class="headerlink" title="重复event的处理"></a>重复event的处理</h3><p>下面的filter用来匹配check时间间隔是60s，并且<code>occurrences!=1</code>，即不是第一次发生（或者发生次数不能被60整除）。需要注意的是这里配置的是一个<code>Exclusive</code>类型的filter，即匹配的将会被过滤。即该过滤器的目的是对check间隔是60s并且在第一次发生时以及每小时进行处理。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"filters"</span>: &#123;</span><br><span class="line">    <span class="attr">"filter_interval_60_hourly"</span>: &#123;</span><br><span class="line">      <span class="attr">"negate"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">"attributes"</span>: &#123;</span><br><span class="line">        <span class="attr">"check"</span>: &#123;</span><br><span class="line">          <span class="attr">"interval"</span>: <span class="number">60</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"occurrences"</span>: <span class="string">"eval: value != 1 &amp;&amp; value % 60 != 0"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还有我们之前用的例子，仅处理出现次数大于5的event：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>: &#123;</span><br><span class="line">        <span class="attr">"recurrence"</span>: &#123;</span><br><span class="line">            <span class="attr">"attributes"</span>: &#123;</span><br><span class="line">                <span class="attr">"occurrences"</span>: <span class="string">"eval: value &gt; 5"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="仅处理工作时间的event"><a href="#仅处理工作时间的event" class="headerlink" title="仅处理工作时间的event"></a>仅处理工作时间的event</h3><p>仅处理周一到周五9点到17点的event。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"filters"</span>: &#123;</span><br><span class="line">    <span class="attr">"nine_to_fiver"</span>: &#123;</span><br><span class="line">      <span class="attr">"negate"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"attributes"</span>: &#123;</span><br><span class="line">        <span class="attr">"timestamp"</span>: <span class="string">"eval: [1,2,3,4,5].include?(Time.at(value).wday) &amp;&amp; Time.at(value).hour.between?(9,17)"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Filter配置属性"><a href="#Filter配置属性" class="headerlink" title="Filter配置属性"></a>Filter配置属性</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必须</th>
+<th>类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>negate</td>
+<td>配置是否会移除符合filter的event</td>
+<td>false</td>
+<td>Boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>attributes</td>
+<td>用来和event数据比较的属性</td>
+<td>true</td>
+<td>Hash</td>
+<td></td>
+</tr>
+<tr>
+<td>when</td>
+<td>何时使用该filter</td>
+<td>false</td>
+<td>Hash</td>
+</tr>
+</tbody>
+</table>
+<p>when使用示例：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"filters"</span>: &#123;</span><br><span class="line">    <span class="attr">"offhours"</span>: &#123;</span><br><span class="line">      <span class="attr">"attributes"</span>: &#123;</span><br><span class="line">        <span class="attr">"client"</span>: &#123;</span><br><span class="line">          <span class="attr">"environment"</span>: <span class="string">"production"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">"when"</span>: &#123;</span><br><span class="line">        <span class="attr">"days"</span>: &#123;</span><br><span class="line">          <span class="attr">"all"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">"begin"</span>: <span class="string">"5:00 PM"</span>,</span><br><span class="line">              <span class="attr">"end"</span>: <span class="string">"8:00 AM"</span></span><br><span class="line">            &#125;</span><br><span class="line">          ],</span><br><span class="line">          <span class="attr">"friday"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="attr">"begin"</span>: <span class="string">"12:00 PM"</span>,</span><br><span class="line">              <span class="attr">"end"</span>: <span class="string">"5:00 PM"</span></span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Mutator"><a href="#Mutator" class="headerlink" title="Mutator"></a>Mutator</h1><p><code>Sensu Mutators</code>用来转换event数据，然后将转换后的数据传递给<code>event handler</code>。通过使用Mutator对event数据进行处理，可以减少重复代码，简化事件处理过程。Mutator在Sensu服务器端执行，从<code>STDIN</code>接收<code>JSON</code>格式的event数据，并将转换后的数据写入<code>STDOUT</code>。Mutator会返回一个退出状态码用于标识转换是否成功。如果Mutator执行失败，事件将不会被handler处理，并且会将错误信息记录到日志中。</p>
+<h1 id="Sensu监控处理流程"><a href="#Sensu监控处理流程" class="headerlink" title="Sensu监控处理流程"></a>Sensu监控处理流程</h1><p>如图所示，Sensu的监控流程如下：</p>
+<ul>
+<li><code>Sensu Server</code>或<code>Sensu Client</code>一个<code>Service Check</code>请求</li>
+<li><code>Sensu Client</code>来执行<code>Service Check</code></li>
+<li><code>Service Check</code>会发出状态信息和检测数据作为check结果</li>
+<li><code>Sensu Client</code>将check结果发送到<code>Sensu Transport</code>（如redis, rabbitmq）</li>
+<li><code>Sensu Server</code>会对check结果进行处理，并将check的最新结果写入到<code>Data Store</code>，同事创建相应的event </li>
+<li><code>Sensu Server</code>会通过<code>Event Handler</code>来处理event <ul>
+<li>通过<code>Handler</code>上定义的<code>Filter</code>对<code>Handler</code>进行过滤</li>
+<li>处理<code>Handler</code>所绑定的Mutator</li>
+<li>最终执行<code>Event Handler</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://www.github.com/hoxis/token4md/raw/master/sensu-diagram.gif" alt="Sensu的监控流程"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/Sensu相关概念详解.html" title="Sensu相关概念详解">https://hoxis.github.io/Sensu相关概念详解.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Sensu/" rel="tag"><i class="fa fa-tag"></i> Sensu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Sensu快速上手.html" rel="next" title="Sensu快速上手">
+                <i class="fa fa-chevron-left"></i> Sensu快速上手
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/爬虫闯关第一关.html" rel="prev" title="爬虫闯关 第一关">
+                爬虫闯关 第一关 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Check"><span class="nav-text">Check</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Check定义参数"><span class="nav-text">Check定义参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Check配置"><span class="nav-text">Check配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装检测插件"><span class="nav-text">安装检测插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布-订阅模式示例"><span class="nav-text">发布/订阅模式示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Standalone模式示例"><span class="nav-text">Standalone模式示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指标采集"><span class="nav-text">指标采集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装采集插件"><span class="nav-text">安装采集插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Check定义"><span class="nav-text">Check定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指标采集结果"><span class="nav-text">指标采集结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Check结果"><span class="nav-text">Check结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Event"><span class="nav-text">Event</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Event属性"><span class="nav-text">Event属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Handler"><span class="nav-text">Handler</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#默认handler"><span class="nav-text">默认handler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#handler配置"><span class="nav-text">handler配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装插件"><span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义handler"><span class="nav-text">定义handler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-UDP-handler示例"><span class="nav-text">TCP/UDP handler示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transport-handler示例"><span class="nav-text">Transport handler示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-handler示例"><span class="nav-text">Set handler示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#handler属性"><span class="nav-text">handler属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Filter"><span class="nav-text">Filter</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter处理流程"><span class="nav-text">Filter处理流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter分类"><span class="nav-text">Filter分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter示例"><span class="nav-text">Filter示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter属性直接比较"><span class="nav-text">Filter属性直接比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理状态改变的event"><span class="nav-text">处理状态改变的event</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复event的处理"><span class="nav-text">重复event的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仅处理工作时间的event"><span class="nav-text">仅处理工作时间的event</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter配置属性"><span class="nav-text">Filter配置属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mutator"><span class="nav-text">Mutator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sensu监控处理流程"><span class="nav-text">Sensu监控处理流程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

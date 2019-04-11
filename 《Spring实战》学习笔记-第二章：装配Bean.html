@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="创建应用对象之间协作关系的行为通常被称作装配（Wiring），这也是依赖注入的本质。">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Spring实战》学习笔记-第二章：装配Bean">
+<meta property="og:url" content="https://hoxis.github.io/《Spring实战》学习笔记-第二章：装配Bean.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="创建应用对象之间协作关系的行为通常被称作装配（Wiring），这也是依赖注入的本质。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Spring实战》学习笔记-第二章：装配Bean">
+<meta name="twitter:description" content="创建应用对象之间协作关系的行为通常被称作装配（Wiring），这也是依赖注入的本质。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/《Spring实战》学习笔记-第二章：装配Bean.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>《Spring实战》学习笔记-第二章：装配Bean | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/《Spring实战》学习笔记-第二章：装配Bean.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">《Spring实战》学习笔记-第二章：装配Bean</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-08T21:46:26+08:00">
+                2019-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/《Spring实战》学习笔记-第二章：装配Bean.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/《Spring实战》学习笔记-第二章：装配Bean.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/《Spring实战》学习笔记-第二章：装配Bean.html" class="leancloud_visitors" data-flag-title="《Spring实战》学习笔记-第二章：装配Bean">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,106
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>创建应用对象之间协作关系的行为通常被称作<code>装配</code>（Wiring），这也是依赖注入的本质。</p>
+<a id="more"></a>
+<h1 id="声明Bean"><a href="#声明Bean" class="headerlink" title="声明Bean"></a>声明Bean</h1><h2 id="创建Spring配置"><a href="#创建Spring配置" class="headerlink" title="创建Spring配置"></a>创建Spring配置</h2><p>Spring容器提供了两种配置Bean的方式，其一是使用<strong>XML文件</strong>作为配置文件，其二是基于<strong>Java注解</strong>的配置方式。<br>以下是一个典型的Spring XML配置文件：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 此处声明各个Bean --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在<beans>标签内可以放置相关的Spring配置信息，另外，Spring的核心框架自带了10个命名空间的配置：</beans></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命名空间</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">aop</td>
+<td>为声明切面以及将<code>＠AspectJ</code>注解的类代理为Spring切面提供了配置元素</td>
+</tr>
+<tr>
+<td style="text-align:center">beans</td>
+<td>beans支持声明Bean和装配Bean，是Spring最核心也是最原始的命名空间</td>
+</tr>
+<tr>
+<td style="text-align:center">context</td>
+<td>为配置Spring应用上下文提供了配置元素，包括自动检测和自动装配Bean、注入非Spring直接管理的对象</td>
+</tr>
+<tr>
+<td style="text-align:center">jee</td>
+<td>提供了与Java EE API 的集成，例如JNDI和EJB</td>
+</tr>
+<tr>
+<td style="text-align:center">jms</td>
+<td>为声明消息驱动的POJO提供了配置元素</td>
+</tr>
+<tr>
+<td style="text-align:center">lang</td>
+<td>支持配置由Groovy、JRuby或BeanShell等脚本实现的Bean</td>
+</tr>
+<tr>
+<td style="text-align:center">mvc</td>
+<td>启用Spring MVC的能力，例如面向注解的控制器、视图控制器和拦截器</td>
+</tr>
+<tr>
+<td style="text-align:center">oxm</td>
+<td>支持Spring 的对象到XML映射配置</td>
+</tr>
+<tr>
+<td style="text-align:center">tx</td>
+<td>提供声明式事务配置</td>
+</tr>
+<tr>
+<td style="text-align:center">util</td>
+<td>提供各种各样的工具类元素，包括把集合配置为Bean、支持属性占位符元素</td>
+</tr>
+</tbody>
+</table>
+<h2 id="声明一个简单的Bean"><a href="#声明一个简单的Bean" class="headerlink" title="声明一个简单的Bean"></a>声明一个简单的Bean</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.springidol;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Juggler</span> <span class="keyword">implements</span> <span class="title">Performer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> beanBags = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Juggler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Juggler</span><span class="params">(<span class="keyword">int</span> beanBags)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.beanBags = beanBags;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">perform</span><span class="params">()</span> <span class="keyword">throws</span> PerformanceException </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"JUGGLING "</span> + beanBags + <span class="string">" BEANBAGS"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"duke"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Juggler"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>&lt;bean&gt;</code>元素是Spring中最基本的配置单元，通过该元素Spring将创建一个对象。当Spring容器加载该Bean时，Spring将使用默认的构造器来实例化该Bean，实际上，duke会使用如下代码来创建：<br><code>new com.springinaction.springidol.Juggler();</code></p>
+<h2 id="通过构造器注入"><a href="#通过构造器注入" class="headerlink" title="通过构造器注入"></a>通过构造器注入</h2><p>让bean使用另外一个构造方法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"duke"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Juggler"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"15"</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在构造Bean的时候，可以使用<code>&lt;constructor-arg&gt;</code>标签来告诉Spring额外的信息，这样Spring就不再会使用默认的构造器来实例化该Bean。<br>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.springidol;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestSpring</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDuke</span><span class="params">()</span> <span class="keyword">throws</span> PerformanceException </span>&#123;</span><br><span class="line">		ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"spring-idol.xml"</span>);</span><br><span class="line">		Performer performer = (Performer) context.getBean(<span class="string">"duke"</span>);</span><br><span class="line">		performer.perform();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过运行结果<code>JUGGLING 15 BEANBAGS</code>可以15被注入到了构造器中。</p>
+<h3 id="通过构造器注入对象引用"><a href="#通过构造器注入对象引用" class="headerlink" title="通过构造器注入对象引用"></a>通过构造器注入对象引用</h3><p>现在需要一个新的类<code>PoeticJuggler</code>，该类需要<code>Poem</code>类作为其参数并通过构造器注入。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.springidol;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoeticJuggler</span> <span class="keyword">extends</span> <span class="title">Juggler</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Poem poem;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 注入Poem</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">PoeticJuggler</span><span class="params">(Poem poem)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.poem = poem;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 注入豆袋子数量和Poem</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">PoeticJuggler</span><span class="params">(<span class="keyword">int</span> beanBags, Poem poem)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(beanBags);</span><br><span class="line">		<span class="keyword">this</span>.poem = poem;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">perform</span><span class="params">()</span> <span class="keyword">throws</span> PerformanceException </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.perform();</span><br><span class="line">		System.out.println(<span class="string">"While reciting..."</span>);</span><br><span class="line">		poem.recite();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在配置文件中就需要声明一个 <code>Poem</code>的类，并将其注入到<code>PoeticJuggler</code>中：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sonnet29"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Sonnet29"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"poeticDuke"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.PoeticJuggler"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"15"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"sonnet29"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里使用ref属性来将Id为sonnet29的Bean引用传递给构造器，当Spring遇到sonnet29和poeticDuke的bean声明时，所执行的逻辑脚本将是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Poem sonnet29 = <span class="keyword">new</span> Sonnet29();</span><br><span class="line">Performer poeticDuke = <span class="keyword">new</span> PoeticJuggler(<span class="number">15</span>, sonnet29 );</span><br></pre></td></tr></table></figure>
+<h3 id="通过工厂方法创建Bean"><a href="#通过工厂方法创建Bean" class="headerlink" title="通过工厂方法创建Bean"></a>通过工厂方法创建Bean</h3><p>在没有公开的构造方法时，可以通过工厂方法来创建Bean，及<bean>元素的<code>factory-method</code>属性来装配工厂创建的Bean。<br>比如Stage是一个没有公开构造方法的类，但是可以通过getInstance获取其实例，那么可以通过下面的配置方式：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"theStage"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Stage"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">factory-method</span>=<span class="string">"getInstance"</span> /&gt;</span></span><br></pre></td></tr></table></figure></bean></p>
+<h2 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">作用域</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">singleton（默认）</td>
+<td>在每一个Spring容器中，一个Bean定义只有一个对象实例</td>
+</tr>
+<tr>
+<td style="text-align:center">prototype</td>
+<td>允许Bean的定义可以被<code>实例化任意次</code>（每次调用都创建一个实例）</td>
+</tr>
+<tr>
+<td style="text-align:center">request</td>
+<td>在一次HTTP请求中，每个Bean定义对应一个实例。该作用域仅在基于Web的Spring上下文（例如SpringMVC）中才有效</td>
+</tr>
+<tr>
+<td style="text-align:center">session</td>
+<td>在一个HTTP Sesion中，每个Bean定义对应一个实例。该作用域仅在基于Web的Spring上下文（例如SpringMVC）中才有效</td>
+</tr>
+<tr>
+<td style="text-align:center">global-session</td>
+<td>在一个全局HTTP Sesion中，每个Bean定义对应一个实例。该作用域仅在Portlet上下文中才有效</td>
+</tr>
+</tbody>
+</table>
+<p>配置方法，设置<bean>标签的scope属性：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sonnet29"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Sonnet29"</span> <span class="attr">scope</span>=<span class="string">"prototype"</span>/&gt;</span></span><br></pre></td></tr></table></figure></bean></p>
+<p>Spring的单例只能保证在每个应用上下文中只有一个Bean的实例，你也可以通过定义多个<bean>的方式来实例化同一个Bean。</bean></p>
+<h2 id="初始化和销毁Bean"><a href="#初始化和销毁Bean" class="headerlink" title="初始化和销毁Bean"></a>初始化和销毁Bean</h2><p>可以为Bean定义初始化和销毁操作，只需使用<code>init-method</code>和<code>destroy-method</code>参数来配置<bean>标签即可。</bean></p>
+<p>比如，舞台（Auditorium）需要在表演开始前开灯（turnOnLights），在结束时关灯（turnOffLights），那么就可以做下面的声明：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"auditorium"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Auditorium"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">init-method</span>=<span class="string">"turnOnLights"</span> <span class="attr">destroy-method</span>=<span class="string">"turnOffLights"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="默认的init-method和destroy-method"><a href="#默认的init-method和destroy-method" class="headerlink" title="默认的init-method和destroy-method"></a>默认的init-method和destroy-method</h3><p>可以使用<beans>的<code>default-init-method</code>和<code>default-destroy-method</code>为上下文中所有的Bean设置共同的初始化和销毁方法。</beans></p>
+<h1 id="注入Bean属性"><a href="#注入Bean属性" class="headerlink" title="注入Bean属性"></a>注入Bean属性</h1><p>Spring可以借助属性的set方法来配置属性的值，以实现setter方式的注入。</p>
+<p>下面是一个音乐家（Instrumentalist）类，它演奏时需要歌曲（song）和乐器（instrument）两个属性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.springidol;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Instrumentalist</span> <span class="keyword">implements</span> <span class="title">Performer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String song;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Instrument instrument;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Instrumentalist</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">perform</span><span class="params">()</span> <span class="keyword">throws</span> PerformanceException </span>&#123;</span><br><span class="line">		System.out.print(<span class="string">"Playing "</span> + song + <span class="string">" : "</span>);</span><br><span class="line">		instrument.play();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSong</span><span class="params">(String song)</span> </span>&#123; <span class="comment">// 注入歌曲</span></span><br><span class="line">		<span class="keyword">this</span>.song = song;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getSong</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> song;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">screamSong</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> song;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInstrument</span><span class="params">(Instrument instrument)</span> </span>&#123; <span class="comment">// 注入乐器</span></span><br><span class="line">		<span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置文件中需要为Instrumentalist 注入这两个属性的值。</p>
+<h2 id="注入简单值"><a href="#注入简单值" class="headerlink" title="注入简单值"></a>注入简单值</h2><p>使用<code>&lt;property&gt;</code>标签可以通过调用属性的<strong>setter方法</strong>为Bean注入属性，而类似的<code>&lt;constructor-arg&gt;</code>是通过<strong>构造函数</strong>注入的。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>&lt;property&gt;</code>元素会指示Spring调用setSong()方法将song属性的值设置为”Happy”。</p>
+<p>注意value的属性值可以指定数值型（int、float、Double等）以及boolean等，Spring在调用set方法前会自动根据类型进行转换。</p>
+<h2 id="引用其他Bean"><a href="#引用其他Bean" class="headerlink" title="引用其他Bean"></a>引用其他Bean</h2><p>在演奏家kenny中需要一个乐器，那么我们就可以为其引用一个实现了Instrument接口的乐器。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"saxphone"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Saxophone"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"instrument"</span> <span class="attr">ref</span>=<span class="string">"saxphone"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>通过Performer接口引用一个参赛者，就可以产生任意类型的参赛者进行表演，<code>面向接口编程</code>和<code>依赖注入</code>实现了松耦合。</p>
+<h3 id="注入内部Bean"><a href="#注入内部Bean" class="headerlink" title="注入内部Bean"></a>注入内部Bean</h3><p>前文中，演奏家使用的instrument是其他Bean都可以进行共用的，若要独用一个类，那么可以声明一个类为<strong>内部Bean</strong>：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"instrument"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Saxophone"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如上面的代码，通过直接声明一个<bean>元素作为<property>元素的子节点。内部Bean不限于setter注入，也可以通过构造方法注入。</property></bean></p>
+<p>内部Bean没有Id属性，它们不能被复用，内部Bean仅适用于一次注入，而不能被其他Bean引用。</p>
+<h2 id="装配集合"><a href="#装配集合" class="headerlink" title="装配集合"></a>装配集合</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">集合元素</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>&lt;list&gt;</code></td>
+<td>装配list类型的数据，允许重复</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;set&gt;</code></td>
+<td>装配set类型的数据，不允许重复</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;map&gt;</code></td>
+<td>装配map类型的数据，key和value可以是任意类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;props&gt;</code></td>
+<td>装配properties类型的数据，key和value必须是String类型</td>
+</tr>
+</tbody>
+</table>
+<p>下面一个演奏家可以演奏多种乐器：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.springidol;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OneManBand</span> <span class="keyword">implements</span> <span class="title">Performer</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">OneManBand</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">perform</span><span class="params">()</span> <span class="keyword">throws</span> PerformanceException </span>&#123;</span><br><span class="line">		<span class="comment">// 遍历演奏各个乐器</span></span><br><span class="line">		<span class="keyword">for</span> (Instrument instrument : instruments) &#123;</span><br><span class="line">			instrument.play();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Collection&lt;Instrument&gt; instruments;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInstruments</span><span class="params">(Collection&lt;Instrument&gt; instruments)</span> </span>&#123;<span class="comment">// 注入instruments集合</span></span><br><span class="line">		<span class="keyword">this</span>.instruments = instruments;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="装配List、Set和Array"><a href="#装配List、Set和Array" class="headerlink" title="装配List、Set和Array"></a>装配List、Set和Array</h3><p>可以使用下面的方式装配List,也可以使用<set>来装配：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"hank"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.OneManBand"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"instruments"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"guitar"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"cymbal"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"harmonica"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></set></p>
+<h3 id="装配Map"><a href="#装配Map" class="headerlink" title="装配Map"></a>装配Map</h3><p>当OneManBand表演时，perform()方法可以把乐器（instrument）的音符打印出来，我们还想知道每个音符是由哪个乐器产生的，因此需要做以下改变：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.springidol;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OneManBandMap</span> <span class="keyword">implements</span> <span class="title">Performer</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">OneManBandMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">perform</span><span class="params">()</span> <span class="keyword">throws</span> PerformanceException </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (String key : instruments.keySet()) &#123;</span><br><span class="line">			System.out.print(key + <span class="string">" : "</span>);</span><br><span class="line">			Instrument instrument = instruments.get(key);</span><br><span class="line">			instrument.play();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Map&lt;String, Instrument&gt; instruments;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInstruments</span><span class="params">(Map&lt;String, Instrument&gt; instruments)</span> </span>&#123;<span class="comment">// 以map类型注入instruments</span></span><br><span class="line">		<span class="keyword">this</span>.instruments = instruments;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Spring配置map注入：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"hankk"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.OneManBandMap"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"instruments"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"GUITAR"</span> <span class="attr">value-ref</span>=<span class="string">"guitar"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"CYMBAL"</span> <span class="attr">value-ref</span>=<span class="string">"cymbal"</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"HARMONICA"</span> <span class="attr">value-ref</span>=<span class="string">"harmonica"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><map>中的<entry>元素由一个键和一个值组成，键和值可以是简单类型，也可以是其他Bean的引用：</entry></map></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">key</td>
+<td>指定map中entry的<code>键</code>为String</td>
+</tr>
+<tr>
+<td style="text-align:center">key-ref</td>
+<td>指定map中entry的<code>键</code>为Spring山下文中其他Bean的引用</td>
+</tr>
+<tr>
+<td style="text-align:center">value</td>
+<td>指定map中entry的<code>值</code>为String</td>
+</tr>
+<tr>
+<td style="text-align:center">value-ref</td>
+<td>指定map中entry的<code>值</code>为Spring山下文中其他Bean的引用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="装配Properties集合"><a href="#装配Properties集合" class="headerlink" title="装配Properties集合"></a>装配Properties集合</h3><p>若OneManBandMap中的Instrument属性所配置的Map的每一个entry的键和值都是String类型，可以使用<code>java.util.Properties</code>来代替Map：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"hank"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.OneManBand"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"instruments"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">props</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"GUITAR"</span>&gt;</span>Strum Strum Strum<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"CYMBAL"</span>&gt;</span>Crush Crush Crush<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"HARMONICA"</span>&gt;</span>Hum Hum Hum<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">props</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><property>元素用于把值或者Bean引用注入到Bean的属性中；</property></li>
+<li><props>用于定义一个<code>java.util.Properties</code>类型的集合值；</props></li>
+<li><prop>用于定义<props>集合的一个成员</props></prop></li>
+</ul>
+<h3 id="装配空值"><a href="#装配空值" class="headerlink" title="装配空值"></a>装配空值</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"someNonNullProperty"</span>&gt;</span><span class="tag">&lt;<span class="name">null</span>/&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="使用表达式装配"><a href="#使用表达式装配" class="headerlink" title="使用表达式装配"></a>使用表达式装配</h1><p>如果为属性装配的值只有在<code>运行期间</code>才能获取，那该如何实现？<br>Spring表达式语言（ Spring Expression Language , SpEL），可以通过运行期执行的表达式将值装配到Bean的属性或者构造器参数中，其特性有：</p>
+<ul>
+<li>使用Bean的id来引用Bean；</li>
+<li>调用方法和访问对象的属性；</li>
+<li>对值进行算术、关系和逻辑运算；</li>
+<li>正则表达式匹配；</li>
+<li>集合操作。</li>
+</ul>
+<h2 id="SpEL基本用法"><a href="#SpEL基本用法" class="headerlink" title="SpEL基本用法"></a>SpEL基本用法</h2><h3 id="字面值"><a href="#字面值" class="headerlink" title="字面值"></a>字面值</h3><p>比如<code>&lt;property name=&quot;count&quot; value=&quot;#{5}&quot;/&gt;</code>，<code>#{ }</code>标记会提示Spring这是个SpEL表达式。</p>
+<p>可以与非SpEL表达式混用：<code>&lt;property name=&quot;message&quot; value=&quot;The value is #{5}&quot;/&gt;</code>。</p>
+<p>另外，浮点型、科学计数法、布尔型（true和false）也可以直接使用。</p>
+<p>字符串使用时，需要用单引号或者双引号括起。</p>
+<h3 id="引用Bean、Properties和方法（避免空指针）"><a href="#引用Bean、Properties和方法（避免空指针）" class="headerlink" title="引用Bean、Properties和方法（避免空指针）"></a>引用Bean、Properties和方法（避免空指针）</h3><p>新声明一个id为carl的模仿者，Kenny唱什么他就唱什么：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"carl"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"#&#123;kenny.song&#125;"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>注入到Carl的song属性的表达式是由两部分组成的，第一部分（<code>kenny</code>）指向了kenny的Bean，第二部分（<code>song</code>）指向了kenny Bean的song属性，其实等价于下面的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Instrumentalist carl = <span class="keyword">new</span> Instrumentalist();</span><br><span class="line">carl.setSong(kenny.getSong());</span><br></pre></td></tr></table></figure></p>
+<p>还可以调用其他Bean的方法：<br><code>&lt;property name=&quot;song&quot; value=&quot;#{songSelector.selectSong()}&quot;/&gt;</code><br><code>&lt;property name=&quot;song&quot; value=&quot;#{songSelector.selectSong().toUpperCase()}&quot;/&gt;</code></p>
+<p>如果selectSong()返回一个null，那么SpEL会抛出空指针异常，可以采用下面的方法避免：<br><code>&lt;property name=&quot;song&quot; value=&quot;#{songSelector.selectSong()?.toUpperCase()}&quot;/&gt;</code><br>使用<code>?.</code>来代替<code>.</code>来访问toUpperCase()方法，访问之前会确保左边项不为null，若为null就不会再继续调用。</p>
+<h3 id="操作类"><a href="#操作类" class="headerlink" title="操作类"></a>操作类</h3><p>可以使用<code>T()</code>运算符调用类作用域的方法和常量。比如：<br><code>&lt;property name=&quot;multiplier&quot; value=&quot;#{T(java.lang.Math).PI}&quot;/&gt;</code><br><code>&lt;property name=&quot;randomNumber&quot; value=&quot;#{T(java.lang.Math).random()}&quot;/&gt;</code></p>
+<h2 id="在SpEL值上进行操作"><a href="#在SpEL值上进行操作" class="headerlink" title="在SpEL值上进行操作"></a>在SpEL值上进行操作</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">运算符类型</th>
+<th style="text-align:center">运算符</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">算术运算</td>
+<td style="text-align:center">+, -, *, /, %, ^</td>
+<td>#{T(java.lang.Math).PI * circle.radius ^ 2}</td>
+</tr>
+<tr>
+<td style="text-align:center">关系运算</td>
+<td style="text-align:center">&lt;, &gt;, ==, &lt;=, &gt;=, lt,gt, eq, le, ge</td>
+<td>#{counter.total == 100}</td>
+</tr>
+<tr>
+<td style="text-align:center">逻辑运算</td>
+<td style="text-align:center">and, or, not（或!）</td>
+<td>#{!product.available}</td>
+</tr>
+<tr>
+<td style="text-align:center">条件运算</td>
+<td style="text-align:center">?: (ternary), ?: (Elvis)</td>
+<td>#{m&gt;=n?m:n}</td>
+</tr>
+<tr>
+<td style="text-align:center">正则表达式</td>
+<td style="text-align:center">matches</td>
+<td>#{admin.email matches ‘[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com’}</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/《Spring实战》学习笔记-第二章：装配Bean.html" title="《Spring实战》学习笔记-第二章：装配Bean">https://hoxis.github.io/《Spring实战》学习笔记-第二章：装配Bean.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/《Spring实战》学习笔记-第五章：构建Spring web应用.html" rel="next" title="《Spring实战》学习笔记-第五章：构建Spring web应用">
+                <i class="fa fa-chevron-left"></i> 《Spring实战》学习笔记-第五章：构建Spring web应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/《Spring实战》学习笔记-第八章：使用Spring Web Flow.html" rel="prev" title="《Spring实战》学习笔记-第八章：使用Spring Web Flow">
+                《Spring实战》学习笔记-第八章：使用Spring Web Flow <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#声明Bean"><span class="nav-text">声明Bean</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Spring配置"><span class="nav-text">创建Spring配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明一个简单的Bean"><span class="nav-text">声明一个简单的Bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过构造器注入"><span class="nav-text">通过构造器注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过构造器注入对象引用"><span class="nav-text">通过构造器注入对象引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过工厂方法创建Bean"><span class="nav-text">通过工厂方法创建Bean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bean的作用域"><span class="nav-text">Bean的作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化和销毁Bean"><span class="nav-text">初始化和销毁Bean</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认的init-method和destroy-method"><span class="nav-text">默认的init-method和destroy-method</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注入Bean属性"><span class="nav-text">注入Bean属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注入简单值"><span class="nav-text">注入简单值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用其他Bean"><span class="nav-text">引用其他Bean</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注入内部Bean"><span class="nav-text">注入内部Bean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装配集合"><span class="nav-text">装配集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装配List、Set和Array"><span class="nav-text">装配List、Set和Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装配Map"><span class="nav-text">装配Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装配Properties集合"><span class="nav-text">装配Properties集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装配空值"><span class="nav-text">装配空值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用表达式装配"><span class="nav-text">使用表达式装配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpEL基本用法"><span class="nav-text">SpEL基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字面值"><span class="nav-text">字面值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用Bean、Properties和方法（避免空指针）"><span class="nav-text">引用Bean、Properties和方法（避免空指针）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作类"><span class="nav-text">操作类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在SpEL值上进行操作"><span class="nav-text">在SpEL值上进行操作</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

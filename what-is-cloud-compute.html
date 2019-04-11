@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="B7lUGKNplO6JqOkIcuTGZN1PEfj8inK2ZVhJw5Z3HQ0">
+<meta name="baidu-site-verification" content="qzPNJMTINu">
+<meta name="baidu-site-verification" content="pg0OpMkHdJ">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon2.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon1.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="云计算,云计算是什么,科普">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hoxis' blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="双十一期间，我想很多小伙伴都被阿里云的促销活动刷屏了，大家组队组团，可以得到较为便宜的阿里云服务器。另外，Docker 也红得发紫，与之对应的 DevOps 和 NoOps 持续高温。 但是对于不少企业尤其是传统企业，云仍在天边，对于云仍感觉云里雾里。上云还是不上云，上什么云，这是个问题。我们试着用最通俗的比喻，理清云服务中最基本的那些事儿。">
+<meta name="keywords" content="云计算,云计算是什么,科普">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人人都能看懂的云计算知识科普">
+<meta property="og:url" content="https://hoxis.github.io/what-is-cloud-compute.html">
+<meta property="og:site_name" content="hoxis&#39; blog">
+<meta property="og:description" content="双十一期间，我想很多小伙伴都被阿里云的促销活动刷屏了，大家组队组团，可以得到较为便宜的阿里云服务器。另外，Docker 也红得发紫，与之对应的 DevOps 和 NoOps 持续高温。 但是对于不少企业尤其是传统企业，云仍在天边，对于云仍感觉云里雾里。上云还是不上云，上什么云，这是个问题。我们试着用最通俗的比喻，理清云服务中最基本的那些事儿。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118154220.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118347621.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118401105.jpg">
+<meta property="og:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118435534.jpg">
+<meta property="og:updated_time" content="2019-04-08T13:46:26.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="人人都能看懂的云计算知识科普">
+<meta name="twitter:description" content="双十一期间，我想很多小伙伴都被阿里云的促销活动刷屏了，大家组队组团，可以得到较为便宜的阿里云服务器。另外，Docker 也红得发紫，与之对应的 DevOps 和 NoOps 持续高温。 但是对于不少企业尤其是传统企业，云仍在天边，对于云仍感觉云里雾里。上云还是不上云，上什么云，这是个问题。我们试着用最通俗的比喻，理清云服务中最基本的那些事儿。">
+<meta name="twitter:image" content="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118154220.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":10,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hoxis.github.io/what-is-cloud-compute.html">
+
+
+
+
+
+<!-- 添加DaoVioce -->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "7f3d6e70"
+    });
+  daovoice('update');
+  </script>
+
+
+  <title>人人都能看懂的云计算知识科普 | hoxis' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f502d954566dcd3865de243d3125357d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/hoxis" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hoxis' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">生命在于折腾</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            阅读排行
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/what-is-cloud-compute.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">人人都能看懂的云计算知识科普</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T13:02:59+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/闲扯系列/" itemprop="url" rel="index">
+                    <span itemprop="name">闲扯系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/what-is-cloud-compute.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/what-is-cloud-compute.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/what-is-cloud-compute.html" class="leancloud_visitors" data-flag-title="人人都能看懂的云计算知识科普">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,243
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>双十一期间，我想很多小伙伴都被阿里云的促销活动刷屏了，大家组队组团，可以得到较为便宜的阿里云服务器。另外，Docker 也红得发紫，与之对应的 DevOps 和 NoOps 持续高温。</p>
+<p>但是对于不少企业尤其是传统企业，云仍在天边，对于云仍感觉云里雾里。上云还是不上云，上什么云，这是个问题。我们试着用最通俗的比喻，理清云服务中最基本的那些事儿。</p>
+<a id="more"></a>
+<h1 id="什么是云？"><a href="#什么是云？" class="headerlink" title="什么是云？"></a>什么是云？</h1><p>先从一段对话开始。</p>
+<p>张三：我们公司的资料不让存放到个人电脑上，一般都存到云上。</p>
+<p>李四：别逗了，你们单位就二十几个人，两台服务器，没有虚拟化也没有分布式，能叫云？</p>
+<p>张三：那怎么了？几百块钱的西数 NAS 都叫云呢。</p>
+<p>张三大概是个普通人，李四是个技术宅，对话也反映出不同人眼中不同的云。那究竟什么是云呢？</p>
+<p>历史上已经有不下于一百种的定义，影响力较大的是 NIST（美国国家标准与技术研究院）的定义：</p>
+<blockquote>
+<p>云计算是一种模型，它可以实现随时随地、便捷地、随需应变地从可配置计算资源共享池中获取所需的资源（例如网络、服务器、存储、应用及服务），资源能够快速供应并释放，使管理资源的工作量和与服务提供商的交互减小到最低限度。</p>
+</blockquote>
+<p>显然，对一般的用户来说，这并不好理解，翻译成人话大概是：让计算、存储、网络、数据、算法、应用等软硬件资源像电一样，随时随地、即插即用。这种定义，比较像张三眼中的云，我们称其为广义云计算。</p>
+<p>技术宅李四眼中的云是指一整套虚拟化和分布式的技术体系，近几年以去 IOE（即 IBM、Oracle 和 EMC）。为嘛去人家？因为太贵！</p>
+<p>不过 IBM、Oracle 和 EMC 的母公司 Dell 都在积极拥抱云计算了）的低成本化为典型特点。</p>
+<p>这种，我们称其为狭义云计算。</p>
+<p>首先，狭义云计算过度关注底层，而忽略掉了 SaaS （软件即服务）和PaaS（平台即服务）；</p>
+<p>其次，狭义云计算过度关注具体技术，而忽略掉服务模式、商业模式等，长期看容易低估云计算的社会推动作用。</p>
+<p>当然，李四这么说也有一定道理，就目前来说，大部分云的底层架构确实是通过虚拟化和分布式来实现的，毕竟节省成本、容易管理，还支撑了分布式大数据处理。</p>
+<h1 id="什么是虚拟化和分布式？"><a href="#什么是虚拟化和分布式？" class="headerlink" title="什么是虚拟化和分布式？"></a>什么是虚拟化和分布式？</h1><p>一个村，有很多人家。张三家只有一个女儿，粮食总是吃不完，相当于资源闲置。李四家有五个儿子，粮食总是不够用，相当于资源紧缺。这还不算，王五家时不时来一大堆客人，粮食够不够用谁也说不准，相当于计算波动大。</p>
+<p>于是，张三家添了几双筷子几个碗，可以让别人来吃，相当于一台物理机虚拟出更多台虚机。谁家有多少粮食、几张桌子、几双筷子、几个碗，村长记在自己的小本本上，相当于统一调度，形成了资源池。</p>
+<p>李四和王五家不够吃的时候，拿小板凳去张三家，相当于分布式。有同学就问了，张三岂不是亏了？别入戏太深，张三只是一台服务器！还有同学说，我为嘛嗅到了共产主义的味道？没错，虚拟化和分布式就是要在计算、存储和网络上实现共产主义！</p>
+<p>虚拟化和分布式在共同解决一个问题，就是物理资源重新配置形成为逻辑资源（在 IT 领域称为解耦，也就是你用的东西跟实际物理的东西是两码事，一如李四和王五的午饭其实是在张三家解决的）。其中虚拟化做的是造一个资源池，而分布式做的是用一个资源池。</p>
+<p>虚拟化包括计算虚拟化、网络虚拟化和存储虚拟化。</p>
+<p><strong>计算虚拟化</strong>通常做的是一虚多，即一台物理机虚拟出多台虚拟机，以<strong>榨干</strong>实际的物理资源，其包括全虚拟化、超虚拟化、硬件辅助虚拟化、半虚拟化和操作系统虚拟化。</p>
+<p>类似于计算虚拟化，<strong>网络虚拟化</strong>同样解决的是网络资源占用率不高、手动配置安全策略过于麻烦的问题，采用的思路同样是把物理的网络资源抽象成一个资源池，然后动态获取，网络虚拟化目前有控制转发分离、控制面开放、虚拟逻辑网络和网络功能虚拟化等不同的思想路线。</p>
+<p><strong>存储虚拟化</strong>通常做的是多虚一，除了解决弹性、扩展问题外，还解决备份的问题。</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118154220.jpg" alt="什么是虚拟化和分布式？"></p>
+<h1 id="公有云、私有云、混合云和社区云是什么东东？"><a href="#公有云、私有云、混合云和社区云是什么东东？" class="headerlink" title="公有云、私有云、混合云和社区云是什么东东？"></a>公有云、私有云、混合云和社区云是什么东东？</h1><p>张三、李四、王五住一栋楼，楼下一个大规模的饭店。张三一直在家做饭，这是私有云，厨房是自建机房。李四一直在饭店吃，这是公有云，饭店是云数据中心。王五牛叉，在饭店有个固定包间，包间不对外人开放，这是托管型私有云（有的厂商将其定义为专有云），包间是云数据中心中的托管服务器。</p>
+<p>张三家有天来了十多个客人，这是业务突增。家里装不开，要去饭店，这是私有云转公有云。张三妈妈省吃俭用，对张三说，你们去吧，我和你爸在家吃，对张三家来说这是混合云。如果饭店仅对某个特定人群比如学生开放，这就相当于社区云。</p>
+<p>当然，举例不十分恰当，毕竟饭还是买的，而云是租的，此点切记。</p>
+<h2 id="私有云"><a href="#私有云" class="headerlink" title="私有云"></a>私有云</h2><p><strong>私有云</strong>是为某个特定用户/机构建立的，只能实现小范围内的资源优化，因此并不完全符合云的本质——社会分工，所以 Openstack 等开源软件带来的私有云繁荣可能只是暂时的，会有越来越多的客户发现廉价的硬件和免费的软件并不是打造私有云的充分条件，精细的管理、7×24 运维所耗去的总成本（TOC）不比公有云低，而且随着公有云厂商运营能力的进步，这种趋势会越来越明显。</p>
+<p>托管型私有云在一定程度上实现了社会分工，但是仍无法解决大规模范围内物理资源利用效率的问题。</p>
+<h2 id="公有云"><a href="#公有云" class="headerlink" title="公有云"></a>公有云</h2><p><strong>公有云</strong>是为大众建的，所有入驻用户都称租户，不仅同时有很多租户，而且一个租户离开，其资源可以马上释放给下一个租户，一如饭店里一桌顾客走了马上迎来下一桌顾客。</p>
+<p>公有云是最彻底的社会分工，能够在大范围内实现资源优化，因此，不管道路如何曲折，前途总是光明的。当然公有云尤其是底层公有云构建，不是一般人能玩的了的，就像开个三五桌的饭店谁都能行，开个三五万桌的饭店就要看资金和本事了。</p>
+<p>很多客户担心公有云的安全问题，敏感行业、大型客户可以考虑，但一般的中小型客户，不管是数据泄露的风险，还是停止服务的风险，公有云都远远小于自己架设机房。</p>
+<h2 id="社区云"><a href="#社区云" class="headerlink" title="社区云"></a>社区云</h2><p><strong>社区云</strong>是介于公有、私有之间的一个形式，每个客户自身都不大，但自身又处于敏感行业，上公有云在政策和管理上都有限制和风险，所以就多家联合做一个云平台。</p>
+<h2 id="混合云"><a href="#混合云" class="headerlink" title="混合云"></a>混合云</h2><p><strong>混合云*</strong>是以上几种的任意混合，这种混合可以是计算的、存储的，也可以两者兼而有之。在公有云尚不完全成熟、而私有云存在运维难、部署实践长、动态扩展难的现阶段，混合云是一种较为理想的平滑过渡方式，短时间内的市场占比将会大幅上升。</p>
+<p>并且，不混合是相对的，混合是绝对的。在未来，即使不是自家的私有云和公有云做混合，也需要内部的数据与服务与外部的数据与服务进行不断的调用（PaaS 级混合）。并且还有可能，一个大型客户把业务放在不同的公有云上，相当于把鸡蛋放在不同篮子里，不同篮子里的鸡蛋自然需要统一管理，这也算广义的混合。</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118347621.jpg" alt="公有云、私有云、混合云和社区云是什么东东？"></p>
+<hr>
+<h1 id="Iaas、PaaS-和-SaaS-又是什么东东？"><a href="#Iaas、PaaS-和-SaaS-又是什么东东？" class="headerlink" title="Iaas、PaaS 和 SaaS 又是什么东东？"></a>Iaas、PaaS 和 SaaS 又是什么东东？</h1><ul>
+<li>IaaS，Infrastructure as a Service，基础设施即服务；</li>
+<li>PaaS，Platform as a Service，平台即服务；</li>
+<li>SaaS，Software as a Service，软件即服务。</li>
+</ul>
+<p>还是不太好理解？没关系，张三李四王五登场。</p>
+<p>张三卖小麦，相当于 IaaS；李四卖面粉，相当于 PaaS；王五卖馒头，相当于 SaaS。</p>
+<p>张三觉得卖小麦不挣钱且不能打品牌，向下游延伸，也卖起了面粉，相当于 IaaS 企业也逐渐做 PaaS 业务；王五馒头卖得好，一天几万个，面粉需求量非常大，不希望被李四控制，也做起了面粉，相当于 SaaS 企业做 PaaS，所以 IaaS、PaaS 和 SaaS 只是分析师和投资人津津乐道的，从业者并不关注，天下熙熙，皆为利来，啥赚钱搞啥。</p>
+<p>张三卖面粉后，与李四就形成了竞争关系，但是李四还经常从自己这里买小麦，相当于又有合作，这种既竞争又合作的关系就叫竟合。</p>
+<p>赵六嘴叼，馒头满足不了，非自己包饺子吃，直接从张三那里买小麦或李四那里买面粉，相当于直接利用 PaaS 平台做软件或订制 SaaS，这种嘴叼的一般都是土豪，对应的就是大客户。</p>
+<p>有没有发现，越是在城市里，越是发达，种小麦的、买小麦的、买面粉的就越少，买馒头的越多？那就对了，这是社会分工的结果。而云计算同样会向着高度分工的方向进化。</p>
+<p>还有同学问，存储到底算是哪一层呢？这就相当于你觉得能灌溉能和面还能直接喝的水是哪一层呢？自然是出现在不同场景时对应不同层：常说的块存储、对象存储一般是指 IaaS 层，而网盘一般是指 SaaS 层。</p>
+<h2 id="Iaas"><a href="#Iaas" class="headerlink" title="Iaas"></a>Iaas</h2><p><strong>IaaS</strong> 提供的一般是通用计算、存储和网络三大基础资源，前面提到的虚拟化、分布式等大多集中在本层，少量「流亡」于 PaaS 层。</p>
+<p>一般认为，IaaS 始于亚马逊的 EC2 和 S3 两款产品。近两年，我们说的云计算快速落地，其实主要指 IaaS 的迅速落地，因为原来的公有云确实不稳定，而客户也都在观望。当然，有 IaaS 公司提出自己是「企业级 IaaS」，这就有点噱头了，试问，哪个 IaaS 不是冲着企业级这一目标去的？给开发者玩儿的吗？</p>
+<h2 id="Paas"><a href="#Paas" class="headerlink" title="Paas"></a>Paas</h2><p><strong>PaaS</strong> 定义比较复杂，早年提供的是部署了数据库和开发环境的平台，被称为 XAE（X：企业名首字母；AE：Application engine），XAE 常用于个人建站，商用程度并不高，在中国尤其如此，后来要么转型要么解体了；</p>
+<p>后来 PaaS 转为提供某种细分能力，如图像识别、语音识别、推送、通信等，常以 API 或 SDK 进行交付；近两年 Docker 风生水起，成为 PaaS 新秀。</p>
+<p>此时回头看原来 PaaS 的各种定义，都不太恰当了，因此比较准确的描述应是：PaaS 提供除计算、存储和网络三大基础资源之外的其他能力（如通用开发能力，细分能力，业务交付能力），但并不对终端用户提供成熟产品。</p>
+<h2 id="Saas"><a href="#Saas" class="headerlink" title="Saas"></a>Saas</h2><p>SaaS 涵盖的就广了，邮箱是、网盘是、几乎常见的网站都是！但一般所谓的 SaaS 是指：具有一定复杂度的，通常应该在 C/S 架构下主要通过 C 端完成的软件服务，在 B/S 架构下完成了。</p>
+<p>当然这个复杂度，在不同的时期有不同的定义，十几年前，邮箱可能都算复杂了，而现在随着 HTML5 技术的成熟，大部分的 Office 操作都可以在浏览器完成。当然，放企业级市场里，SaaS 比较好界定，指以云的方式取代了的原来企业软件系统的服务。</p>
+<p>SaaS 始于上世纪九十年代末 Salesforce 等公司，随着移动互联网和 HTML5 的发展而蓬勃发展，强调的是瘦终端。但是，到底多瘦才算瘦，各种应用不再用 APP 而以微信小程序的形式出现算瘦吗？或许，SaaS 的终极进化是纯「裸机」，也就是「桌面云」，当然这只是一种理想，因为不仅关乎软硬件技术，还关乎用户习惯。须知，到现在还有不少用户喜欢把电影放到移动硬盘里，抽屉里一塞，那感觉，踏实！</p>
+<p>SaaS 最接近于终端用户，是一个巨大的市场。但是，SaaS 是对软件开发水平和服务水平的综合考验，拼得往往不仅是技术本身，还包括对用户的理解、以及设计水平和创意。</p>
+<p>如果原来就是卖不出去的软件，没有任何改进包装一下放到云上改为服务也不会有人买单，原来最起码还不用对宕机这种事情负责呢，放云上只是增加了 SaaS 服务商自身的风险。</p>
+<p>所以，SaaS 绝不是单机软件到云上的简单迁移，而是自始至终都应贯穿服务的思想和云的思想，比如多屏同步、多人协同等。也所以，我们虽然看好整体市场，但是并不看好很多 SaaS 领域一堆堆的无价值企业，资本寒冬，最先倒下的往往是他们。</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118401105.jpg" alt="Iaas、PaaS 和 SaaS 又是什么东东？"></p>
+<h1 id="云计算有什么价值？"><a href="#云计算有什么价值？" class="headerlink" title="云计算有什么价值？"></a>云计算有什么价值？</h1><p>成本更低、运维成本更低、服务更好、弹性扩展、部署更快、不用采购硬件，云计算的好处总能说出一大堆。</p>
+<p>但，这些点往往只反映云计算的一个侧面，有的还不完全正确：比如成本低，客户会发现，如果租用高性能云主机且保证 99.99% 的可用服务时，成本往往并不比自建机房低，在需要的主机（物理机或虚机）量比较大时，尤其明显。</p>
+<p>其实，云计算的本质就是社会分工，社会分工所产生的价值云计算都能产生，比如规模化、精细化所产生的成本降低与效率提高等；</p>
+<p>而社会分工中产生的问题，云计算也都会面对，比如节省下来的成本到底是买家受益还是卖家受益，再比如垄断。</p>
+<p>还是拿蒸馒头举例子，在城市中，大多数家庭不自己蒸馒头而去馒头房买，这是社会分工，节省了社会总体成本，但是买馒头并不比自己蒸更便宜，说明节省了的成本进入了卖家而非买家的腰包。</p>
+<p>再比如，当一个城市只剩一家馒头房而大多数家庭又丧失了蒸馒头的能力时，馒头房便有可能提价，这就是垄断。</p>
+<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542118435534.jpg" alt="云计算有什么价值？"></p>
+<p>理解了云计算是一次社会分工的本质，便不会过分夸大其优点，更不会对之回避认为其只不过是一时风潮。从狩猎到农耕、再到工业社会，从一只羊换两把斧子到贝壳、金属货币、纸币、虚拟货币，从生产方式到价值交换方式，你会发现，人们所做的一切都是在朝着社会分工或促进社会分工的方向发展。</p>
+<p>所以，对于云，逃也没用，躲也没用，时代总会来临。果断拥抱，理性选择，踏实落地，即是未来。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
+    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>赞赏一杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.jpg" alt="hoxis 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpg" alt="hoxis 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <!--
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis
+  </li>
+  -->
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    hoxis  |  微信公众号【不正经程序员】
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hoxis.github.io/what-is-cloud-compute.html" title="人人都能看懂的云计算知识科普">https://hoxis.github.io/what-is-cloud-compute.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+  <li class="post-copyright-license">
+    并保留本声明和上方二维码。感谢您的阅读和支持！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/云计算/" rel="tag"><i class="fa fa-tag"></i> 云计算</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/resource-heima-c-c++.html" rel="next" title="黑马/传智播客最新第 24 期 C/C++ 全栈教程">
+                <i class="fa fa-chevron-left"></i> 黑马/传智播客最新第 24 期 C/C++ 全栈教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/mysql-zhuanlan-01-select.html" rel="prev" title="MySQL实战 | 01 当执行一条 select 语句时，MySQL 到底做了啥？">
+                MySQL实战 | 01 当执行一条 select 语句时，MySQL 到底做了啥？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="hoxis">
+            
+              <p class="site-author-name" itemprop="name">hoxis</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">92</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://github.com/hoxis" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a rel="external nofollow" href="https://www.zhihu.com/people/mobi/posts" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/记一次服务器宕机后数据库恢复的过程.html" title="记一次服务器宕机后数据库恢复的过程" target="_blank">记一次服务器宕机后数据库恢复的过程</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：适配器（Adapter）模式.html" title="我学设计模式：适配器（Adapter）模式" target="_blank">我学设计模式：适配器（Adapter）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：外观（Facade）模式.html" title="我学设计模式：外观（Facade）模式" target="_blank">我学设计模式：外观（Facade）模式</a>
+                  </li>
+                
+                  <li>
+                    <a href="/我学设计模式：简单工厂模式.html" title="我学设计模式：简单工厂模式" target="_blank">我学设计模式：简单工厂模式</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是云？"><span class="nav-text">什么是云？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是虚拟化和分布式？"><span class="nav-text">什么是虚拟化和分布式？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#公有云、私有云、混合云和社区云是什么东东？"><span class="nav-text">公有云、私有云、混合云和社区云是什么东东？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#私有云"><span class="nav-text">私有云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公有云"><span class="nav-text">公有云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#社区云"><span class="nav-text">社区云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#混合云"><span class="nav-text">混合云</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Iaas、PaaS-和-SaaS-又是什么东东？"><span class="nav-text">Iaas、PaaS 和 SaaS 又是什么东东？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Iaas"><span class="nav-text">Iaas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Paas"><span class="nav-text">Paas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Saas"><span class="nav-text">Saas</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#云计算有什么价值？"><span class="nav-text">云计算有什么价值？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hoxis</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站已有
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客  <i class="fa fa-user"></i>
+    </span>
+  
+
+  
+    <span class="site-pv">
+      
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人阅读  <i class="fa fa-eye"></i>
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=65591650";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz',
+        appKey: 'kLufSGh3R0S56mMQgG9495oK',
+        placeholder: '来都来了，不撩一句嘛~，留言记得在上面留下【邮箱】，方便收到回复通知~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Fo8lyzaHoPOI1RWT37jTn36p-gzGzoHsz", "kLufSGh3R0S56mMQgG9495oK");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
