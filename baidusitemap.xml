@@ -4,6 +4,208 @@
 
     
   <url>
+    <loc>https://hoxis.github.io/MyBatis+Spring+Maven%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B4%E5%90%88Demo.html</loc>
+    <lastmod>2019-04-11T05:17:51.130Z</lastmod>
+    <data>
+        <display>
+        <title>MyBatis+Spring+Maven的简单整合Demo</title>
+        <pubTime>2015-07-07T08:38:04.000Z</pubTime>
+        
+        <tag>MyBatis</tag>
+         
+        <tag>Spring</tag>
+         
+        <tag>Maven</tag>
+         
+        <tag>log4j</tag>
+         
+         
+           
+             
+              <breadCrumb title="JavaWeb" url="https://hoxis.github.io/categories/JavaWeb/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/VIM%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html</loc>
+    <lastmod>2019-04-11T05:17:18.451Z</lastmod>
+    <data>
+        <display>
+        <title>vim 实用指令</title>
+        <pubTime>2017-12-12T06:19:04.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>vim</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://hoxis.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/vsftp%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84ftp%E7%9A%84%E6%A0%B9%E7%9B%AE%E5%BD%95.html</loc>
+    <lastmod>2019-04-11T05:17:09.240Z</lastmod>
+    <data>
+        <display>
+        <title>vsftp为不同用户设置不同的ftp的根目录</title>
+        <pubTime>2017-10-25T06:19:04.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>ftp</tag>
+         
+         
+           
+             
+              <breadCrumb title="奇技淫巧" url="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/tomcat%E9%A1%B9%E7%9B%AE%E4%B8%ADclass%E6%96%87%E4%BB%B6%E6%9B%BF%E6%8D%A2%E6%97%A0%E6%95%88%E5%BC%95%E5%8F%91%E7%9A%84%E6%80%9D%E8%80%83.html</loc>
+    <lastmod>2019-04-11T05:17:00.524Z</lastmod>
+    <data>
+        <display>
+        <title>tomcat项目中class文件替换无效引发的思考</title>
+        <pubTime>2016-03-01T06:19:04.000Z</pubTime>
+        
+        <tag>错误处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="绊脚石" url="https://hoxis.github.io/categories/%E7%BB%8A%E8%84%9A%E7%9F%B3/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/%E4%BD%BF%E7%94%A8org.w3c.dom.Element%E7%9A%84setTextContent()%E3%80%81getTextContent()%E6%96%B9%E6%B3%95%E6%97%B6%E5%87%BA%E7%8E%B0%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF.html</loc>
+    <lastmod>2019-04-11T05:16:48.339Z</lastmod>
+    <data>
+        <display>
+        <title>使用org.w3c.dom.Element的setTextContent()、getTextContent()方法时出现编译错误</title>
+        <pubTime>2015-08-11T06:19:04.000Z</pubTime>
+        
+        <tag>错误处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="绊脚石" url="https://hoxis.github.io/categories/%E7%BB%8A%E8%84%9A%E7%9F%B3/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/%E5%9F%BA%E4%BA%8Emaven%E7%9A%84Spring+ActiveMQ%E6%95%B4%E5%90%88Demo.html</loc>
+    <lastmod>2019-04-11T05:16:38.337Z</lastmod>
+    <data>
+        <display>
+        <title>基于maven的Spring+ActiveMQ整合Demo</title>
+        <pubTime>2015-11-03T07:38:04.000Z</pubTime>
+        
+        <tag>Spring</tag>
+         
+        <tag>Maven</tag>
+         
+        <tag>ActiveMQ</tag>
+         
+         
+           
+             
+              <breadCrumb title="JavaWeb" url="https://hoxis.github.io/categories/JavaWeb/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%A4%96%E8%A7%82%EF%BC%88Facade%EF%BC%89%E6%A8%A1%E5%BC%8F.html</loc>
+    <lastmod>2019-04-11T05:16:20.520Z</lastmod>
+    <data>
+        <display>
+        <title>我学设计模式：外观（Facade）模式</title>
+        <pubTime>2015-07-08T02:19:04.000Z</pubTime>
+        
+        <tag>设计模式</tag>
+         
+        <tag>外观模式</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.html</loc>
+    <lastmod>2019-04-11T05:16:14.385Z</lastmod>
+    <data>
+        <display>
+        <title>我学设计模式：简单工厂模式</title>
+        <pubTime>2015-07-06T07:29:04.000Z</pubTime>
+        
+        <tag>设计模式</tag>
+         
+        <tag>简单工厂</tag>
+         
+        <tag>工厂模式</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E4%BE%8B%EF%BC%88Singleton%EF%BC%89%E6%A8%A1%E5%BC%8F.html</loc>
+    <lastmod>2019-04-11T05:16:09.709Z</lastmod>
+    <data>
+        <display>
+        <title>我学设计模式：单例（Singleton）模式</title>
+        <pubTime>2015-07-08T02:19:04.000Z</pubTime>
+        
+        <tag>设计模式</tag>
+         
+        <tag>单例模式</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://hoxis.github.io/Head%20First%20Python%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Chapter6%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1%EF%BC%9A%E5%AD%97%E5%85%B8%E4%B8%8E%E7%B1%BB.html</loc>
     <lastmod>2019-04-11T05:12:23.314Z</lastmod>
     <data>
@@ -426,30 +628,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.html</loc>
-    <lastmod>2019-04-08T13:46:26.528Z</lastmod>
-    <data>
-        <display>
-        <title>我学设计模式：简单工厂模式</title>
-        <pubTime>2019-04-08T13:46:26.527Z</pubTime>
-        
-        <tag>设计模式</tag>
-         
-        <tag>简单工厂</tag>
-         
-        <tag>工厂模式</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/%E7%88%AC%E8%99%AB%E9%97%AF%E5%85%B3%E7%AC%AC%E4%B8%80%E5%85%B3.html</loc>
     <lastmod>2019-04-08T13:46:26.528Z</lastmod>
     <data>
@@ -483,50 +661,6 @@
            
              
               <breadCrumb title="工作学习" url="https://hoxis.github.io/categories/%E5%B7%A5%E4%BD%9C%E5%AD%A6%E4%B9%A0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%A4%96%E8%A7%82%EF%BC%88Facade%EF%BC%89%E6%A8%A1%E5%BC%8F.html</loc>
-    <lastmod>2019-04-08T13:46:26.527Z</lastmod>
-    <data>
-        <display>
-        <title>我学设计模式：外观（Facade）模式</title>
-        <pubTime>2019-04-08T13:46:26.527Z</pubTime>
-        
-        <tag>设计模式</tag>
-         
-        <tag>外观模式</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E4%BE%8B%EF%BC%88Singleton%EF%BC%89%E6%A8%A1%E5%BC%8F.html</loc>
-    <lastmod>2019-04-08T13:46:26.527Z</lastmod>
-    <data>
-        <display>
-        <title>我学设计模式：单例（Singleton）模式</title>
-        <pubTime>2019-04-08T13:46:26.527Z</pubTime>
-        
-        <tag>设计模式</tag>
-         
-        <tag>单例模式</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
           
         </display>
     </data>
@@ -574,30 +708,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/%E5%9F%BA%E4%BA%8Emaven%E7%9A%84Spring+ActiveMQ%E6%95%B4%E5%90%88Demo.html</loc>
-    <lastmod>2019-04-08T13:46:26.526Z</lastmod>
-    <data>
-        <display>
-        <title>基于maven的Spring+ActiveMQ整合Demo</title>
-        <pubTime>2019-04-08T13:46:26.526Z</pubTime>
-        
-        <tag>Spring</tag>
-         
-        <tag>Maven</tag>
-         
-        <tag>ActiveMQ</tag>
-         
-         
-           
-             
-              <breadCrumb title="JavaWeb" url="https://hoxis.github.io/categories/JavaWeb/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEMySQL%E5%85%81%E8%AE%B8%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%EF%BC%9F.html</loc>
     <lastmod>2019-04-08T13:46:26.525Z</lastmod>
     <data>
@@ -631,26 +741,6 @@
            
              
               <breadCrumb title="奇技淫巧" url="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/%E4%BD%BF%E7%94%A8org.w3c.dom.Element%E7%9A%84setTextContent()%E3%80%81getTextContent()%E6%96%B9%E6%B3%95%E6%97%B6%E5%87%BA%E7%8E%B0%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF.html</loc>
-    <lastmod>2019-04-08T13:46:26.525Z</lastmod>
-    <data>
-        <display>
-        <title>使用org.w3c.dom.Element的setTextContent()、getTextContent()方法时出现编译错误</title>
-        <pubTime>2019-04-08T13:46:26.525Z</pubTime>
-        
-        <tag>错误处理</tag>
-         
-         
-           
-             
-              <breadCrumb title="绊脚石" url="https://hoxis.github.io/categories/%E7%BB%8A%E8%84%9A%E7%9F%B3/"/>
           
         </display>
     </data>
@@ -953,48 +1043,6 @@
            
              
               <breadCrumb title="生活杂技" url="https://hoxis.github.io/categories/%E7%94%9F%E6%B4%BB%E6%9D%82%E6%8A%80/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/tomcat%E9%A1%B9%E7%9B%AE%E4%B8%ADclass%E6%96%87%E4%BB%B6%E6%9B%BF%E6%8D%A2%E6%97%A0%E6%95%88%E5%BC%95%E5%8F%91%E7%9A%84%E6%80%9D%E8%80%83.html</loc>
-    <lastmod>2019-04-08T13:46:26.515Z</lastmod>
-    <data>
-        <display>
-        <title>tomcat项目中class文件替换无效引发的思考</title>
-        <pubTime>2019-04-08T13:46:26.515Z</pubTime>
-        
-        <tag>错误处理</tag>
-         
-         
-           
-             
-              <breadCrumb title="绊脚石" url="https://hoxis.github.io/categories/%E7%BB%8A%E8%84%9A%E7%9F%B3/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/vsftp%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84ftp%E7%9A%84%E6%A0%B9%E7%9B%AE%E5%BD%95.html</loc>
-    <lastmod>2019-04-08T13:46:26.515Z</lastmod>
-    <data>
-        <display>
-        <title>vsftp为不同用户设置不同的ftp的根目录</title>
-        <pubTime>2019-04-08T13:46:26.515Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>ftp</tag>
-         
-         
-           
-             
-              <breadCrumb title="奇技淫巧" url="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
           
         </display>
     </data>
@@ -3430,28 +3478,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/VIM%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html</loc>
-    <lastmod>2019-04-08T13:46:26.465Z</lastmod>
-    <data>
-        <display>
-        <title>vim 实用指令</title>
-        <pubTime>2019-04-08T13:46:26.464Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>vim</tag>
-         
-         
-           
-             
-              <breadCrumb title="Linux" url="https://hoxis.github.io/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/YiYi-A-One-and-a-Two.html</loc>
     <lastmod>2019-04-08T13:46:26.465Z</lastmod>
     <data>
@@ -3587,32 +3613,6 @@
            
              
               <breadCrumb title="奇技淫巧" url="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/MyBatis+Spring+Maven%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B4%E5%90%88Demo.html</loc>
-    <lastmod>2019-04-08T13:46:26.461Z</lastmod>
-    <data>
-        <display>
-        <title>MyBatis+Spring+Maven的简单整合Demo</title>
-        <pubTime>2019-04-08T13:46:26.461Z</pubTime>
-        
-        <tag>MyBatis</tag>
-         
-        <tag>Spring</tag>
-         
-        <tag>Maven</tag>
-         
-        <tag>log4j</tag>
-         
-         
-           
-             
-              <breadCrumb title="JavaWeb" url="https://hoxis.github.io/categories/JavaWeb/"/>
           
         </display>
     </data>
