@@ -1,5 +1,5 @@
 https://hoxis.github.io/windows-kill-pid.html
-https://hoxis.github.io/记一次服务器宕机后数据库恢复的过程.html
-https://hoxis.github.io/我学设计模式：适配器（Adapter）模式.html
 https://hoxis.github.io/我学设计模式：外观（Facade）模式.html
 https://hoxis.github.io/我学设计模式：简单工厂模式.html
+https://hoxis.github.io/我学设计模式：单例（Singleton）模式.html
+https://hoxis.github.io/基于maven的Spring+ActiveMQ整合Demo.html
