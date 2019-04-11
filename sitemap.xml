@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E4%BE%8B%EF%BC%88Singleton%EF%BC%89%E6%A8%A1%E5%BC%8F.html</loc>
+    
+    <lastmod>2019-04-11T05:58:29.831Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.html</loc>
+    
+    <lastmod>2019-04-11T05:58:24.056Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%A4%96%E8%A7%82%EF%BC%88Facade%EF%BC%89%E6%A8%A1%E5%BC%8F.html</loc>
+    
+    <lastmod>2019-04-11T05:58:15.896Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hoxis.github.io/MyBatis+Spring+Maven%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%B4%E5%90%88Demo.html</loc>
     
     <lastmod>2019-04-11T05:17:51.130Z</lastmod>
@@ -40,27 +61,6 @@
     <loc>https://hoxis.github.io/%E5%9F%BA%E4%BA%8Emaven%E7%9A%84Spring+ActiveMQ%E6%95%B4%E5%90%88Demo.html</loc>
     
     <lastmod>2019-04-11T05:16:38.337Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%A4%96%E8%A7%82%EF%BC%88Facade%EF%BC%89%E6%A8%A1%E5%BC%8F.html</loc>
-    
-    <lastmod>2019-04-11T05:16:20.520Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F.html</loc>
-    
-    <lastmod>2019-04-11T05:16:14.385Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hoxis.github.io/%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E4%BE%8B%EF%BC%88Singleton%EF%BC%89%E6%A8%A1%E5%BC%8F.html</loc>
-    
-    <lastmod>2019-04-11T05:16:09.709Z</lastmod>
     
   </url>
   
