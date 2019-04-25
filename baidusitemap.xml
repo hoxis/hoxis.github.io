@@ -588,12 +588,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/%E7%88%AC%E8%99%AB%E9%97%AF%E5%85%B3%E7%AC%AC%E4%BA%8C%E5%85%B3.html</loc>
+    <loc>https://hoxis.github.io/%E7%88%AC%E8%99%AB%E9%97%AF%E5%85%B3%E7%AC%AC%E4%B8%89%E5%85%B3.html</loc>
     <lastmod>2019-04-08T13:46:26.529Z</lastmod>
     <data>
         <display>
-        <title>爬虫闯关 第二关</title>
-        <pubTime>2018-02-04T05:45:31.000Z</pubTime>
+        <title>爬虫闯关 第三关</title>
+        <pubTime>2018-02-05T04:45:31.000Z</pubTime>
         
         <tag>爬虫闯关</tag>
          
@@ -608,12 +608,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/%E7%88%AC%E8%99%AB%E9%97%AF%E5%85%B3%E7%AC%AC%E4%B8%89%E5%85%B3.html</loc>
+    <loc>https://hoxis.github.io/%E7%88%AC%E8%99%AB%E9%97%AF%E5%85%B3%E7%AC%AC%E4%BA%8C%E5%85%B3.html</loc>
     <lastmod>2019-04-08T13:46:26.529Z</lastmod>
     <data>
         <display>
-        <title>爬虫闯关 第三关</title>
-        <pubTime>2018-02-05T04:45:31.000Z</pubTime>
+        <title>爬虫闯关 第二关</title>
+        <pubTime>2018-02-04T05:45:31.000Z</pubTime>
         
         <tag>爬虫闯关</tag>
          
@@ -828,26 +828,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/%E3%80%90%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEibatis%20%E5%90%8E%E5%8F%B0%E6%89%93%E5%8D%B0%E5%AE%8C%E6%95%B4%E7%9A%84sql%E8%AF%AD%E5%8F%A5%EF%BC%9F.html</loc>
-    <lastmod>2019-04-08T13:46:26.523Z</lastmod>
-    <data>
-        <display>
-        <title>如何设置ibatis 后台打印完整的sql语句？</title>
-        <pubTime>2015-12-04T01:39:04.000Z</pubTime>
-        
-        <tag>小技巧</tag>
-         
-         
-           
-             
-              <breadCrumb title="奇技淫巧" url="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/%E3%80%90%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7%E3%80%91%E6%96%B0%E7%89%8838.0.5%E7%81%AB%E7%8B%90%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%20pocket%20%E6%8F%92%E4%BB%B6%EF%BC%9F.html</loc>
     <lastmod>2019-04-08T13:46:26.523Z</lastmod>
     <data>
@@ -881,6 +861,26 @@
            
              
               <breadCrumb title="生活杂技" url="https://hoxis.github.io/categories/%E7%94%9F%E6%B4%BB%E6%9D%82%E6%8A%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/%E3%80%90%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEibatis%20%E5%90%8E%E5%8F%B0%E6%89%93%E5%8D%B0%E5%AE%8C%E6%95%B4%E7%9A%84sql%E8%AF%AD%E5%8F%A5%EF%BC%9F.html</loc>
+    <lastmod>2019-04-08T13:46:26.523Z</lastmod>
+    <data>
+        <display>
+        <title>如何设置ibatis 后台打印完整的sql语句？</title>
+        <pubTime>2015-12-04T01:39:04.000Z</pubTime>
+        
+        <tag>小技巧</tag>
+         
+         
+           
+             
+              <breadCrumb title="奇技淫巧" url="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
           
         </display>
     </data>
@@ -1070,26 +1070,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/run-ansible-without-specifying-the-inventory-but-the-host-directly.html</loc>
-    <lastmod>2019-04-08T13:46:26.514Z</lastmod>
-    <data>
-        <display>
-        <title>如何不通过 inventory 文件，直接指定 host 运行 Ansible？</title>
-        <pubTime>2018-06-01T08:00:43.000Z</pubTime>
-        
-        <tag>ansible</tag>
-         
-         
-           
-             
-              <breadCrumb title="Ansible" url="https://hoxis.github.io/categories/Ansible/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/resource-ps-jingwei.html</loc>
     <lastmod>2019-04-08T13:46:26.514Z</lastmod>
     <data>
@@ -1105,6 +1085,26 @@
            
              
               <breadCrumb title="资源分享" url="https://hoxis.github.io/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/run-ansible-without-specifying-the-inventory-but-the-host-directly.html</loc>
+    <lastmod>2019-04-08T13:46:26.514Z</lastmod>
+    <data>
+        <display>
+        <title>如何不通过 inventory 文件，直接指定 host 运行 Ansible？</title>
+        <pubTime>2018-06-01T08:00:43.000Z</pubTime>
+        
+        <tag>ansible</tag>
+         
+         
+           
+             
+              <breadCrumb title="Ansible" url="https://hoxis.github.io/categories/Ansible/"/>
           
         </display>
     </data>
@@ -1174,14 +1174,14 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/resource-heima-c-c++.html</loc>
+    <loc>https://hoxis.github.io/resource-heima-qianduan.html</loc>
     <lastmod>2019-04-08T13:46:26.512Z</lastmod>
     <data>
         <display>
-        <title>黑马/传智播客最新第 24 期 C/C++ 全栈教程</title>
-        <pubTime>2018-11-11T12:58:49.000Z</pubTime>
+        <title>资源分享 | 2018 年最新传智播客黑马 WEB 前端 36 期全套（赠1000套HTML模板+前端面试题汇总）</title>
+        <pubTime>2018-10-20T12:10:21.000Z</pubTime>
         
-        <tag>c/c++</tag>
+        <tag>前端</tag>
          
          
            
@@ -1194,14 +1194,14 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/resource-heima-qianduan.html</loc>
+    <loc>https://hoxis.github.io/resource-heima-c-c++.html</loc>
     <lastmod>2019-04-08T13:46:26.512Z</lastmod>
     <data>
         <display>
-        <title>资源分享 | 2018 年最新传智播客黑马 WEB 前端 36 期全套（赠1000套HTML模板+前端面试题汇总）</title>
-        <pubTime>2018-10-20T12:10:21.000Z</pubTime>
+        <title>黑马/传智播客最新第 24 期 C/C++ 全栈教程</title>
+        <pubTime>2018-11-11T12:58:49.000Z</pubTime>
         
-        <tag>前端</tag>
+        <tag>c/c++</tag>
          
          
            
@@ -1440,26 +1440,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/python-shsx.html</loc>
-    <lastmod>2019-04-08T13:46:26.507Z</lastmod>
-    <data>
-        <display>
-        <title>Python 实现「食行生鲜」签到领积分</title>
-        <pubTime>2018-08-06T05:42:24.000Z</pubTime>
-        
-        <tag>爬虫</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/python-short-url.html</loc>
     <lastmod>2019-04-08T13:46:26.507Z</lastmod>
     <data>
@@ -1480,19 +1460,19 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/python-reflection.html</loc>
-    <lastmod>2019-04-08T13:46:26.506Z</lastmod>
+    <loc>https://hoxis.github.io/python-shsx.html</loc>
+    <lastmod>2019-04-08T13:46:26.507Z</lastmod>
     <data>
         <display>
-        <title>Python 高级 -- 反射</title>
-        <pubTime>2018-04-16T05:21:26.000Z</pubTime>
+        <title>Python 实现「食行生鲜」签到领积分</title>
+        <pubTime>2018-08-06T05:42:24.000Z</pubTime>
         
-        <tag>Python</tag>
+        <tag>爬虫</tag>
          
          
            
              
-              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
           
         </display>
     </data>
@@ -1535,6 +1515,26 @@
            
              
               <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/python-reflection.html</loc>
+    <lastmod>2019-04-08T13:46:26.506Z</lastmod>
+    <data>
+        <display>
+        <title>Python 高级 -- 反射</title>
+        <pubTime>2018-04-16T05:21:26.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
           
         </display>
     </data>
@@ -1604,26 +1604,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/python-openpyxl.html</loc>
-    <lastmod>2019-04-08T13:46:26.504Z</lastmod>
-    <data>
-        <display>
-        <title>Python 玩转 Excel</title>
-        <pubTime>2018-07-02T04:40:14.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/python-oop.html</loc>
     <lastmod>2019-04-08T13:46:26.504Z</lastmod>
     <data>
@@ -1637,6 +1617,26 @@
            
              
               <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/python-openpyxl.html</loc>
+    <lastmod>2019-04-08T13:46:26.504Z</lastmod>
+    <data>
+        <display>
+        <title>Python 玩转 Excel</title>
+        <pubTime>2018-07-02T04:40:14.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
           
         </display>
     </data>
@@ -1806,26 +1806,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/python-get-pic-state.html</loc>
-    <lastmod>2019-04-08T13:46:26.500Z</lastmod>
-    <data>
-        <display>
-        <title>Python 实现监控所有物理网卡状态</title>
-        <pubTime>2018-05-23T06:59:55.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/python-generator.html</loc>
     <lastmod>2019-04-08T13:46:26.500Z</lastmod>
     <data>
@@ -1839,6 +1819,26 @@
            
              
               <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/python-get-pic-state.html</loc>
+    <lastmod>2019-04-08T13:46:26.500Z</lastmod>
+    <data>
+        <display>
+        <title>Python 实现监控所有物理网卡状态</title>
+        <pubTime>2018-05-23T06:59:55.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
           
         </display>
     </data>
@@ -1908,26 +1908,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/python-douyin-biaobai.html</loc>
-    <lastmod>2019-04-08T13:46:26.498Z</lastmod>
-    <data>
-        <display>
-        <title>教你用 Python 实现抖音热门表白软件</title>
-        <pubTime>2018-11-08T06:46:34.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/python-dynamic-features.html</loc>
     <lastmod>2019-04-08T13:46:26.498Z</lastmod>
     <data>
@@ -1941,6 +1921,26 @@
            
              
               <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/python-douyin-biaobai.html</loc>
+    <lastmod>2019-04-08T13:46:26.498Z</lastmod>
+    <data>
+        <display>
+        <title>教你用 Python 实现抖音热门表白软件</title>
+        <pubTime>2018-11-08T06:46:34.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
           
         </display>
     </data>
@@ -2204,12 +2204,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/mysql-zhuanlan-06-07-lock.html</loc>
+    <loc>https://hoxis.github.io/mysql-zhuanlan-05-high-performance-index.html</loc>
     <lastmod>2019-04-08T13:46:26.493Z</lastmod>
     <data>
         <display>
-        <title>MySQL实战 | 06/07 简单说说MySQL中的锁</title>
-        <pubTime>2018-12-13T05:48:50.000Z</pubTime>
+        <title>MySQL实战 | 05 如何设计高性能的索引？</title>
+        <pubTime>2018-12-03T07:11:51.000Z</pubTime>
         
         <tag>MySQL</tag>
          
@@ -2226,12 +2226,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/mysql-zhuanlan-05-high-performance-index.html</loc>
+    <loc>https://hoxis.github.io/mysql-zhuanlan-06-07-lock.html</loc>
     <lastmod>2019-04-08T13:46:26.493Z</lastmod>
     <data>
         <display>
-        <title>MySQL实战 | 05 如何设计高性能的索引？</title>
-        <pubTime>2018-12-03T07:11:51.000Z</pubTime>
+        <title>MySQL实战 | 06/07 简单说说MySQL中的锁</title>
+        <pubTime>2018-12-13T05:48:50.000Z</pubTime>
         
         <tag>MySQL</tag>
          
@@ -2356,26 +2356,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/mysql-definder-and-invoker.html</loc>
-    <lastmod>2019-04-08T13:46:26.490Z</lastmod>
-    <data>
-        <display>
-        <title>Mysql 异常：The user specified as a definer ('xxx'@'%') does not exist</title>
-        <pubTime>2018-03-22T05:40:34.000Z</pubTime>
-        
-        <tag>Mysql</tag>
-         
-         
-           
-             
-              <breadCrumb title="数据库" url="https://hoxis.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/mysql-myisam-to-innodb.html</loc>
     <lastmod>2019-04-08T13:46:26.490Z</lastmod>
     <data>
@@ -2396,19 +2376,19 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/my-spider-steps.html</loc>
-    <lastmod>2019-04-08T13:46:26.489Z</lastmod>
+    <loc>https://hoxis.github.io/mysql-definder-and-invoker.html</loc>
+    <lastmod>2019-04-08T13:46:26.490Z</lastmod>
     <data>
         <display>
-        <title>我一般是这么爬虫的</title>
-        <pubTime>2018-10-12T06:32:26.000Z</pubTime>
+        <title>Mysql 异常：The user specified as a definer ('xxx'@'%') does not exist</title>
+        <pubTime>2018-03-22T05:40:34.000Z</pubTime>
         
-        <tag>爬虫</tag>
+        <tag>Mysql</tag>
          
          
            
              
-              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
+              <breadCrumb title="数据库" url="https://hoxis.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
           
         </display>
     </data>
@@ -2431,6 +2411,26 @@
            
              
               <breadCrumb title="Linux" url="https://hoxis.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/my-spider-steps.html</loc>
+    <lastmod>2019-04-08T13:46:26.489Z</lastmod>
+    <data>
+        <display>
+        <title>我一般是这么爬虫的</title>
+        <pubTime>2018-10-12T06:32:26.000Z</pubTime>
+        
+        <tag>爬虫</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
           
         </display>
     </data>
@@ -2518,6 +2518,26 @@
 
     
   <url>
+    <loc>https://hoxis.github.io/learn-microservice-from-0.html</loc>
+    <lastmod>2019-04-08T13:46:26.487Z</lastmod>
+    <data>
+        <display>
+        <title>从 0 开始学微服务</title>
+        <pubTime>2018-10-31T05:59:27.000Z</pubTime>
+        
+        <tag>微服务</tag>
+         
+         
+           
+             
+              <breadCrumb title="微服务" url="https://hoxis.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://hoxis.github.io/linux-mysql-5.6-to-5.6.html</loc>
     <lastmod>2019-04-08T13:46:26.487Z</lastmod>
     <data>
@@ -2533,26 +2553,6 @@
            
              
               <breadCrumb title="Linux" url="https://hoxis.github.io/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/learn-microservice-from-0.html</loc>
-    <lastmod>2019-04-08T13:46:26.487Z</lastmod>
-    <data>
-        <display>
-        <title>从 0 开始学微服务</title>
-        <pubTime>2018-10-31T05:59:27.000Z</pubTime>
-        
-        <tag>微服务</tag>
-         
-         
-           
-             
-              <breadCrumb title="微服务" url="https://hoxis.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
           
         </display>
     </data>
@@ -2704,26 +2704,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/install-ansible-offline.html</loc>
-    <lastmod>2019-04-08T13:46:26.484Z</lastmod>
-    <data>
-        <display>
-        <title>Ansible 离线安装</title>
-        <pubTime>2018-03-09T11:28:37.000Z</pubTime>
-        
-        <tag>ansible</tag>
-         
-         
-           
-             
-              <breadCrumb title="Ansible" url="https://hoxis.github.io/categories/Ansible/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/http-get-with-body.html</loc>
     <lastmod>2019-04-08T13:46:26.484Z</lastmod>
     <data>
@@ -2746,21 +2726,19 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/hexo%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%97%B6%E6%89%98%E7%AE%A1%E5%88%B0github%E5%92%8Ccoding.html</loc>
-    <lastmod>2019-04-08T13:46:26.483Z</lastmod>
+    <loc>https://hoxis.github.io/install-ansible-offline.html</loc>
+    <lastmod>2019-04-08T13:46:26.484Z</lastmod>
     <data>
         <display>
-        <title>Hexo博客同时托管到github和coding</title>
-        <pubTime>2017-12-15T05:06:33.000Z</pubTime>
+        <title>Ansible 离线安装</title>
+        <pubTime>2018-03-09T11:28:37.000Z</pubTime>
         
-        <tag>Hexo</tag>
-         
-        <tag>技巧</tag>
+        <tag>ansible</tag>
          
          
            
              
-              <breadCrumb title="奇技淫巧" url="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
+              <breadCrumb title="Ansible" url="https://hoxis.github.io/categories/Ansible/"/>
           
         </display>
     </data>
@@ -2801,6 +2779,28 @@
            
              
               <breadCrumb title="好物分享" url="https://hoxis.github.io/categories/%E5%A5%BD%E7%89%A9%E5%88%86%E4%BA%AB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/hexo%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%97%B6%E6%89%98%E7%AE%A1%E5%88%B0github%E5%92%8Ccoding.html</loc>
+    <lastmod>2019-04-08T13:46:26.483Z</lastmod>
+    <data>
+        <display>
+        <title>Hexo博客同时托管到github和coding</title>
+        <pubTime>2017-12-15T05:06:33.000Z</pubTime>
+        
+        <tag>Hexo</tag>
+         
+        <tag>技巧</tag>
+         
+         
+           
+             
+              <breadCrumb title="奇技淫巧" url="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
           
         </display>
     </data>
@@ -2868,12 +2868,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/hexo-next-read-rank.html</loc>
+    <loc>https://hoxis.github.io/hexo-next-daovoice.html</loc>
     <lastmod>2019-04-08T13:46:26.481Z</lastmod>
     <data>
         <display>
-        <title>hexo next 新增阅读排行页面</title>
-        <pubTime>2018-08-16T03:21:06.000Z</pubTime>
+        <title>hexo next 配置 DaoVoice 实现在线聊天功能</title>
+        <pubTime>2018-08-16T09:29:54.000Z</pubTime>
         
         <tag>hexo</tag>
          
@@ -2888,12 +2888,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/hexo-next-daovoice.html</loc>
+    <loc>https://hoxis.github.io/hexo-next-read-rank.html</loc>
     <lastmod>2019-04-08T13:46:26.481Z</lastmod>
     <data>
         <display>
-        <title>hexo next 配置 DaoVoice 实现在线聊天功能</title>
-        <pubTime>2018-08-16T09:29:54.000Z</pubTime>
+        <title>hexo next 新增阅读排行页面</title>
+        <pubTime>2018-08-16T03:21:06.000Z</pubTime>
         
         <tag>hexo</tag>
          
@@ -2954,26 +2954,6 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/good-things-screen2gif.html</loc>
-    <lastmod>2019-04-08T13:46:26.479Z</lastmod>
-    <data>
-        <display>
-        <title>好物分享 | Gif 录制工具：Screen2Gif</title>
-        <pubTime>2018-10-03T12:37:13.000Z</pubTime>
-        
-        <tag>gif</tag>
-         
-         
-           
-             
-              <breadCrumb title="好物分享" url="https://hoxis.github.io/categories/%E5%A5%BD%E7%89%A9%E5%88%86%E4%BA%AB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://hoxis.github.io/good-things-shaishufang.html</loc>
     <lastmod>2019-04-08T13:46:26.479Z</lastmod>
     <data>
@@ -2994,14 +2974,14 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/good-things-naotu-baidu.html</loc>
-    <lastmod>2019-04-08T13:46:26.478Z</lastmod>
+    <loc>https://hoxis.github.io/good-things-screen2gif.html</loc>
+    <lastmod>2019-04-08T13:46:26.479Z</lastmod>
     <data>
         <display>
-        <title>好物分享 | 在线脑图工具：百度脑图</title>
-        <pubTime>2018-10-13T06:30:52.000Z</pubTime>
+        <title>好物分享 | Gif 录制工具：Screen2Gif</title>
+        <pubTime>2018-10-03T12:37:13.000Z</pubTime>
         
-        <tag>脑图</tag>
+        <tag>gif</tag>
          
          
            
@@ -3020,6 +3000,26 @@
         <display>
         <title>好物分享 | 在线脑图神器-幕布</title>
         <pubTime>2018-09-26T10:21:51.000Z</pubTime>
+        
+        <tag>脑图</tag>
+         
+         
+           
+             
+              <breadCrumb title="好物分享" url="https://hoxis.github.io/categories/%E5%A5%BD%E7%89%A9%E5%88%86%E4%BA%AB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/good-things-naotu-baidu.html</loc>
+    <lastmod>2019-04-08T13:46:26.478Z</lastmod>
+    <data>
+        <display>
+        <title>好物分享 | 在线脑图工具：百度脑图</title>
+        <pubTime>2018-10-13T06:30:52.000Z</pubTime>
         
         <tag>脑图</tag>
          
@@ -3258,14 +3258,14 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
+    <loc>https://hoxis.github.io/ansible-modules.html</loc>
     <lastmod>2019-04-08T13:46:26.470Z</lastmod>
     <data>
         <display>
-        <title>Ansible：如何穿过跳板机？</title>
-        <pubTime>2019-01-02T02:09:39.000Z</pubTime>
+        <title>Ansible常用模块汇总</title>
+        <pubTime>2018-01-12T05:30:04.000Z</pubTime>
         
-        <tag>Ansible</tag>
+        <tag>ansible</tag>
          
          
            
@@ -3278,14 +3278,14 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/ansible-modules.html</loc>
+    <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
     <lastmod>2019-04-08T13:46:26.470Z</lastmod>
     <data>
         <display>
-        <title>Ansible常用模块汇总</title>
-        <pubTime>2018-01-12T05:30:04.000Z</pubTime>
+        <title>Ansible：如何穿过跳板机？</title>
+        <pubTime>2019-01-02T02:09:39.000Z</pubTime>
         
-        <tag>ansible</tag>
+        <tag>Ansible</tag>
          
          
            
@@ -3318,12 +3318,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/ansible-files-modules-template.html</loc>
+    <loc>https://hoxis.github.io/ansible-files-modules-lineinfile.html</loc>
     <lastmod>2019-04-08T13:46:26.469Z</lastmod>
     <data>
         <display>
-        <title>【Ansible学习】- 常用文件操作模块之template模块</title>
-        <pubTime>2018-01-13T11:07:22.000Z</pubTime>
+        <title>【Ansible学习】- 常用文件操作模块之lineinfile模块</title>
+        <pubTime>2018-01-16T06:25:53.000Z</pubTime>
         
         <tag>ansible</tag>
          
@@ -3338,12 +3338,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/ansible-files-modules-lineinfile.html</loc>
+    <loc>https://hoxis.github.io/ansible-files-modules-template.html</loc>
     <lastmod>2019-04-08T13:46:26.469Z</lastmod>
     <data>
         <display>
-        <title>【Ansible学习】- 常用文件操作模块之lineinfile模块</title>
-        <pubTime>2018-01-16T06:25:53.000Z</pubTime>
+        <title>【Ansible学习】- 常用文件操作模块之template模块</title>
+        <pubTime>2018-01-13T11:07:22.000Z</pubTime>
         
         <tag>ansible</tag>
          
@@ -3398,12 +3398,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/ansible-dynamic-inventory.html</loc>
+    <loc>https://hoxis.github.io/ansible-commands-modules-others.html</loc>
     <lastmod>2019-04-08T13:46:26.467Z</lastmod>
     <data>
         <display>
-        <title>Ansible 进阶 | 动态 Inventory</title>
-        <pubTime>2018-08-13T04:53:57.000Z</pubTime>
+        <title>【Ansible学习】- 命令相关模块之expect, script, telnet模块</title>
+        <pubTime>2018-01-11T04:51:05.000Z</pubTime>
         
         <tag>ansible</tag>
          
@@ -3418,12 +3418,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/ansible-commands-modules-others.html</loc>
+    <loc>https://hoxis.github.io/ansible-dynamic-inventory.html</loc>
     <lastmod>2019-04-08T13:46:26.467Z</lastmod>
     <data>
         <display>
-        <title>【Ansible学习】- 命令相关模块之expect, script, telnet模块</title>
-        <pubTime>2018-01-11T04:51:05.000Z</pubTime>
+        <title>Ansible 进阶 | 动态 Inventory</title>
+        <pubTime>2018-08-13T04:53:57.000Z</pubTime>
         
         <tag>ansible</tag>
          
@@ -3558,12 +3558,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/Python-learning-note.html</loc>
+    <loc>https://hoxis.github.io/Python-Programming-Quick-Start.html</loc>
     <lastmod>2019-04-08T13:46:26.462Z</lastmod>
     <data>
         <display>
-        <title>Python 学习笔记</title>
-        <pubTime>2018-03-01T09:43:45.000Z</pubTime>
+        <title>Python 编程快速上手</title>
+        <pubTime>2018-02-25T09:43:45.000Z</pubTime>
         
         <tag>Python</tag>
          
@@ -3578,12 +3578,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/Python-Programming-Quick-Start.html</loc>
+    <loc>https://hoxis.github.io/Python-learning-note.html</loc>
     <lastmod>2019-04-08T13:46:26.462Z</lastmod>
     <data>
         <display>
-        <title>Python 编程快速上手</title>
-        <pubTime>2018-02-25T09:43:45.000Z</pubTime>
+        <title>Python 学习笔记</title>
+        <pubTime>2018-03-01T09:43:45.000Z</pubTime>
         
         <tag>Python</tag>
          
@@ -3662,6 +3662,26 @@
 
     
   <url>
+    <loc>https://hoxis.github.io/Codewars-Simple-Pig-Latin.html</loc>
+    <lastmod>2019-04-08T13:46:26.457Z</lastmod>
+    <data>
+        <display>
+        <title>【Codewars每日一题】- Simple Pig Latin</title>
+        <pubTime>2018-01-15T05:45:33.000Z</pubTime>
+        
+        <tag>codewars</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://hoxis.github.io/Codewars-Sort-the-odd.html</loc>
     <lastmod>2019-04-08T13:46:26.457Z</lastmod>
     <data>
@@ -3702,12 +3722,12 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/Codewars-Simple-Pig-Latin.html</loc>
-    <lastmod>2019-04-08T13:46:26.457Z</lastmod>
+    <loc>https://hoxis.github.io/Codewars-Invert%20values.html</loc>
+    <lastmod>2019-04-08T13:46:26.456Z</lastmod>
     <data>
         <display>
-        <title>【Codewars每日一题】- Simple Pig Latin</title>
-        <pubTime>2018-01-15T05:45:33.000Z</pubTime>
+        <title>【Codewars每日一题】- Invert values</title>
+        <pubTime>2017-12-27T05:13:32.000Z</pubTime>
         
         <tag>codewars</tag>
          
@@ -3728,26 +3748,6 @@
         <display>
         <title>【Codewars每日一题】- Rectangle into Squares</title>
         <pubTime>2018-01-08T05:09:17.000Z</pubTime>
-        
-        <tag>codewars</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://hoxis.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/Codewars-Invert%20values.html</loc>
-    <lastmod>2019-04-08T13:46:26.456Z</lastmod>
-    <data>
-        <display>
-        <title>【Codewars每日一题】- Invert values</title>
-        <pubTime>2017-12-27T05:13:32.000Z</pubTime>
         
         <tag>codewars</tag>
          
@@ -3802,16 +3802,14 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/CMDBuild%E5%AE%89%E8%A3%85%E5%8F%8Awebservice%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%8E%B7%E5%8F%96.html</loc>
+    <loc>https://hoxis.github.io/CXF%20WebService%20%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4.html</loc>
     <lastmod>2019-04-08T13:46:26.454Z</lastmod>
     <data>
         <display>
-        <title>CMDBuild安装及其webservice接口的获取</title>
-        <pubTime>2015-06-23T03:39:04.000Z</pubTime>
+        <title>CXF WebService 客户端设置超时时间</title>
+        <pubTime>2015-08-28T11:39:04.000Z</pubTime>
         
-        <tag>CMDBuild</tag>
-         
-        <tag>CMDB</tag>
+        <tag>WebService</tag>
          
          
            
@@ -3824,14 +3822,16 @@
 
     
   <url>
-    <loc>https://hoxis.github.io/CXF%20WebService%20%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4.html</loc>
+    <loc>https://hoxis.github.io/CMDBuild%E5%AE%89%E8%A3%85%E5%8F%8Awebservice%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%8E%B7%E5%8F%96.html</loc>
     <lastmod>2019-04-08T13:46:26.454Z</lastmod>
     <data>
         <display>
-        <title>CXF WebService 客户端设置超时时间</title>
-        <pubTime>2015-08-28T11:39:04.000Z</pubTime>
+        <title>CMDBuild安装及其webservice接口的获取</title>
+        <pubTime>2015-06-23T03:39:04.000Z</pubTime>
         
-        <tag>WebService</tag>
+        <tag>CMDBuild</tag>
+         
+        <tag>CMDB</tag>
          
          
            
