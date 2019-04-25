@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[史上第一张黑洞照片是用Python合成的？]]></title>
+    <url>%2Fpython-blackhole.html</url>
+    <content type="text"><![CDATA[这两天，史上第一张黑洞照片在朋友圈和各大公众号疯传，希望你没有收到视觉中国的律师函。 好了，言归正传。 这个照片是怎么「拍到」的呢？ 其中一位研究人员（一个高颜值的妹子，MIT 的博士）就在 TED 上进行了很好的讲解。 在线观看地址：http://t.cn/E6dwQa5。 这是一个两年前的视频，当时这张照片还没有诞生，但是这个项目已经启动了。 也就是，拍摄这张照片，至少用了两年时间。 这里，我来大概的说一下视频内容： 1、首先，想要拍到那个黑洞，需要一个和地球差不多大小的望远镜，至于为什么，请看上面提到的妹子讲解； 2、显然，我们没有那么大望远镜，怎么办呢？这些科学家们就想到了，将遍布全世界的望远镜连接起来； 3、通过电脑让这些望远镜协同工作，然后对这些望远镜拍摄的数据进行处理、筛选、合成等等，比较复杂的算法操作； 4、数据处理的过程，就要用到我们的 Python 了！ 其中，最重要的部分，就是根据那么多零散的数据，如何处理？来得到我们现在看到的这个照片？ 视频中花了比较大的篇幅介绍算法，我是看不太懂了…… 有兴趣的也可以看下算法的论文，地址：http://t.cn/E6dzFXo。 论文中提到了很多 Python 库： * Numpy * Scipy * Pandas * Jupyter * Matplotlib * Astropy 并且，在他们自己实现的 Python 代码中也有用到，代码库就存放在 GitHub 上： https://github.com/achael/eht-imaging 可以看出妹子在跑代码，没有报错时兴奋的表情： 下次谁在说 Python 的坏话时，记得提醒 ta：Python 曾帮助拍摄了第一张黑洞照片！ 各路神仙大佬们，快去研究黑洞算法，以及它的 Python 实现代码吧！]]></content>
+      <categories>
+        <category>趣闻</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>黑洞</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Windows环境查看端口占用情况、相应进程、杀死进程]]></title>
     <url>%2Fwindows-kill-pid.html</url>
     <content type="text"><![CDATA[本地调试启动程序时经常遇到端口占用的情况，比如： 1234错误: 代理抛出异常错误: &lt;u&gt;java.rmi.server.ExportException&lt;/u&gt;: Port already in use: 54530; nested exception is: &lt;u&gt;java.net.BindException&lt;/u&gt;: Address already in use: JVM_Bind 下面来看下 Windows 下如何查看端口占用情况，以及如何杀死端口占用的进程。 1、查看端口占用情况netstat –ano|findstr &quot;指定端口号&quot;，比如，查看 54530 的占用情况： 1234C:\WINDOWS\system32&gt;netstat -ano|findstr "54530" TCP 127.0.0.1:49643 127.0.0.1:54530 ESTABLISHED 4388 TCP 127.0.0.1:54530 0.0.0.0:0 LISTENING 11320 TCP 127.0.0.1:54530 127.0.0.1:49643 ESTABLISHED 11320 最右边的数字就是进程号。 2、查看进程名可以使用 tasklist|findstr &quot;进程号&quot; 来查看进程名称，比如： 12C:\WINDOWS\system32&gt;tasklist|findstr "4388"xxx.exe 4388 Services 0 13,276 K 可以看出，是 xxx.exe 这个进程占用了端口号，这时可以使用 Windows 任务管理器将服务停掉。 或者使用命令。 3、杀死进程可以使用 tskill 进程号来杀死指定进程。 123456C:\WINDOWS\system32&gt;tasklist|findstr "4388"xxx.exe 4388 Services 0 13,276 KC:\WINDOWS\system32&gt;tskill 4388C:\WINDOWS\system32&gt;tasklist|findstr "4388" 可以看出，进程已被杀死。 若提示没有权限杀死进程，请以管理员身份运行 cmd。 win10 环境下开启方法，按下 win+S：]]></content>

@@ -1,5 +1,5 @@
+https://hoxis.github.io/python-blackhole.html
 https://hoxis.github.io/windows-kill-pid.html
 https://hoxis.github.io/resource-heima-softtest-2018-2017.html
 https://hoxis.github.io/copy-from-internet-has-unusual-code.html
 https://hoxis.github.io/mysql-zhuanlan-15-how-order-by-works.html
-https://hoxis.github.io/resource-django-netease-class.html
