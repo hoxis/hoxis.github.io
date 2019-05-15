@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hoxis.github.io/resource-heima-go.html</loc>
+    
+    <lastmod>2019-05-15T01:44:21.884Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hoxis.github.io/mysql-zhuanlan-17-how-to-get-rand-words.html</loc>
+    
+    <lastmod>2019-04-29T00:50:34.609Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hoxis.github.io/books-how-to-read.html</loc>
+    
+    <lastmod>2019-04-28T05:04:21.510Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hoxis.github.io/python-blackhole.html</loc>
     
     <lastmod>2019-04-25T08:49:08.374Z</lastmod>
@@ -191,14 +212,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/tags/index.html</loc>
+    <loc>https://hoxis.github.io/resources/index.html</loc>
     
     <lastmod>2019-04-08T13:46:26.534Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/resources/index.html</loc>
+    <loc>https://hoxis.github.io/tags/index.html</loc>
     
     <lastmod>2019-04-08T13:46:26.534Z</lastmod>
     
@@ -324,6 +345,13 @@
   </url>
   
   <url>
+    <loc>https://hoxis.github.io/%E3%80%90%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEibatis%20%E5%90%8E%E5%8F%B0%E6%89%93%E5%8D%B0%E5%AE%8C%E6%95%B4%E7%9A%84sql%E8%AF%AD%E5%8F%A5%EF%BC%9F.html</loc>
+    
+    <lastmod>2019-04-08T13:46:26.523Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hoxis.github.io/%E3%80%90%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7%E3%80%91%E6%96%B0%E7%89%8838.0.5%E7%81%AB%E7%8B%90%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%20pocket%20%E6%8F%92%E4%BB%B6%EF%BC%9F.html</loc>
     
     <lastmod>2019-04-08T13:46:26.523Z</lastmod>
@@ -332,13 +360,6 @@
   
   <url>
     <loc>https://hoxis.github.io/%E3%80%90%E6%88%91%E7%9A%84%E9%A9%AC%E6%8B%89%E6%9D%BE%E3%80%912015%E5%8D%97%E4%BA%AC%E5%9B%BD%E9%99%85%E9%A9%AC%E6%8B%89%E6%9D%BE.html</loc>
-    
-    <lastmod>2019-04-08T13:46:26.523Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hoxis.github.io/%E3%80%90%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEibatis%20%E5%90%8E%E5%8F%B0%E6%89%93%E5%8D%B0%E5%AE%8C%E6%95%B4%E7%9A%84sql%E8%AF%AD%E5%8F%A5%EF%BC%9F.html</loc>
     
     <lastmod>2019-04-08T13:46:26.523Z</lastmod>
     
@@ -387,14 +408,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/what-is-cloud-compute.html</loc>
+    <loc>https://hoxis.github.io/what-happend-when-a-url-input-in-browser.html</loc>
     
     <lastmod>2019-04-08T13:46:26.516Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/what-happend-when-a-url-input-in-browser.html</loc>
+    <loc>https://hoxis.github.io/what-is-cloud-compute.html</loc>
     
     <lastmod>2019-04-08T13:46:26.516Z</lastmod>
     
@@ -408,14 +429,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/resource-ps-jingwei.html</loc>
+    <loc>https://hoxis.github.io/run-ansible-without-specifying-the-inventory-but-the-host-directly.html</loc>
     
     <lastmod>2019-04-08T13:46:26.514Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/run-ansible-without-specifying-the-inventory-but-the-host-directly.html</loc>
+    <loc>https://hoxis.github.io/resource-ps-jingwei.html</loc>
     
     <lastmod>2019-04-08T13:46:26.514Z</lastmod>
     
@@ -443,14 +464,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/resource-heima-qianduan.html</loc>
+    <loc>https://hoxis.github.io/resource-heima-c-c++.html</loc>
     
     <lastmod>2019-04-08T13:46:26.512Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/resource-heima-c-c++.html</loc>
+    <loc>https://hoxis.github.io/resource-heima-qianduan.html</loc>
     
     <lastmod>2019-04-08T13:46:26.512Z</lastmod>
     
@@ -548,6 +569,13 @@
   </url>
   
   <url>
+    <loc>https://hoxis.github.io/python-reflection.html</loc>
+    
+    <lastmod>2019-04-08T13:46:26.506Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hoxis.github.io/python-pyinstaller.html</loc>
     
     <lastmod>2019-04-08T13:46:26.506Z</lastmod>
@@ -556,13 +584,6 @@
   
   <url>
     <loc>https://hoxis.github.io/python-serverchan.html</loc>
-    
-    <lastmod>2019-04-08T13:46:26.506Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hoxis.github.io/python-reflection.html</loc>
     
     <lastmod>2019-04-08T13:46:26.506Z</lastmod>
     
@@ -695,14 +716,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-dynamic-features.html</loc>
+    <loc>https://hoxis.github.io/python-douyin-biaobai.html</loc>
     
     <lastmod>2019-04-08T13:46:26.498Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-douyin-biaobai.html</loc>
+    <loc>https://hoxis.github.io/python-dynamic-features.html</loc>
     
     <lastmod>2019-04-08T13:46:26.498Z</lastmod>
     
@@ -863,14 +884,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/my-spider-steps.html</loc>
+    <loc>https://hoxis.github.io/little-about-ipv6.html</loc>
     
     <lastmod>2019-04-08T13:46:26.489Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/little-about-ipv6.html</loc>
+    <loc>https://hoxis.github.io/my-spider-steps.html</loc>
     
     <lastmod>2019-04-08T13:46:26.489Z</lastmod>
     
@@ -905,14 +926,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/linux-mysql-5.6-to-5.6.html</loc>
+    <loc>https://hoxis.github.io/linux-python-debug.html</loc>
     
     <lastmod>2019-04-08T13:46:26.487Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/linux-python-debug.html</loc>
+    <loc>https://hoxis.github.io/linux-mysql-5.6-to-5.6.html</loc>
     
     <lastmod>2019-04-08T13:46:26.487Z</lastmod>
     
@@ -940,14 +961,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ipv6-haproxy-ipv4.html</loc>
+    <loc>https://hoxis.github.io/ipv6-mysql.html</loc>
     
     <lastmod>2019-04-08T13:46:26.485Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ipv6-mysql.html</loc>
+    <loc>https://hoxis.github.io/ipv6-haproxy-ipv4.html</loc>
     
     <lastmod>2019-04-08T13:46:26.485Z</lastmod>
     
@@ -975,6 +996,13 @@
   </url>
   
   <url>
+    <loc>https://hoxis.github.io/hexo%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%97%B6%E6%89%98%E7%AE%A1%E5%88%B0github%E5%92%8Ccoding.html</loc>
+    
+    <lastmod>2019-04-08T13:46:26.483Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hoxis.github.io/how-programmer-find-bug.html</loc>
     
     <lastmod>2019-04-08T13:46:26.483Z</lastmod>
@@ -983,13 +1011,6 @@
   
   <url>
     <loc>https://hoxis.github.io/how-search-in-baiduyun.html</loc>
-    
-    <lastmod>2019-04-08T13:46:26.483Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hoxis.github.io/hexo%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%97%B6%E6%89%98%E7%AE%A1%E5%88%B0github%E5%92%8Ccoding.html</loc>
     
     <lastmod>2019-04-08T13:46:26.483Z</lastmod>
     
@@ -1031,14 +1052,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/hexo-next-busuanzi.html</loc>
+    <loc>https://hoxis.github.io/hexo-backup-theme-dir.html</loc>
     
     <lastmod>2019-04-08T13:46:26.480Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/hexo-backup-theme-dir.html</loc>
+    <loc>https://hoxis.github.io/hexo-next-busuanzi.html</loc>
     
     <lastmod>2019-04-08T13:46:26.480Z</lastmod>
     
@@ -1087,14 +1108,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/evernote-markdown.html</loc>
+    <loc>https://hoxis.github.io/ganglia%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6gmond-conf%E8%AF%A6%E8%A7%A3.html</loc>
     
     <lastmod>2019-04-08T13:46:26.476Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ganglia%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6gmond-conf%E8%AF%A6%E8%A7%A3.html</loc>
+    <loc>https://hoxis.github.io/evernote-markdown.html</loc>
     
     <lastmod>2019-04-08T13:46:26.476Z</lastmod>
     
@@ -1150,14 +1171,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ansible-modules.html</loc>
+    <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
     
     <lastmod>2019-04-08T13:46:26.470Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
+    <loc>https://hoxis.github.io/ansible-modules.html</loc>
     
     <lastmod>2019-04-08T13:46:26.470Z</lastmod>
     
@@ -1255,14 +1276,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/Python-Programming-Quick-Start.html</loc>
+    <loc>https://hoxis.github.io/Python-learning-note.html</loc>
     
     <lastmod>2019-04-08T13:46:26.462Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/Python-learning-note.html</loc>
+    <loc>https://hoxis.github.io/Python-Programming-Quick-Start.html</loc>
     
     <lastmod>2019-04-08T13:46:26.462Z</lastmod>
     
@@ -1297,14 +1318,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/Codewars-Sort-the-odd.html</loc>
+    <loc>https://hoxis.github.io/Codewars-Sum%20of%20Numbers.html</loc>
     
     <lastmod>2019-04-08T13:46:26.457Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/Codewars-Sum%20of%20Numbers.html</loc>
+    <loc>https://hoxis.github.io/Codewars-Sort-the-odd.html</loc>
     
     <lastmod>2019-04-08T13:46:26.457Z</lastmod>
     
@@ -1339,14 +1360,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/CXF%20WebService%20%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4.html</loc>
+    <loc>https://hoxis.github.io/CMDBuild%E5%AE%89%E8%A3%85%E5%8F%8Awebservice%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%8E%B7%E5%8F%96.html</loc>
     
     <lastmod>2019-04-08T13:46:26.454Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/CMDBuild%E5%AE%89%E8%A3%85%E5%8F%8Awebservice%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%8E%B7%E5%8F%96.html</loc>
+    <loc>https://hoxis.github.io/CXF%20WebService%20%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4.html</loc>
     
     <lastmod>2019-04-08T13:46:26.454Z</lastmod>
     
