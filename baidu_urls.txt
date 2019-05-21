@@ -1,5 +1,5 @@
+https://hoxis.github.io/jd-eclipse-offline.html
 https://hoxis.github.io/resource-heima-go.html
 https://hoxis.github.io/mysql-zhuanlan-17-how-to-get-rand-words.html
 https://hoxis.github.io/python-blackhole.html
 https://hoxis.github.io/books-how-to-read.html
-https://hoxis.github.io/windows-kill-pid.html

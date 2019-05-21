@@ -373,6 +373,217 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/linux下大于2TB硬盘格式化及挂载.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux下大于2TB硬盘格式化及挂载.html" itemprop="url">linux下大于2TB硬盘格式化及挂载-GPT分区步骤</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-20T17:10:37+08:00">
+                2017-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux下大于2TB硬盘格式化及挂载.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/linux下大于2TB硬盘格式化及挂载.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux下大于2TB硬盘格式化及挂载.html" class="leancloud_visitors" data-flag-title="linux下大于2TB硬盘格式化及挂载-GPT分区步骤">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  483
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>先介绍两种分区表：</p>
+<ul>
+<li>MBR分区表：（MBR含义：主引导记录）<ul>
+<li>所支持的最大卷：<code>2T</code>（T: terabytes,1TB=1024GB）</li>
+<li>对分区的设限：最多4个主分区或3个主分区加一个扩展分区。</li>
+</ul>
+</li>
+<li>GPT分区表：（GPT含义：GUID分区表）<ul>
+<li>支持最大卷：<code>18EB</code>（E：exabytes,1EB=1024TB）</li>
+<li>每个磁盘最多支持128个分区</li>
+</ul>
+</li>
+</ul>
+<p>明显地，当磁盘超过<code>2TB</code>时需要使用<code>GBT</code>分区。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux下大于2TB硬盘格式化及挂载.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/python-cookbook代码段.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2144,205 +2355,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/记一次服务器宕机后数据库恢复的过程.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hoxis">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hoxis' blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/记一次服务器宕机后数据库恢复的过程.html" itemprop="url">记一次服务器宕机后数据库恢复的过程</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-20T14:19:04+08:00">
-                2017-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/绊脚石/" itemprop="url" rel="index">
-                    <span itemprop="name">绊脚石</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/记一次服务器宕机后数据库恢复的过程.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/记一次服务器宕机后数据库恢复的过程.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/记一次服务器宕机后数据库恢复的过程.html" class="leancloud_visitors" data-flag-title="记一次服务器宕机后数据库恢复的过程">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,248
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>现象很简单，数据库服务器被宕机，当然是在没有停数据库服务的情况下。</p>
-<p>机器重启后，试图重启MySQL服务，无果，查看错误日志：</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/记一次服务器宕机后数据库恢复的过程.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2397,7 +2409,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">192</span>
+                  <span class="site-state-item-count">193</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2419,7 +2431,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">95</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2471,6 +2483,10 @@
                 
                 
                   <li>
+                    <a href="/jd-eclipse-offline.html" title="jd-eclipse离线包地址" target="_blank">jd-eclipse离线包地址</a>
+                  </li>
+                
+                  <li>
                     <a href="/resource-heima-go.html" title="黑马/传智播客go语言视频教程" target="_blank">黑马/传智播客go语言视频教程</a>
                   </li>
                 
@@ -2484,10 +2500,6 @@
                 
                   <li>
                     <a href="/books-how-to-read.html" title="书都不会读，你还想成功" target="_blank">书都不会读，你还想成功</a>
-                  </li>
-                
-                  <li>
-                    <a href="/windows-kill-pid.html" title="Windows环境查看端口占用情况、相应进程、杀死进程" target="_blank">Windows环境查看端口占用情况、相应进程、杀死进程</a>
                   </li>
                 
               </ul>
