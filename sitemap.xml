@@ -436,14 +436,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/run-ansible-without-specifying-the-inventory-but-the-host-directly.html</loc>
+    <loc>https://hoxis.github.io/resource-ps-jingwei.html</loc>
     
     <lastmod>2019-04-08T13:46:26.514Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/resource-ps-jingwei.html</loc>
+    <loc>https://hoxis.github.io/run-ansible-without-specifying-the-inventory-but-the-host-directly.html</loc>
     
     <lastmod>2019-04-08T13:46:26.514Z</lastmod>
     
@@ -520,14 +520,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-twilio.html</loc>
+    <loc>https://hoxis.github.io/python-weixin-api-test.html</loc>
     
     <lastmod>2019-04-08T13:46:26.509Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-weixin-api-test.html</loc>
+    <loc>https://hoxis.github.io/python-twilio.html</loc>
     
     <lastmod>2019-04-08T13:46:26.509Z</lastmod>
     
@@ -555,13 +555,6 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-shell.html</loc>
-    
-    <lastmod>2019-04-08T13:46:26.507Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hoxis.github.io/python-short-url.html</loc>
     
     <lastmod>2019-04-08T13:46:26.507Z</lastmod>
@@ -576,14 +569,21 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-reflection.html</loc>
+    <loc>https://hoxis.github.io/python-shell.html</loc>
+    
+    <lastmod>2019-04-08T13:46:26.507Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hoxis.github.io/python-pyinstaller.html</loc>
     
     <lastmod>2019-04-08T13:46:26.506Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-pyinstaller.html</loc>
+    <loc>https://hoxis.github.io/python-reflection.html</loc>
     
     <lastmod>2019-04-08T13:46:26.506Z</lastmod>
     
@@ -695,14 +695,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-get-pic-state.html</loc>
+    <loc>https://hoxis.github.io/python-handle-file.html</loc>
     
     <lastmod>2019-04-08T13:46:26.500Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/python-handle-file.html</loc>
+    <loc>https://hoxis.github.io/python-get-pic-state.html</loc>
     
     <lastmod>2019-04-08T13:46:26.500Z</lastmod>
     
@@ -828,14 +828,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/mysql-zhuanlan-06-07-lock.html</loc>
+    <loc>https://hoxis.github.io/mysql-zhuanlan-08-current-read.html</loc>
     
     <lastmod>2019-04-08T13:46:26.493Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/mysql-zhuanlan-08-current-read.html</loc>
+    <loc>https://hoxis.github.io/mysql-zhuanlan-06-07-lock.html</loc>
     
     <lastmod>2019-04-08T13:46:26.493Z</lastmod>
     
@@ -884,14 +884,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/linux%E4%B8%8B%E5%A4%A7%E4%BA%8E2TB%E7%A1%AC%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8F%8A%E6%8C%82%E8%BD%BD.html</loc>
+    <loc>https://hoxis.github.io/little-about-ipv6.html</loc>
     
     <lastmod>2019-04-08T13:46:26.489Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/little-about-ipv6.html</loc>
+    <loc>https://hoxis.github.io/linux%E4%B8%8B%E5%A4%A7%E4%BA%8E2TB%E7%A1%AC%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8F%8A%E6%8C%82%E8%BD%BD.html</loc>
     
     <lastmod>2019-04-08T13:46:26.489Z</lastmod>
     
@@ -933,14 +933,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/linux-python-debug.html</loc>
+    <loc>https://hoxis.github.io/linux-mysql-5.6-to-5.6.html</loc>
     
     <lastmod>2019-04-08T13:46:26.487Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/linux-mysql-5.6-to-5.6.html</loc>
+    <loc>https://hoxis.github.io/linux-python-debug.html</loc>
     
     <lastmod>2019-04-08T13:46:26.487Z</lastmod>
     
@@ -968,14 +968,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ipv6-mysql.html</loc>
+    <loc>https://hoxis.github.io/ipv6-haproxy-ipv4.html</loc>
     
     <lastmod>2019-04-08T13:46:26.485Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ipv6-haproxy-ipv4.html</loc>
+    <loc>https://hoxis.github.io/ipv6-mysql.html</loc>
     
     <lastmod>2019-04-08T13:46:26.485Z</lastmod>
     
@@ -1073,14 +1073,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/good-things-shaishufang.html</loc>
+    <loc>https://hoxis.github.io/good-things-screen2gif.html</loc>
     
     <lastmod>2019-04-08T13:46:26.479Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/good-things-screen2gif.html</loc>
+    <loc>https://hoxis.github.io/good-things-shaishufang.html</loc>
     
     <lastmod>2019-04-08T13:46:26.479Z</lastmod>
     
@@ -1115,14 +1115,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ganglia%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6gmond-conf%E8%AF%A6%E8%A7%A3.html</loc>
+    <loc>https://hoxis.github.io/evernote-markdown.html</loc>
     
     <lastmod>2019-04-08T13:46:26.476Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/evernote-markdown.html</loc>
+    <loc>https://hoxis.github.io/ganglia%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6gmond-conf%E8%AF%A6%E8%A7%A3.html</loc>
     
     <lastmod>2019-04-08T13:46:26.476Z</lastmod>
     
@@ -1283,14 +1283,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/Python-learning-note.html</loc>
+    <loc>https://hoxis.github.io/Python-Programming-Quick-Start.html</loc>
     
     <lastmod>2019-04-08T13:46:26.462Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/Python-Programming-Quick-Start.html</loc>
+    <loc>https://hoxis.github.io/Python-learning-note.html</loc>
     
     <lastmod>2019-04-08T13:46:26.462Z</lastmod>
     
@@ -1325,14 +1325,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/Codewars-Sum%20of%20Numbers.html</loc>
+    <loc>https://hoxis.github.io/Codewars-Sort-the-odd.html</loc>
     
     <lastmod>2019-04-08T13:46:26.457Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/Codewars-Sort-the-odd.html</loc>
+    <loc>https://hoxis.github.io/Codewars-Sum%20of%20Numbers.html</loc>
     
     <lastmod>2019-04-08T13:46:26.457Z</lastmod>
     
@@ -1374,14 +1374,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/CXF%20WebService%20%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4.html</loc>
+    <loc>https://hoxis.github.io/CentOS%E5%8D%87%E7%BA%A7python2%E5%88%B0python3.html</loc>
     
     <lastmod>2019-04-08T13:46:26.454Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/CentOS%E5%8D%87%E7%BA%A7python2%E5%88%B0python3.html</loc>
+    <loc>https://hoxis.github.io/CXF%20WebService%20%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4.html</loc>
     
     <lastmod>2019-04-08T13:46:26.454Z</lastmod>
     
