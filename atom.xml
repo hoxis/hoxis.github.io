@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hoxis.github.io/"/>
-  <updated>2019-05-23T05:22:48.063Z</updated>
+  <updated>2019-05-28T10:07:17.238Z</updated>
   <id>https://hoxis.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Postman如何保存接口返回的文件流？</title>
+    <link href="https://hoxis.github.io/postman-restapi-get-file.html"/>
+    <id>https://hoxis.github.io/postman-restapi-get-file.html</id>
+    <published>2019-05-28T10:03:42.000Z</published>
+    <updated>2019-05-28T10:07:17.238Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在测试文件下载的接口，但是发现直接用 Postman 调用接口后，返回的是二进制文件流</p><a id="more"></a><p>最近在测试文件下载的接口，但是发现直接用 Postman 调用接口后，返回的是二进制文件流：</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190527174026.png" alt></p><p>那么 Postman 如何将接口返回的文件流下载下来呢？</p><p>官方文档有说明：</p><blockquote><p>If your API endpoint returns an image, Postman will detect and render it automatically. For binary response types, you should select “Send and download” which will let you save the response to your hard disk. You can then view it using the appropriate viewer. This gives you the flexibility to test audio files, PDFs, zip files, or anything that the API throws at you.</p></blockquote><p>在 Send 按钮那里可以选择 <strong>Send and download</strong></p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190528180643.png" alt></p><p>点击后，接口正常的话，会弹出文件保存弹窗，如果知道文件类型，直接修改为对应的后缀即可。</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190527174358.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在测试文件下载的接口，但是发现直接用 Postman 调用接口后，返回的是二进制文件流&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="奇技淫巧" scheme="https://hoxis.github.io/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
+    
+    
+      <category term="工具" scheme="https://hoxis.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>钱钱是条狗？--读《小狗钱钱》</title>
@@ -478,28 +500,6 @@
       <category term="Linux" scheme="https://hoxis.github.io/tags/Linux/"/>
     
       <category term="Python" scheme="https://hoxis.github.io/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>k8s集群容器内部无法和集群外的Node通信</title>
-    <link href="https://hoxis.github.io/k8s-ipv6-calico.html"/>
-    <id>https://hoxis.github.io/k8s-ipv6-calico.html</id>
-    <published>2019-01-08T03:17:57.000Z</published>
-    <updated>2019-04-08T13:46:26.486Z</updated>
-    
-    <content type="html"><![CDATA[<p>k8s集群容器内部无法和集群外的Node通信</p><a id="more"></a><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>k8s 集群下容器内部，只能和集群中的三台 Node 通信，无法和集群同 vlan 的网段地址其他 Node 通信，如 mysql 数据库服务器地址。</p><p>在容器外部的机器上是可以正常访问 MySQL 服务器的，但是在容器内部却不行：</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190108104621.png" alt></p><h1 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h1><p>这个 k8s 集群使用 <code>calico</code> 网络方案。</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190108111123.png" alt></p><p>发现 IPv6 的 NAT 没有打开。</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190108111339.png" alt></p><p>calico 开启 natout 开关后，可以正常通信了！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;k8s集群容器内部无法和集群外的Node通信&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络相关" scheme="https://hoxis.github.io/categories/%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/"/>
-    
-    
-      <category term="k8s" scheme="https://hoxis.github.io/tags/k8s/"/>
     
   </entry>
   
