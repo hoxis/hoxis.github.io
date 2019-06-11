@@ -576,8 +576,8 @@
         <category>资源分享</category>
       </categories>
       <tags>
-        <tag>资源</tag>
         <tag>office</tag>
+        <tag>资源</tag>
       </tags>
   </entry>
   <entry>
@@ -2132,18 +2132,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[我学设计模式：外观（Facade）模式]]></title>
-    <url>%2F%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%A4%96%E8%A7%82%EF%BC%88Facade%EF%BC%89%E6%A8%A1%E5%BC%8F.html</url>
-    <content type="text"><![CDATA[定义：为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加易用。 外观模式比较简单，两个字：封装！外观模式是为了解决类与类之间的依赖关系的，将类与类之间（比如A、B、C）的关系放在一个Facade类中，从外部看来只要调用Facade类中的方法，就可以自动调用A、B、C的功能，从而降低了类之间的耦合度。 认识外观模式：封装交互，简化调用 如图所示，外观模式减少了外部与子系统内多个模块的交互，松散耦合，从而让外部可以更简单地使用子系统。一个直观的例子就是电脑，外部来看我们面对的是电脑，只要对电脑上的按钮操作即可，但是电脑内部有很多子系统，如CPU、Memory、Disk等。当我们启动或关闭电脑时，只要对封装好的Computer操作即可，而不需对每个子系统启动。 外观模式的调用顺序 何时使用外观模式 希望为一个复杂的子系统提供一个简单的接口 想让客户端和抽象类的实现部分松散耦合 构建多层结构系统时，可以使用外观作为每层的入口 本文是《研磨设计模式》的读书笔记。]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>外观模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[我学设计模式：单例（Singleton）模式]]></title>
     <url>%2F%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%8D%95%E4%BE%8B%EF%BC%88Singleton%EF%BC%89%E6%A8%A1%E5%BC%8F.html</url>
     <content type="text"><![CDATA[保证一个类仅有一个实例，并提供一个访问它的全局访问点。 要想控制一个类只被创建一个实例，那么首要的问题就是把创建实例的权限收回来，让类自己来负责创建自己类的实例，然后由这个类来提供外部可以访问这个类实例的方法，这就是单例模式的实现方法。 单例模式的结构和实现 Singleton:负责创建Singleton类自己的唯一实例，并提供一个getInstance的方法，来外部来访问这个类的唯一实例。 私有化构造方法 提供静态的获取实例的方法 定义存储实例的属性，因为要在静态方法中使用，因此要加上static修饰 实现控制实例的创建 示例代码懒汉模式所谓懒汉模式，既然懒，那么在创建对象实例时就不要着急，在马上要使用对象实例时才会创建，在装载对象时不会创建对象实例。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546package com.liuhao.designpattern.singleton;/** * 单例模式懒汉模式 * * @author liuhao * * 2015年7月17日 */public class SingletonLazy &#123; // 4. 定义一个变量来存储创建好的类实例 // 5. 因为要在静态方法中使用，因此要加上static修饰 private static SingletonLazy instance = null; // 1. 构造方法私有化，好在内部控制创建实例的数目 private SingletonLazy() &#123; &#125; // 2. 定义一个方法为客户端提供类实例 // 3. 这个方法需要定义成类方法，也就是 public static SingletonLazy getInstance() &#123; // 6. 判断存储实例的变量是否有值 if (instance == null) &#123; instance = new SingletonLazy(); &#125; return instance; &#125; private String singletonData;// 单例可以有自己的属性 /** * 获取属性的值 * * @return 属性的值 */ public String getSingletonData() &#123; return singletonData; &#125; /** * 单例可以有自己的操作方法 */ public void singletonOperation() &#123; &#125;&#125; 饿汉模式所谓饿汉模式，就是在创建对象实例时比较急，在装载类的时候就会创建对象实例。123456789101112131415161718192021222324252627282930313233343536373839404142package com.liuhao.designpattern.singleton;/** * 单例模式饿汉模式 * * @author liuhao * * 2015年7月17日 */public class SingletonHungry &#123; // 4. 直装载类的时候就会创建对象实例，只创建一次 private static SingletonHungry instance = new SingletonHungry(); // 1. 构造方法私有化，好在内部控制创建实例的数目 private SingletonHungry() &#123; &#125; // 2. 定义一个方法为客户端提供类实例 // 3. 这个方法需要定义成类方法，也就是 public static SingletonHungry getInstance() &#123; // 5. 直接使用以及创建好的实例 return instance; &#125; private String singletonData;// 单例可以有自己的属性 /** * 获取属性的值 * * @return 属性的值 */ public String getSingletonData() &#123; return singletonData; &#125; /** * 单例可以有自己的操作方法 */ public void singletonOperation() &#123; &#125;&#125; 其他单例模式的范围目前Java实现的单例是一个虚拟机范围的，因为装载类的功能是虚拟机的，所以一个虚拟机在通过自己的ClassLoader装载饿汉模式实现单例时就会创建一个类的实例。 因此如果一个虚拟机里面有很多个ClassLoader，而这些ClassLoader都装载某个类的话，就会产生多个实例。 单例模式的调用顺序 懒汉模式 饿汉模式 体现的一些思想 延迟加载懒汉模式中，一开始没有加载所需的资源或者数据，一直等到马上就要使用了才加载，即所谓的“延迟加载”。 缓存当某些资源或数据被频繁的使用，而且它们是存储在系统外部的（如数据库、硬盘），那么每次操作都要从数据库获取，速度会很慢，操作性能问题。 一个简单的方法就是把这些数据缓存到内存中，每次操作的时候先到内存里找，若有则直接使用；若果没有再获取它并设置到缓存中。 缓存是一种典型的空间换取时间的方案。 线程安全 不加同步的懒汉模式是线程不安全的。比如，有线程A、B同时调用getInstance方法，那就可能导致并发问题，如图。 如何实现懒汉模式的线程安全 加上关键字synchronized，如下 1public static synchronized SingletonLazy getInstance() &#123;&#125; 双重检查加锁。不是在每次进入getInstance时都需要同步，而是先不同步，进入方法后，先检查实例是否存在。如果不存在才进入下面的同步块，这是第一重检查。进入同步块后，再次检查实例是否存在，如果不存在，就在同步的情况下创建一个实例，这是第二重检查。双重检查加锁机制的实现需要使用volatile关键字，被它修饰的变量的值将不会被本地线程缓存，所有对该变量的读写都是直接操作共享内存，从而确保多个线程能够正确的处理该变量。具体实现： 12345678910111213public static SingletonVolatile getInstance() &#123; // 检查实例是否存在，不存在则进入到同步块 if (instance == null) &#123; // 同步块，线程安全地创建实例 synchronized (SingletonVolatile.class) &#123; // 再次检查实例是否存在，不存在则真正的创建实例 if (instance == null) &#123; instance = new SingletonVolatile(); &#125; &#125; &#125; return instance;&#125; 这种实现方式既可以实现线程安全，同时也不会对性能造成太大的影响。 饿汉模式是线程安全的。]]></content>
@@ -2153,6 +2141,18 @@
       <tags>
         <tag>设计模式</tag>
         <tag>单例模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[我学设计模式：外观（Facade）模式]]></title>
+    <url>%2F%E6%88%91%E5%AD%A6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%A4%96%E8%A7%82%EF%BC%88Facade%EF%BC%89%E6%A8%A1%E5%BC%8F.html</url>
+    <content type="text"><![CDATA[定义：为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加易用。 外观模式比较简单，两个字：封装！外观模式是为了解决类与类之间的依赖关系的，将类与类之间（比如A、B、C）的关系放在一个Facade类中，从外部看来只要调用Facade类中的方法，就可以自动调用A、B、C的功能，从而降低了类之间的耦合度。 认识外观模式：封装交互，简化调用 如图所示，外观模式减少了外部与子系统内多个模块的交互，松散耦合，从而让外部可以更简单地使用子系统。一个直观的例子就是电脑，外部来看我们面对的是电脑，只要对电脑上的按钮操作即可，但是电脑内部有很多子系统，如CPU、Memory、Disk等。当我们启动或关闭电脑时，只要对封装好的Computer操作即可，而不需对每个子系统启动。 外观模式的调用顺序 何时使用外观模式 希望为一个复杂的子系统提供一个简单的接口 想让客户端和抽象类的实现部分松散耦合 构建多层结构系统时，可以使用外观作为每层的入口 本文是《研磨设计模式》的读书笔记。]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>外观模式</tag>
       </tags>
   </entry>
   <entry>
