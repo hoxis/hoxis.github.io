@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[推荐几个公众号Markdown格式化网站]]></title>
+    <url>%2Fweixin-markdown.html</url>
+    <content type="text"><![CDATA[好多人都喜欢用 Markdown 写文 但是公众号后台编辑又不支持 Markdown 因此，催生出了一系列 Markdown 渲染格式化的工具网站 我使用了其中的一些 分享给你 [TOC] 1、Md2All官方网址：https://md.aclickall.com/ Md2All 是用的比较多的一个。 它的特点就是功能丰富、可玩性强。 内置多种样式 主要是标题样式有所不同 多种代码样式可选 样式自定义 其他功能：图片、公式、代码、云图床…… 2、Markdown Nice官方网址：https://mdnice.github.io/ 相对于 Md2All，Markdown Nice 要简洁很多。 给人的感觉是干净，舒服。 但是功能同样很多： 支持图片上传（SM.MS 图床）； 支持代码样式； 支持自定义样式； 支持数学公式。 内置样式 代码样式 自定义样式 图片上传 3、WeChat Format官方网址：https://lab.lyric.im/wxformat 相比于上面介绍的两种，WeChat Format 的功能显得单薄许多。 页面风格、渲染风格，都跟 Markdown Nice 类似。 主题只有两种可选 其他可以调整的就字体和字体大小了。 4、可能吧公众号 Style官方网址：https://knb.im/mp/ 可能吧公众号提供的一个样式渲染工具。 这是几个里面功能最弱的一个。 没有实时预览 需要手动点击转换 颜色方案可选 渲染效果 文章头部的头像和阅读时间是其特点。 标题是普通的效果，加粗的字体的渲染也是很有特色。 文章头部可以自定义作者名称、头像，再加上阅读时间，逼哥就上去了。 功能虽然不多，但是有其特点。 总结总的来说，Md2All 功能最为丰富，可玩性最强。 Markdown Nice 功能稍次于 Md2All，但是页面简洁舒服。 就到这了，选择哪一个，看你喜欢了]]></content>
+      <categories>
+        <category>好物分享</category>
+      </categories>
+      <tags>
+        <tag>微信</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Postman如何保存接口返回的文件流？]]></title>
     <url>%2Fpostman-restapi-get-file.html</url>
     <content type="text"><![CDATA[最近在测试文件下载的接口，但是发现直接用 Postman 调用接口后，返回的是二进制文件流 最近在测试文件下载的接口，但是发现直接用 Postman 调用接口后，返回的是二进制文件流： 那么 Postman 如何将接口返回的文件流下载下来呢？ 官方文档有说明： If your API endpoint returns an image, Postman will detect and render it automatically. For binary response types, you should select “Send and download” which will let you save the response to your hard disk. You can then view it using the appropriate viewer. This gives you the flexibility to test audio files, PDFs, zip files, or anything that the API throws at you. 在 Send 按钮那里可以选择 Send and download 点击后，接口正常的话，会弹出文件保存弹窗，如果知道文件类型，直接修改为对应的后缀即可。]]></content>
