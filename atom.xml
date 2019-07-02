@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hoxis.github.io/"/>
-  <updated>2019-06-21T06:41:12.265Z</updated>
+  <updated>2019-07-02T07:00:18.032Z</updated>
   <id>https://hoxis.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux shell 中判断字符串为空的正确方法</title>
+    <link href="https://hoxis.github.io/linux-shell-string-is-null.html"/>
+    <id>https://hoxis.github.io/linux-shell-string-is-null.html</id>
+    <published>2019-07-01T06:17:12.000Z</published>
+    <updated>2019-07-02T07:00:18.032Z</updated>
+    
+    <content type="html"><![CDATA[<p>Linux 下判断字符串是否为空，有一个大坑！</p><a id="more"></a><p>首先想到的两个参数：</p><p><code>-z</code>：判断 string 是否是空串<br><code>-n</code>：判断 string 是否是非空串</p><h1 id="常规错误做法"><a href="#常规错误做法" class="headerlink" title="常规错误做法"></a>常规错误做法</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">STRING=</span><br><span class="line"><span class="keyword">if</span> [ -z <span class="variable">$STRING</span> ]; <span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"STRING is empty"</span> </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="variable">$STRING</span> ]; <span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"STRING is not empty"</span> </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure><p>看上去没毛病，但是！</p><p>输出错误结果：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@james-desktop:~<span class="comment"># ./zerostring.sh </span></span><br><span class="line">STRING is empty </span><br><span class="line">STRING is not empty</span><br></pre></td></tr></table></figure></p><p>发现使用 <code>-n</code> 判断时，竟然出现错误！</p><h1 id="正确做法"><a href="#正确做法" class="headerlink" title="正确做法"></a>正确做法</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">STRING=</span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$STRING</span>"</span> ]; <span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"STRING is empty"</span> </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$STRING</span>"</span> ]; <span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"STRING is not empty"</span> </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@james-desktop:~<span class="comment"># ./zerostring.sh </span></span><br><span class="line">STRING is empty</span><br></pre></td></tr></table></figure><p>这里，我们得出一个道理，在进行字符串比较时，<strong>用引号将字符串界定起来</strong>，是一个非常好的习惯！</p><p>参考：</p><p><a href="https://www.cnblogs.com/cute/archive/2011/08/26/2154137.html" target="_blank" rel="noopener">https://www.cnblogs.com/cute/archive/2011/08/26/2154137.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Linux 下判断字符串是否为空，有一个大坑！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://hoxis.github.io/categories/Linux/"/>
+    
+    
+      <category term="shell" scheme="https://hoxis.github.io/tags/shell/"/>
+    
+  </entry>
   
   <entry>
     <title>推荐几个公众号Markdown格式化网站</title>
@@ -463,34 +485,6 @@
     <summary type="html">
     
       &lt;p&gt;日常中，也许会遇到这种场景，一条 SQL 语句，正常执行速度很快。但是，有时却变得很慢，而且很难复现，随机性比较高，并且持续时间短，到底是什么情况？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据库" scheme="https://hoxis.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="MySQL" scheme="https://hoxis.github.io/tags/MySQL/"/>
-    
-      <category term="极客时间" scheme="https://hoxis.github.io/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL实战 | 11 怎么给字符串字段加索引？</title>
-    <link href="https://hoxis.github.io/mysql-zhuanlan-11-index-for-string.html"/>
-    <id>https://hoxis.github.io/mysql-zhuanlan-11-index-for-string.html</id>
-    <published>2019-02-13T12:34:51.000Z</published>
-    <updated>2019-04-08T13:46:26.494Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>两种：</strong></p><ul><li>全字段索引</li><li>前缀索引</li></ul><a id="more"></a><p>举例：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table SUser(</span><br><span class="line">ID bigint unsigned primary key,</span><br><span class="line">email varchar(64), </span><br><span class="line">... </span><br><span class="line">)engine=innodb;</span><br></pre></td></tr></table></figure><p>可以对 email 字段创建全字段索引，或者前缀索引。</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table SUser add index index1(email);</span><br><span class="line">或</span><br><span class="line">mysql&gt; alter table SUser add index index2(email(6));</span><br></pre></td></tr></table></figure><p><strong>区别</strong></p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190213134008.png" alt="全字段索引"></p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190213134021.png" alt="前缀索引"></p><p>1、全字段索引占用空间大，前缀索引占用空间小；<br>2、全字段索引查询效率高，前缀索引则会增加额外的记录扫描次数。</p><p><strong>执行过程</strong></p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">name</span>,email <span class="keyword">from</span> SUser <span class="keyword">where</span> email=<span class="string">'zhangssxyz@xxx.com'</span>;</span><br></pre></td></tr></table></figure><p>1、全字段索引</p><p>① 从 index1 索引树中找到索引值是 <code>zhangssxyz@xxx.com</code> 的记录，然后得到主键值；<br>② 根据主键值获取到该行的完整数据（回表），再判断 email 是否满足条件，将这行记录加入结果集；<br>③ 沿着索引树继续查找下一条满足条件的数据，若不满足，循环结束；</p><p>2、前缀索引</p><p>① 从 index2 索引树上查找索引值是 <code>zhangs</code>  的记录，找到一条后，得到主键值；<br>② 根据主键值获取到该行的完整数据（回表），再判断 email 是否满足条件，将这行记录加入结果集；<br>③ 沿着索引树继续查找下一条满足条件的数据，发现仍然满足条件，重复上面的操作；<br>④ 重复上一步，直到在 index2 上取到的值不满足条件，循环结束。</p><p>很明显，使用前缀索引，导致查询次数增多。</p><p><strong>如何减少前缀索引查询次数？</strong></p><p><strong>区分度</strong>，区分度越高，前缀重复的可能性越小，进而，查询次数就越少。</p><p>通过如下语句，可以查询到不通前缀长度，分别有多少个不同的值：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select </span><br><span class="line">  count(distinct email) as L</span><br><span class="line">  count(distinct left(email,4)）as L4,</span><br><span class="line">  count(distinct left(email,5)）as L5,</span><br><span class="line">  count(distinct left(email,6)）as L6,</span><br><span class="line">  count(distinct left(email,7)）as L7,</span><br><span class="line">from SUser;</span><br></pre></td></tr></table></figure><p>自己可以预先设定一个可以接受的重复比例，比如大于 L * 95%。</p><p><strong>前缀索引对覆盖索引的影响</strong></p><p>使用前缀索引将无法利用覆盖索引的优化。</p><p>查询时，系统并不确定前缀索引的定义是否截断了完整信息。</p><p><strong>前缀索引的优化</strong></p><p>1、倒序存储</p><p>适合字段值前面部分重复度高，后半部分重复度低，这时可以倒序存储数据。</p><p>查询时可以这么写：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select field_list from t where id_card = reverse('input_id_card_string');</span><br></pre></td></tr></table></figure><p>2、做 hash</p><p>新增一个字段，专门存储字段的 hash 值：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table t add id_card_crc int unsigned, add index(id_card_crc);</span><br></pre></td></tr></table></figure><p>每次插入数据时，都要调用 <code>crc32()</code> 这个函数得到校验码填到这个新字段。</p><p>这个字段有可能重复，需要联合判断 id_card 的值是否精确相同。</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select field_list from t where id_card_crc=crc32('input_id_card_string') and id_card='input_id_card_string'</span><br></pre></td></tr></table></figure><p><strong>二者的区别</strong></p><p>1、都不支持范围查询<br>2、hash 字段需要额外的空间<br>3、CPU 消耗：倒序插入时需要额外调用 reverse 函数，hash 需要调用 crc32() 函数。reverse 函数消耗的 CPU 更小一些；<br>4、hash 字段方式的查询效率更高，因为计算出来的 hash 值重复的可能性较小，扫描次数接近于 1</p><p><strong>总结</strong></p><p>1、直接创建完整索引，这样可能比较占用空间；<br>2、创建前缀索引，节省空间，但会增加查询扫描次数，并且不能使用覆盖索引；<br>3、倒序存储，再创建前缀索引，用于绕过字符串本身前缀的区分度不够的问题；<br>4、创建 hash 字段索引，查询性能稳定，有额外的存储和计算消耗，跟第三种方式一样，都不支持范围扫描。</p><p><strong>如何选择？</strong></p><p>当数据量大时，一个学校每年预估 2 万新生，50 年才 100 万记录，能节省多少空间，直接全字段索引。省去了开发转换及局限性风险，碰到超大量迫不得已再用后两种办法。从业务量预估优化和收益，这不失为一个不错的想法。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;两种：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;全字段索引&lt;/li&gt;
-&lt;li&gt;前缀索引&lt;/li&gt;
-&lt;/ul&gt;
     
     </summary>
     
