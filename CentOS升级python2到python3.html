@@ -131,16 +131,16 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="CentOS 7 中默认安装了 Python，版本比较低（2.7.5），为了使用新版 3.x，需要对旧版本进行升级。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513565379144.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513565540319.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513566104178.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/2017-12-18%20130506.gif">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513566329220.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.454Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513565379144.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513565540319.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513566104178.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2017-12-18%20130506.gif">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513566329220.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:15.964Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS升级python2到python3">
 <meta name="twitter:description" content="CentOS 7 中默认安装了 Python，版本比较低（2.7.5），为了使用新版 3.x，需要对旧版本进行升级。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513565379144.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513565379144.jpg">
 
 
 
@@ -535,21 +535,21 @@
 <a id="more"></a>
 <h1 id="下载新版本python"><a href="#下载新版本python" class="headerlink" title="下载新版本python"></a>下载新版本python</h1><p>在python官网下载最新的源码包：<a href="https://www.python.org/downloads/source/" target="_blank" rel="noopener">https://www.python.org/downloads/source/</a>。</p>
 <p>可以直接下载然后上传到服务器，也可以通过wget进行下载：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513565379144.jpg" alt="wget下载新版本python"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513565379144.jpg" alt="wget下载新版本python"></p>
 <h1 id="安装准备-提前排雷"><a href="#安装准备-提前排雷" class="headerlink" title="安装准备-提前排雷"></a>安装准备-提前排雷</h1><h2 id="安装gcc相关"><a href="#安装gcc相关" class="headerlink" title="安装gcc相关"></a>安装gcc相关</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install make gcc gcc-c++</span><br></pre></td></tr></table></figure>
 <p>因为是源码编译安装，需要gcc相关组件的支持，否则在编译时会报如下错误。</p>
 <p>执行<code>./configure</code>时，报错：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513565540319.jpg" alt="错误截图"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513565540319.jpg" alt="错误截图"></p>
 <p>说明没有安装合适的编译器。这时，需要安装/升级<code>gcc</code>及其它依赖包。然后重新执行。</p>
 <h2 id="安装zlib相关"><a href="#安装zlib相关" class="headerlink" title="安装zlib相关"></a>安装zlib相关</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install zlib*</span><br></pre></td></tr></table></figure>
 <p>在<code>make</code>阶段，需要<code>zlib</code>组件。否则会报<code>zlib not available</code>的异常。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513566104178.jpg" alt="zlib not available"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513566104178.jpg" alt="zlib not available"></p>
 <p>从错误信息分析，就是缺少了zlib的解压缩类库，安装即可。然后重新编译安装python。</p>
 <h2 id="安装readline-devel"><a href="#安装readline-devel" class="headerlink" title="安装readline-devel"></a>安装readline-devel</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install readline-devel</span><br></pre></td></tr></table></figure>
-<p>否则会出现安装完成后<code>Python</code>终端无法使用退格，上下左右。需要安装<code>readline-devel</code>后重新编译安装Python。<br><img src="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/2017-12-18%20130506.gif" alt="无法使用退格等"></p>
+<p>否则会出现安装完成后<code>Python</code>终端无法使用退格，上下左右。需要安装<code>readline-devel</code>后重新编译安装Python。<br><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2017-12-18%20130506.gif" alt="无法使用退格等"></p>
 <h1 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h1><h2 id="编译-安装"><a href="#编译-安装" class="headerlink" title="编译 安装"></a>编译 安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python-3.6.3.tgz</span><br><span class="line"><span class="built_in">cd</span> Python-3.6.3</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make insatll</span><br></pre></td></tr></table></figure>
 <h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>安装成功以后，就可以查看Python的版本：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513566329220.jpg" alt="验证Python版本"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513566329220.jpg" alt="验证Python版本"></p>
 <p>一个是旧版本 2.x，另外一个是新版本 3.x。<br>注意：在<code>/usr/local/bin/</code>下有一个<code>python3</code>的链接，指向<code>bin</code>目录下的<code>python 3.6</code>。</p>
 <h1 id="安装后的配置"><a href="#安装后的配置" class="headerlink" title="安装后的配置"></a>安装后的配置</h1><h2 id="设置-3-x-为默认版本"><a href="#设置-3-x-为默认版本" class="headerlink" title="设置 3.x 为默认版本"></a>设置 3.x 为默认版本</h2><p>查看 Python 的路径，在<code>/usr/bin</code>下面。可以看到<code>python</code>软链接的是<code>python 2.7</code>，所以，执行<code>python</code>就相当于执行<code>python 2.7</code>。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 bin]<span class="comment"># ls -al /usr/bin | grep python</span></span><br><span class="line">lrwxrwxrwx.  1 root root          7 8月  17 18:01 python -&gt; python2</span><br><span class="line">lrwxrwxrwx.  1 root root          9 8月  17 18:01 python2 -&gt; python2.7</span><br><span class="line">-rwxr-xr-x.  1 root root       7136 11月  6 2016 python2.7</span><br></pre></td></tr></table></figure></p>
 <h3 id="备份python2"><a href="#备份python2" class="headerlink" title="备份python2"></a>备份python2</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /usr/bin/python /usr/bin/python2.7.bak</span><br></pre></td></tr></table></figure>

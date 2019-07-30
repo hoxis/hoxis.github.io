@@ -131,15 +131,15 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="在前文中，我们通过一个实例配置对Sensu有了初步地了解，但是对其中的一些概念只是有一个模糊的印象，本文将对Sensu中的几个重要概念或者说是术语，进行详尽的介绍。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1517289305111.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1517289462692.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/2018130154641.gif">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/sensu-diagram.gif">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.464Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517289305111.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517289462692.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2018130154641.gif">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/sensu-diagram.gif">
+<meta property="og:updated_time" content="2019-07-30T06:20:17.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sensu相关概念详解">
 <meta name="twitter:description" content="在前文中，我们通过一个实例配置对Sensu有了初步地了解，但是对其中的一些概念只是有一个模糊的印象，本文将对Sensu中的几个重要概念或者说是术语，进行详尽的介绍。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1517289305111.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517289305111.jpg">
 
 
 
@@ -695,9 +695,9 @@
 <p>通过配置<code>&quot;standalone&quot;: true</code>表明这是一个Standalone模式的Check，该Check会在客户端每60s运行一次。</p>
 <p>不像发布/订阅模式，Standalone模式的Check在<code>uchiwa</code>页面是看不到的，只有在Check状态不正常时，在页面才会收到告警。</p>
 <p>正常情况下的可以通过client端的日志查看Check的执行过程：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1517289305111.jpg" alt="client端的Check日志"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517289305111.jpg" alt="client端的Check日志"></p>
 <p>我们将Check中的<code>cron</code>进程修改为一个不存在的进程，再次观察，可以发现uchiwa页面可以收到Check告警信息：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1517289462692.jpg" alt="uchiwa页面的告警信息"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517289462692.jpg" alt="uchiwa页面的告警信息"></p>
 <h2 id="指标采集"><a href="#指标采集" class="headerlink" title="指标采集"></a>指标采集</h2><p>Check还可以分为两种类型：标准采集<code>standard</code>和指标采集<code>metric</code>。</p>
 <ul>
 <li>对于标准类型的check来说，Sensu不会在每次执行后都生成event，而只是在check所返回的结果为<code>非0</code>或者是从<code>非0</code>变为<code>0</code>的时候才会生成event。这样带来的好处是降低了负载，适用于那些只关注于<strong>非正常状态</strong>，而在正常的状态无需采取措施的监控场景。</li>
@@ -709,7 +709,7 @@
 <h3 id="Check定义"><a href="#Check定义" class="headerlink" title="Check定义"></a>Check定义</h3><p>在客户端新建文件<code>/etc/sensu/conf.d/cpu_metrics.json</code>，内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checks"</span>: &#123;</span><br><span class="line">    <span class="attr">"cpu_metrics"</span>: &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"metric"</span>,</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"metrics-cpu.rb"</span>,</span><br><span class="line">      <span class="attr">"interval"</span>: <span class="number">10</span>,</span><br><span class="line">      <span class="attr">"standalone"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">"truncate_output"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"handler"</span>: <span class="string">"debug"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这里采用Standalone模式进行配置，另外参数<code>truncate_output</code>的设置为<code>false</code>的目的是不用截短output。因为指标采集的输出通常较长，默认会对output进行截短。也可以通过<code>&quot;truncate_output_length&quot;: 666</code>设置output的长度。</p>
 <h3 id="指标采集结果"><a href="#指标采集结果" class="headerlink" title="指标采集结果"></a>指标采集结果</h3><p>重启<code>sensu-client</code>服务后，可以在uchiwa页面看到指标采集结果。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/2018130154641.gif" alt="指标采集结果"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2018130154641.gif" alt="指标采集结果"></p>
 <h2 id="Check结果"><a href="#Check结果" class="headerlink" title="Check结果"></a>Check结果</h2><p>Check结果结果是客户端再check执行完成后推送到<code>Sensu transport</code>中的JSON格式的数据，一般包含如下信息：</p>
 <ul>
 <li>check定义相关，如command，subscribers，interval，name等，以及check输出</li>
@@ -969,7 +969,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/sensu-diagram.gif" alt="Sensu的监控流程"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/sensu-diagram.gif" alt="Sensu的监控流程"></p>
 
       
     </div>

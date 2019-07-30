@@ -131,17 +131,17 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="上回我们说到怎么把签到结果发出来，于是就找到了 Twilio。 Twilio 是一个位于加利福尼亚的云通信（PaaS）公司，致力于为开发者提供通讯模块的 API。由于 Twilio 为试用帐户提供了免费电话短信服务，我们可以在申请需要短信验证的国外免费资源时，使用 Twilio 在线实时收取验证短信。下面，本站就详细介绍一下 Twilio 的申请及短信发送过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533092598328.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533092712853.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533093576680.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533093140146.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533093169577.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533093819729.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.509Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533092598328.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533092712853.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093576680.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093140146.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093169577.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093819729.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:17.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Python 发送短信？">
 <meta name="twitter:description" content="上回我们说到怎么把签到结果发出来，于是就找到了 Twilio。 Twilio 是一个位于加利福尼亚的云通信（PaaS）公司，致力于为开发者提供通讯模块的 API。由于 Twilio 为试用帐户提供了免费电话短信服务，我们可以在申请需要短信验证的国外免费资源时，使用 Twilio 在线实时收取验证短信。下面，本站就详细介绍一下 Twilio 的申请及短信发送过程。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1533092598328.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533092598328.jpg">
 
 
 
@@ -537,13 +537,13 @@
 <a id="more"></a>
 <h1 id="注册及设置"><a href="#注册及设置" class="headerlink" title="注册及设置"></a>注册及设置</h1><p>访问 <a href="http://twilio.com/" target="_blank" rel="noopener">http://twilio.com/</a> 并填写注册表单。注册了新账户后，你需要验证一个手机号码，短信将发给该号码。还需要做一个人机验证，证明你是一个人！</p>
 <p>注册成功后，需要新建一个 Project，进入 Project 界面后可以看到有 SID 和 TOKEN 信息，后面代码中会用到：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533092598328.jpg" alt="Project"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533092598328.jpg" alt="Project"></p>
 <p>你需要激活一个电话号码，就是让 Twilio 分配一个，分配成功后，就可以用它来发短信了。在 Project 页面 Phone Numbers 下操作即可：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533092712853.jpg" alt="获取号码"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533092712853.jpg" alt="获取号码"></p>
 <p>想要使用 Twilio 号码发送短信，需要先验证收信方的手机号码。在 Phone Numbers 选项卡中选择 Verified Caller IDs，进入号码验证页面，选择使用短信验证。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533093576680.jpg" alt="验证1"></p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533093140146.jpg" alt="验证2"></p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533093169577.jpg" alt="验证3"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093576680.jpg" alt="验证1"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093140146.jpg" alt="验证2"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093169577.jpg" alt="验证3"></p>
 <p>输入手机验证码，确认后即完成了接收方的手机验证。</p>
 <p>下面，我们就可以使用代码来发送短信了。</p>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>首先，要安装，很简单：</p>
@@ -553,7 +553,7 @@
 <p>这里，需要 Twilio 提供的试用账户包括一个电话号码，它将作为短信的发送者。还需要两个信息：你的账户 SID 和 TOKEN，Python 中，这些值将作为你的 Twilio 用户名和密码。</p>
 <p>另外，<code>to</code> 的手机号需要是已经验证过的！</p>
 <p>发送效果：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533093819729.jpg" alt="发送效果"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093819729.jpg" alt="发送效果"></p>
 <p>由于是试用账号，所以带有一些 Twilio 试用字样。也许在哪里设置可以去掉，有兴趣的可以研究下。</p>
 <p>上次食行签到领积分里我们说过是不是有办法提醒签到成功，这里就可以操作了，定义一个发送短信的函数，将签到信息发送到指定号码上就行啦：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_sms</span><span class="params">(text)</span>:</span></span><br><span class="line">    account_sid = <span class="string">'your_sid'</span></span><br><span class="line">    auth_token = <span class="string">'your_auth_token'</span></span><br><span class="line">    client = Client(account_sid, auth_token)</span><br><span class="line"></span><br><span class="line">    message = client.messages.create(</span><br><span class="line">                                from_=<span class="string">'your_from_num'</span>,</span><br><span class="line">                                body=text,</span><br><span class="line">                                to=<span class="string">'your_to_num'</span></span><br><span class="line">                            )</span><br><span class="line">    print(message.sid)</span><br></pre></td></tr></table></figure>

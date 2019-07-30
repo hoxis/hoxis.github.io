@@ -131,14 +131,14 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="在前面抓取高考分数线的文章中，我们用到了 openpyxl 模块来存储数据到 Excel，今天带大家学习一下该模块的详细使用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1530407721941.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1530502147802.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1530506257451.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.504Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530407721941.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530502147802.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530506257451.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:16.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 玩转 Excel">
 <meta name="twitter:description" content="在前面抓取高考分数线的文章中，我们用到了 openpyxl 模块来存储数据到 Excel，今天带大家学习一下该模块的详细使用。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1530407721941.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530407721941.jpg">
 
 
 
@@ -547,7 +547,7 @@
 <h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h1><p>openpyxl 的安装很简单，使用 pip 直接安装即可。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure>
 <h1 id="3-基本操作"><a href="#3-基本操作" class="headerlink" title="3 基本操作"></a>3 基本操作</h1><p>提前新建一个测试 Excel：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1530407721941.jpg" alt="测试 Excel"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530407721941.jpg" alt="测试 Excel"></p>
 <ul>
 <li>导入模块</li>
 </ul>
@@ -617,7 +617,7 @@
 </ul>
 <p>返回的是一个 Generator 对象，它包含该区域中的 Cell 对象。里面是每一行（列）的数据，每一行（列）又由一个 tuple 包裹。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows = sheet.rows</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows</span><br><span class="line">&lt;generator object Worksheet._cells_by_row at <span class="number">0x7f778a7978e0</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>columns = sheet.columns</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> row <span class="keyword">in</span> sheet.rows:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> cell <span class="keyword">in</span> row:</span><br><span class="line"><span class="meta">... </span>        print(cell.value)</span><br></pre></td></tr></table></figure>
-<p>因为 sheet.rows 是生成器类型，不能直接使用索引，需要先转换成 list 之后才行，如 list(sheet.rows)<a href="https://www.github.com/hoxis/token4md/raw/master/1530407721941.jpg" target="_blank" rel="noopener">2</a> 这样就获取到第三行的 tuple 对象。</p>
+<p>因为 sheet.rows 是生成器类型，不能直接使用索引，需要先转换成 list 之后才行，如 list(sheet.rows)<a href="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530407721941.jpg" target="_blank" rel="noopener">2</a> 这样就获取到第三行的 tuple 对象。</p>
 <ul>
 <li>添加一行值</li>
 </ul>
@@ -648,7 +648,7 @@
 <li>单元格合并与拆分</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>sheet.merge_cells(<span class="string">'A1:A3'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sheet.merge_cells(<span class="string">'B1:D2'</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1530502147802.jpg" alt="合并后的效果"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530502147802.jpg" alt="合并后的效果"></p>
 <p>如果这些要合并的单元格都有数据，只会保留左上角的数据，其他则丢弃。</p>
 <p>分解类似：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>sheet.unmerge_cells(<span class="string">'A1:A3'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sheet.unmerge_cells(<span class="string">'B1:D2'</span>)</span><br></pre></td></tr></table></figure>
@@ -657,7 +657,7 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openpyxl.styles <span class="keyword">import</span> Font, colors, Alignment</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置字体: 等线 24 号加粗斜体，字体颜色红色</span></span><br><span class="line">bold_itatic_24_font = Font(name=<span class="string">"等线"</span>, size=<span class="number">24</span>, italic=<span class="keyword">True</span>, color=colors.RED, bold=<span class="keyword">True</span>)</span><br><span class="line">sheet[<span class="string">"B1"</span>].font = bold_itatic_24_font</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对齐方式: B1 中的数据垂直居中和水平居中</span></span><br><span class="line">sheet[<span class="string">"C1"</span>].alignment = Alignment(horizontal=<span class="string">"center"</span>, vertical=<span class="string">"center"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置行高和列宽</span></span><br><span class="line">sheet.row_dimensions[<span class="number">2</span>].height = <span class="number">40</span></span><br><span class="line">sheet.column_dimensions[<span class="string">"C"</span>].width = <span class="number">30</span></span><br></pre></td></tr></table></figure>
 <p>设置后的效果：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1530506257451.jpg" alt="单元格样式"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530506257451.jpg" alt="单元格样式"></p>
 <hr>
 <p>openpyxl 模块的使用就到这里，完整使用示例可以参考我的上篇：<a href="https://hoxis.github.io/python-gaokao-2018.html">Python 助你填写高考志愿</a>。</p>
 <p>其实还有很多高级用法，但个人觉得用的较少，有兴趣的可以参考官网：<a href="https://openpyxl.readthedocs.io/en/stable/" target="_blank" rel="noopener">https://openpyxl.readthedocs.io/en/stable/</a></p>

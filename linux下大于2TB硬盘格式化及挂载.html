@@ -131,14 +131,14 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="先介绍两种分区表：  MBR分区表：（MBR含义：主引导记录） 所支持的最大卷：2T（T: terabytes,1TB=1024GB） 对分区的设限：最多4个主分区或3个主分区加一个扩展分区。   GPT分区表：（GPT含义：GUID分区表） 支持最大卷：18EB（E：exabytes,1EB=1024TB） 每个磁盘最多支持128个分区    明显地，当磁盘超过2TB时需要使用GBT分区。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/2017-12-20-174302.gif">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1513761711249.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1513762566190.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.489Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2017-12-20-174302.gif">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513761711249.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513762566190.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:16.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下大于2TB硬盘格式化及挂载-GPT分区步骤">
 <meta name="twitter:description" content="先介绍两种分区表：  MBR分区表：（MBR含义：主引导记录） 所支持的最大卷：2T（T: terabytes,1TB=1024GB） 对分区的设限：最多4个主分区或3个主分区加一个扩展分区。   GPT分区表：（GPT含义：GUID分区表） 支持最大卷：18EB（E：exabytes,1EB=1024TB） 每个磁盘最多支持128个分区    明显地，当磁盘超过2TB时需要使用GBT分区。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/2017-12-20-174302.gif">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2017-12-20-174302.gif">
 
 
 
@@ -543,16 +543,16 @@
 </li>
 </ul>
 <p>明显地，当磁盘超过<code>2TB</code>时需要使用<code>GBT</code>分区。<br><a id="more"></a></p>
-<h2 id="parted分区步骤"><a href="#parted分区步骤" class="headerlink" title="parted分区步骤"></a>parted分区步骤</h2><p><img src="https://www.github.com/hoxis/token4md/raw/master/2017-12-20-174302.gif" alt="所有流程"></p>
+<h2 id="parted分区步骤"><a href="#parted分区步骤" class="headerlink" title="parted分区步骤"></a>parted分区步骤</h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2017-12-20-174302.gif" alt="所有流程"></p>
 <h3 id="进入parted"><a href="#进入parted" class="headerlink" title="进入parted"></a>进入parted</h3><p>在命令行键入命令<strong>parted 待格式化分区</strong>，如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sdb</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1513761711249.jpg" alt="parted /dev/sdb"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513761711249.jpg" alt="parted /dev/sdb"></p>
 <p>类似fdisk一样，先选择要分区的硬盘，此处为/dev/sdb。</p>
 <p>可以输入p打印磁盘信息，查看分区的情况，找到起始和结束位置。</p>
 <h3 id="设置分区类型为gpt"><a href="#设置分区类型为gpt" class="headerlink" title="设置分区类型为gpt"></a>设置分区类型为gpt</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklabel gpt</span><br></pre></td></tr></table></figure>
 <h3 id="开始分区"><a href="#开始分区" class="headerlink" title="开始分区"></a>开始分区</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkpart primary 0% 100%</span><br></pre></td></tr></table></figure>
 <p>primary指分区类型为主分区，0是分区开始位置，100%是分区结束位置。相同的命令为：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkpart primary 0-1</span><br></pre></td></tr></table></figure>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1513762566190.jpg" alt="开始分区"><br>分区时系统会给出提示。</p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513762566190.jpg" alt="开始分区"><br>分区时系统会给出提示。</p>
 <h3 id="检查分区"><a href="#检查分区" class="headerlink" title="检查分区"></a>检查分区</h3><p>检查打印当前分区，查看分区设置是否正确<br>完成后用quit命令退出。</p>
 <h2 id="磁盘格式化和挂载"><a href="#磁盘格式化和挂载" class="headerlink" title="磁盘格式化和挂载"></a>磁盘格式化和挂载</h2><h3 id="格式化磁盘"><a href="#格式化磁盘" class="headerlink" title="格式化磁盘"></a>格式化磁盘</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext3 /dev/sdb1</span><br></pre></td></tr></table></figure>
 <p>如果支持<code>ext4</code>可选择格式化为<code>ext4</code>，格式化成<code>ext3</code>的时候又出现问题。<code>ext3</code>默认的<code>block size</code>的大小为4k，最大只能支持8T的空间。格式化时指定<code>block size</code>的大小为8K这样最大可以支持16T的空间。相应命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext3 -b 8192 /dev/sdb1</span><br></pre></td></tr></table></figure></p>

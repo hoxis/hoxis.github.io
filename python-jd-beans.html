@@ -131,15 +131,15 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="今天带大家进行模拟京东登录，并进行签到获取京豆，1000 个京豆 = 10 元，毕竟「苍蝇也是肉」，每天用脚本可以获取大概 n 个京豆，是不是一个发现了一个「发家致富」的好路子？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/201806261445.png">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1529828898141.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1529828527788.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1529922041245.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.501Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/201806261445.png">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529828898141.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529828527788.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529922041245.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:16.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 实现京东自动签到领京豆">
 <meta name="twitter:description" content="今天带大家进行模拟京东登录，并进行签到获取京豆，1000 个京豆 = 10 元，毕竟「苍蝇也是肉」，每天用脚本可以获取大概 n 个京豆，是不是一个发现了一个「发家致富」的好路子？">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/201806261445.png">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/201806261445.png">
 
 
 
@@ -534,12 +534,12 @@
 <a id="more"></a>
 <p>废话不多说，下面开始正题。</p>
 <p>整体流程如下：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/201806261445.png" alt="京东自动签到流程"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/201806261445.png" alt="京东自动签到流程"></p>
 <h1 id="1-模拟登录"><a href="#1-模拟登录" class="headerlink" title="1 模拟登录"></a>1 模拟登录</h1><p>首先我们需要的就是模拟京东登录，只有登录了才能进行签到领京豆等操作。模拟登录其实就是通过 HTTP 的 POST 请求讲用户的登录信息发送给服务器进行认证的过程。</p>
 <h2 id="1-1-登录数据分析"><a href="#1-1-登录数据分析" class="headerlink" title="1.1 登录数据分析"></a>1.1 登录数据分析</h2><p>登录过程表面上看着挺简单，我们只要在浏览器里输入用户名、密码，有时还需要输入一些连开发者都分辨不出的验证码。其实背后是浏览器帮忙做了很多工作（浏览器表示挺累的），因此我们要模拟登录，就要搞清楚浏览器在背后做了什么。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1529828898141.jpg" alt="浏览器在做什么"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529828898141.jpg" alt="浏览器在做什么"></p>
 <p>同样的套路，进入到京东的登录页面：<a href="https://passport.jd.com/uc/login?ltype=logout" target="_blank" rel="noopener">https://passport.jd.com/uc/login?ltype=logout</a>，按下 <code>F12</code>，页面输入登录信息后，点击登录（可以尝试输入一个错误的密码，因为登录后页面直接跳转到了主页面，看不到我们要的数据了），可以看到一个 POST 请求：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1529828527788.jpg" alt="京东登录"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529828527788.jpg" alt="京东登录"></p>
 <p>这里可以看到，浏览器发送了一个 POST 请求到 <a href="https://passport.jd.com/uc/loginService" target="_blank" rel="noopener">https://passport.jd.com/uc/loginService</a>，然后在请求头上面带上了一些基本的参数，其中有一个 <code>FormData</code>，这里就是浏览器向服务器提交的表单信息。</p>
 <p>看上去是不是一脸蒙蔽了，其实，这些信息大部分是可以在登录页面的源代码里找到的，源码中有一个 id 为 formlogin 的表单，其内容有：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"formlogin"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">onsubmit</span>=<span class="string">"return false;"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">id</span>=<span class="string">"sa_token"</span> <span class="attr">name</span>=<span class="string">"sa_token"</span> <span class="attr">value</span>=<span class="string">"B68C442BE64..."</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">id</span>=<span class="string">"uuid"</span> <span class="attr">name</span>=<span class="string">"uuid"</span> <span class="attr">value</span>=<span class="string">"cde6e309-9fed-4511-b517-4ffd7777d31f"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"eid"</span> <span class="attr">id</span>=<span class="string">"eid"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"fp"</span> <span class="attr">id</span>=<span class="string">"sessionId"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"_t"</span> <span class="attr">id</span>=<span class="string">"token"</span> <span class="attr">value</span>=<span class="string">"_t"</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"loginType"</span> <span class="attr">id</span>=<span class="string">"loginType"</span> <span class="attr">value</span>=<span class="string">"f"</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"main_flag"</span> <span class="attr">id</span>=<span class="string">"main_flag"</span> <span class="attr">value</span>=<span class="string">"main_flag"</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"pubKey"</span> <span class="attr">id</span>=<span class="string">"pubKey"</span> <span class="attr">value</span>=<span class="string">"MIGfMA0GCSq..."</span> <span class="attr">class</span>=<span class="string">"hide"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"qHPHrmjSKm"</span> <span class="attr">value</span>=<span class="string">"YKsoe"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -554,7 +554,7 @@
 <p>本文就采用手动录入验证码的方式。</p>
 <p>首先，如何判断页面是否需要输入验证码？</p>
 <p>调试时，可以看到有这么一个请求：<a href="https://passport.jd.com/uc/showAuthCode" target="_blank" rel="noopener">https://passport.jd.com/uc/showAuthCode</a>：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1529922041245.jpg" alt="showAuthCode"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529922041245.jpg" alt="showAuthCode"></p>
 <p>其返回值是：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&#123;"verifycode":true&#125;)</span><br></pre></td></tr></table></figure>
 <p>显然，这个地址是用来判断是否该账号是否需要验证码的。</p>

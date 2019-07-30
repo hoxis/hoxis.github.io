@@ -131,17 +131,17 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="上回我们主要研究了为什么使用索引，以及索引的数据结构。今天带你了解如何设计高性能的索引。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1543985935556.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1543989292681.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1544165173281.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1544165429609.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1544165060635.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1544165415981.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.493Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543985935556.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543989292681.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165173281.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165429609.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165060635.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165415981.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:16.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL实战 | 05 如何设计高性能的索引？">
 <meta name="twitter:description" content="上回我们主要研究了为什么使用索引，以及索引的数据结构。今天带你了解如何设计高性能的索引。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1543985935556.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543985935556.jpg">
 
 
 
@@ -572,7 +572,7 @@
 <p>若使用辅助索引进行查询，对 Name 列进行条件搜索，则需要两个步骤：</p>
 <p>1、第一步在辅助索引 B+ 树中检索 Name，到达其叶子节点获取对应的主键值。<br>2、第二步根据主键值在主索引 B+ 树中再执行一次 B+ 树检索操作，最终到达叶子节点即可获取整行数据。</p>
 <p>上面这个过程称为<strong>回表</strong>。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1543985935556.jpg" alt="回表"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543985935556.jpg" alt="回表"></p>
 <blockquote>
 <p>回表：在数据中，当查询数据的时候，在索引中查找索引后，获得该行的 rowid，根据 rowid 再查询表中数据，就是回表。</p>
 </blockquote>
@@ -594,7 +594,7 @@
 <p>如果有一个 3 列索引 (col1,col2,col3)，则相当于已经对 (col1)、(col1,col2)、(col1,col2,col3) 上建立了索引；</p>
 <p>但是 (col2,col3) 上并没有。</p>
 <p>假定数据表有一个包含 2 列的联合索引（a, b），则索引的 B+ 树结构可能如下：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1543989292681.jpg" alt="联合索引"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543989292681.jpg" alt="联合索引"></p>
 <p>键值都是排序的，通过叶子节点可以逻辑上顺序的读出所有数据。</p>
 <p>数据（1,1）（1,2）（2,1）（2,4）（3,1）（3,2）是按照（a，b）先比较 a 再比较 b 的顺序排列。</p>
 <p>所以从全局看，a 是全局有序的，而 b 则不是。</p>
@@ -626,7 +626,7 @@
 <p>存储引擎使用索引过滤不相关的数据，仅返回符合 index condition 条件的数据给 server 层。也是说数据过滤尽可能存储引擎层进行，而不是返回所有数据给 server 层，然后后再根据 where 条件进行过滤。</p>
 <h2 id="下推过程"><a href="#下推过程" class="headerlink" title="下推过程"></a>下推过程</h2><p><strong>优化器没有使用 ICP 时</strong></p>
 <p>数据访问和提取的过程如下：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1544165173281.jpg" alt="没有使用ICP"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165173281.jpg" alt="没有使用ICP"></p>
 <p>①：MySQL Server 发出读取数据的命令，调用存储引擎的索引读或全表表读。此处进行的是索引读。</p>
 <p>②、③：进入存储引擎，读取索引树，在索引树上查找，把满足条件的（红色的）从表记录中读出（步骤 ④，通常有 IO）。</p>
 <p>⑤：从存储引擎返回标识的结果。</p>
@@ -634,17 +634,17 @@
 <p>⑥：从存储引擎返回查找到的多条数据给 MySQL Server，MySQL Server 在 ⑦ 得到较多的元组。 </p>
 <p>⑦–⑧：依据 WHERE 子句条件进行过滤，得到满足条件的数据。</p>
 <p>注意在 MySQL Server 层得到较多数据，然后才过滤，最终得到的是少量的、符合条件的数据。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1544165429609.jpg" alt="没有使用ICP"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165429609.jpg" alt="没有使用ICP"></p>
 <p>在不支持 ICP 的系统下，索引仅仅作为 data access 使用。</p>
 <p><strong>优化器使用ICP时</strong></p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1544165060635.jpg" alt="使用ICP"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165060635.jpg" alt="使用ICP"></p>
 <p>①：MySQL Server 发出读取数据的命令，过程同图一。</p>
 <p>②、③：进入存储引擎，读取索引树，在索引树上查找，把满足已经下推的条件的（红色的）从表记录中读出（步骤 ④，通常有 IO）；</p>
 <p>⑤：从存储引擎返回标识的结果。</p>
 <p>此处，不仅要在索引行进行索引读取（通常是内存中，速度快。步骤 ③），还要在 ③ 这个阶段<strong>依据下推的条件进行进行判断</strong>，不满足条件的，不去读取表中的数据，直接在索引树上进行下一个索引项的判断，直到有满足条件的，才进行步骤 ④ ，这样，较没有 ICP 的方式，IO 量减少。</p>
 <p>⑥：从存储引擎返回查找到的少量数据给 MySQL Server，MySQL Server 在 ⑦ 得到少量的数据。</p>
 <p>因此比较图一无 ICP 的方式，返回给 MySQL Server 层的即是少量的、 符合条件的数据。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1544165415981.jpg" alt="使用ICP"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165415981.jpg" alt="使用ICP"></p>
 <p>在 ICP 优化开启时，在存储引擎端首先用索引过滤可以过滤的 where 条件，然后再用索引做 data access，被 index condition 过滤掉的数据不必读取，也不会返回 server 端。</p>
 <h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p>比如：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees </span><br><span class="line"><span class="keyword">WHERE</span> first_name=<span class="string">'Mary'</span> </span><br><span class="line"><span class="keyword">AND</span> last_name <span class="keyword">LIKE</span> <span class="string">'%man'</span>;</span><br></pre></td></tr></table></figure>

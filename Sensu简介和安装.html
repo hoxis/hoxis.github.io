@@ -131,14 +131,14 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="本文主要介绍运维监控软件Sensu，主要包括Sensu的组成，事件处理流程，以及Sensu的安装过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1516862558667.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1516862558667.jpg">
 <meta property="og:image" content="http://hoxis-image.oss-cn-hangzhou.aliyuncs.com/hoxis/md/2018-8-13-1534153561723.png">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/2018126143949.gif">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.464Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2018126143949.gif">
+<meta property="og:updated_time" content="2019-07-30T06:20:17.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sensu简介和安装">
 <meta name="twitter:description" content="本文主要介绍运维监控软件Sensu，主要包括Sensu的组成，事件处理流程，以及Sensu的安装过程。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1516862558667.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1516862558667.jpg">
 
 
 
@@ -575,7 +575,7 @@
 <li><code>Stashes API</code> - 用于对<code>Redis</code>基础键值功能的读/写</li>
 </ul>
 <p>生产过程中<code>Sensu</code>主要由服务端、客户端、<code>RabbitMQ</code>、<code>Redis</code>和<code>API</code>五个部分构成。如图所示，<code>RabbitMQ</code>用于组件之间的通信，<code>Redis</code>用于持久化<code>Sensu</code>服务器和<code>Sensu API</code>的数据。因为客户端都是通过文件进行配置，并且不需要在服务器端配置客户端的信息，所以可以很轻易的增加和减少客户端的数量。从图中可以看到，为了解耦服务器和客户端，通信都是通过<code>RabbitMQ</code>进行的，如果只有单节点的<code>RabbitMQ</code>，这可能会带来通信上的瓶颈问题，不过可以通过<code>RabbitMQ</code>官方提供的集群部署解决方案来解决这个问题。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1516862558667.jpg" alt="Sensu 的组成部分"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1516862558667.jpg" alt="Sensu 的组成部分"></p>
 <p><img src="http://hoxis-image.oss-cn-hangzhou.aliyuncs.com/hoxis/md/2018-8-13-1534153561723.png" alt="Sensu 组件交互"></p>
 <h1 id="Sensu-的安装与配置"><a href="#Sensu-的安装与配置" class="headerlink" title="Sensu 的安装与配置"></a>Sensu 的安装与配置</h1><p>下面介绍针对单节点的情况的安装与配置。安装环境是<code>Centos7</code>。</p>
 <h2 id="RabbitMQ-和-Redis-的安装与配置"><a href="#RabbitMQ-和-Redis-的安装与配置" class="headerlink" title="RabbitMQ 和 Redis 的安装与配置"></a>RabbitMQ 和 Redis 的安装与配置</h2><h3 id="安装-RabbitMQ"><a href="#安装-RabbitMQ" class="headerlink" title="安装 RabbitMQ"></a>安装 RabbitMQ</h3><h4 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h4><ul>
@@ -629,7 +629,7 @@
 <p>配置/etc/sensu/uchiwa.json 文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"sensu"</span>: [&#123;</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"sensu31"</span>,</span><br><span class="line">		"host": "192.168.31.63", #API服务IP地址。</span><br><span class="line">		"port": 4567, #API服务的端口。</span><br><span class="line">		"timeout": 5</span><br><span class="line">	&#125;],</span><br><span class="line">	"uchiwa": &#123;</span><br><span class="line">		"host": "192.168.31.63",</span><br><span class="line">		"port": 3000,</span><br><span class="line">		"interval": 5</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="启动相关服务并验证是否安装成功"><a href="#启动相关服务并验证是否安装成功" class="headerlink" title="启动相关服务并验证是否安装成功"></a>启动相关服务并验证是否安装成功</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 etc]<span class="comment"># service sensu-server start</span></span><br><span class="line">Redirecting to /bin/systemctl start  sensu-server.service</span><br><span class="line"></span><br><span class="line">[root@centos7 etc]<span class="comment"># service sensu-server status</span></span><br><span class="line">Redirecting to /bin/systemctl status  sensu-server.service</span><br><span class="line">● sensu-server.service - sensu server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/sensu-server.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 五 2018-01-26 13:59:13 CST; 4s ago</span><br><span class="line"> Main PID: 15189 (sensu-server)</span><br><span class="line"></span><br><span class="line">[root@centos7 sensu]<span class="comment"># service uchiwa start</span></span><br><span class="line">uchiwa started.</span><br><span class="line"></span><br><span class="line">[root@centos7 sensu]<span class="comment"># service uchiwa status</span></span><br><span class="line">uchiwa is running</span><br></pre></td></tr></table></figure>
 <p>此时，<code>uchiwa</code>页面也可以成功启动访问<code>192.168.31.63:3000</code>：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/2018126143949.gif" alt="uchiwa页面"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2018126143949.gif" alt="uchiwa页面"></p>
 <p>至此，sensu的简单介绍和安装就完成了，后续结合实践对<code>check</code>、<code>handler</code>和<code>filter</code>等概念进行详细介绍。</p>
 <hr>
 <blockquote>

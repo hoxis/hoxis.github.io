@@ -131,13 +131,13 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="之前的hexo博客一直托管在GitHub，最近发现也可以托管在国内的Coding上，下面就记录下本次托管到Coding的过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513314788835.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/GIF.gif">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.483Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513314788835.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/GIF.gif">
+<meta property="og:updated_time" content="2019-07-30T06:20:16.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo博客同时托管到github和coding">
 <meta name="twitter:description" content="之前的hexo博客一直托管在GitHub，最近发现也可以托管在国内的Coding上，下面就记录下本次托管到Coding的过程。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513314788835.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513314788835.jpg">
 
 
 
@@ -531,9 +531,9 @@
         <p>之前的hexo博客一直托管在<a href="https://hoxis.github.io">GitHub</a>，最近发现也可以托管在国内的Coding上，下面就记录下本次托管到Coding的过程。</p>
 <a id="more"></a>
 <h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p>首先在需要Coding网站注册账号，<a href="https://coding.net" target="_blank" rel="noopener">点这里</a>进行注册。Coding可以免费托管开源代码，同时他让用户免费建立私有库，提供的服务挺好的，是国内的网站。</p>
-<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p><img src="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1513314788835.jpg" alt="coding创建项目"></p>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513314788835.jpg" alt="coding创建项目"></p>
 <p>项目名称最好和Coding用户名相同，这样最后直接访问hoxis.coding.me即可。</p>
-<h3 id="开启Pages服务"><a href="#开启Pages服务" class="headerlink" title="开启Pages服务"></a>开启Pages服务</h3><p><img src="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/GIF.gif" alt="开启Pages服务"><br>因为之前配置是master分支，所以这里Pages部署来源填master分支。</p>
+<h3 id="开启Pages服务"><a href="#开启Pages服务" class="headerlink" title="开启Pages服务"></a>开启Pages服务</h3><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/GIF.gif" alt="开启Pages服务"><br>因为之前配置是master分支，所以这里Pages部署来源填master分支。</p>
 <h3 id="config-yml文件配置"><a href="#config-yml文件配置" class="headerlink" title="_config.yml文件配置"></a>_config.yml文件配置</h3><p>需要按如下配置，可以同时push到GitHub和Coding，需要将其中的代码仓库地址修改为自己的。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>: </span><br><span class="line">- <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: <span class="attribute">https</span>:<span class="comment">//github.com/hoxis/hoxis.github.io.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br><span class="line">  </span><br><span class="line">- <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: <span class="attribute">https</span>:<span class="comment">//git.coding.net/hoxis/hoxis.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure></p>
 <p>之前网上看的如下这种配置并不行：</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line"><span class="attribute">type</span>: git</span><br><span class="line"><span class="attribute">repo</span>: </span><br><span class="line">       <span class="attribute">github</span>: <span class="attribute">https</span>:<span class="comment">//github.com/hoxis/hoxis.github.io.git,master</span></span><br><span class="line">       <span class="attribute">coding</span>: <span class="attribute">https</span>:<span class="comment">//git.coding.net/hoxis/hoxis.git,master</span></span><br></pre></td></tr></table></figure>

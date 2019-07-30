@@ -131,12 +131,12 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="本文主要包括 Python 遍历方法、公共方法、异常处理、模块、列表推导式等内容。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1522215685787.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.462Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1522215685787.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:16.682Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 学习笔记">
 <meta name="twitter:description" content="本文主要包括 Python 遍历方法、公共方法、异常处理、模块、列表推导式等内容。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1522215685787.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1522215685787.jpg">
 
 
 
@@ -643,7 +643,7 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环的传递</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test1</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"---test1-1---"</span>)</span><br><span class="line">    print(num)</span><br><span class="line">    print(<span class="string">"---test1-2---"</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"---test2-1---"</span>)</span><br><span class="line">    test1()</span><br><span class="line">    print(<span class="string">"---test2-2---"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test3</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        print(<span class="string">"---test3-1---"</span>)</span><br><span class="line">        test1()</span><br><span class="line">        print(<span class="string">"---test3-2---"</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"出现异常： %s"</span> %e)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"---test3-3---"</span>)</span><br><span class="line"></span><br><span class="line">test3()</span><br><span class="line">print(<span class="string">"------华丽的分割线-----"</span>)</span><br><span class="line">test2()</span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1522215685787.jpg" alt="运行结果"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1522215685787.jpg" alt="运行结果"></p>
 <ul>
 <li>注意观察执行结果图中，当调用 test3 函数时，在 test1 函数内部产生了异常，此异常被传递到 test3 函数中完成了异常处理，而当异常处理完后，并没有返回到函数 test1 中进行执行，而是在函数 test3 中继续执行</li>
 </ul>

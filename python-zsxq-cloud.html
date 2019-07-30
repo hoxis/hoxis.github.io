@@ -131,14 +131,14 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="最近打算抓取知识星球的数据，分析下大家喜欢发布哪方面的主题，用词云的方式展示出来。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1529049884560.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1529042979454.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/test.png">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.510Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529049884560.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529042979454.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/test.png">
+<meta property="og:updated_time" content="2019-07-30T06:20:17.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 爬取知识星球数据 - 词云分析">
 <meta name="twitter:description" content="最近打算抓取知识星球的数据，分析下大家喜欢发布哪方面的主题，用词云的方式展示出来。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1529049884560.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529049884560.jpg">
 
 
 
@@ -534,7 +534,7 @@
 <h1 id="请求参数分析"><a href="#请求参数分析" class="headerlink" title="请求参数分析"></a>请求参数分析</h1><p>这里我们使用网页版进行爬取，首先用 <code>Chrome</code> 登陆<a href="https://wx.zsxq.com/dweb" target="_blank" rel="noopener">知识星球</a>，登陆成功后按下 <code>F12</code> 打开 <code>Developer Tools</code>，并进入查看网络请求窗口。</p>
 <p>然后在页面点击一个订阅的星球，此时网络会去请求该星球的数据，肯定会有一个 <code>topics?scope=digests&amp;count=20</code> 的 <code>GET</code> 请求，点击该请求，在请求头里会有一个 <code>Authorization</code> 参数，将该参数对应的值记下。该参数相当于一个认证 ID，在一段时间内一直有效，后面爬虫就会一直使用该数值请求数据。</p>
 <p>网页版星球是没有分页的，后在下拉框到底部后自动加载，此时我们可以看到请求地址是：<code>topics?count=20&amp;end_time=2018-06-14T00%3A00%3A52.603%2B0800</code>，是根据时间来进行请求的，这个请求应该满足我们按时段分析数据的需求。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1529049884560.jpg" alt="Developer Tools"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529049884560.jpg" alt="Developer Tools"></p>
 <p>我们来分析 <code>帅张和他的朋友们</code> 的星球数据，其基本 URL 是 <code>https://api.zsxq.com/v1.10/groups/2421112121/</code>。</p>
 <h1 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h1><p>用 Postman 测试接口，可以得到返回的数据是一大坨 json 数据，形如：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"succeeded"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"resp_data"</span>: &#123;</span><br><span class="line">        <span class="attr">"topics"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"topic_id"</span>: <span class="number">15412524852542</span>,</span><br><span class="line">                <span class="attr">"group"</span>: &#123;</span><br><span class="line">                    <span class="attr">"group_id"</span>: <span class="number">2421112121</span>,</span><br><span class="line">                    <span class="attr">"name"</span>: <span class="string">"帅张和他的朋友们"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"talk"</span>,</span><br><span class="line">                <span class="attr">"talk"</span>: &#123;</span><br><span class="line">                    <span class="attr">"owner"</span>: &#123;</span><br><span class="line">                        <span class="attr">"user_id"</span>: <span class="number">552444151844</span>,</span><br><span class="line">                        <span class="attr">"name"</span>: <span class="string">"啊拉丁神经"</span>,</span><br><span class="line">                        <span class="attr">"avatar_url"</span>: <span class="string">"https://file.zsxq.com/1d5/12/d51200c1e3a063c47b1bcc1c40dc89c08a291fadfe4cb9fa193fbcc6584cb0e9_min.jpg"</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="attr">"text"</span>: <span class="string">"这里是主题内容"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">"likes_count"</span>: <span class="number">11</span>,</span><br><span class="line">                <span class="attr">"comments_count"</span>: <span class="number">12</span>,</span><br></pre></td></tr></table></figure>
@@ -562,10 +562,10 @@
 <li>通过 <code>mask</code> 参数 来设置词云形状</li>
 </ul>
 <p>另外，<code>font_path</code>：这个是在词云图中显示文字的字体存放的路径，特别是在显示中文的时候，这个参数尤为重要，如果缺省的话容易造成乱码，如下：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1529042979454.jpg" alt="中文乱码"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529042979454.jpg" alt="中文乱码"></p>
 <h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ python zsxq_cloud.py -d <span class="string">"2018-06-13"</span></span><br><span class="line">Building prefix dict from the default dictionary ...</span><br><span class="line">Loading model from cache /tmp/jieba.cache</span><br><span class="line">Loading model cost 1.000 seconds.</span><br><span class="line">Prefix dict has been built succesfully.</span><br></pre></td></tr></table></figure>
 <p>运行成功后会在当前目录生成一个 test.png 的图片：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/test.png" alt="生成结果"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/test.png" alt="生成结果"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>可以看到，词云展示实现起来不过 10 行代码，数据的获取才是关键。这里我只是分析一天的数据生成词云，那么一个月的数据如何获取呢？大家不妨想一下。</p>
 <p>另外，下回准备对星球数据换个方向进行分析，分析下大家喜欢在哪一天发文，在一天里的什么时候发文，且听下回分解~</p>
 <p>代码已上传至 <a href="https://github.com/hoxis/Python/blob/master/python-web-scraping/scrapingEnv/zsxq/zsxq_cloud.py" target="_blank" rel="noopener">GitHub</a>，点击阅读原文下载。</p>

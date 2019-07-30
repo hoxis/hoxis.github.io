@@ -131,16 +131,16 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="本文主要讲解一种 redis 的高可用方案，使用的是 redis主从 + 哨兵 + VIP 的方式实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1524713134535.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1524713006645.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1524712768111.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1524722425463.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1524791740641.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.511Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524713134535.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524713006645.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524712768111.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524722425463.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524791740641.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:17.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis 高可用部署方案">
 <meta name="twitter:description" content="本文主要讲解一种 redis 的高可用方案，使用的是 redis主从 + 哨兵 + VIP 的方式实现。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1524713134535.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524713134535.jpg">
 
 
 
@@ -536,14 +536,14 @@
 <p>本次部署是在虚拟机上进行的。</p>
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><p>Redis 主从复制模式可以将主节点的数据同步给从节点，从而保障当主节点不可达的情况下，从节点可以作为后备顶上来，并且可以保障数据尽量不丢失（主从复制可以保障最终一致性）。</p>
 <p>第二，从节点可以扩展主节点的读能力，一旦主节点不能支持大规模并发量的读操作，从节点可以在一定程度上分担主节点的压力。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1524713134535.jpg" alt="同步流程"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524713134535.jpg" alt="同步流程"></p>
 <p>主从复制面临的问题：</p>
 <ol>
 <li>当主节点发生故障的时候，需要手动的将一个从节点晋升为主节点，同时通知应用方修改主节点地址并重启应用，同时需要命令其它从节点复制新的主节点，整个过程需要人工干预。</li>
 <li>主节点的写能力受到单机的限制。</li>
 <li>主节点的存储能力受到单机的限制。</li>
 </ol>
-<h2 id="Redis-Sentinel-原理"><a href="#Redis-Sentinel-原理" class="headerlink" title="Redis Sentinel 原理"></a>Redis Sentinel 原理</h2><p><img src="https://www.github.com/hoxis/token4md/raw/master/1524713006645.jpg" alt="Redis Sentinel 架构"></p>
+<h2 id="Redis-Sentinel-原理"><a href="#Redis-Sentinel-原理" class="headerlink" title="Redis Sentinel 原理"></a>Redis Sentinel 原理</h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524713006645.jpg" alt="Redis Sentinel 架构"></p>
 <p>当主节点出现故障时，Redis Sentinel 能自动完成故障发现和故障转移，并通知应用方，从而实现真正的高可用。RedisSentine 是一个分布式架构，其中包含若干个 Sentinel 节点和 Redis 数据节点，每个 Sentinel 节点会对数据节点和其余 Sentinel 节点进行监控，当它发现节点不可达时，会对节点做下线标识。如果被标识的是<strong>主节点</strong>，它还会和其他的 Sentinel 节点进行协商，当大多数 Sentinel 节点都认为主节点不可达时，它们会选举一个 Sentinel 节点来完成自动故障转移的工作，同时会将这个变化实时通知给 Redis 应用方。整个过程是自动的，不需要人工干预，解决了Redis 的高可用问题。</p>
 <p>Redis Sentinel 包含了若干个 Sentinel 节点，这样做也带来了两个好处：</p>
 <ol>
@@ -590,7 +590,7 @@
 <li>只有一套 Sentinel，还是每个主节点配置一套 Sentinel 的讨论的建议方案是如果 Sentinel 节点集合监控的是同一个业务的多个主节点集合，那么使用方案一，否则使用方案 2。</li>
 </ol>
 <h2 id="部署架构"><a href="#部署架构" class="headerlink" title="部署架构"></a>部署架构</h2><p>本次使用 redis主从 + 哨兵 + VIP 的架构。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1524712768111.jpg" alt="部署架构"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524712768111.jpg" alt="部署架构"></p>
 <h2 id="版本信息"><a href="#版本信息" class="headerlink" title="版本信息"></a>版本信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># uname -a</span></span><br><span class="line">Linux centos7 3.10.0-514.26.2.el7.x86_64 <span class="comment">#1 SMP Tue Jul 4 15:04:05 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># redis-server --version</span></span><br><span class="line">Redis server v=3.2.10 sha=00000000:0 malloc=jemalloc-3.6.0 bits=64 build=c8b45a0ec7dc67c6</span><br></pre></td></tr></table></figure>
 <h2 id="地址和端口规划"><a href="#地址和端口规划" class="headerlink" title="地址和端口规划"></a>地址和端口规划</h2><table>
 <thead>
@@ -741,9 +741,9 @@
 <li>+switch-master：故障转移成功后，各个 sentinel 实例开始监控新的 master。</li>
 </ol>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Redis-Sentinel 是 Redis 官方推荐的高可用性解决方案，Redis-sentinel 本身也是一个独立运行的进程，它能监控多个 master-slave 集群，发现 master 宕机后能进行自动切换。Sentinel 可以监视任意多个主服务器（复用），以及主服务器属下的从服务器，并在被监视的主服务器下线时，自动执行故障转移操作。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1524722425463.jpg" alt="Redis-Sentinel"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524722425463.jpg" alt="Redis-Sentinel"></p>
 <p>为了防止 sentinel 的单点故障，可以对 sentinel 进行集群化，创建多个 sentinel。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1524791740641.jpg" alt="Redis-Sentinel 集群"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524791740641.jpg" alt="Redis-Sentinel 集群"></p>
 <p>本文中所使用的 Redis Sentinel 集群 + VIP + 自定义脚本的优缺点：</p>
 <p>优点：</p>
 <ul>

@@ -134,12 +134,12 @@
 <meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906135733.png">
 <meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906135759.png">
 <meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906135814.png">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1518052906464.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1518052906464.jpg">
 <meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906135946.png">
 <meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906140005.png">
 <meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906140017.png">
 <meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906140029.png">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.497Z">
+<meta property="og:updated_time" content="2019-07-30T06:20:16.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 爬虫闯关（第五关）">
 <meta name="twitter:description" content="这次我们来到了第五关，也是最后一关了，之后黑板客上就没再更新关卡。 且闯且珍惜吧~ 相较于之前的关卡，本关多了验证码识别的功能，也就是需要对图片验证码进行自动识别。">
@@ -564,7 +564,7 @@
 <p><code>tesseract-ocr</code> 是一个做图形识别必须用到第一个软件，不仅可以处理验证码，也可以识别图片上的文字等等。其他的这里不再赘述，请自行 Google。</p>
 <p>安装可以参考官方文档：<a href="https://github.com/tesseract-ocr/tesseract/wiki" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki</a></p>
 <h2 id="试用下"><a href="#试用下" class="headerlink" title="试用下"></a>试用下</h2><p>准备好待识别的图片</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1518052906464.jpg" alt="待识别图片"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1518052906464.jpg" alt="待识别图片"></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tesseract test.png result -l eng</span></span><br><span class="line">Tesseract Open Source OCR Engine v3.04.01 with Leptonica</span><br><span class="line"><span class="comment"># cat result.txt</span></span><br><span class="line">UZUM</span><br></pre></td></tr></table></figure>
 <p>可以看出，识别成功，难道识别率这么好吗？  </p>
 <h2 id="安装其他依赖组件"><a href="#安装其他依赖组件" class="headerlink" title="安装其他依赖组件"></a>安装其他依赖组件</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install PIL</span><br><span class="line">pip install Pillow</span><br><span class="line">pip install pytesseract</span><br></pre></td></tr></table></figure>

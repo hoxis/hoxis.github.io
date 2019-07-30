@@ -131,12 +131,12 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="需求要求ftp登录后的根目录是/var/test/，但是又不能影响其他用户的登录路径，因为有些程序是直接在根目录进行操作的，而没有目录切换的过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1506068281129.jpg">
-<meta property="og:updated_time" content="2019-04-11T05:17:09.240Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1506068281129.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:17.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vsftp为不同用户设置不同的ftp的根目录">
 <meta name="twitter:description" content="需求要求ftp登录后的根目录是/var/test/，但是又不能影响其他用户的登录路径，因为有些程序是直接在根目录进行操作的，而没有目录切换的过程。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1506068281129.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1506068281129.jpg">
 
 
 
@@ -537,7 +537,7 @@
 <h5 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service vsftpd restart</span><br></pre></td></tr></table></figure>
 <h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>新建<code>/var/ftp/test1/</code>、<code>/var/ftp/test2/</code>目录，并在目录下新增一些测试文件。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/pub/</span><br><span class="line">mkdir test1</span><br><span class="line">mkdir test2</span><br><span class="line"><span class="built_in">cd</span> test1</span><br><span class="line">touch a</span><br><span class="line">touch aa</span><br><span class="line"><span class="built_in">cd</span> ../test2/</span><br><span class="line">touch b</span><br><span class="line">touch bb</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">chown -R test1:test1 test1</span><br><span class="line">chown -R test2:test2 test2</span><br></pre></td></tr></table></figure>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="https://www.github.com/hoxis/token4md/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1506068281129.jpg" alt="修改结果"></p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1506068281129.jpg" alt="修改结果"></p>
 <h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>默认情况下，ftp登录后是以用户的home目录作为根目录的，因此只要修改用户的主目录即可。</p>
 <p><code>vi /etc/passwd</code></p>
 <p>找到要修改的用户那几行，修改掉即可。此法很暴力，建议慎用。</p>

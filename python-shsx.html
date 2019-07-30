@@ -131,15 +131,15 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="用过食行生鲜的同学应该知道，每天可以在食行生鲜签到，签到可以领到 20 积分，在购物时可以抵 2 毛钱。钱虽少，但是积少成多，买菜时可以抵扣一两块钱还是不错的。 今天我们就用 Python 来实现自动签到，省得我每天打开 APP 来操作了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533011816326.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533012605702.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533013355981.jpg">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1533013552389.jpg">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.507Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533011816326.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533012605702.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533013355981.jpg">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533013552389.jpg">
+<meta property="og:updated_time" content="2019-07-30T06:20:17.008Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 实现「食行生鲜」签到领积分">
 <meta name="twitter:description" content="用过食行生鲜的同学应该知道，每天可以在食行生鲜签到，签到可以领到 20 积分，在购物时可以抵 2 毛钱。钱虽少，但是积少成多，买菜时可以抵扣一两块钱还是不错的。 今天我们就用 Python 来实现自动签到，省得我每天打开 APP 来操作了。">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1533011816326.jpg">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533011816326.jpg">
 
 
 
@@ -536,10 +536,10 @@
 <h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>要自动签到，最简单的是打开页面分析请求，然后我们用脚本实现请求的自动化。但是发现食行没有页面，只有 APP，这不是一个好消息，这意味着需要抓包处理了。</p>
 <p>不过还好，我们有微信。</p>
 <p>在微信里面，我们发现也可以登录食行，这时选择在浏览器中打开页面，~哎~ ，柳暗花明了，我们找到了一个可用的网页地址：wechatx.34580.com</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533011816326.jpg" alt="还好没有做只能在微信端访问的限制"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533011816326.jpg" alt="还好没有做只能在微信端访问的限制"></p>
 <p>下面的操作就好办了，在电脑端的浏览器打开网址，按下 F12，开始起飞~</p>
 <h2 id="登录分析"><a href="#登录分析" class="headerlink" title="登录分析"></a>登录分析</h2><p>点击签到后，会跳转到用户登录页面：<a href="https://wechatx.34580.com/mart/#/sign/in，输入登录信息后，点击登录，同时关注开发调试栏的网络交互信息。" target="_blank" rel="noopener">https://wechatx.34580.com/mart/#/sign/in，输入登录信息后，点击登录，同时关注开发调试栏的网络交互信息。</a></p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533012605702.jpg" alt="登录"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533012605702.jpg" alt="登录"></p>
 <p>可以发现，登录的请求地址是：<a href="https://wechatx.34580.com/sz/Sign/SignInV2，并且会在请求时带着登录信息：" target="_blank" rel="noopener">https://wechatx.34580.com/sz/Sign/SignInV2，并且会在请求时带着登录信息：</a></p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"SourceType"</span>: <span class="string">"9"</span>,</span><br><span class="line">	<span class="attr">"Phone"</span>: <span class="string">"18800000000"</span>,</span><br><span class="line">	<span class="attr">"PassWord"</span>: <span class="string">"98a53578bd74e150"</span>,</span><br><span class="line">	<span class="attr">"ZhuGeDeviceMd5"</span>: <span class="string">"164edd53b71674-02922cef4808a-47e1039-e1000-164edd53b7222e"</span>,</span><br><span class="line">	<span class="attr">"DeviceId"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>现在，还无法确定哪些字段是必填的，哪些是可以不传的。</p>
@@ -549,11 +549,11 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"Error"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"Message"</span>: <span class="string">"返回正确"</span>,</span><br><span class="line">    <span class="attr">"Data"</span>: &#123;</span><br><span class="line">        <span class="attr">"CustomerGuid"</span>: <span class="string">"d8cd7c84-xxxx-4369-xxxx-b1e86c027407"</span>,</span><br><span class="line">        <span class="attr">"Phone"</span>: <span class="string">"18800000000"</span>,</span><br><span class="line">        <span class="attr">"AccessToken"</span>: <span class="string">"73c7b5fxxxxxxx"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>只要 Error 字段为 0，就代表登录成功！</p>
 <h2 id="签到分析"><a href="#签到分析" class="headerlink" title="签到分析"></a>签到分析</h2><p>登录成功后，页面会自动跳转到首页，我们可以看到签到图标，点击它，进入签到页面：</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533013355981.jpg" alt="签到页面"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533013355981.jpg" alt="签到页面"></p>
 <p>发现进来还是一个签到按钮，套娃啊！再点它！</p>
 <p>终于签到成功！</p>
 <p>发现签到的请求：<a href="https://wechatx.34580.com/sz/SignUp/CustomerSignUp" target="_blank" rel="noopener">https://wechatx.34580.com/sz/SignUp/CustomerSignUp</a></p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1533013552389.jpg" alt="签到请求"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533013552389.jpg" alt="签到请求"></p>
 <p>签到请求中有两个重要的参数，accesstoken 和 customerguid，这两个参数就是登陆后返回的。</p>
 <p>签到请求响应：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"Error"</span>: <span class="number">0</span>,</span><br><span class="line">	<span class="attr">"Message"</span>: <span class="string">"返回正确"</span>,</span><br><span class="line">	<span class="attr">"Data"</span>: &#123;</span><br><span class="line">		<span class="attr">"GetPoints"</span>: <span class="number">5</span>,</span><br><span class="line">		<span class="attr">"SumGetPoints"</span>: <span class="number">840</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

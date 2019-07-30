@@ -131,13 +131,13 @@
 <meta property="og:site_name" content="hoxis&#39; blog">
 <meta property="og:description" content="在公司开发中，为了安全起见，生产环境跟开发环境是相互隔离开来的。也就是说在开发环境网络中无法直接 ssh 登录到生产环境的机器， 如果需要登录生产环境的机器，通常会需要借助跳板机，先登录到跳板机，然后通过跳板机登录到生产环境。 那么，使用 Ansible 时，如何配置，可以直接穿过跳板机呢？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1544512031588.png">
-<meta property="og:image" content="https://www.github.com/hoxis/token4md/raw/master/1544512039246.png">
-<meta property="og:updated_time" content="2019-04-08T13:46:26.470Z">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544512031588.png">
+<meta property="og:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544512039246.png">
+<meta property="og:updated_time" content="2019-07-30T06:20:15.881Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible：如何穿过跳板机？">
 <meta name="twitter:description" content="在公司开发中，为了安全起见，生产环境跟开发环境是相互隔离开来的。也就是说在开发环境网络中无法直接 ssh 登录到生产环境的机器， 如果需要登录生产环境的机器，通常会需要借助跳板机，先登录到跳板机，然后通过跳板机登录到生产环境。 那么，使用 Ansible 时，如何配置，可以直接穿过跳板机呢？">
-<meta name="twitter:image" content="https://www.github.com/hoxis/token4md/raw/master/1544512031588.png">
+<meta name="twitter:image" content="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544512031588.png">
 
 
 
@@ -536,8 +536,8 @@
 <p>我们可以通过 ssh 命令的 <code>ProxyCommand</code> 选项来解决以上问题。</p>
 <p>通过 ProxyCommand 选项，机器 A 能够灵活使用任意代理机制与机器 C 上的 SSH Server 端口建立连接，接着机器 A 上的 SSH Client 再与该连接进行数据交互，从而机器 A 上的 SSH Client 与机器 C 上的 SSH Server 之间建立了与一般<strong>直接 SSH 连接</strong>不太一样的<strong>间接 SSH 连接</strong>。</p>
 <p>不过由于<strong>间接 SSH 连接</strong>的透明性，逻辑上可认为机器 A 上的 SSH Client 与机器 C 上的 SSH Server 建立了<strong>直接 SSH 连接</strong>。</p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1544512031588.png" alt="直接 SSH 连接"></p>
-<p><img src="https://www.github.com/hoxis/token4md/raw/master/1544512039246.png" alt="间接 SSH 连接"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544512031588.png" alt="直接 SSH 连接"></p>
+<p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544512039246.png" alt="间接 SSH 连接"></p>
 <p><strong>原理</strong></p>
 <p>ssh 命令自提供的代理机制，在机器 A 上另外单独建立与 B 的 SSH 连接，该 SSH 连接的 B 端侧与机器 C 上的 SSH Server 端口建立连接，该 SSH 连接的 A 端侧与机器 A 上的 SSH Client建立连接。</p>
 <h1 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h1><p>A-本机：192.22.9.23<br>B-跳板机：192.22.9.21<br>C-目标机：192.22.4.46</p>
