@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
+    <lastmod>2019-07-30T06:23:22.463Z</lastmod>
+    <data>
+        <display>
+        <title>Ansible | 如何使用跳板机/堡垒机？</title>
+        <pubTime>2019-01-02T02:09:39.000Z</pubTime>
+        
+        <tag>Ansible</tag>
+         
+         
+           
+             
+              <breadCrumb title="Ansible" url="https://hoxis.github.io/categories/Ansible/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://hoxis.github.io/%E8%87%AA%E5%AE%9A%E4%B9%89input%20type=file%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A0%B7%E5%BC%8F.html</loc>
     <lastmod>2019-07-30T06:20:17.838Z</lastmod>
     <data>
@@ -3574,26 +3594,6 @@
         <pubTime>2018-01-12T05:30:04.000Z</pubTime>
         
         <tag>ansible</tag>
-         
-         
-           
-             
-              <breadCrumb title="Ansible" url="https://hoxis.github.io/categories/Ansible/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
-    <lastmod>2019-07-30T06:20:15.881Z</lastmod>
-    <data>
-        <display>
-        <title>Ansible：如何穿过跳板机？</title>
-        <pubTime>2019-01-02T02:09:39.000Z</pubTime>
-        
-        <tag>Ansible</tag>
          
          
            

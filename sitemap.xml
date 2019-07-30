@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
+    
+    <lastmod>2019-07-30T06:23:22.463Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hoxis.github.io/%E8%87%AA%E5%AE%9A%E4%B9%89input%20type=file%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A0%B7%E5%BC%8F.html</loc>
     
     <lastmod>2019-07-30T06:20:17.838Z</lastmod>
@@ -1209,13 +1216,6 @@
     <loc>https://hoxis.github.io/ansible-modules.html</loc>
     
     <lastmod>2019-07-30T06:20:15.887Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
-    
-    <lastmod>2019-07-30T06:20:15.881Z</lastmod>
     
   </url>
   
