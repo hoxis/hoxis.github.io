@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://hoxis.github.io/ansible-synchronise.html</loc>
+    <lastmod>2019-07-30T07:39:03.937Z</lastmod>
+    <data>
+        <display>
+        <title>Ansible 进阶 | synchronize 文件同步模块</title>
+        <pubTime>2018-03-14T11:28:37.000Z</pubTime>
+        
+        <tag>ansible</tag>
+         
+         
+           
+             
+              <breadCrumb title="Ansible" url="https://hoxis.github.io/categories/Ansible/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
     <lastmod>2019-07-30T06:23:22.463Z</lastmod>
     <data>
@@ -3492,26 +3512,6 @@
         <display>
         <title>【Ansible学习】- 常用系统模块之service/systemd/ping模块</title>
         <pubTime>2018-01-19T04:50:20.000Z</pubTime>
-        
-        <tag>ansible</tag>
-         
-         
-           
-             
-              <breadCrumb title="Ansible" url="https://hoxis.github.io/categories/Ansible/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://hoxis.github.io/ansible-synchronise.html</loc>
-    <lastmod>2019-07-30T06:20:15.923Z</lastmod>
-    <data>
-        <display>
-        <title>Ansible 进阶 | synchronise 文件同步模块</title>
-        <pubTime>2018-03-14T11:28:37.000Z</pubTime>
         
         <tag>ansible</tag>
          

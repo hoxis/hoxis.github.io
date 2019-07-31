@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hoxis.github.io/ansible-synchronise.html</loc>
+    
+    <lastmod>2019-07-30T07:39:03.937Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hoxis.github.io/ansible-jump-server.html</loc>
     
     <lastmod>2019-07-30T06:23:22.463Z</lastmod>
@@ -1185,13 +1192,6 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/ansible-synchronise.html</loc>
-    
-    <lastmod>2019-07-30T06:20:15.923Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hoxis.github.io/ansible-ssh-copy.html</loc>
     
     <lastmod>2019-07-30T06:20:15.914Z</lastmod>
@@ -1409,14 +1409,14 @@
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/resources/index.html</loc>
+    <loc>https://hoxis.github.io/tags/index.html</loc>
     
     <lastmod>2019-04-08T13:46:26.534Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://hoxis.github.io/tags/index.html</loc>
+    <loc>https://hoxis.github.io/resources/index.html</loc>
     
     <lastmod>2019-04-08T13:46:26.534Z</lastmod>
     
