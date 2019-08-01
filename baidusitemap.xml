@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://hoxis.github.io/mysqldump-ignore-tables.html</loc>
+    <lastmod>2019-08-01T09:16:13.465Z</lastmod>
+    <data>
+        <display>
+        <title>mysqldump 导出数据库时，忽略指定表的数据</title>
+        <pubTime>2019-07-24T04:25:22.000Z</pubTime>
+        
+        <tag>备份恢复</tag>
+         
+         
+           
+             
+              <breadCrumb title="数据库" url="https://hoxis.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://hoxis.github.io/pyecharts-themes-preview.html</loc>
     <lastmod>2019-08-01T00:50:35.122Z</lastmod>
     <data>

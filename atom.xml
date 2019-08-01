@@ -61,6 +61,30 @@
   </entry>
   
   <entry>
+    <title>mysqldump 导出数据库时，忽略指定表的数据</title>
+    <link href="https://hoxis.github.io/mysqldump-ignore-tables.html"/>
+    <id>https://hoxis.github.io/mysqldump-ignore-tables.html</id>
+    <published>2019-07-24T04:25:22.000Z</published>
+    <updated>2019-08-01T09:16:13.465Z</updated>
+    
+    <content type="html"><![CDATA[<p>有时候我们在转移 <code>mysql</code> 数据库时会遇到<strong>有些表实在是太大</strong>，比如一些日志表。</p><p>要备份和导入这些表都需要很长时间，并且再次导入时可能还会遇到问题。</p><p>但是，其他的表我们是需要其表结构和表数据的，那么怎么处理呢？</p><a id="more"></a><h1 id="查看数据库表中所有表的行数"><a href="#查看数据库表中所有表的行数" class="headerlink" title="查看数据库表中所有表的行数"></a>查看数据库表中所有表的行数</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> table_name,table_rows <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> TABLE_SCHEMA = <span class="string">'database'</span> <span class="keyword">order</span> <span class="keyword">by</span> table_rows <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure><p>比如查看 mysql 库中所有表的行数：</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-1-1564650822863.png" alt="查看数据条数"></p><p>也可以查看所有库中表的行数：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> table_name,table_rows <span class="keyword">from</span> information_schema.tables <span class="keyword">order</span> <span class="keyword">by</span> table_rows <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure><h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><p>导出数据库 database 中<strong>所有表</strong>到 database.sql 文件中 </p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123456 -d database &gt; database.sql</span><br></pre></td></tr></table></figure><p>导出除了 table1 和 table2 其余所有表中的数据，到 database.sql 文件中 </p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123456 -d database <span class="comment">--ignore-table=database.table1 --ignore-table=database.table2 &gt;&gt; database.sql</span></span><br></pre></td></tr></table></figure><p>只导出指定表中的数据 </p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123456 -t database table1 table2 &gt; database.sql</span><br></pre></td></tr></table></figure><h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p123456 database2 &lt; database.sql</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;有时候我们在转移 &lt;code&gt;mysql&lt;/code&gt; 数据库时会遇到&lt;strong&gt;有些表实在是太大&lt;/strong&gt;，比如一些日志表。&lt;/p&gt;
+&lt;p&gt;要备份和导入这些表都需要很长时间，并且再次导入时可能还会遇到问题。&lt;/p&gt;
+&lt;p&gt;但是，其他的表我们是需要其表结构和表数据的，那么怎么处理呢？&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://hoxis.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="备份恢复" scheme="https://hoxis.github.io/tags/%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/"/>
+    
+  </entry>
+  
+  <entry>
     <title>linux shell 中判断字符串为空的正确方法</title>
     <link href="https://hoxis.github.io/linux-shell-string-is-null.html"/>
     <id>https://hoxis.github.io/linux-shell-string-is-null.html</id>
@@ -454,30 +478,6 @@
     
       &lt;p&gt;&lt;code&gt;select count(*)&lt;/code&gt; 应该是一个比较常用的语句，用来统计记录行数。&lt;/p&gt;
 &lt;p&gt;但是，慢慢地你会发现，这个语句越来越慢了，为什么呢？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据库" scheme="https://hoxis.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="MySQL" scheme="https://hoxis.github.io/tags/MySQL/"/>
-    
-      <category term="极客时间" scheme="https://hoxis.github.io/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL实战 | 13 为什么表数据删掉一半，表文件大小不变？</title>
-    <link href="https://hoxis.github.io/mysql-zhuanlan-13-clear-disk-space.html"/>
-    <id>https://hoxis.github.io/mysql-zhuanlan-13-clear-disk-space.html</id>
-    <published>2019-02-24T12:15:20.000Z</published>
-    <updated>2019-07-30T06:20:16.477Z</updated>
-    
-    <content type="html"><![CDATA[<p>经常会有同学来问我，我的数据库占用空间太大，我把一个最大的表删掉了一半的数据，怎么表文件的大小还是没变？</p><a id="more"></a><p>InnoDB 表的组成：表结构定义和数据。</p><h1 id="数据删除流程"><a href="#数据删除流程" class="headerlink" title="数据删除流程"></a>数据删除流程</h1><p>InnoDB 中，数据是以 B+ 树结构来存储数据的：</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190219185319.png" alt></p><p>假设删掉表记录 R4，此时 InnoDB 只是把 R4 <strong>标记为已删除状态</strong>，后续这个位置可以插入新的数据，但是磁盘文件大小并不会变化。</p><p><strong>何时复用？</strong></p><p>比如，插入一个 ID 是 400 的记录，就可以直接复用原来 R4 的空间，若插入的是 800，为了保持 B+ 树的结构，就不能复用该空间了。</p><p><strong>删除整页数据</strong></p><p>当删除了整页数据后，InnoDB 会将该页标记为已删除，整页都可复用。</p><p>同时，若<strong>两个相邻的数据页利用率都比较低</strong>，系统会把两页上的数据整合到一个页中，另一个页就会标记为可复用。</p><p><strong>删除整个表</strong></p><p>此时，所有的数据页都会标记为可复用，但是磁盘空间仍然不会变小。</p><p><strong>总结</strong></p><p>delete 操作，只是把记录的位置标记为「可复用」，但是磁盘大小不会变化，这些可以复用，而未被使用的空间，看起来就像<strong>空洞</strong>。</p><h1 id="增删改-造成空洞"><a href="#增删改-造成空洞" class="headerlink" title="增删改-造成空洞"></a>增删改-造成空洞</h1><p>当数据是随机插入时，就可能造成索引的数据页分裂。</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190219190353.png" alt></p><p>如图所示，由于 page A 写满，此时插入 ID 为 550 的数据，就不得不申请新的数据页，页分裂完成后，A 上就会留下空洞。</p><p>另外，更新索引上的值，其实是删除旧值，插入新值，这个过程同样会造成空洞。</p><p>综上，经过大量增删改操作的表，都是可能存在大量空洞的，若要收缩表空间，就要清除这些空洞。</p><h1 id="重建表-清除空洞"><a href="#重建表-清除空洞" class="headerlink" title="重建表-清除空洞"></a>重建表-清除空洞</h1><p>如何清除空洞？</p><p>直接的想法就是，新建一个表结构相同的表，然后按主键 ID 递增的顺序，将原表中的数据，插入到新表。</p><p>这样，新表中就不会存在空洞了。新表的主键索引也会更加紧凑，数据页的利用率也更高。</p><p>上面的操作可以通过下面的语句自动完成：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> A <span class="keyword">engine</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></table></figure><p>MySQL 会自动完成转存数据、交换表名、删除旧表的操作。</p><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190219192144.png" alt></p><p>详细流程：</p><p>1、新建临时文件，扫描原表 A 的所有数据页；<br>2、根据表 A 的记录生成 B+ 树，存储到临时文件中；<br>3、生成临时文件过程中，对 A 的所有操作都会记录在一个日志文件中，对应图中的 state2 状态；<br>4、临时文件生成后，将日志文件中的操作应用于临时文件，得到一个完整的数据文件，对于 state3；<br>5、用临时文件替换表 A 的数据文件；</p><p>表重建的过程是允许对表 A 做增删改操作的，因此是一个 <strong>Online DDL</strong>（MySQL5.6+）</p><p>另外，根据表 A 重建出来的数据是放在“tmp_file”里的，这个临时文件是 InnoDB 在内部创建出来的。整个 DDL 过程都在 InnoDB 内部完成。对于 server 层来说，没有把数据挪动到临时表，是一个“原地”操作，这就是“inplace”名称的来源。</p><p>上述的这些重建方法都会扫描原表数据和构建临时文件。对于很大的表来说，这个操作是很<strong>消耗 IO 和 CPU 资源</strong>的。</p><p>因此，如果是线上服务，你要很小心地控制操作时间。如果想要比较安全的操作的话，我推荐你使用 GitHub 开源的 gh-ost 来做。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;经常会有同学来问我，我的数据库占用空间太大，我把一个最大的表删掉了一半的数据，怎么表文件的大小还是没变？&lt;/p&gt;
     
     </summary>
     

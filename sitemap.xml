@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hoxis.github.io/mysqldump-ignore-tables.html</loc>
+    
+    <lastmod>2019-08-01T09:16:13.465Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hoxis.github.io/pyecharts-themes-preview.html</loc>
     
     <lastmod>2019-08-01T00:50:35.122Z</lastmod>

@@ -23,6 +23,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[mysqldump 导出数据库时，忽略指定表的数据]]></title>
+    <url>%2Fmysqldump-ignore-tables.html</url>
+    <content type="text"><![CDATA[有时候我们在转移 mysql 数据库时会遇到有些表实在是太大，比如一些日志表。 要备份和导入这些表都需要很长时间，并且再次导入时可能还会遇到问题。 但是，其他的表我们是需要其表结构和表数据的，那么怎么处理呢？ 查看数据库表中所有表的行数1select table_name,table_rows from information_schema.tables where TABLE_SCHEMA = 'database' order by table_rows desc; 比如查看 mysql 库中所有表的行数： 也可以查看所有库中表的行数： 1select table_name,table_rows from information_schema.tables order by table_rows desc; 导出导出数据库 database 中所有表到 database.sql 文件中 1mysqldump -uroot -p123456 -d database &gt; database.sql 导出除了 table1 和 table2 其余所有表中的数据，到 database.sql 文件中 1mysqldump -uroot -p123456 -d database --ignore-table=database.table1 --ignore-table=database.table2 &gt;&gt; database.sql 只导出指定表中的数据 1mysqldump -uroot -p123456 -t database table1 table2 &gt; database.sql 导入1mysql -uroot -p123456 database2 &lt; database.sql]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>备份恢复</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[linux shell 中判断字符串为空的正确方法]]></title>
     <url>%2Flinux-shell-string-is-null.html</url>
     <content type="text"><![CDATA[Linux 下判断字符串是否为空，有一个大坑！ 首先想到的两个参数： -z：判断 string 是否是空串-n：判断 string 是否是非空串 常规错误做法123456789#!/bin/shSTRING=if [ -z $STRING ]; then echo "STRING is empty" fiif [ -n $STRING ]; then echo "STRING is not empty" fi 看上去没毛病，但是！ 输出错误结果：123root@james-desktop:~# ./zerostring.sh STRING is empty STRING is not empty 发现使用 -n 判断时，竟然出现错误！ 正确做法12345678910#!/bin/shSTRING=if [ -z "$STRING" ]; then echo "STRING is empty" fiif [ -n "$STRING" ]; then echo "STRING is not empty" fi 12root@james-desktop:~# ./zerostring.sh STRING is empty 这里，我们得出一个道理，在进行字符串比较时，用引号将字符串界定起来，是一个非常好的习惯！ 参考： https://www.cnblogs.com/cute/archive/2011/08/26/2154137.html]]></content>
