@@ -4,6 +4,48 @@
 
     
   <url>
+    <loc>https://hoxis.github.io/woyaohezhishishenggehaizi.html</loc>
+    <lastmod>2019-08-08T04:37:03.756Z</lastmod>
+    <data>
+        <display>
+        <title>想和知识生个孩子</title>
+        <pubTime>2019-08-08T01:24:08.000Z</pubTime>
+        
+        <tag>知识管理</tag>
+         
+         
+           
+             
+              <breadCrumb title="学习笔记" url="https://hoxis.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://hoxis.github.io/python-data-analysis-nezha.html</loc>
+    <lastmod>2019-08-06T05:11:03.627Z</lastmod>
+    <data>
+        <display>
+        <title>《哪吒》大火，爬取20W+评论数据，并用AI分析了一波，结果......</title>
+        <pubTime>2019-07-24T04:25:22.000Z</pubTime>
+        
+        <tag>爬虫</tag>
+         
+        <tag>数据可视化</tag>
+         
+         
+           
+             
+              <breadCrumb title="数据分析" url="https://hoxis.github.io/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://hoxis.github.io/mysqldump-ignore-tables.html</loc>
     <lastmod>2019-08-01T09:16:13.465Z</lastmod>
     <data>
