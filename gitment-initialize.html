@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -530,10 +543,10 @@
       
         <p>之前由于 livere 评论系统加载速度慢的问题，把评论系统换成了 <a href="https://github.com/imsun/gitment/" target="_blank" rel="noopener">Gitment</a>，但是集成后发现只能手动初始化所有文章的评论或者一个一个点开界面，作者觉得这件事情非常麻烦，所以手动抓了一下 Gitment 在初始化评论时发出的网络请求后写了一个用于自动化初始评论的脚本。</p>
 <a id="more"></a>
-<h1 id="获取-token"><a href="#获取-token" class="headerlink" title="获取 token"></a>获取 token</h1><p>在使用该脚本之前首先要在 GitHub 创建一个新的 <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Personal access tokens</a>，选择 Generate new token 后，在当前的页面中为 Token 添加所有 Repo 的权限：</p>
+<h1><span id="获取-token">获取 token</span></h1><p>在使用该脚本之前首先要在 GitHub 创建一个新的 <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Personal access tokens</a>，选择 Generate new token 后，在当前的页面中为 Token 添加所有 Repo 的权限：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1523869828312.jpg" alt="New personal access token"></p>
 <p>在这里创建之后，点击界面最下的面 Generate token 按钮获得一个新的 token，保存好该 token，后续代码中需要。</p>
-<h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><p>配置下面脚本的 5 个变量：</p>
+<h1><span id="脚本">脚本</span></h1><p>配置下面脚本的 5 个变量：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 博客地址</span></span><br><span class="line">site_url = <span class="string">'https://hoxis.github.io'</span></span><br><span class="line"><span class="comment"># 博客的 sitemap</span></span><br><span class="line">sitemap_url = <span class="string">'https://hoxis.github.io/sitemap.xml'</span></span><br><span class="line"><span class="comment"># 上面步骤中获取的 token</span></span><br><span class="line">token = <span class="string">'token '</span>+<span class="string">'xxxxx'</span></span><br><span class="line"><span class="comment"># GitHub 用户名</span></span><br><span class="line">username = <span class="string">'hoxis'</span></span><br><span class="line"><span class="comment"># The repo you use to store Gitment comments</span></span><br><span class="line">repo_name = <span class="string">'gitment-comments'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        kv = &#123;<span class="string">'user-agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'</span>&#125;</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>, headers=kv)</span><br><span class="line">        r.raise_for_status()  <span class="comment"># 检查状态码</span></span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"产生异常"</span></span><br><span class="line"></span><br><span class="line">wb_data = getHTMLText(sitemap_url)</span><br><span class="line"></span><br><span class="line">pattern = re.compile(<span class="string">'&lt;loc&gt;([a-zA-z]+://[^\s]*)&lt;/loc&gt;'</span>)</span><br><span class="line">urls = pattern.findall(str(wb_data))</span><br><span class="line"></span><br><span class="line">print(urls)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">    url_data = getHTMLText(url)</span><br><span class="line">    title_pattern = re.compile(<span class="string">'&lt;title&gt;(.+)&lt;/title&gt;'</span>)</span><br><span class="line">    title = title_pattern.search(url_data).group(<span class="number">1</span>).replace(<span class="string">'&amp;#39;'</span>,<span class="string">'\''</span>)</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">"Accept"</span>: <span class="string">"application/vnd.github.squirrel-girl-preview, application/vnd.github.html+json"</span>,</span><br><span class="line">        <span class="string">"Accept-Encoding"</span>: <span class="string">"gzip, deflate, br"</span>,</span><br><span class="line">        <span class="string">'Connection'</span>: <span class="string">'keep-alive'</span>,</span><br><span class="line">        <span class="string">'Host'</span>: <span class="string">'api.github.com'</span>,</span><br><span class="line">        <span class="string">'Origin'</span>: site_url,</span><br><span class="line">        <span class="string">"Referer"</span>: url,</span><br><span class="line">        <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0"</span>,</span><br><span class="line">        <span class="string">'Authorization'</span>: token</span><br><span class="line">    &#125;</span><br><span class="line">    payload = &#123;</span><br><span class="line">        <span class="string">'title'</span>: title,</span><br><span class="line">        <span class="string">'labels'</span>: [<span class="string">'gitment'</span>, title.split(<span class="string">'|'</span>)[<span class="number">0</span>].strip()],</span><br><span class="line">        <span class="string">'body'</span>: url</span><br><span class="line">    &#125;</span><br><span class="line">    payload_json = json.dumps(payload)</span><br><span class="line">    print(title.split(<span class="string">'|'</span>)[<span class="number">0</span>].strip())</span><br><span class="line">    feedback = requests.post(<span class="string">'https://api.github.com/repos/'</span>+username+<span class="string">'/'</span>+repo_name+<span class="string">'/issues'</span>,headers=headers,data=payload_json)</span><br><span class="line">    print(feedback)</span><br></pre></td></tr></table></figure>
 <p>配置好后，运行脚本即可：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python comment.py</span><br></pre></td></tr></table></figure>
@@ -542,7 +555,7 @@
 <blockquote>
 <p>脚本的存放位置没有要求，只要能访问到你的博客地址和 GitHub 即可。另外，GitHub 中 issue 的可以创建但是并不能删除，所以在配置时请一定检查好所有的配置项是否正确，否则会批量创建一些无用的 issue 虽然没有什么影响，但是看起来非常头疼。</p>
 </blockquote>
-<h1 id="注意事项！！！"><a href="#注意事项！！！" class="headerlink" title="注意事项！！！"></a>注意事项！！！</h1><p>上面脚本中的一段：</p>
+<h1><span id="注意事项">注意事项！！！</span></h1><p>上面脚本中的一段：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">'title'</span>: title,</span><br><span class="line">    <span class="string">'labels'</span>: [<span class="string">'gitment'</span>, title.split(<span class="string">'|'</span>)[<span class="number">0</span>].strip()],</span><br><span class="line">    <span class="string">'body'</span>: url</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>即创建 issue 时的 label 如何设置，这里要与你的配置文件里的<strong>对应</strong>，否则会导致生成的 issue 无法在页面加载。</p>
 <p>在 Next 主题中的配置文件位于 <code>next/layout/_third-party/comments/gitment.swig</code> 文件中：</p>
@@ -565,7 +578,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -713,6 +726,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -725,6 +739,7 @@
 
 
 
+          
         </div>
         
           
@@ -773,7 +788,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -784,7 +799,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -795,7 +810,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -865,23 +880,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -903,7 +918,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#获取-token"><span class="nav-text">获取 token</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本"><span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项！！！"><span class="nav-text">注意事项！！！</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">获取 token</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项！！！</span></a></li></ol></div>
             
 
           </div>
@@ -923,7 +938,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1600,6 +1615,7 @@
   
 
   
+
 
 </body>
 </html>

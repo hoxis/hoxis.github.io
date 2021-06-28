@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -224,8 +224,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -334,6 +336,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -382,6 +394,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -542,20 +555,20 @@
       
         <p>用过 MySQL 的应该都知道索引是干啥的吧，应该多少都设置过索引，但是若是问你索引是怎么实现的，你能说上来吗？</p>
 <a id="more"></a>
-<h1 id="索引是什么？"><a href="#索引是什么？" class="headerlink" title="索引是什么？"></a>索引是什么？</h1><blockquote>
+<h1><span id="索引是什么">索引是什么？</span></h1><blockquote>
 <p> MySQL 官方对索引的定义为：索引是帮助 MySQL 高效获取数据的数据结构。</p>
 </blockquote>
 <p>在数据之外，数据库系统还维护着<strong>满足特定查找算法的数据结构</strong>，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法。这种数据结构，就是索引。</p>
 <p>索引的出现就是为了提高查询效率，就像书的目录。其实说白了，索引要解决的就是查询问题。</p>
 <p>查询，是数据库所提供的一个重要功能，我们都想尽可能快的获取到目标数据，因此就需要优化数据库的查询算法，选择合适的查询模型来实现索引。</p>
 <p>另外，为表设置索引要付出代价的：一是增加了数据库的存储空间，二是在插入和修改数据时要花费较多的时间，因为索引也要随之变动。</p>
-<h1 id="常见查询模型"><a href="#常见查询模型" class="headerlink" title="常见查询模型"></a>常见查询模型</h1><p>索引的实现模型有很多，这里我们先了解一下常用的查询模型。</p>
-<h2 id="顺序数组"><a href="#顺序数组" class="headerlink" title="顺序数组"></a>顺序数组</h2><p>顺序数组是一种特殊的数组，里面的元素，按一定的顺序排列。</p>
+<h1><span id="常见查询模型">常见查询模型</span></h1><p>索引的实现模型有很多，这里我们先了解一下常用的查询模型。</p>
+<h2><span id="顺序数组">顺序数组</span></h2><p>顺序数组是一种特殊的数组，里面的元素，按一定的顺序排列。</p>
 <p>顺序数组在查询上有着一定的优势，因为是有序的数据，采用二分查找的话，时间复杂度是 <code>O(log(N))</code>。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1334720-20180922214239981-366425827.gif" alt="二分查找"></p>
 <p><strong>顺序数组的优点就是查询效率非常高，但是要更新数据的话，就非常麻烦了。删除和插入元素都要涉及到大量元素位置的移动，成本很高。</strong></p>
 <p>因此，对于顺序数组更适合用于查询的领域，适合存储一些改动较小的静态存储引擎。</p>
-<h2 id="哈希索引"><a href="#哈希索引" class="headerlink" title="哈希索引"></a>哈希索引</h2><p>哈希表是一种以 <strong>键-值（key-value）</strong> 存储数据的结构，我们只要输入待查找的值即 key，就可以找到其对应的值即 value。</p>
+<h2><span id="哈希索引">哈希索引</span></h2><p>哈希表是一种以 <strong>键-值（key-value）</strong> 存储数据的结构，我们只要输入待查找的值即 key，就可以找到其对应的值即 value。</p>
 <p>哈希索引采用一定的哈希算法，对于每一行，存储引擎计算出了被索引字段的哈希码（Hash Code），把哈希码保存在索引中，并且保存了一个指向哈希表中的每一行的指针。</p>
 <p>这样在检索时只需一次哈希算法即可立刻定位到相应的位置，速度非常快。</p>
 <p>Hash 索引结构的特殊性，其检索效率非常之高，应该是 <code>O(1)</code> 的时间复杂度。</p>
@@ -571,14 +584,14 @@
 <p>前面已经知道，Hash 索引是将索引键通过 Hash 运算之后，将 Hash 运算结果的 Hash 值和所对应的行指针信息存放于一个 Hash 表中，由于不同索引键可能存在相同 Hash 值，所以即使取满足某个 Hash 键值的数据的记录条数，也无法从 Hash 索引中直接完成查询，还是要通过访问表中的实际数据进行相应的比较，并得到相应的结果。</p>
 <p>5、在有大量重复键值情况下，哈希索引的效率也是极低的，因为存在所谓的哈希碰撞问题。</p>
 <p>综上，哈希表这种结构适用于只有<strong>等值查询</strong>的场景，比如 Memcached、redis 及其他一些 NoSQL 引擎。</p>
-<h2 id="二叉搜索树索引"><a href="#二叉搜索树索引" class="headerlink" title="二叉搜索树索引"></a>二叉搜索树索引</h2><p>二叉搜索树的每个节点都只存储一个键值，并且左子树（如果有）所有节点的值都要小于根节点的值，右子树（如果有）所有节点的值都要大于根节点的值。</p>
+<h2><span id="二叉搜索树索引">二叉搜索树索引</span></h2><p>二叉搜索树的每个节点都只存储一个键值，并且左子树（如果有）所有节点的值都要小于根节点的值，右子树（如果有）所有节点的值都要大于根节点的值。</p>
 <p>当二叉搜索树的所有非叶子节点的左右子树的节点数目均保持差不多时（平衡），这时树的搜索性能逼近二分查找；并且它比连续内存空间的二分查找更有优势的是，改变树结构（插入与删除结点）不需要移动大段的内存数据，甚至通常是常数开销。</p>
 <p>特殊情况下，根节点的左右子树的高度相差不超过 1 时，这样的二叉树被称为<strong>平衡二叉树</strong>；与之相对的是，二叉搜索树有可能退化成线性树。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543646917022.jpg" alt="平衡二叉树|线性树"></p>
 <p>下图展示了一种可能的索引方式。左边是数据表，一共有两列七条记录，最左边的是数据记录的物理地址（注意逻辑上相邻的记录在磁盘上也并不是一定物理相邻的）。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543642132162.jpg" alt="二叉搜索树"></p>
 <p>为了加快 Col2 的查找，可以维护一个右边所示的二叉查找树，每个节点分别包含索引键值和一个指向对应数据记录物理地址的指针，这样就可以运用二叉查找在 <code>O(log2n)</code> 的复杂度内获取到相应数据。</p>
-<h2 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h2><p>看得出来，二叉树在查询和修改上做到了一个平衡，都有着不错的效率，但是现实是很少有数据库引擎使用二叉树来实现索引，为什么呢？</p>
+<h2><span id="b树">B树</span></h2><p>看得出来，二叉树在查询和修改上做到了一个平衡，都有着不错的效率，但是现实是很少有数据库引擎使用二叉树来实现索引，为什么呢？</p>
 <p>数据库存储大多不适用二叉树，数据量较大时，树高会过高。</p>
 <p>你可以想象一下一棵 100 万节点的平衡二叉树，树高 20，每个叶子结点就是一个块，每个块包含两个数据，块之间通过链式方式链接。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543649453600.jpg" alt="索引树的存储"></p>
@@ -618,7 +631,7 @@
 <p>5、根据 p2 指针，我们定位到磁盘块 8，并将其中的信息导入内存。【磁盘 IO 操作 3 次】；</p>
 <p>6、此时内存中有两个文件名 28，29。根据算法我们查找到文件名 29，并定位了该文件内存的磁盘地址。</p>
 <p>分析上面的过程，发现需要 3 次磁盘 IO 操作和 3 次内存查找操作。关于内存中的文件名查找，由于是一个有序表结构，可以利用折半查找提高效率。</p>
-<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+ 树"></a>B+ 树</h2><p>B+ 树：是应文件系统所需而产生的一种 B 树的变形树。</p>
+<h2><span id="b-树">B+ 树</span></h2><p>B+ 树：是应文件系统所需而产生的一种 B 树的变形树。</p>
 <p>一棵 m 阶的 B+ 树和 m 阶的 B 树的异同点在于：</p>
 <p>1、每个节点的指针上限为 2d 而不是2d+1。</p>
 <p>2、所有的叶子结点中包含了全部关键字的信息，及指向含有这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大的顺序链接。（B 树的叶子节点并没有包括全部需要查找的信息）</p>
@@ -637,7 +650,7 @@
 <p>另外，涉及到树的添加和删除元素，操作更加复杂，本文篇幅有限（其实是小编也搞不太明白），这里就不再展开。</p>
 <p>有兴趣的，强烈建议钻研下参考链接里的内容。</p>
 <p>好了，下面我们来看 MySQL 中的 InnoDB 引擎的索引是如何实现的。</p>
-<h1 id="MySQL-的索引模型"><a href="#MySQL-的索引模型" class="headerlink" title="MySQL 的索引模型"></a>MySQL 的索引模型</h1><p>说了这么多，终于到索引出场了。</p>
+<h1><span id="mysql-的索引模型">MySQL 的索引模型</span></h1><p>说了这么多，终于到索引出场了。</p>
 <p>索引就是这种神奇伟大的存在。索引相当于数据库的表数据之外新建的数据结构，该数据结构的数据段中存储着字段的值以及指向实际数据记录的指针。</p>
 <p>数据库表的索引从<strong>数据存储方式</strong>上可以分为聚簇索引和非聚簇索引（又叫二级索引）两种。</p>
 <p>1、<strong>聚簇索引</strong></p>
@@ -654,11 +667,11 @@
 <p>聚簇索引是对磁盘上实际数据重新组织以按指定的一个或多个列的值排序的算法。特点是存储数据的顺序和索引顺序一致。一般情况下主键会默认创建聚簇索引，且一张表只允许存在一个聚簇索引。</p>
 <p>这两个名字虽然都叫做索引，但这并不是一种单独的索引类型，而是一种数据存储方式。</p>
 <p>下面，我们可以看一下 MYSQL 中 MyISAM 和 InnoDB 两种引擎的索引结构。</p>
-<h2 id="MyISAM索引实现"><a href="#MyISAM索引实现" class="headerlink" title="MyISAM索引实现"></a>MyISAM索引实现</h2><p>MyISAM 引擎使用 B+ 树作为索引结构，叶节点的 data 域存放的是<strong>数据记录的地址</strong>，就是非聚集索引。</p>
+<h2><span id="myisam索引实现">MyISAM索引实现</span></h2><p>MyISAM 引擎使用 B+ 树作为索引结构，叶节点的 data 域存放的是<strong>数据记录的地址</strong>，就是非聚集索引。</p>
 <p>下图是 MyISAM 索引的原理图：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1543819591639.jpg" alt="MyISAM索引实现"></p>
 <p>在 MyISAM 中，主键索引和辅助索引（Secondary key）在结构上没有任何区别，只是主键索引要求 key 是唯一的，而辅助索引的 key 可以重复。</p>
-<h2 id="InnoDB索引实现"><a href="#InnoDB索引实现" class="headerlink" title="InnoDB索引实现"></a>InnoDB索引实现</h2><p>虽然 InnoDB 也使用 B+ 树作为索引结构，但具体实现方式却与 MyISAM 截然不同。</p>
+<h2><span id="innodb索引实现">InnoDB索引实现</span></h2><p>虽然 InnoDB 也使用 B+ 树作为索引结构，但具体实现方式却与 MyISAM 截然不同。</p>
 <p>第一个重大区别是 InnoDB 的<strong>数据文件本身就是索引文件</strong>。</p>
 <p>在 InnoDB 中，表数据文件本身就是按 B+ 树组织的一个索引结构，这棵树的叶节点 data 域保存了<strong>完整的数据记录</strong>。这个索引的 key 是数据表的主键，因此 InnoDB 表数据文件本身就是主索引。</p>
 <p>另外，第二个与 MyISAM 索引的不同是 InnoDB 的辅助索引 data 域存储<strong>相应记录主键的值而不是地址</strong>。</p>
@@ -671,11 +684,11 @@
 <p>对于聚簇索引，若<strong>使用主键索引进行查询</strong>，<code>where id = 14</code> 这样的条件查找主键，则按照 B+ 树的检索算法即可查找到对应的叶节点，之后获得行数据。</p>
 <p>若使用<strong>辅助索引进行查询</strong>，对 Name 列进行条件搜索，则需要两个步骤：</p>
 <p>1、第一步在辅助索引 B+ 树中检索 Name，到达其叶子节点<strong>获取对应的主键</strong>。<br>2、第二步根据主键在主索引 B+ 树种再执行一次 B+ 树检索操作，最终到达叶子节点即可获取整行数据。这个过程称为<strong>回表</strong>。</p>
-<h2 id="聚簇索引的优势在哪？"><a href="#聚簇索引的优势在哪？" class="headerlink" title="聚簇索引的优势在哪？"></a>聚簇索引的优势在哪？</h2><p>1、由于行数据和叶子节点存储在一起，这样主键和行数据是一起被载入内存的，找到叶子节点就可以立刻将行数据返回了，如果按照主键 Id 来组织数据，获得数据更快。</p>
+<h2><span id="聚簇索引的优势在哪">聚簇索引的优势在哪？</span></h2><p>1、由于行数据和叶子节点存储在一起，这样主键和行数据是一起被载入内存的，找到叶子节点就可以立刻将行数据返回了，如果按照主键 Id 来组织数据，获得数据更快。</p>
 <p>2、辅助索引使用主键作为<strong>指针</strong>而不是使用地址值作为指针的好处是，减少了当出现行移动或者数据页分裂时辅助索引的维护工作。</p>
 <p>使用主键值当作指针会让辅助索引占用更多的空间，换来的好处是 InnoDB <strong>在移动行时无须更新辅助索引中的这个指针</strong>。</p>
 <p>也就是说行的位置会随着数据库里数据的修改而发生变化，使用聚簇索引就可以保证不管这个主键 B+ 树的节点如何变化，辅助索引树都不受影响。</p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>这次内容比较多，涉及到了一些数据结构的内容，我也是翻了很多博客才搞懂那么一点点。主要是要搞懂，为什么要用索引，以及索引的查询流程。</p>
+<h1><span id="小结">小结</span></h1><p>这次内容比较多，涉及到了一些数据结构的内容，我也是翻了很多博客才搞懂那么一点点。主要是要搞懂，为什么要用索引，以及索引的查询流程。</p>
 <p>希望对你有用。</p>
 <hr>
 <blockquote>
@@ -692,7 +705,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -840,6 +853,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -852,6 +866,7 @@
 
 
 
+          
         </div>
         
           
@@ -900,7 +915,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -911,7 +926,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -922,7 +937,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -992,23 +1007,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1030,7 +1045,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#索引是什么？"><span class="nav-text">索引是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见查询模型"><span class="nav-text">常见查询模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序数组"><span class="nav-text">顺序数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希索引"><span class="nav-text">哈希索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉搜索树索引"><span class="nav-text">二叉搜索树索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B树"><span class="nav-text">B树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树"><span class="nav-text">B+ 树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-的索引模型"><span class="nav-text">MySQL 的索引模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM索引实现"><span class="nav-text">MyISAM索引实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB索引实现"><span class="nav-text">InnoDB索引实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚簇索引的优势在哪？"><span class="nav-text">聚簇索引的优势在哪？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">索引是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">常见查询模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">顺序数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">哈希索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">二叉搜索树索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">B树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">B+ 树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">MySQL 的索引模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">MyISAM索引实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">InnoDB索引实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">聚簇索引的优势在哪？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
@@ -1050,7 +1065,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1727,6 +1742,7 @@
   
 
   
+
 
 </body>
 </html>

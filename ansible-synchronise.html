@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,7 +545,7 @@
 <p>于是，我就找到了 <code>synchronize</code>。</p>
 <a id="more"></a>
 <p>synchronize 模块是对 <code>rsync</code> 的封装，实现控制机和目标机之间的数据同步。当然，你也可以在 command 模块中直接调用 rsync 命令，但是 synchronize 对其进行了封装，提供了一些规范化的东西，使用起来更加方便、高效，还可以增量同步。</p>
-<h1 id="简单了解下-rsync"><a href="#简单了解下-rsync" class="headerlink" title="简单了解下 rsync"></a>简单了解下 rsync</h1><p>rsync 是一个快速且功能非常丰富的文件拷贝工具。它可以在本地和远程之间通过 shell 或 rsync 服务互相拷贝文件。它提供了大量的选项来控制它各方面功能的行为，且在指定待拷贝文件方面非常有弹性。</p>
+<h1><span id="简单了解下-rsync">简单了解下 rsync</span></h1><p>rsync 是一个快速且功能非常丰富的文件拷贝工具。它可以在本地和远程之间通过 shell 或 rsync 服务互相拷贝文件。它提供了大量的选项来控制它各方面功能的行为，且在指定待拷贝文件方面非常有弹性。</p>
 <p>它以其<strong>增量拷贝算法</strong>而出名，只拷贝源和目标不同的文件部分，因此减少网络间要传输的数据。rsync 被广泛用于做备份、镜像和当作升级版拷贝命令。</p>
 <p>rsync 同步过程中由两部分模式组成：决定哪些文件需要同步的<strong>检查模式</strong>以及文件同步时的<strong>同步模式</strong>，也就是先检查哪些要同步，然后再进行同步。</p>
 <ol>
@@ -544,7 +557,7 @@
 <p>相对来说，为 rsync 手动指定同步模式的选项更常见一些，只有在有特殊需求时才指定检查模式，因为大多数检查模式选项都可能会影响 rsync 的性能。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536203684948.png" alt="rsync"></p>
 <p>总之，rsync 是非常强大的，参数选项非常多，能够实现非常具有弹性的功能，关于更完整更详细的选项说明可以参考：<a href="http://www.cnblogs.com/f-ck-need-u/p/7221713.html" target="_blank" rel="noopener">http://www.cnblogs.com/f-ck-need-u/p/7221713.html</a></p>
-<h1 id="synchronize"><a href="#synchronize" class="headerlink" title="synchronize"></a>synchronize</h1><h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><ul>
+<h1><span id="synchronize">synchronize</span></h1><h2><span id="参数说明">参数说明</span></h2><ul>
 <li><code>src</code>：必填，<strong>源</strong>地址路径</li>
 <li><code>dest</code>：必填，<strong>目的</strong>地址路径</li>
 <li><code>mode</code>：<code>mode=push</code>，推送 ansible（src） -&gt; 远程主机（dest）；<code>mode=pull</code>，拉取，远程主机（src） -&gt; ansible（dest），默认为 <code>push</code></li>
@@ -556,7 +569,7 @@
 <li><code>rsync_opts</code>：rsync 参数部分，<code>--exclude</code>：忽略同步文件、目录</li>
 <li><code>rsync_timeout</code>：指定 rsync 操作的 IP 超时时间，和 rsync 命令的 <code>--timeout</code> 参数效果一样</li>
 </ul>
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>本文中用两台主机进行试验：192.168.31.63（server端）、192.168.31.64（client端）。</p>
+<h2><span id="简单使用">简单使用</span></h2><p>本文中用两台主机进行试验：192.168.31.63（server端）、192.168.31.64（client端）。</p>
 <p>我们现在 client 端随便新建一些文件：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pwd</span></span><br><span class="line">/tmp/client</span><br><span class="line"></span><br><span class="line"><span class="comment"># tree</span></span><br><span class="line">.</span><br><span class="line">└── sync_test</span><br><span class="line">    └── haha.t</span><br><span class="line"></span><br><span class="line">1 directory, 1 file</span><br></pre></td></tr></table></figure>
 <ul>
@@ -600,7 +613,7 @@
 <p>然后我们看结果：</p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ll</span></span><br><span class="line">total 4</span><br><span class="line">-rw-r--r--<span class="number"> 1 </span>liuhao root<span class="number"> 4 </span>Sep <span class="number"> 5 </span>11:29 21</span><br><span class="line">-rw-r--r--<span class="number"> 1 </span>root   root<span class="number"> 0 </span>Sep <span class="number"> 5 </span>11:36 23</span><br><span class="line"></span><br><span class="line"><span class="comment"># tree</span></span><br><span class="line">.</span><br><span class="line">├── 21</span><br><span class="line">└── 23</span><br><span class="line"></span><br><span class="line">0 directories,<span class="number"> 2 </span>files</span><br><span class="line"></span><br><span class="line"><span class="comment"># cat 21</span></span><br><span class="line">456</span><br></pre></td></tr></table></figure>
 <p>显然，后面执行的主机 2 的文件内容，覆盖了前面主机 1 的文件内容。</p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ol>
+<h2><span id="注意点">注意点</span></h2><ol>
 <li>本地和远程系统必须安装 rsync 包，否则无法使用这个模块；</li>
 <li><p>对于 synchronize 模块，<code>本地主机</code>是同步任务发起的主机，<code>目标主机</code>是同步时被连接的主机；</p>
 </li>
@@ -616,7 +629,7 @@
 <li>即使使用了 sudo, <code>dest=~/x</code> 也会变成 <code>~&lt;remote_user&gt;/x</code>；</li>
 <li>如果 inventory 文件中使用 ansible_ssh_pass 进行用户名密码认证，在使用 synchronize 模块时由于模块使用的是<strong>独立的 ssh 通道</strong>，因此会再次提示输入密码，在大规模文件下发场景中使用体验较差，可以考虑通过其它途径实现。</li>
 </ol>
-<h2 id="和-copy-fecth-的区别"><a href="#和-copy-fecth-的区别" class="headerlink" title="和 copy/fecth 的区别"></a>和 copy/fecth 的区别</h2><p>其实有点类似于 <code>rsync</code> 和 <code>scp</code> 的区别，Rsync 有着更丰富的特性，并且更快捷，当然，Rsync 使用起来相对复杂些，因为参数较多。</p>
+<h2><span id="和-copyfecth-的区别">和 copy/fecth 的区别</span></h2><p>其实有点类似于 <code>rsync</code> 和 <code>scp</code> 的区别，Rsync 有着更丰富的特性，并且更快捷，当然，Rsync 使用起来相对复杂些，因为参数较多。</p>
 <p>总结来看就是：</p>
 <ul>
 <li>copy 模块不支持从远端到本地的拉去操作，fetch 模块支持，但是 src 参数不支持目录递归，只能回传具体文件；</li>
@@ -635,7 +648,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -781,6 +794,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -793,6 +807,7 @@
 
 
 
+          
         </div>
         
           
@@ -841,7 +856,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -852,7 +867,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -863,7 +878,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -933,23 +948,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -971,7 +986,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单了解下-rsync"><span class="nav-text">简单了解下 rsync</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#synchronize"><span class="nav-text">synchronize</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数说明"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单使用"><span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意点"><span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和-copy-fecth-的区别"><span class="nav-text">和 copy/fecth 的区别</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">简单了解下 rsync</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">synchronize</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">和 copy/fecth 的区别</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -991,7 +1006,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1668,6 +1683,7 @@
   
 
   
+
 
 </body>
 </html>

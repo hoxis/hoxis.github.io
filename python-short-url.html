@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -536,18 +549,18 @@
 <p>WTF，那么长的一个网址！</p>
 <p>于是我想到了短网址。</p>
 <a id="more"></a>
-<h1 id="什么是短链接"><a href="#什么是短链接" class="headerlink" title="什么是短链接 ?"></a>什么是短链接 ?</h1><p>短网址，很简单，就是把普通网址，转换成比较短的网址。</p>
+<h1><span id="什么是短链接">什么是短链接 ?</span></h1><p>短网址，很简单，就是把普通网址，转换成比较短的网址。</p>
 <p>短网址服务是随着 Twitter 和微博这样短小的互联网内容的兴起而出现的，因为这些社交网站的 140 字字数限制，如果网址不用什么办法来缩短的话，会很容易占据一条消息的绝大部分篇幅，甚至使得消息无法发出。</p>
 <p>常见的就是微博的短网址，比如：<a href="http://t.cn/EZXC3rf" target="_blank" rel="noopener">http://t.cn/EZXC3rf</a> 。短网址在微博这些限制字数的应用里，好处不言而喻。短、字符少、美观、便于发布、传播。</p>
 <p>新浪、百度等等，很多都有提供短网址转换服务。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1540529836948.jpg" alt="新浪短网址"></p>
 <hr>
-<h1 id="短网址的原理"><a href="#短网址的原理" class="headerlink" title="短网址的原理"></a>短网址的原理</h1><p>当我们在浏览器里输入 <code>http://t.cn/EZXC3rf</code> 时</p>
+<h1><span id="短网址的原理">短网址的原理</span></h1><p>当我们在浏览器里输入 <code>http://t.cn/EZXC3rf</code> 时</p>
 <p>1、DNS 首先解析获得 <code>http://t.cn</code> 的 IP 地址；<br>2、当 DNS 获得 IP 地址以后（比如：116.211.169.137），会向这个地址发送 HTTP GET 请求，查询短码 <code>EZXC3rf</code>；<br>3、<code>http://t.cn</code> 服务器会通过短码 <code>EZXC3rf</code> 获取对应的长 URL；<br>4、请求通过 HTTP 301 转到对应的长 URL。</p>
 <hr>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>短网址服务是需要短网址服务器的，这里我们不再重复造轮子。</p>
+<h1><span id="实现">实现</span></h1><p>短网址服务是需要短网址服务器的，这里我们不再重复造轮子。</p>
 <p>百度、新浪等短网址服务都有相应的 API 接口可以直接调用。</p>
-<h2 id="短网址接口"><a href="#短网址接口" class="headerlink" title="短网址接口"></a>短网址接口</h2><p>新浪短网址接口的稳定性和跳转速度还是很给力的，但是接口使用时需要进行鉴权先，那就有点麻烦了，这里我们就不再演示。</p>
+<h2><span id="短网址接口">短网址接口</span></h2><p>新浪短网址接口的稳定性和跳转速度还是很给力的，但是接口使用时需要进行鉴权先，那就有点麻烦了，这里我们就不再演示。</p>
 <p>百度的呢，百度的倒是不用鉴权，但是在转换我的博客地址时，居然报异常！</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1540542305803.jpg" alt="异常"></p>
 <p>于是，又找到了一个小众的接口：<code>http://suo.im/</code>。</p>
@@ -558,7 +571,7 @@
 <p>JSON格式短网址API接口</p>
 <p>说明：format为json<br>例如：<a href="http://suo.im/api.php?format=json&amp;url=http%3a%2f%2fwww.baidu.com" target="_blank" rel="noopener">http://suo.im/api.php?format=json&amp;url=http%3a%2f%2fwww.baidu.com</a><br>返回：{“url”:”<a href="http://suo.im/baidu&quot;,&quot;err&quot;:&quot;&quot;}" target="_blank" rel="noopener">http://suo.im/baidu&quot;,&quot;err&quot;:&quot;&quot;}</a></p>
 </blockquote>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>有接口，代码实现就很简单了：</p>
+<h2><span id="代码实现">代码实现</span></h2><p>有接口，代码实现就很简单了：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">long_url = <span class="string">"https://hoxis.github.io/learn-microservice-from-0.html"</span></span><br><span class="line">querystring = &#123;<span class="string">"url"</span>:long_url&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://suo.im/api.php"</span></span><br><span class="line"></span><br><span class="line">response = requests.request(<span class="string">"GET"</span>, url, params=querystring)</span><br><span class="line"></span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
 <p>运行完，就能生成自定义网址的短网址啦！</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python suo.py</span><br><span class="line">http:<span class="comment">//suo.im/51ckP5</span></span><br></pre></td></tr></table></figure>
@@ -577,7 +590,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -723,6 +736,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -735,6 +749,7 @@
 
 
 
+          
         </div>
         
           
@@ -783,7 +798,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -794,7 +809,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -805,7 +820,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -875,23 +890,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -913,7 +928,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是短链接"><span class="nav-text">什么是短链接 ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#短网址的原理"><span class="nav-text">短网址的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#短网址接口"><span class="nav-text">短网址接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-text">代码实现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">什么是短链接 ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">短网址的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">短网址接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">代码实现</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -933,7 +948,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1610,6 +1625,7 @@
   
 
   
+
 
 </body>
 </html>

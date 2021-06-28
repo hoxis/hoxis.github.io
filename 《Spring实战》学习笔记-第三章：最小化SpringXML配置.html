@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -531,51 +544,51 @@
 <li>自动检测（autodiscovery）：Spring能够自动识别哪些类需要被装配成Spring Bean，从而减少对<code>&lt;bean&gt;</code>的使用。</li>
 </ul>
 <a id="more"></a>
-<h1 id="自动装配Bean属性"><a href="#自动装配Bean属性" class="headerlink" title="自动装配Bean属性"></a>自动装配Bean属性</h1><h2 id="4种自动装配"><a href="#4种自动装配" class="headerlink" title="4种自动装配"></a>4种自动装配</h2><ul>
+<h1><span id="自动装配bean属性">自动装配Bean属性</span></h1><h2><span id="4种自动装配">4种自动装配</span></h2><ul>
 <li>byName：把与Bean属性具有<strong>相同名字（或id）</strong>的其他Bean自动装配到Bean的对应属性中；</li>
 <li>byType：把与Bean属性具有<strong>相同类型</strong>的其他Bean自动装配到Bean的对应属性中；</li>
 <li>constructor：把与Bean的构造函数的入参具有<strong>相同类型</strong>的其他Bean自动装配到Bean的构造函数对应的入参中；</li>
 <li>autodetect：先尝试使用constructor，失败后再使用byType。</li>
 </ul>
-<h3 id="byName"><a href="#byName" class="headerlink" title="byName"></a>byName</h3><p>为属性自动装配id与该属性的名字相同的Bean。使用方法：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span> <span class="attr">autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="byname">byName</span></h3><p>为属性自动装配id与该属性的名字相同的Bean。使用方法：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span> <span class="attr">autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>通过配置Bean Kenny的<code>autowire=&quot;byName&quot;</code>属性，Spring就可以利用此信息自动装配Kenny的instrument属性了。</p>
 <p>缺点：需要假设Bean的名字（如instrument）与其他Bean的属性的名字一样，若其他多个Bean的属性都是instrument，那么让他们将使用同一个instrument。</p>
-<h3 id="byType"><a href="#byType" class="headerlink" title="byType"></a>byType</h3><p>当Spring根据类型匹配到多个Bean时，会<em>抛出异常</em>，形如：</p>
+<h3><span id="bytype">byType</span></h3><p>当Spring根据类型匹配到多个Bean时，会<em>抛出异常</em>，形如：</p>
 <blockquote>
 <p>org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name ‘kenny’ defined in class path resource [spring-idol.xml]: Unsatisfied dependency expressed through bean property ‘instrument’: : No qualifying bean of type [com.springinaction.springidol.Instrument] is defined: expected single matching bean but found 2: saxphone,guitar;</p>
 </blockquote>
 <p>为了避免这种异常（<strong>expected single matching bean but found 2</strong>）的出现，Spring提供了两种方案：可以自动装配标识一个首选Bean，或者可以取消某个Bean的自动装配的候选资格。</p>
-<h4 id="标识首选Bean：primary-”true”"><a href="#标识首选Bean：primary-”true”" class="headerlink" title="标识首选Bean：primary=”true”"></a>标识首选Bean：primary=”true”</h4><p>可以使用primary属性将Bean设置为首选Bean，那么它将会得到优选被选择权：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"saxphone"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Saxophone"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"guitar"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Guitar"</span> <span class="attr">primary</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4><span id="标识首选beanprimarytrue">标识首选Bean：primary=”true”</span></h4><p>可以使用primary属性将Bean设置为首选Bean，那么它将会得到优选被选择权：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"saxphone"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Saxophone"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"guitar"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Guitar"</span> <span class="attr">primary</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>有两个Bean类型满足kenny的instrument属性，但是guitar设置了<code>primary=&quot;true&quot;</code>，因此会注入guitar。</p>
-<h4 id="排除其他Bean：-autowire-candidate-”false”"><a href="#排除其他Bean：-autowire-candidate-”false”" class="headerlink" title="排除其他Bean： autowire-candidate=”false”"></a>排除其他Bean： autowire-candidate=”false”</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"saxphone"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Saxophone"</span> <span class="attr">autowire-candidate</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"guitar"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Guitar"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4><span id="排除其他bean-autowire-candidatefalse">排除其他Bean： autowire-candidate=”false”</span></h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"saxphone"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Saxophone"</span> <span class="attr">autowire-candidate</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"guitar"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Guitar"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>通过排除其他Bean的候选资格来达到和上面设置primary同样的效果。</p>
-<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><p>当有多个Bean匹配某个构造函数的入参时，Spring同样会抛出异常。</p>
-<h2 id="默认自动装配方式"><a href="#默认自动装配方式" class="headerlink" title="默认自动装配方式"></a>默认自动装配方式</h2><p>可以在根元素<code>&lt;beans&gt;</code>上添加<code>default-autowire</code>属性来设置<strong>该配置文件中</strong>的<bean>的自动装配方式。</bean></p>
-<h3 id="混用自动装配和显示装配"><a href="#混用自动装配和显示装配" class="headerlink" title="混用自动装配和显示装配"></a>混用自动装配和显示装配</h3><p><em>显示装配会覆盖掉自动装配</em>：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"saxphone"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Saxophone"</span> <span class="attr">autowire-candidate</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"guitar"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Guitar"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"instrument"</span> <span class="attr">ref</span>=<span class="string">"saxphone"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="constructor">constructor</span></h3><p>当有多个Bean匹配某个构造函数的入参时，Spring同样会抛出异常。</p>
+<h2><span id="默认自动装配方式">默认自动装配方式</span></h2><p>可以在根元素<code>&lt;beans&gt;</code>上添加<code>default-autowire</code>属性来设置<strong>该配置文件中</strong>的<bean>的自动装配方式。</bean></p>
+<h3><span id="混用自动装配和显示装配">混用自动装配和显示装配</span></h3><p><em>显示装配会覆盖掉自动装配</em>：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"saxphone"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Saxophone"</span> <span class="attr">autowire-candidate</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"guitar"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Guitar"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"kenny"</span> <span class="attr">class</span>=<span class="string">"com.springinaction.springidol.Instrumentalist"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"song"</span> <span class="attr">value</span>=<span class="string">"Happy"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"instrument"</span> <span class="attr">ref</span>=<span class="string">"saxphone"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>虽然取消了saxphone的候选资格，但最终仍是saxphone注入到了kenny的属性中。</p>
 <p><em>注意</em><br>当使用constructor自动装配时，就不能混合使用constructor自动装配和<constructor-arg>标签了。</constructor-arg></p>
-<h1 id="使用注解装配"><a href="#使用注解装配" class="headerlink" title="使用注解装配"></a>使用注解装配</h1><p>启用注解装配：<code>&lt;context:annotation-config /&gt;</code>。</p>
+<h1><span id="使用注解装配">使用注解装配</span></h1><p>启用注解装配：<code>&lt;context:annotation-config /&gt;</code>。</p>
 <ul>
 <li>Spring自带的@Autowired注解</li>
 <li>JSR-330的@Inject注解</li>
 <li>JSR-250的@Resource注解</li>
 </ul>
-<h2 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h2><p>使用方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、可以标注setter</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInstrument</span><span class="params">(Instrument instrument)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、标注其他方法</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">heresYourInstrument</span><span class="params">(Instrument instrument)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、标注构造器</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Instrumentalist</span><span class="params">(Instrument instrument)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4、直接标注属性</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> Instrument instrument;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="autowired">@Autowired</span></h2><p>使用方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、可以标注setter</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInstrument</span><span class="params">(Instrument instrument)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、标注其他方法</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">heresYourInstrument</span><span class="params">(Instrument instrument)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、标注构造器</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Instrumentalist</span><span class="params">(Instrument instrument)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4、直接标注属性</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> Instrument instrument;</span><br></pre></td></tr></table></figure></p>
 <p>使用@Autowired进行自动装配时，在遇到多个匹配的Bean或者没有匹配的Bean也会出现问题。</p>
-<h3 id="可选的自动装配"><a href="#可选的自动装配" class="headerlink" title="可选的自动装配"></a>可选的自动装配</h3><p>通过设置@Autowired的required属性为false来配置可选。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span>(required=<span class="keyword">false</span>)</span><br><span class="line"><span class="keyword">private</span> Instrument instrument;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="可选的自动装配">可选的自动装配</span></h3><p>通过设置@Autowired的required属性为false来配置可选。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span>(required=<span class="keyword">false</span>)</span><br><span class="line"><span class="keyword">private</span> Instrument instrument;</span><br></pre></td></tr></table></figure></p>
 <p>这时，若没有找到匹配到的instrument Bean，应用也不会出现异常，instrument会被设置为null。</p>
 <p><em>注意</em>：<br>当使用构造器装配时，只有一个构造器可以将@Autowired的required属性设置为true，其他使用@Autowired注解的required属性必须设置为false。此外，当使用@Autowired标注多个构造器时，Spring会从所有满足装配条件的构造器中选择<strong>入参最多的</strong>那个。</p>
-<h3 id="限制歧义性的依赖"><a href="#限制歧义性的依赖" class="headerlink" title="限制歧义性的依赖"></a>限制歧义性的依赖</h3><p>当有多个Bean满足装配条件时，可以配合使用<code>@Qualifier</code>注解。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier</span>(<span class="string">"guitar"</span>)</span><br><span class="line"><span class="keyword">private</span> Instrument instrument;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="限制歧义性的依赖">限制歧义性的依赖</span></h3><p>当有多个Bean满足装配条件时，可以配合使用<code>@Qualifier</code>注解。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier</span>(<span class="string">"guitar"</span>)</span><br><span class="line"><span class="keyword">private</span> Instrument instrument;</span><br></pre></td></tr></table></figure></p>
 <p><code>@Qualifier</code>注解缩小了自动装配候选Bean的范围。</p>
-<h2 id="Inject"><a href="#Inject" class="headerlink" title="@Inject"></a>@Inject</h2><p>和@Autowired一样，@Inject可以装配 属性、方法和构造器；但是@Inject没有required属性，因此@Inject注解所依赖的bean是必须存在的，如果不存在就会抛出异常。</p>
+<h2><span id="inject">@Inject</span></h2><p>和@Autowired一样，@Inject可以装配 属性、方法和构造器；但是@Inject没有required属性，因此@Inject注解所依赖的bean是必须存在的，如果不存在就会抛出异常。</p>
 <p>使用@Inject注入一个Provider，从而可以实现Bean引用的<strong>延迟注入</strong>以及注入多个Bean实例的功能。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Set&lt;Knife&gt; knives;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Inject</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">KnifeJuggler</span><span class="params">(Provider&lt;Knife&gt; knifeProvider)</span> </span>&#123;</span><br><span class="line">	knives = <span class="keyword">new</span> HashSet&lt;Knife&gt;();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">		knives.add(knifeProvider.get());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>KnifeJuggler类需要注入多个Knife实例，假设Knife Bean的作用域是prototype的，那么KnifeJuggler将获得一个Provider<knife>，这时只有provider被注入；在调用provider的get()方法之前，实际的Knife对象没有被注入。</knife></p>
-<h3 id="限定-Inject所注入的属性：-Named"><a href="#限定-Inject所注入的属性：-Named" class="headerlink" title="限定@Inject所注入的属性：@Named"></a>限定@Inject所注入的属性：@Named</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject</span></span><br><span class="line"><span class="meta">@Named</span>(<span class="string">"guitar"</span>)</span><br><span class="line"><span class="keyword">private</span> Instrument instrument;</span><br></pre></td></tr></table></figure>
-<h3 id="在注解中使用表达式：-Value"><a href="#在注解中使用表达式：-Value" class="headerlink" title="在注解中使用表达式：@Value"></a>在注解中使用表达式：@Value</h3><p>可以使用@Value装配简单值：String类型和基本类型，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value</span>(<span class="string">"Happy"</span>)</span><br><span class="line"><span class="keyword">private</span> String song;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="限定inject所注入的属性named">限定@Inject所注入的属性：@Named</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject</span></span><br><span class="line"><span class="meta">@Named</span>(<span class="string">"guitar"</span>)</span><br><span class="line"><span class="keyword">private</span> Instrument instrument;</span><br></pre></td></tr></table></figure>
+<h3><span id="在注解中使用表达式value">在注解中使用表达式：@Value</span></h3><p>可以使用@Value装配简单值：String类型和基本类型，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value</span>(<span class="string">"Happy"</span>)</span><br><span class="line"><span class="keyword">private</span> String song;</span><br></pre></td></tr></table></figure></p>
 <p>@Value可以配合SpEL使用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value</span>(<span class="string">"#&#123;systemProperties.myFavoriteSong&#125;"</span>)</span><br><span class="line"><span class="keyword">private</span> String song;</span><br></pre></td></tr></table></figure></p>
 <p>#自动检测Bean：<context:component-scan><br> <context:annotation-config> 可以减少<property>和<constructor-arg> 的使用，但仍需配置<bean>。<br>使用<context:component-scan> 除了可以完成上述工作，还可以自动检测Bean和定义Bean，它会扫描指定的包及其所有子包，并查找出能够自动注册为Spring Bean的类，base-package标识了所要扫描的包：<br><code>&lt;context:component-scan base-package=&quot;com.springinaction.springidol&quot;/&gt;</code></context:component-scan></bean></constructor-arg></property></context:annotation-config></context:component-scan></p>
-<h2 id="标注Bean"><a href="#标注Bean" class="headerlink" title="标注Bean"></a>标注Bean</h2><ul>
+<h2><span id="标注bean">标注Bean</span></h2><ul>
 <li>@Component：通用的构造型注解，标识该类为<strong>Spring组件</strong>；</li>
 <li>@Controller：标识该类为<strong>Spring MVC controller</strong>；</li>
 <li>@Repository：标识为<strong>数据仓库</strong>；</li>
@@ -584,7 +597,7 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springinaction.springidol;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Guitar</span> <span class="keyword">implements</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Strum strum strum"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Spring扫描com.springinaction.springidol包时，会发现使用@Component注解所标注的Guitar，会自动将它注册为Spring Bean，其id会是guitar。</p>
-<h2 id="定义组件扫描策略"><a href="#定义组件扫描策略" class="headerlink" title="定义组件扫描策略"></a>定义组件扫描策略</h2><table>
+<h2><span id="定义组件扫描策略">定义组件扫描策略</span></h2><table>
 <thead>
 <tr>
 <th style="text-align:center">过滤器类型</th>
@@ -626,7 +639,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -772,6 +785,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -784,6 +798,7 @@
 
 
 
+          
         </div>
         
           
@@ -832,7 +847,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -843,7 +858,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -854,7 +869,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -924,23 +939,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -962,7 +977,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自动装配Bean属性"><span class="nav-text">自动装配Bean属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4种自动装配"><span class="nav-text">4种自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#byName"><span class="nav-text">byName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#byType"><span class="nav-text">byType</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标识首选Bean：primary-”true”"><span class="nav-text">标识首选Bean：primary=”true”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排除其他Bean：-autowire-candidate-”false”"><span class="nav-text">排除其他Bean： autowire-candidate=”false”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constructor-NaN"><span class="nav-text">constructor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认自动装配方式"><span class="nav-text">默认自动装配方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#混用自动装配和显示装配"><span class="nav-text">混用自动装配和显示装配</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用注解装配"><span class="nav-text">使用注解装配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Autowired"><span class="nav-text">@Autowired</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可选的自动装配"><span class="nav-text">可选的自动装配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制歧义性的依赖"><span class="nav-text">限制歧义性的依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inject"><span class="nav-text">@Inject</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#限定-Inject所注入的属性：-Named"><span class="nav-text">限定@Inject所注入的属性：@Named</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在注解中使用表达式：-Value"><span class="nav-text">在注解中使用表达式：@Value</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标注Bean"><span class="nav-text">标注Bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义组件扫描策略"><span class="nav-text">定义组件扫描策略</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">自动装配Bean属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">4种自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">byName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">byType</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">标识首选Bean：primary=”true”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">排除其他Bean： autowire-candidate=”false”</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">constructor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">默认自动装配方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">混用自动装配和显示装配</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">使用注解装配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">@Autowired</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">可选的自动装配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">限制歧义性的依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">@Inject</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">限定@Inject所注入的属性：@Named</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">在注解中使用表达式：@Value</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">标注Bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">定义组件扫描策略</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -982,7 +997,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1659,6 +1674,7 @@
   
 
   
+
 
 </body>
 </html>

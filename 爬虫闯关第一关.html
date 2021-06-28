@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -529,12 +542,12 @@
       
 
       
-        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>访问<a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" rel="noopener">http://www.heibanke.com/lesson/crawler_ex00/</a>，第一关是将页面出现的数字填写到当前url的尾部进行访问，然后会得到一个新的数字，再用它替换url中的尾部数字，这样不断循环往复，直到页面出现成功标识，如下图。</p>
+        <h1><span id="题目">题目</span></h1><p>访问<a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" rel="noopener">http://www.heibanke.com/lesson/crawler_ex00/</a>，第一关是将页面出现的数字填写到当前url的尾部进行访问，然后会得到一个新的数字，再用它替换url中的尾部数字，这样不断循环往复，直到页面出现成功标识，如下图。</p>
 <a id="more"></a>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517583898101.jpg" alt="中间环节页面"></p>
-<h1 id="BeautifulSoup实现方式"><a href="#BeautifulSoup实现方式" class="headerlink" title="BeautifulSoup实现方式"></a>BeautifulSoup实现方式</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests, bs4, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://www.heibanke.com/lesson/crawler_ex00/'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="comment"># download the page</span></span><br><span class="line">    print(<span class="string">"forward to page %s ..."</span> % url)</span><br><span class="line">    response = requests.get(url)</span><br><span class="line">    print(<span class="string">"the return code : "</span> + str(response.status_code))</span><br><span class="line"></span><br><span class="line">    soup = bs4.BeautifulSoup(response.text, <span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># get the url of the for the next page</span></span><br><span class="line">    comic = soup.select(<span class="string">'h3'</span>) <span class="comment"># 获取页面数字</span></span><br><span class="line">    print(comic[<span class="number">0</span>].getText())</span><br><span class="line">    number = re.findall(<span class="string">"\d+"</span>, comic[<span class="number">0</span>].getText())</span><br><span class="line">    <span class="keyword">if</span> number == []:</span><br><span class="line">        print(<span class="string">'The end.'</span>)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        url = <span class="string">'http://www.heibanke.com/lesson/crawler_ex00/'</span> + number[<span class="number">0</span>] <span class="comment"># 拼接新地址</span></span><br></pre></td></tr></table></figure>
+<h1><span id="beautifulsoup实现方式">BeautifulSoup实现方式</span></h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests, bs4, re</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://www.heibanke.com/lesson/crawler_ex00/'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="comment"># download the page</span></span><br><span class="line">    print(<span class="string">"forward to page %s ..."</span> % url)</span><br><span class="line">    response = requests.get(url)</span><br><span class="line">    print(<span class="string">"the return code : "</span> + str(response.status_code))</span><br><span class="line"></span><br><span class="line">    soup = bs4.BeautifulSoup(response.text, <span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># get the url of the for the next page</span></span><br><span class="line">    comic = soup.select(<span class="string">'h3'</span>) <span class="comment"># 获取页面数字</span></span><br><span class="line">    print(comic[<span class="number">0</span>].getText())</span><br><span class="line">    number = re.findall(<span class="string">"\d+"</span>, comic[<span class="number">0</span>].getText())</span><br><span class="line">    <span class="keyword">if</span> number == []:</span><br><span class="line">        print(<span class="string">'The end.'</span>)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        url = <span class="string">'http://www.heibanke.com/lesson/crawler_ex00/'</span> + number[<span class="number">0</span>] <span class="comment"># 拼接新地址</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517584456392.jpg" alt="程序运行结果"></p>
-<h1 id="selenium实现方式"><a href="#selenium实现方式" class="headerlink" title="selenium实现方式"></a>selenium实现方式</h1><p>selenium 模块让 Python 直接控制浏览器，实际点击链接，填写登录信息，几乎就像是有一个人类用户在与页面交互。与<code>Requests</code>和<code>Beautiful Soup</code>相比，<code>Selenium</code>允许你用高级得多的方式与网页交互。但因为它启动了Web浏览器，假如你只是想从网络上下载一些文件，会有点慢，并且难以在后台运行。</p>
+<h1><span id="selenium实现方式">selenium实现方式</span></h1><p>selenium 模块让 Python 直接控制浏览器，实际点击链接，填写登录信息，几乎就像是有一个人类用户在与页面交互。与<code>Requests</code>和<code>Beautiful Soup</code>相比，<code>Selenium</code>允许你用高级得多的方式与网页交互。但因为它启动了Web浏览器，假如你只是想从网络上下载一些文件，会有点慢，并且难以在后台运行。</p>
 <p>Selenium需要一个驱动程序来连接所选的浏览器，需要下载浏览器对应的webdriver，并配置到系统环境变量。如Firefox的需要下载geckodriver。</p>
 <table>
 <thead>
@@ -576,7 +589,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -722,6 +735,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -734,6 +748,7 @@
 
 
 
+          
         </div>
         
           
@@ -782,7 +797,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -793,7 +808,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -804,7 +819,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -874,23 +889,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -912,7 +927,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BeautifulSoup实现方式"><span class="nav-text">BeautifulSoup实现方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#selenium实现方式"><span class="nav-text">selenium实现方式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">BeautifulSoup实现方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">selenium实现方式</span></a></li></ol></div>
             
 
           </div>
@@ -932,7 +947,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1609,6 +1624,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -530,18 +543,18 @@
 <a id="more"></a>
 <p>首先，我们先了解下现有的字符串格式化方法。</p>
 <p>在 Python 3.6 之前，字符串格式化方法主要有两种：<code>%格式化</code> 和 <code>str.format()</code>。下面我们简单看下它们的使用方法，以及局限。</p>
-<h1 id="1-格式化"><a href="#1-格式化" class="headerlink" title="1 %-格式化"></a>1 %-格式化</h1><p>% 格式化方法从 Python 刚开始时就存在了，堪称「一届元老」，但是 <a href="https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting" target="_blank" rel="noopener">Python 官方文档</a>中并不推荐这种格式化方式：</p>
+<h1><span id="1-格式化">1 %-格式化</span></h1><p>% 格式化方法从 Python 刚开始时就存在了，堪称「一届元老」，但是 <a href="https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting" target="_blank" rel="noopener">Python 官方文档</a>中并不推荐这种格式化方式：</p>
 <blockquote>
 <p>这里描述的格式化操作容易表现出各种问题，导致许多常见错误（例如无法正确显示元组和字典）。<br>使用较新的格式化字符串文字或 str.format() 可以有助于避免这些错误。这些替代方案还提供了更强大，灵活和可扩展的格式化文本方法。</p>
 </blockquote>
-<h2 id="1-1-如何使用-格式化"><a href="#1-1-如何使用-格式化" class="headerlink" title="1.1 如何使用 %格式化"></a>1.1 如何使用 %格式化</h2><p>一般使用方式，要插入多个变量的话，必须使用元组：</p>
+<h2><span id="11-如何使用-格式化">1.1 如何使用 %格式化</span></h2><p>一般使用方式，要插入多个变量的话，必须使用元组：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>name = <span class="string">"hoxis"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>age = <span class="number">18</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"hello, %s. you are %s ?"</span> %(name, age)</span><br><span class="line"><span class="string">'hello, hoxis. you are 18 ?'</span></span><br></pre></td></tr></table></figure>
-<h2 id="1-2-格式化的缺陷"><a href="#1-2-格式化的缺陷" class="headerlink" title="1.2 %格式化的缺陷"></a>1.2 %格式化的缺陷</h2><p>上面的代码示例看起来还能读，但是，一旦开始使用多个参数和更长的字符串，你的代码将很快变得不那么容易阅读：</p>
+<h2><span id="12-格式化的缺陷">1.2 %格式化的缺陷</span></h2><p>上面的代码示例看起来还能读，但是，一旦开始使用多个参数和更长的字符串，你的代码将很快变得不那么容易阅读：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>name = <span class="string">"hoxis"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>age = <span class="number">18</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>country = <span class="string">"China"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hair = <span class="string">"black"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"hello, %s. you are %s ?. Your country is %s, and your hair is %s"</span> %(name, age, country,hair)</span><br><span class="line"><span class="string">'hello, hoxis. you are 18 ?. Your country is China, and your hair is black'</span></span><br></pre></td></tr></table></figure>
 <p>可以看出，这种格式化并不是很好，因为它很冗长并且容易导致错误，比如没有正确显示元组或字典。</p>
 <p>不过还好我们还有 str.format()。</p>
-<h1 id="2-str-format"><a href="#2-str-format" class="headerlink" title="2 str.format()"></a>2 str.format()</h1><p>Python 2.6 中引入了 str.format() 格式化方法：<a href="https://docs.python.org/3/library/stdtypes.html#str.format" target="_blank" rel="noopener">https://docs.python.org/3/library/stdtypes.html#str.format</a>。</p>
-<h2 id="2-1-str-format-的使用"><a href="#2-1-str-format-的使用" class="headerlink" title="2.1 str.format() 的使用"></a>2.1 str.format() 的使用</h2><p>str.format() 是对 <code>%格式化</code> 的改进，它使用普通函数调用语法，并且可以通过 <code>__format__()</code> 方法为对象进行扩展。</p>
+<h1><span id="2-strformat">2 str.format()</span></h1><p>Python 2.6 中引入了 str.format() 格式化方法：<a href="https://docs.python.org/3/library/stdtypes.html#str.format" target="_blank" rel="noopener">https://docs.python.org/3/library/stdtypes.html#str.format</a>。</p>
+<h2><span id="21-strformat-的使用">2.1 str.format() 的使用</span></h2><p>str.format() 是对 <code>%格式化</code> 的改进，它使用普通函数调用语法，并且可以通过 <code>__format__()</code> 方法为对象进行扩展。</p>
 <p>使用 str.format() 时，替换字段用大括号进行标记：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"hello, &#123;&#125;. you are &#123;&#125;?"</span>.format(name,age)</span><br><span class="line"><span class="string">'hello, hoxis. you are 18?'</span></span><br></pre></td></tr></table></figure>
 <p>并且可以通过索引来以其他顺序引用变量：</p>
@@ -551,12 +564,12 @@
 <p>从字典中读取数据时还可以使用 <code>**</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>person = &#123;<span class="string">"name"</span>:<span class="string">"hoxis"</span>,<span class="string">"age"</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"hello, &#123;name&#125;. you are &#123;age&#125;?"</span>.format(**person)</span><br><span class="line"><span class="string">'hello, hoxis. you are 18?'</span></span><br></pre></td></tr></table></figure>
 <p>确实，str.format() 比 %格式化高级了一些，但是它还是有自己的缺陷。</p>
-<h2 id="2-2-str-format-的缺陷"><a href="#2-2-str-format-的缺陷" class="headerlink" title="2.2 str.format() 的缺陷"></a>2.2 str.format() 的缺陷</h2><p>在处理多个参数和更长的字符串时仍然可能非常冗长，麻烦！看看这个：</p>
+<h2><span id="22-strformat-的缺陷">2.2 str.format() 的缺陷</span></h2><p>在处理多个参数和更长的字符串时仍然可能非常冗长，麻烦！看看这个：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"hello, &#123;&#125;. you are &#123;&#125; ?. Your country is &#123;&#125;, and your hair is &#123;&#125;"</span>.format(name, age, country,hair)</span><br><span class="line"><span class="string">'hello, hoxis. you are 18 ?. Your country is China, and your hair is black'</span></span><br></pre></td></tr></table></figure>
-<h1 id="3-f-Strings"><a href="#3-f-Strings" class="headerlink" title="3 f-Strings"></a>3 f-Strings</h1><p>还好，现在我们有了 f-Strings，它可以使得字符串格式化更加容易。 </p>
+<h1><span id="3-f-strings">3 f-Strings</span></h1><p>还好，现在我们有了 f-Strings，它可以使得字符串格式化更加容易。 </p>
 <p>f-strings 是指以 <code>f</code> 或 <code>F</code> 开头的字符串，其中以 <code>{}</code> 包含的表达式会进行值替换。</p>
 <p>下面从多个方面看下 f-strings 的使用方法，看完后，我相信你会对「人生苦短，我用 Python」有更深地赞同~</p>
-<h2 id="3-1-f-Strings-使用方法"><a href="#3-1-f-Strings-使用方法" class="headerlink" title="3.1 f-Strings 使用方法"></a>3.1 f-Strings 使用方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>name = <span class="string">'hoxis'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>age = <span class="number">18</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"hi, <span class="subst">&#123;name&#125;</span>, are you <span class="subst">&#123;age&#125;</span>"</span></span><br><span class="line"><span class="string">'hi, hoxis, are you 18'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>F<span class="string">"hi, &#123;name&#125;, are you &#123;age&#125;"</span></span><br><span class="line"><span class="string">'hi, hoxis, are you 18'</span></span><br></pre></td></tr></table></figure>
+<h2><span id="31-f-strings-使用方法">3.1 f-Strings 使用方法</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>name = <span class="string">'hoxis'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>age = <span class="number">18</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"hi, <span class="subst">&#123;name&#125;</span>, are you <span class="subst">&#123;age&#125;</span>"</span></span><br><span class="line"><span class="string">'hi, hoxis, are you 18'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>F<span class="string">"hi, &#123;name&#125;, are you &#123;age&#125;"</span></span><br><span class="line"><span class="string">'hi, hoxis, are you 18'</span></span><br></pre></td></tr></table></figure>
 <p>是不是很简洁？！还有更牛叉的！</p>
 <p>因为 f-strings 是在运行时计算的，那么这就意味着你可以在其中放置任意合法的 Python 表达式，比如：</p>
 <ul>
@@ -580,29 +593,29 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>name = <span class="string">'hoxis'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>age = <span class="number">18</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>status = <span class="string">'Python'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>message = &#123;</span><br><span class="line"><span class="meta">... </span>    <span class="string">f'hi <span class="subst">&#123;name&#125;</span>.'</span></span><br><span class="line"><span class="meta">... </span>    <span class="string">f'you are <span class="subst">&#123;age&#125;</span>.'</span></span><br><span class="line"><span class="meta">... </span>    <span class="string">f'you are learning <span class="subst">&#123;status&#125;</span>.'</span></span><br><span class="line"><span class="meta">... </span>&#125;</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>message</span><br><span class="line">&#123;<span class="string">'hi hoxis.you are 18.you are learning Python.'</span>&#125;</span><br></pre></td></tr></table></figure>
 <p>这里需要注意，每行都要加上 <code>f</code> 前缀，否则格式化会不起作用：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>message = &#123;</span><br><span class="line"><span class="meta">... </span>    <span class="string">f'hi <span class="subst">&#123;name&#125;</span>.'</span></span><br><span class="line"><span class="meta">... </span>    <span class="string">'you are learning &#123;status&#125;.'</span></span><br><span class="line"><span class="meta">... </span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>message</span><br><span class="line">&#123;<span class="string">'hi hoxis.you are learning &#123;status&#125;.'</span>&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="4-速度对比"><a href="#4-速度对比" class="headerlink" title="4 速度对比"></a>4 速度对比</h1><p>其实，f-string 里的 f 也许可以代表 <code>fast</code>，它比 %格式化方法和 str.format() 都要快：</p>
+<h1><span id="4-速度对比">4 速度对比</span></h1><p>其实，f-string 里的 f 也许可以代表 <code>fast</code>，它比 %格式化方法和 str.format() 都要快：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> timeit</span><br><span class="line"></span><br><span class="line">print(timeit(<span class="string">"""name = "hoxis"</span></span><br><span class="line"><span class="string">age = 18</span></span><br><span class="line"><span class="string">'%s is %s.' % (name, age)"""</span>, number = <span class="number">10000</span>))</span><br><span class="line"></span><br><span class="line">print(timeit(<span class="string">"""name = "hoxis"</span></span><br><span class="line"><span class="string">age = 18</span></span><br><span class="line"><span class="string">'&#123;&#125; is &#123;&#125;.'.format(name, age)"""</span>, number = <span class="number">10000</span>))</span><br><span class="line"></span><br><span class="line">print(timeit(<span class="string">"""name = "hoxis"</span></span><br><span class="line"><span class="string">age = 18</span></span><br><span class="line"><span class="string">f'&#123;name&#125; is &#123;age&#125;.'"""</span>, number = <span class="number">10000</span>))</span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python3.6 fstring.py</span><br><span class="line">0.002238000015495345</span><br><span class="line">0.004068000009283423</span><br><span class="line">0.0015349999885074794</span><br></pre></td></tr></table></figure>
 <p>很明显，f-string 是最快的，并且语法是最简洁的，是不是迫不及待地要试试了？</p>
-<h1 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5 注意事项"></a>5 注意事项</h1><h2 id="5-1-引号的处理"><a href="#5-1-引号的处理" class="headerlink" title="5.1 引号的处理"></a>5.1 引号的处理</h2><p>可以在字符串中使用各种引号，只要保证和外部的引号不重复即可。</p>
+<h1><span id="5-注意事项">5 注意事项</span></h1><h2><span id="51-引号的处理">5.1 引号的处理</span></h2><p>可以在字符串中使用各种引号，只要保证和外部的引号不重复即可。</p>
 <p>以下使用方式都是没问题的：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"<span class="subst">&#123;<span class="string">'hoxis'</span>&#125;</span>"</span></span><br><span class="line"><span class="string">'hoxis'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f'<span class="subst">&#123;<span class="string">"hoxis"</span>&#125;</span>'</span></span><br><span class="line"><span class="string">'hoxis'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"""hoxis"""</span></span><br><span class="line"><span class="string">'hoxis'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f'''hoxis'''</span></span><br><span class="line"><span class="string">'hoxis'</span></span><br></pre></td></tr></table></figure>
 <p>那如果字符串内部的引号和外部的引号相同时呢？那就需要 <code>\</code> 进行转义：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"You are very \"</span>handsome\<span class="string">""</span></span><br><span class="line"><span class="string">'You are very "handsome"'</span></span><br></pre></td></tr></table></figure>
-<h1 id="5-2-括号的处理"><a href="#5-2-括号的处理" class="headerlink" title="5.2 括号的处理"></a>5.2 括号的处理</h1><p>若字符串中包含括号 <code>{}</code>，那么你就需要用双括号包裹它：</p>
+<h1><span id="52-括号的处理">5.2 括号的处理</span></h1><p>若字符串中包含括号 <code>{}</code>，那么你就需要用双括号包裹它：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"<span class="subst">&#123;&#123;<span class="number">74</span>&#125;</span>&#125;"</span></span><br><span class="line"><span class="string">'&#123;74&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"<span class="subst">&#123;&#123;&#123;<span class="number">74</span>&#125;</span>&#125;&#125;"</span></span><br><span class="line"><span class="string">'&#123;74&#125;'</span></span><br></pre></td></tr></table></figure>
 <p>可以看出，使用三个括号包裹效果一样。</p>
 <p>当然，你可以继续增加括号数目，看下有什么其他效果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"<span class="subst">&#123;&#123;&#123;&#123;<span class="number">74</span>&#125;</span>&#125;&#125;&#125;"</span></span><br><span class="line"><span class="string">'&#123;&#123;74&#125;&#125;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"<span class="subst">&#123;&#123;&#123;&#123;&#123;<span class="number">74</span>&#125;</span>&#125;&#125;&#125;&#125;"</span></span><br><span class="line"><span class="string">'&#123;&#123;74&#125;&#125;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"<span class="subst">&#123;&#123;&#123;&#123;&#123;&#123;<span class="number">74</span>&#125;</span>&#125;&#125;&#125;&#125;&#125;"</span></span><br><span class="line"><span class="string">'&#123;&#123;&#123;74&#125;&#125;&#125;'</span></span><br></pre></td></tr></table></figure>
 <p>额，那么多括号，看着有点晕了…</p>
-<h2 id="5-3-反斜杠"><a href="#5-3-反斜杠" class="headerlink" title="5.3 反斜杠"></a>5.3 反斜杠</h2><p>上面说了，可以用反斜杠进行转义字符，但是不能在 f-string 表达式中使用：</p>
+<h2><span id="53-反斜杠">5.3 反斜杠</span></h2><p>上面说了，可以用反斜杠进行转义字符，但是不能在 f-string 表达式中使用：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"You are very \"</span>handsome\<span class="string">""</span></span><br><span class="line"><span class="string">'You are very "handsome"'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"<span class="subst">&#123;You are very \<span class="string">"handsome\"&#125;"</span></span></span></span><br><span class="line"><span class="string"><span class="subst">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span></span></span></span><br><span class="line"><span class="string"><span class="subst">SyntaxError: f-string expression part cannot include a backslash</span></span></span><br></pre></td></tr></table></figure>
 <p>你可以先在变量里处理好待转义的字符，然后在表达式中引用变量：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>name = <span class="string">'"handsome"'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f'<span class="subst">&#123;name&#125;</span>'</span></span><br><span class="line"><span class="string">'"handsome"'</span></span><br></pre></td></tr></table></figure>
-<h2 id="5-4-注释符号"><a href="#5-4-注释符号" class="headerlink" title="5.4 注释符号"></a>5.4 注释符号</h2><p>不能在表达式中出现 <code>#</code>，否则会报出异常；</p>
+<h2><span id="54-注释符号">5.4 注释符号</span></h2><p>不能在表达式中出现 <code>#</code>，否则会报出异常；</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f"Hoxis is handsome # really"</span></span><br><span class="line"><span class="string">'Hoxis is handsome # really'</span></span><br><span class="line">&gt;&gt;&gt; f"Hoxis is handsome &#123;#really&#125;"</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span></span><br><span class="line">SyntaxError: f-string expression part cannot include <span class="string">'#'</span></span><br></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>经过以上的讲解，是不是发现 <code>f-string</code> 非常简洁实用、可读性高，而且不易出错，可以尝试切换到 <code>f-string</code> 喽~</p>
+<h1><span id="总结">总结</span></h1><p>经过以上的讲解，是不是发现 <code>f-string</code> 非常简洁实用、可读性高，而且不易出错，可以尝试切换到 <code>f-string</code> 喽~</p>
 <p><code>f-string</code> 也体现出了 Python 的奥义：</p>
 <figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import this</span><br><span class="line">The Zen <span class="keyword">of</span> Python, <span class="keyword">by</span> Tim Peters</span><br><span class="line"></span><br><span class="line">Beautiful <span class="keyword">is</span> better than ugly.</span><br><span class="line"><span class="keyword">Explicit</span> <span class="keyword">is</span> better than implicit.</span><br><span class="line">Simple <span class="keyword">is</span> better than complex.</span><br><span class="line">Complex <span class="keyword">is</span> better than complicated.</span><br><span class="line">Flat <span class="keyword">is</span> better than nested.</span><br><span class="line">Sparse <span class="keyword">is</span> better than dense.</span><br><span class="line">Readability counts.</span><br><span class="line">Special cases aren<span class="comment">'t special enough to break the rules.</span></span><br><span class="line">Although practicality beats purity.</span><br><span class="line">Errors should never pass silently.</span><br><span class="line">Unless explicitly silenced.</span><br><span class="line"><span class="keyword">In</span> the face <span class="keyword">of</span> ambiguity, refuse the temptation <span class="keyword">to</span> guess.</span><br><span class="line">There should be one-- <span class="keyword">and</span> preferably only one --obvious way <span class="keyword">to</span> <span class="keyword">do</span> it.</span><br><span class="line">Although that way may <span class="keyword">not</span> be obvious at first unless you<span class="comment">'re Dutch.</span></span><br><span class="line">Now <span class="keyword">is</span> better than never.</span><br><span class="line">Although never <span class="keyword">is</span> often better than *right* now.</span><br><span class="line"><span class="keyword">If</span> the implementation <span class="keyword">is</span> hard <span class="keyword">to</span> explain, it<span class="comment">'s a bad idea.</span></span><br><span class="line"><span class="keyword">If</span> the implementation <span class="keyword">is</span> easy <span class="keyword">to</span> explain, it may be a good idea.</span><br><span class="line">Namespaces are one honking great idea -- <span class="keyword">let</span><span class="comment">'s do more of those!</span></span><br></pre></td></tr></table></figure>
 
@@ -616,7 +629,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -762,6 +775,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -774,6 +788,7 @@
 
 
 
+          
         </div>
         
           
@@ -822,7 +837,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -833,7 +848,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -844,7 +859,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -914,23 +929,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -952,7 +967,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-格式化"><span class="nav-text">1 %-格式化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-如何使用-格式化"><span class="nav-text">1.1 如何使用 %格式化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-格式化的缺陷"><span class="nav-text">1.2 %格式化的缺陷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-str-format"><span class="nav-text">2 str.format()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-str-format-的使用"><span class="nav-text">2.1 str.format() 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-str-format-的缺陷"><span class="nav-text">2.2 str.format() 的缺陷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-f-Strings"><span class="nav-text">3 f-Strings</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-f-Strings-使用方法"><span class="nav-text">3.1 f-Strings 使用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-速度对比"><span class="nav-text">4 速度对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-注意事项"><span class="nav-text">5 注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-引号的处理"><span class="nav-text">5.1 引号的处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-2-括号的处理"><span class="nav-text">5.2 括号的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-反斜杠"><span class="nav-text">5.3 反斜杠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-注释符号"><span class="nav-text">5.4 注释符号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1 %-格式化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">1.1 如何使用 %格式化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">1.2 %格式化的缺陷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2 str.format()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">2.1 str.format() 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">2.2 str.format() 的缺陷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3 f-Strings</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">3.1 f-Strings 使用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">4 速度对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">5 注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">5.1 引号的处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">5.2 括号的处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">5.3 反斜杠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">5.4 注释符号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -972,7 +987,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1649,6 +1664,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -214,8 +214,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -324,6 +326,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -372,6 +384,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -543,7 +556,7 @@
 <p>The GET method means retrieve whatever information (in the form of an entity) is identified by the Request-URI.</p>
 </blockquote>
 <p>只是说 GET 意味着通过 URI 来识别资源。</p>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>我也是本着传统上对 GET 与 POST 区别的误解很多年，今天突然意识到 GET 应该可以使用 body，况且 HTTP 本身是一个纯文本的协议。没有测试就没有 100% 的发言权，所以做了如下的测试。</p>
+<h1><span id="测试">测试</span></h1><p>我也是本着传统上对 GET 与 POST 区别的误解很多年，今天突然意识到 GET 应该可以使用 body，况且 HTTP 本身是一个纯文本的协议。没有测试就没有 100% 的发言权，所以做了如下的测试。</p>
 <p>在一个 Spring Boot Web 项目中创建的 GET 请求 API：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoController</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getRequest</span><span class="params">(@RequestParam(<span class="string">"id"</span>)</span> String id, @RequestBody String body) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id + <span class="string">": "</span> + body;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上而创建的 GET 请求，URL 是 <code>/?id=something</code>，然后希望通过 request body 来获得请求数据。</p>
@@ -555,21 +568,21 @@
 <p>通过 <code>curl -v</code> 可以看到详细的请求响应数据，两个请求的 Content-Length 都是 8，即 “Get Body” 的长度，它们确实是在 Request Body 中，服务端接送 GET 来的 body 数据也没有半点问题。</p>
 <p>下面是通过 Wireshark 捕获到的数据包的样子：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537943614231.jpg" alt="Wireshark"></p>
-<h1 id="其他工具的支持情况"><a href="#其他工具的支持情况" class="headerlink" title="其他工具的支持情况"></a>其他工具的支持情况</h1><p>如果说通过 Spring 的测试用例以及 curl 命令还有所疑问的话，看上面那张图片就分明的告诉我们是在使用 GET 发送 body 数据的。</p>
+<h1><span id="其他工具的支持情况">其他工具的支持情况</span></h1><p>如果说通过 Spring 的测试用例以及 curl 命令还有所疑问的话，看上面那张图片就分明的告诉我们是在使用 GET 发送 body 数据的。</p>
 <p>但确实有些工具或类库不让我们发送 GET 请求时设置 Body。</p>
-<h2 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h2><p>如著名的 Postman，在选择 GET 时 Body 标签是灰色不可用的：</p>
+<h2><span id="postman">Postman</span></h2><p>如著名的 Postman，在选择 GET 时 Body 标签是灰色不可用的：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537943630026.jpg" alt="Postman"></p>
 <p>而且从目前最新的 Apache Http Client 4.5 组件，它的 HttpGet 也不支持设置 Request Body, 因为 HttpGet 没有像 HttpPost 那样的 setEntity(entity) 方法。</p>
-<h2 id="OkHttpClient"><a href="#OkHttpClient" class="headerlink" title="OkHttpClient"></a>OkHttpClient</h2><p>另一个 OkHttpClient 库也不支持 GET 发送 Request Body，当执行下面的代码时：</p>
+<h2><span id="okhttpclient">OkHttpClient</span></h2><p>另一个 OkHttpClient 库也不支持 GET 发送 Request Body，当执行下面的代码时：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Request.Builder()</span><br><span class="line">   .url(<span class="string">"http://localhost:8080/?id=100"</span>)</span><br><span class="line">   .method(<span class="string">"GET"</span>, RequestBody.create(MediaType.parse(<span class="string">"application/json"</span>), <span class="string">"hello body"</span>))</span><br><span class="line">   .build();</span><br></pre></td></tr></table></figure>
 <p>直接告诉我:</p>
 <blockquote>
 <p>java.lang.IllegalArgumentException: method GET must not have a request body</p>
 </blockquote>
-<h2 id="AsyncHttpClient"><a href="#AsyncHttpClient" class="headerlink" title="AsyncHttpClient"></a>AsyncHttpClient</h2><p>最后再试一个 AsyncHttpClient 库：</p>
+<h2><span id="asynchttpclient">AsyncHttpClient</span></h2><p>最后再试一个 AsyncHttpClient 库：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Dsl.asyncHttpClient()</span><br><span class="line">   .prepareGet(<span class="string">"http://localhost:8080/?id=100"</span>)</span><br><span class="line">   .setBody(<span class="string">"Get Body"</span>)</span><br><span class="line">   .execute()</span><br><span class="line">   .toCompletableFuture()</span><br><span class="line">   .thenAccept(System.out::println).join();</span><br></pre></td></tr></table></figure>
 <p>输出 “100: Get Body”, 证明 AsyncHttpClient 是可以 GET 时发送 Body 数据的。</p>
-<h1 id="小结一下"><a href="#小结一下" class="headerlink" title="小结一下"></a>小结一下</h1><p>Apache Http Client 和  OkHttpClient 都不支持  GET 请求发送 Body 数据，而 AsyncHttpClient 是可以的。</p>
+<h1><span id="小结一下">小结一下</span></h1><p>Apache Http Client 和  OkHttpClient 都不支持  GET 请求发送 Body 数据，而 AsyncHttpClient 是可以的。</p>
 <p>那么回过头来想想为什么 HTTP 并未规定不可以 GET 中发送 Body 内容，但却不少知名的工具不能用 GET 发送 Body 数据，所以大致的讲我们仍然不推荐使用 GET 携带 Body 内容，还有可能某些应用服务器也会忽略掉 GET 的 Body 数据（???，猜的）。</p>
 <p>我想更主要是 GET 被设计来用 URI 来识别资源，如果让它的请求体中携带数据，那么通常的缓存服务便失效了，URI 不能作为缓存的 Key。</p>
 <p>但另一方面，如果仅仅是为了读取资源，而需要使用 Body 发送一大批数据时，改用 POST 请求却与 RESTFul 的 POST 语义不相符。这时候或许可以 GET + BODY, 但是不能对该请求以 URI 作为 Key 进行缓存了。</p>
@@ -587,7 +600,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -735,6 +748,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -747,6 +761,7 @@
 
 
 
+          
         </div>
         
           
@@ -795,7 +810,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -806,7 +821,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -817,7 +832,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -887,23 +902,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -925,7 +940,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他工具的支持情况"><span class="nav-text">其他工具的支持情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Postman"><span class="nav-text">Postman</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OkHttpClient"><span class="nav-text">OkHttpClient</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AsyncHttpClient"><span class="nav-text">AsyncHttpClient</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结一下"><span class="nav-text">小结一下</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">其他工具的支持情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Postman</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">OkHttpClient</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">AsyncHttpClient</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">小结一下</span></a></li></ol></div>
             
 
           </div>
@@ -945,7 +960,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1622,6 +1637,7 @@
   
 
   
+
 
 </body>
 </html>

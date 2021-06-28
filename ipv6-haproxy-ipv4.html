@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -211,8 +211,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -321,6 +323,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -369,6 +381,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -530,7 +543,7 @@
         <p>RT</p>
 <a id="more"></a>
 <p>这里我们使用简单的 httpd 服务进行测试。</p>
-<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><table>
+<h1><span id="实验环境">实验环境</span></h1><table>
 <thead>
 <tr>
 <th style="text-align:center">序号</th>
@@ -556,7 +569,7 @@
 </tr>
 </tbody>
 </table>
-<h1 id="测试IPv6访问"><a href="#测试IPv6访问" class="headerlink" title="测试IPv6访问"></a>测试IPv6访问</h1><p>在机器 3 上安装 httpd，配置监听 IPv4 和 IPv6 的 80 端口。</p>
+<h1><span id="测试ipv6访问">测试IPv6访问</span></h1><p>在机器 3 上安装 httpd，配置监听 IPv4 和 IPv6 的 80 端口。</p>
 <p>文件：<code>/etc/httpd/conf/httpd.conf</code></p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Listen</span> 10<span class="selector-class">.144</span><span class="selector-class">.85</span><span class="selector-class">.73</span><span class="selector-pseudo">:80</span></span><br><span class="line"><span class="selector-tag">Listen</span>  <span class="selector-attr">[fd88:5110:a240::886:f252]</span><span class="selector-pseudo">:80</span></span><br></pre></td></tr></table></figure>
 <p><strong>在 1 上通过 curl 访问</strong>：</p>
@@ -567,8 +580,8 @@
 <p>机器 1 上抓包来看，数据包发送出去了：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">23<span class="selector-pseudo">:42</span><span class="selector-pseudo">:52.924028</span> <span class="selector-tag">IP6</span> <span class="selector-tag">epic1</span><span class="selector-class">.52564</span> &gt; <span class="selector-tag">fd88</span><span class="selector-pseudo">:5110</span><span class="selector-pseudo">:a240</span><span class="selector-pseudo">::886</span><span class="selector-pseudo">:f252.http</span>: <span class="selector-tag">Flags</span> <span class="selector-attr">[S]</span>, <span class="selector-tag">seq</span> 480439591, <span class="selector-tag">win</span> 28800, <span class="selector-tag">options</span> <span class="selector-attr">[mss 1440,sackOK,TS val 17786404 ecr 0,nop,wscale 7]</span>, <span class="selector-tag">length</span> 0</span><br><span class="line">23<span class="selector-pseudo">:42</span><span class="selector-pseudo">:52.924033</span> <span class="selector-tag">ethertype</span> <span class="selector-tag">IPv6</span>, <span class="selector-tag">IP6</span> <span class="selector-tag">epic1</span><span class="selector-class">.52564</span> &gt; <span class="selector-tag">fd88</span><span class="selector-pseudo">:5110</span><span class="selector-pseudo">:a240</span><span class="selector-pseudo">::886</span><span class="selector-pseudo">:f252.http</span>: <span class="selector-tag">Flags</span> <span class="selector-attr">[S]</span>, <span class="selector-tag">seq</span> 480439591, <span class="selector-tag">win</span> 28800, <span class="selector-tag">options</span> <span class="selector-attr">[mss 1440,sackOK,TS val 17786404 ecr 0,nop,wscale 7]</span>, <span class="selector-tag">length</span> 0</span><br><span class="line">23<span class="selector-pseudo">:42</span><span class="selector-pseudo">:52.924035</span> <span class="selector-tag">ethertype</span> <span class="selector-tag">IPv6</span>, <span class="selector-tag">IP6</span> <span class="selector-tag">epic1</span><span class="selector-class">.52564</span> &gt; <span class="selector-tag">fd88</span><span class="selector-pseudo">:5110</span><span class="selector-pseudo">:a240</span><span class="selector-pseudo">::886</span><span class="selector-pseudo">:f252.http</span>: <span class="selector-tag">Flags</span> <span class="selector-attr">[S]</span>, <span class="selector-tag">seq</span> 480439591, <span class="selector-tag">win</span> 28800, <span class="selector-tag">options</span> <span class="selector-attr">[mss 1440,sackOK,TS val 17786404 ecr 0,nop,wscale 7]</span>, <span class="selector-tag">length</span> 0</span><br><span class="line">23<span class="selector-pseudo">:42</span><span class="selector-pseudo">:52.937267</span> <span class="selector-tag">ethertype</span> <span class="selector-tag">IPv6</span>, <span class="selector-tag">IP6</span> <span class="selector-tag">fd88</span><span class="selector-pseudo">:5110</span><span class="selector-pseudo">:a240</span><span class="selector-pseudo">::886</span><span class="selector-pseudo">:f252.http</span> &gt; <span class="selector-tag">epic1</span><span class="selector-class">.52564</span>: <span class="selector-tag">Flags</span> <span class="selector-attr">[R.]</span>, <span class="selector-tag">seq</span> 0, <span class="selector-tag">ack</span> 480439592, <span class="selector-tag">win</span> 0, <span class="selector-tag">length</span> 0</span><br><span class="line">23<span class="selector-pseudo">:42</span><span class="selector-pseudo">:52.937270</span> <span class="selector-tag">ethertype</span> <span class="selector-tag">IPv6</span>, <span class="selector-tag">IP6</span> <span class="selector-tag">fd88</span><span class="selector-pseudo">:5110</span><span class="selector-pseudo">:a240</span><span class="selector-pseudo">::886</span><span class="selector-pseudo">:f252.http</span> &gt; <span class="selector-tag">epic1</span><span class="selector-class">.52564</span>: <span class="selector-tag">Flags</span> <span class="selector-attr">[R.]</span>, <span class="selector-tag">seq</span> 0, <span class="selector-tag">ack</span> 1, <span class="selector-tag">win</span> 0, <span class="selector-tag">length</span> 0</span><br><span class="line">23<span class="selector-pseudo">:42</span><span class="selector-pseudo">:52.937271</span> <span class="selector-tag">IP6</span> <span class="selector-tag">fd88</span><span class="selector-pseudo">:5110</span><span class="selector-pseudo">:a240</span><span class="selector-pseudo">::886</span><span class="selector-pseudo">:f252.http</span> &gt; <span class="selector-tag">epic1</span><span class="selector-class">.52564</span>: <span class="selector-tag">Flags</span> <span class="selector-attr">[R.]</span>, <span class="selector-tag">seq</span> 0, <span class="selector-tag">ack</span> 1, <span class="selector-tag">win</span> 0, <span class="selector-tag">length</span> 0</span><br></pre></td></tr></table></figure>
 <p>此时机器 3 上抓不到包。</p>
-<h1 id="HAproxy-代理测试"><a href="#HAproxy-代理测试" class="headerlink" title="HAproxy 代理测试"></a>HAproxy 代理测试</h1><p>在机器 1 上安装 HAproxy。</p>
-<h2 id="IPv6-代理-IPv4"><a href="#IPv6-代理-IPv4" class="headerlink" title="IPv6 代理 IPv4"></a>IPv6 代理 IPv4</h2><p>我们配置 机器 1 的 IPv6 地址来代理 机器 3 的 IPv4 地址，配置如下：</p>
+<h1><span id="haproxy-代理测试">HAproxy 代理测试</span></h1><p>在机器 1 上安装 HAproxy。</p>
+<h2><span id="ipv6-代理-ipv4">IPv6 代理 IPv4</span></h2><p>我们配置 机器 1 的 IPv6 地址来代理 机器 3 的 IPv4 地址，配置如下：</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">listen httpd6</span><br><span class="line">    bind fd88:5110:a240::886:f250:8080</span><br><span class="line">    balance  roundrobin</span><br><span class="line">    option httplog</span><br><span class="line">    option  tcpka</span><br><span class="line">    option httpchk</span><br><span class="line">    option  tcplog</span><br><span class="line">    server http1 10.144.85.73:80 <span class="built_in"> check </span>inter 5000 rise 2 fall 3</span><br></pre></td></tr></table></figure>
 <p>另外，配置了 HAproxy 的管理页面，这里不再赘述。</p>
 <p>理论上，可以在浏览器中输入 <code>http://[fd88:5110:a240::886:f250]:8080/</code>，来测试。</p>
@@ -577,14 +590,14 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">curl</span> <span class="selector-tag">-g</span> <span class="selector-attr">[fd88:5110:a240::886:f250]</span><span class="selector-pseudo">:8080</span></span><br></pre></td></tr></table></figure>
 <p>数据可以正常返回，返回用时不稳定，大部分情况下<strong>返回结果用时很长</strong>，用时近 15s。也有访问无返回的情况。</p>
 <p><strong>通过 机器 2 访问时，一切正常！返回速度也很快！</strong></p>
-<h2 id="IPv4-代理-IPv6"><a href="#IPv4-代理-IPv6" class="headerlink" title="IPv4 代理 IPv6"></a>IPv4 代理 IPv6</h2><p>现在机器 3 的 httpd 服务无法通过 IPv6 正常访问，我们只能采用<strong>迂回的方式</strong>来做这个测试了。</p>
+<h2><span id="ipv4-代理-ipv6">IPv4 代理 IPv6</span></h2><p>现在机器 3 的 httpd 服务无法通过 IPv6 正常访问，我们只能采用<strong>迂回的方式</strong>来做这个测试了。</p>
 <p>既然，在机器 2 上可以通过 IPv6 访问 HAproxy 代理的服务，那我们在机器 2 上再做一层 HAproxy。</p>
 <p>机器 2 的 HAproxy 配置：</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">listen httpd4</span><br><span class="line">    bind 0.0.0.0:18080</span><br><span class="line">    balance  roundrobin</span><br><span class="line">    option httplog</span><br><span class="line">    option  tcpka</span><br><span class="line">    option httpchk</span><br><span class="line">    option  tcplog</span><br><span class="line">    server http1 fd88:5110:a240::886:f250:8080 <span class="built_in"> check </span>inter 5000 rise 2 fall 3</span><br></pre></td></tr></table></figure>
 <p>这里的后端 http1 的地址使用的是机器 2 上的 HAproxy 的对外地址。</p>
 <p>这里，可以通过浏览器访问 <code>http://10.144.91.125:18080/</code>：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20181219153910.png" alt="正常访问"></p>
-<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>1、通过 HAproxy <strong>可以实现 IPv4 代理 IPv6，IPv6 代理 IPv4</strong>；<br>2、地址转换时感觉还是有些问题，不确定是否是 httpd 服务的问题还是机器；<br>3、下一步需要<strong>部署真实服务再进行验证</strong>；</p>
+<h1><span id="结论">结论</span></h1><p>1、通过 HAproxy <strong>可以实现 IPv4 代理 IPv6，IPv6 代理 IPv4</strong>；<br>2、地址转换时感觉还是有些问题，不确定是否是 httpd 服务的问题还是机器；<br>3、下一步需要<strong>部署真实服务再进行验证</strong>；</p>
 
       
     </div>
@@ -596,7 +609,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -744,6 +757,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -756,6 +770,7 @@
 
 
 
+          
         </div>
         
           
@@ -804,7 +819,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -815,7 +830,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -826,7 +841,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -896,23 +911,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -934,7 +949,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验环境"><span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试IPv6访问"><span class="nav-text">测试IPv6访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HAproxy-代理测试"><span class="nav-text">HAproxy 代理测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6-代理-IPv4"><span class="nav-text">IPv6 代理 IPv4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv4-代理-IPv6"><span class="nav-text">IPv4 代理 IPv6</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-text">结论</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">测试IPv6访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">HAproxy 代理测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">IPv6 代理 IPv4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">IPv4 代理 IPv6</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">结论</span></a></li></ol></div>
             
 
           </div>
@@ -954,7 +969,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1631,6 +1646,7 @@
   
 
   
+
 
 </body>
 </html>

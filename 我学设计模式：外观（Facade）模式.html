@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,11 +545,11 @@
         <p>定义：为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加易用。</p>
 <a id="more"></a>
 <p>外观模式比较简单，两个字：封装！外观模式是为了解决类与类之间的依赖关系的，将类与类之间（比如A、B、C）的关系放在一个Facade类中，从外部看来只要调用Facade类中的方法，就可以自动调用A、B、C的功能，从而降低了类之间的耦合度。</p>
-<h2 id="认识外观模式：封装交互，简化调用"><a href="#认识外观模式：封装交互，简化调用" class="headerlink" title="认识外观模式：封装交互，简化调用"></a>认识外观模式：<strong>封装交互，简化调用</strong></h2><p><img src="http://hoxis-github-io.qiniudn.com/150708-facade.png" alt="外观模式示意图"></p>
+<h2><span id="认识外观模式封装交互简化调用">认识外观模式：<strong>封装交互，简化调用</strong></span></h2><p><img src="http://hoxis-github-io.qiniudn.com/150708-facade.png" alt="外观模式示意图"></p>
 <p>如图所示，外观模式减少了外部与子系统内多个模块的交互，松散耦合，从而让外部可以更简单地使用子系统。一个直观的例子就是电脑，外部来看我们面对的是电脑，只要对电脑上的按钮操作即可，但是电脑内部有很多子系统，如CPU、Memory、Disk等。当我们启动或关闭电脑时，只要对封装好的Computer操作即可，而不需对每个子系统启动。</p>
 <p><img src="http://hoxis-github-io.qiniudn.com/150708-facade-example.png" alt="外观模式示例"></p>
-<h2 id="外观模式的调用顺序"><a href="#外观模式的调用顺序" class="headerlink" title="外观模式的调用顺序"></a>外观模式的调用顺序</h2><p><img src="http://hoxis-github-io.qiniudn.com/150708-facade-call-sequence.png" alt="外观模式的调用顺序"></p>
-<h2 id="何时使用外观模式"><a href="#何时使用外观模式" class="headerlink" title="何时使用外观模式"></a>何时使用外观模式</h2><ul>
+<h2><span id="外观模式的调用顺序">外观模式的调用顺序</span></h2><p><img src="http://hoxis-github-io.qiniudn.com/150708-facade-call-sequence.png" alt="外观模式的调用顺序"></p>
+<h2><span id="何时使用外观模式">何时使用外观模式</span></h2><ul>
 <li>希望为一个复杂的子系统提供一个简单的接口</li>
 <li>想让客户端和抽象类的实现部分松散耦合</li>
 <li>构建多层结构系统时，可以使用外观作为每层的入口</li>
@@ -554,7 +567,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -639,8 +652,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/我学设计模式：单例（Singleton）模式.html" rel="next" title="我学设计模式：单例（Singleton）模式">
-                <i class="fa fa-chevron-left"></i> 我学设计模式：单例（Singleton）模式
+              <a href="/MyBatis+Spring+Maven的简单整合Demo.html" rel="next" title="MyBatis+Spring+Maven的简单整合Demo">
+                <i class="fa fa-chevron-left"></i> MyBatis+Spring+Maven的简单整合Demo
               </a>
             
           </div>
@@ -649,8 +662,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/我学设计模式：适配器（Adapter）模式.html" rel="prev" title="我学设计模式：适配器（Adapter）模式">
-                我学设计模式：适配器（Adapter）模式 <i class="fa fa-chevron-right"></i>
+              <a href="/我学设计模式：单例（Singleton）模式.html" rel="prev" title="我学设计模式：单例（Singleton）模式">
+                我学设计模式：单例（Singleton）模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -702,6 +715,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -714,6 +728,7 @@
 
 
 
+          
         </div>
         
           
@@ -762,7 +777,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -773,7 +788,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -784,7 +799,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -854,23 +869,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -892,7 +907,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#认识外观模式：封装交互，简化调用"><span class="nav-text">认识外观模式：封装交互，简化调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外观模式的调用顺序"><span class="nav-text">外观模式的调用顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何时使用外观模式"><span class="nav-text">何时使用外观模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">认识外观模式：封装交互，简化调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">外观模式的调用顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">何时使用外观模式</span></a></li></ol></div>
             
 
           </div>
@@ -912,7 +927,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1589,6 +1604,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,7 +540,7 @@
       
         <p>Python 文件操作主要包括打开文件、读文件、写文件、修改文件、关闭文件等操作，还会写一些基本操作方法。</p>
 <a id="more"></a>
-<h2 id="打开文件-open"><a href="#打开文件-open" class="headerlink" title="打开文件 - open()"></a>打开文件 - open()</h2><p>在 python，使用 open 函数，可以打开一个已经存在的文件，或者创建一个新文件</p>
+<h2><span id="打开文件-open">打开文件 - open()</span></h2><p>在 python，使用 open 函数，可以打开一个已经存在的文件，或者创建一个新文件</p>
 <p><code>open(文件名，访问模式)</code></p>
 <p>示例如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'test.txt'</span>, <span class="string">'w'</span>)</span><br></pre></td></tr></table></figure>
@@ -589,24 +602,24 @@
 </tr>
 </tbody>
 </table>
-<h2 id="关闭文件-close"><a href="#关闭文件-close" class="headerlink" title="关闭文件 - close()"></a>关闭文件 - close()</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建一个文件，文件名为test.txt</span></span><br><span class="line">f = open(<span class="string">'test.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭这个文件</span></span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
-<h2 id="写文件-write"><a href="#写文件-write" class="headerlink" title="写文件 - write()"></a>写文件 - write()</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'text.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">'hello!'</span>)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
+<h2><span id="关闭文件-close">关闭文件 - close()</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新建一个文件，文件名为test.txt</span></span><br><span class="line">f = open(<span class="string">'test.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭这个文件</span></span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<h2><span id="写文件-write">写文件 - write()</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'text.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">'hello!'</span>)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>如果文件不存在那么创建，如果存在那么就先清空，然后写入数据</p>
 </blockquote>
-<h2 id="读文件-read"><a href="#读文件-read" class="headerlink" title="读文件 - read()"></a>读文件 - read()</h2><p>使用 <code>read(num)</code> 可以从文件中读取数据，<code>num</code> 表示要从文件中读取的数据的长度（单位是字节），如果没有传入 num ，那么就表示读取文件中所有的数据。</p>
+<h2><span id="读文件-read">读文件 - read()</span></h2><p>使用 <code>read(num)</code> 可以从文件中读取数据，<code>num</code> 表示要从文件中读取的数据的长度（单位是字节），如果没有传入 num ，那么就表示读取文件中所有的数据。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'text.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>content = f.read()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>content</span><br><span class="line"><span class="string">'hello!'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
-<h2 id="读数据-readlines"><a href="#读数据-readlines" class="headerlink" title="读数据 - readlines()"></a>读数据 - readlines()</h2><p>readlines 可以按照行的方式把整个文件中的内容进行一次性读取，并且返回的是一个列表，其中每一行的数据为一个元素。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'text.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result = f.readlines()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result</span><br><span class="line">[<span class="string">'hello!\n'</span>, <span class="string">'world\n'</span>, <span class="string">'haha\n'</span>]</span><br></pre></td></tr></table></figure></p>
-<h2 id="读数据-readline"><a href="#读数据-readline" class="headerlink" title="读数据 - readline()"></a>读数据 - readline()</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'text.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">'hello!\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">'world\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">'haha\n'</span></span><br></pre></td></tr></table></figure>
-<h2 id="处理大文件"><a href="#处理大文件" class="headerlink" title="处理大文件"></a>处理大文件</h2><p>一般的读取，readlines()、read() 等会将整个文件加载到内存中。在文件较大时，往往会引发 <code>MemoryError</code>（内存溢出）。本人试了用 readlines() 读取一个 2G 大小的日志文件，结果本子直接跑挂。</p>
+<h2><span id="读数据-readlines">读数据 - readlines()</span></h2><p>readlines 可以按照行的方式把整个文件中的内容进行一次性读取，并且返回的是一个列表，其中每一行的数据为一个元素。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'text.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result = f.readlines()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result</span><br><span class="line">[<span class="string">'hello!\n'</span>, <span class="string">'world\n'</span>, <span class="string">'haha\n'</span>]</span><br></pre></td></tr></table></figure></p>
+<h2><span id="读数据-readline">读数据 - readline()</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'text.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">'hello!\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">'world\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">'haha\n'</span></span><br></pre></td></tr></table></figure>
+<h2><span id="处理大文件">处理大文件</span></h2><p>一般的读取，readlines()、read() 等会将整个文件加载到内存中。在文件较大时，往往会引发 <code>MemoryError</code>（内存溢出）。本人试了用 readlines() 读取一个 2G 大小的日志文件，结果本子直接跑挂。</p>
 <p>处理方法一般有以下几种：</p>
-<h3 id="逐行读取"><a href="#逐行读取" class="headerlink" title="逐行读取"></a>逐行读取</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    line = f.readline()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> line: <span class="comment"># 到 EOF，返回空字符串，则终止循环</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    do_something(line)</span><br></pre></td></tr></table></figure>
-<h3 id="使用-with-结构"><a href="#使用-with-结构" class="headerlink" title="使用 with 结构"></a>使用 with 结构</h3><p>with 语句句柄负责打开和关闭文件（包括在内部块中引发异常时），for line in f 对可迭代对象 f 进行迭代遍历，会自动地使用缓冲IO（buffered IO）以及内存管理，而不必担心任何大文件的问题。</p>
+<h3><span id="逐行读取">逐行读取</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    line = f.readline()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> line: <span class="comment"># 到 EOF，返回空字符串，则终止循环</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    do_something(line)</span><br></pre></td></tr></table></figure>
+<h3><span id="使用-with-结构">使用 with 结构</span></h3><p>with 语句句柄负责打开和关闭文件（包括在内部块中引发异常时），for line in f 对可迭代对象 f 进行迭代遍历，会自动地使用缓冲IO（buffered IO）以及内存管理，而不必担心任何大文件的问题。</p>
 <p>这也是较为推荐使用的方法。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(filename, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        &lt;do something <span class="keyword">with</span> the line&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="文件的随机读写"><a href="#文件的随机读写" class="headerlink" title="文件的随机读写"></a>文件的随机读写</h2><h3 id="获取当前读写的位置-tell"><a href="#获取当前读写的位置-tell" class="headerlink" title="获取当前读写的位置 - tell()"></a>获取当前读写的位置 - tell()</h3><p>在读写文件的过程中，如果想知道当前的位置，可以使用 tell() 来获取。</p>
+<h2><span id="文件的随机读写">文件的随机读写</span></h2><h3><span id="获取当前读写的位置-tell">获取当前读写的位置 - tell()</span></h3><p>在读写文件的过程中，如果想知道当前的位置，可以使用 tell() 来获取。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'/mnt/d/download/catalina.out'</span>,<span class="string">'r'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str = f.read(<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str</span><br><span class="line"><span class="string">'Apr'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str = f.read(<span class="number">30</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str</span><br><span class="line"><span class="string">' 25, 2017 10:54:11 AM org.apac'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.tell()</span><br><span class="line"><span class="number">33</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str = f.read(<span class="number">200</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.tell()</span><br><span class="line"><span class="number">233</span></span><br></pre></td></tr></table></figure>
-<h3 id="定位到某个位置-seek"><a href="#定位到某个位置-seek" class="headerlink" title="定位到某个位置 - seek()"></a>定位到某个位置 - seek()</h3><p>如果在读写文件的过程中，需要从另外一个位置进行操作的话，可以使用 seek()。</p>
+<h3><span id="定位到某个位置-seek">定位到某个位置 - seek()</span></h3><p>如果在读写文件的过程中，需要从另外一个位置进行操作的话，可以使用 seek()。</p>
 <p><code>seek(offset, from)</code>：</p>
 <ul>
 <li>offset - 偏移量</li>
@@ -618,8 +631,8 @@
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'/mnt/d/download/catalina.out'</span>,<span class="string">'r'</span>) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">30</span>)                                   </span><br><span class="line"><span class="string">'Apr 25, 2017 10:54:11 AM org.a'</span>                 </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.tell()                                     </span><br><span class="line"><span class="number">30</span>                      </span><br><span class="line"><span class="comment"># 把位置设置为：从文件开头，偏移6个字节</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(<span class="number">6</span>,<span class="number">0</span>)                                  </span><br><span class="line"><span class="number">6</span>                                                </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.tell()                                     </span><br><span class="line"><span class="number">6</span>                                                </span><br><span class="line"></span><br><span class="line"><span class="comment"># 把位置设置为：离文件末尾，20个字节处，需要已rb模式打开</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'/mnt/d/download/catalina.out'</span>,<span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(<span class="number">-20</span>,<span class="number">2</span>)</span><br><span class="line"><span class="number">2238539151</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">10</span>)</span><br><span class="line"><span class="string">b'ged at DEB'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">10</span>)</span><br><span class="line"><span class="string">b'UG level.\n'</span></span><br></pre></td></tr></table></figure>
-<h2 id="文件重命名-os-rename-39-srcFile-39-39-destFile-39"><a href="#文件重命名-os-rename-39-srcFile-39-39-destFile-39" class="headerlink" title="文件重命名 - os.rename(&#39;srcFile&#39;, &#39;destFile&#39;)"></a>文件重命名 - <code>os.rename(&#39;srcFile&#39;, &#39;destFile&#39;)</code></h2><p>os 模块中的 <code>rename()</code> 可以完成对文件的重命名操作</p>
-<h2 id="删除文件-os-remove-39-fileName-39"><a href="#删除文件-os-remove-39-fileName-39" class="headerlink" title="删除文件 - os.remove(&#39;fileName&#39;)"></a>删除文件 - <code>os.remove(&#39;fileName&#39;)</code></h2><h2 id="文件夹的相关操作"><a href="#文件夹的相关操作" class="headerlink" title="文件夹的相关操作"></a>文件夹的相关操作</h2><ul>
+<h2><span id="文件重命名-osrename39srcfile39-39destfile39">文件重命名 - <code>os.rename(&#39;srcFile&#39;, &#39;destFile&#39;)</code></span></h2><p>os 模块中的 <code>rename()</code> 可以完成对文件的重命名操作</p>
+<h2><span id="删除文件-osremove39filename39">删除文件 - <code>os.remove(&#39;fileName&#39;)</code></span></h2><h2><span id="文件夹的相关操作">文件夹的相关操作</span></h2><ul>
 <li>创建文件夹 - <code>os.mkdir(&#39;dirName&#39;)</code></li>
 <li>获取当前目录 - <code>os.getcwd()</code></li>
 <li>改变目录 -  <code>os.chdir(&#39;../&#39;)</code></li>
@@ -638,7 +651,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -784,6 +797,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -796,6 +810,7 @@
 
 
 
+          
         </div>
         
           
@@ -844,7 +859,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -855,7 +870,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -866,7 +881,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -936,23 +951,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -974,7 +989,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开文件-open"><span class="nav-text">打开文件 - open()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭文件-close"><span class="nav-text">关闭文件 - close()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写文件-write"><span class="nav-text">写文件 - write()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读文件-read"><span class="nav-text">读文件 - read()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读数据-readlines"><span class="nav-text">读数据 - readlines()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读数据-readline"><span class="nav-text">读数据 - readline()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理大文件"><span class="nav-text">处理大文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逐行读取"><span class="nav-text">逐行读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-with-结构"><span class="nav-text">使用 with 结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件的随机读写"><span class="nav-text">文件的随机读写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前读写的位置-tell"><span class="nav-text">获取当前读写的位置 - tell()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位到某个位置-seek"><span class="nav-text">定位到某个位置 - seek()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件重命名-os-rename-39-srcFile-39-39-destFile-39"><span class="nav-text">文件重命名 - os.rename(&#39;srcFile&#39;, &#39;destFile&#39;)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除文件-os-remove-39-fileName-39"><span class="nav-text">删除文件 - os.remove(&#39;fileName&#39;)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件夹的相关操作"><span class="nav-text">文件夹的相关操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">打开文件 - open()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">关闭文件 - close()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">写文件 - write()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">读文件 - read()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">读数据 - readlines()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">读数据 - readline()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">处理大文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">逐行读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">使用 with 结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">文件的随机读写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">获取当前读写的位置 - tell()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">定位到某个位置 - seek()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">文件重命名 - os.rename(&#39;srcFile&#39;, &#39;destFile&#39;)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">删除文件 - os.remove(&#39;fileName&#39;)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">文件夹的相关操作</span></a></li></ol></div>
             
 
           </div>
@@ -994,7 +1009,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1671,6 +1686,7 @@
   
 
   
+
 
 </body>
 </html>

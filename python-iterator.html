@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -528,22 +541,22 @@
         <p>迭代是访问集合元素的一种方式。迭代器是一个可以记住遍历的位置的对象。</p>
 <p>迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。</p>
 <a id="more"></a>
-<h2 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h2><p>以直接作用于 for 循环的数据类型有以下几种：</p>
+<h2><span id="可迭代对象">可迭代对象</span></h2><p>以直接作用于 for 循环的数据类型有以下几种：</p>
 <ul>
 <li>集合数据类型，如 list、 tuple、 dict、 set、 str 等；</li>
 <li>generator，包括生成器和带 yield 的 generator function。</li>
 </ul>
 <p>这些可以直接作用于 for 循环的对象统称为可迭代对象： Iterable。</p>
-<h2 id="判断是否可以迭代"><a href="#判断是否可以迭代" class="headerlink" title="判断是否可以迭代"></a>判断是否可以迭代</h2><p>可以使用 isinstance() 判断一个对象是否是 Iterable 对象：</p>
+<h2><span id="判断是否可以迭代">判断是否可以迭代</span></h2><p>可以使用 isinstance() 判断一个对象是否是 Iterable 对象：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from collections import Iterable</span><br><span class="line">&gt;&gt;&gt; isinstance(&#123;&#125;, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance([], Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(<span class="string">'abc'</span>, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(123, Iterable)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
 <p>而生成器不但可以作用于 for 循环，还可以被 next() 函数不断调用并返回下一个值，直到最后抛出 StopIteration 错误表示无法继续返回下一个值了。</p>
-<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>可以被 next() 函数调用并不断返回下一个值的对象称为迭代器：Iterator。</p>
+<h2><span id="迭代器">迭代器</span></h2><p>可以被 next() 函数调用并不断返回下一个值的对象称为迭代器：Iterator。</p>
 <p>可以使用 isinstance() 判断一个对象是否是 Iterator 对象：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from collections import Iterator</span><br><span class="line">&gt;&gt;&gt; isinstance(<span class="string">'abc'</span>, Iterator)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; isinstance([], Iterator)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; isinstance(&#123;&#125;, Iterator)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; isinstance((x <span class="keyword">for</span> x <span class="keyword">in</span> range(10)), Iterator)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
-<h2 id="iter-函数"><a href="#iter-函数" class="headerlink" title="iter() 函数"></a>iter() 函数</h2><p>生成器都是 Iterator 对象，但 list、 dict、 str 虽然是 Iterable，却不是 Iterator。</p>
+<h2><span id="iter-函数">iter() 函数</span></h2><p>生成器都是 Iterator 对象，但 list、 dict、 str 虽然是 Iterable，却不是 Iterator。</p>
 <p>把 list、 dict、 str 等 Iterable 变成 Iterator 可以使用 iter() 函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance((x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)), Iterator)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(iter(&#123;&#125;), Iterator)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(iter([]), Iterator)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(iter(<span class="string">'abc'</span>), Iterator)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<h2><span id="总结">总结</span></h2><ul>
 <li>凡是可作用于 for 循环的对象都是 Iterable 类型；</li>
 <li>凡是可作用于 next() 函数的对象都是 Iterator 类型</li>
 <li>集合数据类型如 list、 dict、 str 等是 Iterable 但不是 Iterator，不过可以通过 iter() 函数获得一个 Iterator 对象。</li>
@@ -559,7 +572,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -705,6 +718,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -717,6 +731,7 @@
 
 
 
+          
         </div>
         
           
@@ -765,7 +780,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -776,7 +791,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -787,7 +802,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -857,23 +872,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -895,7 +910,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#可迭代对象"><span class="nav-text">可迭代对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断是否可以迭代"><span class="nav-text">判断是否可以迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器"><span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iter-函数"><span class="nav-text">iter() 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">可迭代对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">判断是否可以迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">iter() 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -915,7 +930,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1592,6 +1607,7 @@
   
 
   
+
 
 </body>
 </html>

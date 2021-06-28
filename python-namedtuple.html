@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -530,10 +543,10 @@
 <a id="more"></a>
 <p>namedtuple 主要用来产生可以使用名称来访问元素的数据对象，通常用来增强代码的可读性。</p>
 <p>namedtuple 继承自 tuple，但是它有更多更酷的特性，正所谓「青出于蓝」。namedtuple 创建一个和 tuple 类似的对象，而且对象拥有可以访问的属性。这对象更像<strong>带有数据属性的类</strong>，不过数据属性是只读的。</p>
-<h1 id="定义和使用"><a href="#定义和使用" class="headerlink" title="定义和使用"></a>定义和使用</h1><p>namedtuple 创建时会需要使用构造函数 namedtuple()，参数是创建类的名称，以及包含元素名称的字符串。</p>
+<h1><span id="定义和使用">定义和使用</span></h1><p>namedtuple 创建时会需要使用构造函数 namedtuple()，参数是创建类的名称，以及包含元素名称的字符串。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Person = namedtuple(<span class="string">'Person'</span>,<span class="string">'name age gender'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(Person)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">type</span>'&gt;</span></span><br><span class="line">&gt;&gt;&gt; hoxis = Person('hoxis',18,'male')</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(hoxis)</span><br><span class="line">Person(name=<span class="string">'hoxis'</span>, age=<span class="number">18</span>, gender=<span class="string">'male'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis.name</span><br><span class="line"><span class="string">'hoxis'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis[<span class="number">0</span>]</span><br><span class="line"><span class="string">'hoxis'</span></span><br></pre></td></tr></table></figure>
 <p>从上面例子可以看出，我们可以通过 <code>.</code> 来访问成员（<code>obj.attr</code>），同时也可以使用数字索引访问。同时，还内置了 <code>repr()</code> 函数。</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>和元组一样，namedtuple 也是<strong>不可变</strong>的，不能直接改变其成员：</p>
+<h1><span id="注意事项">注意事项</span></h1><p>和元组一样，namedtuple 也是<strong>不可变</strong>的，不能直接改变其成员：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hoxis 只能是 18 岁，变不了</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis.age</span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis.age = <span class="number">28</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: can<span class="string">'t set attribute</span></span><br></pre></td></tr></table></figure>
 <p>若非要改变，可以使用 <code>_replace()</code> 方法，但是这时其实是生成了一个新的 namedtuple，原来的还是没有改变，不信你看：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hoxis 还是 18 岁</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis_2 = hoxis._replace(age=<span class="number">28</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis</span><br><span class="line">Person(name=<span class="string">'hoxis'</span>, age=<span class="number">18</span>, gender=<span class="string">'male'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis_2</span><br><span class="line">Person(name=<span class="string">'hoxis'</span>, age=<span class="number">28</span>, gender=<span class="string">'male'</span>)</span><br></pre></td></tr></table></figure>
@@ -545,13 +558,13 @@
 <p>若非要死皮赖脸说，我就要用 <code>class</code>，那你需要设置 <code>rename=True</code> 属性：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Person = namedtuple(<span class="string">'Person'</span>,<span class="string">'name age gender class'</span>, rename=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis = Person(<span class="string">'hoxis'</span>,<span class="number">18</span>,<span class="string">'male'</span>,<span class="string">'三年二班'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis</span><br><span class="line">Person(name=<span class="string">'hoxis'</span>, age=<span class="number">18</span>, gender=<span class="string">'male'</span>, _3=<span class="string">'三年二班'</span>)</span><br></pre></td></tr></table></figure>
 <p>其实成员名称被重命名了，class 你还是没用上，死皮赖脸也没用。。。</p>
-<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><p>有没有发现，namedtuple 和 dict 有点像？</p>
+<h1><span id="扩展">扩展</span></h1><p>有没有发现，namedtuple 和 dict 有点像？</p>
 <p>其实 namedtuple 有一个内置的方法 <code>._asdict()</code>，可以生成一个 dict：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis = Person(<span class="string">'hoxis'</span>,<span class="number">18</span>,<span class="string">'male'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis_dict = hoxis._asdict()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis_dict</span><br><span class="line">OrderedDict([(<span class="string">'name'</span>, <span class="string">'hoxis'</span>), (<span class="string">'age'</span>, <span class="number">18</span>), (<span class="string">'gender'</span>, <span class="string">'male'</span>)])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis_dict[<span class="string">'age'</span>]</span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis_dict[<span class="string">'age'</span>] = <span class="number">28</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis_dict</span><br><span class="line">OrderedDict([(<span class="string">'name'</span>, <span class="string">'hoxis'</span>), (<span class="string">'age'</span>, <span class="number">28</span>), (<span class="string">'gender'</span>, <span class="string">'male'</span>)])</span><br></pre></td></tr></table></figure>
 <p>转换成 dict 后，属性就可以改变了。</p>
 <p>当然，dict 也可以转换为 namedtuple，其实是用 dict 生成一个 namedtuple：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis = Person(**hoxis_dict)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hoxis</span><br><span class="line">Person(name=<span class="string">'hoxis'</span>, age=<span class="number">28</span>, gender=<span class="string">'male'</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>相比 tuple 和 dictionary，namedtuple 略微有点综合体的意味：直观、使用方便，你不必使用整数索引来访问一个命名元组，这让你的代码更易于维护。<br>而且，namedtuple 的每个实例没有对象字典，所以它们很轻量，并不需要更多的内存，这使得它们比字典更快。</p>
+<h1><span id="总结">总结</span></h1><p>相比 tuple 和 dictionary，namedtuple 略微有点综合体的意味：直观、使用方便，你不必使用整数索引来访问一个命名元组，这让你的代码更易于维护。<br>而且，namedtuple 的每个实例没有对象字典，所以它们很轻量，并不需要更多的内存，这使得它们比字典更快。</p>
 <p>建议大家在合适的时候尝试使用 namedtuple，你会回来点赞的~</p>
 
       
@@ -564,7 +577,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -710,6 +723,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -722,6 +736,7 @@
 
 
 
+          
         </div>
         
           
@@ -770,7 +785,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -781,7 +796,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -792,7 +807,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -862,23 +877,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -900,7 +915,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义和使用"><span class="nav-text">定义和使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项"><span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展"><span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">定义和使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -920,7 +935,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1597,6 +1612,7 @@
   
 
   
+
 
 </body>
 </html>

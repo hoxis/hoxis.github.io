@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -530,7 +543,7 @@
       
         <p>最近，需要对系统进行 IPv6 化的改造，于是，我就假模假样的做起了调研。</p>
 <a id="more"></a>
-<h1 id="IPv6-的表示方法"><a href="#IPv6-的表示方法" class="headerlink" title="IPv6 的表示方法"></a>IPv6 的表示方法</h1><p>IPv6 地址为 128 位长，但通常写作 8 组，每组为四个十六进制数的形式。例如：</p>
+<h1><span id="ipv6-的表示方法">IPv6 的表示方法</span></h1><p>IPv6 地址为 128 位长，但通常写作 8 组，每组为四个十六进制数的形式。例如：</p>
 <p><code>2001:0db8:85a3:08d3:1319:8a2e:0370:7344</code></p>
 <p>如果<strong>四个数字都是零，可以被省略</strong>。例如：</p>
 <p><code>2001:0db8:85a3:0000:1319:8a2e:0370:7344</code></p>
@@ -545,7 +558,7 @@
 <p>不合法的：<code>2001::25de::cade</code>，零压缩出现了两次。</p>
 <p>同时前导的零可以省略，因此：</p>
 <p><code>2001:0DB8:02de::0e13</code> 等价于 <code>2001:DB8:2de::e13</code>。</p>
-<h1 id="IPv6-和-IPv4"><a href="#IPv6-和-IPv4" class="headerlink" title="IPv6 和 IPv4"></a>IPv6 和 IPv4</h1><p>由于 IPv4 到 IPv6 之间有一个漫长的过渡过程，因此，需要将 IPv6 兼容 IPv4 或者 IPv6 映射为 IPv4。 </p>
+<h1><span id="ipv6-和-ipv4">IPv6 和 IPv4</span></h1><p>由于 IPv4 到 IPv6 之间有一个漫长的过渡过程，因此，需要将 IPv6 兼容 IPv4 或者 IPv6 映射为 IPv4。 </p>
 <p><strong>兼容 IPv4 的地址（IPv4-compatible address）</strong></p>
 <p>在兼容情况下：如果 IPv4 表示为 <code>X.X.X.X</code>，那么对应的 IPv6 即为 <code>::X.X.X.X</code>（<strong>高位补零</strong>，同时进行零压缩）；</p>
 <p>这里的 <code>X.X.X.X</code> 是 IPv4 公共地址的十进制点号表示法，用于 IPv6/IPv4 节点们（同时支持）在使用<strong>仅支持 IPv4 的网络上用 IPv6 的协议进行通信</strong>。</p>
@@ -553,14 +566,14 @@
 <p><strong>IPv4 映射地址（IPv4-mapped address）</strong></p>
 <p>形如 <code>::FFFF:X.X.X.X</code>（33-128 位为 ::FFFF），这里的 <code>X.X.X.X</code> 是 IPv4 公共地址的十进制点号表示法，，用于 IPv6 地址表示 IPv4 地址。</p>
 <p>主要用于某些场景下 IPv6 节点与 IPv4 节点通信，Linux 内核对这类地址很好地支持。</p>
-<h1 id="如何-ping-一个-IPv6-的地址？"><a href="#如何-ping-一个-IPv6-的地址？" class="headerlink" title="如何 ping 一个 IPv6 的地址？"></a>如何 ping 一个 IPv6 的地址？</h1><p>在 Linux 发行版中，使用 <code>ping6</code> 命令 ping IPv6 主机或者地址。</p>
+<h1><span id="如何-ping-一个-ipv6-的地址">如何 ping 一个 IPv6 的地址？</span></h1><p>在 Linux 发行版中，使用 <code>ping6</code> 命令 ping IPv6 主机或者地址。</p>
 <p>在浏览器中使用 IPv6 的地址访问 web 资源，IPv6 的地址必须要使用中括号 <code>[]</code> 包起来。</p>
 <p><code>fe80::6e92:bfff:fe04:663c</code></p>
-<h1 id="IPv6-的过渡技术"><a href="#IPv6-的过渡技术" class="headerlink" title="IPv6 的过渡技术"></a>IPv6 的过渡技术</h1><p>IPv4 升级到 IPv6 肯定不会是一蹴而就的，是需要经历一个十分漫长的过渡阶段，要数十年的时间都不为过。现阶段，就出现了 IPv4 慢慢过渡到 IPv6 的技术。过渡技术要解决最重要的问题就是，如何利用现在大规模的 IPv4 网络进行 IPv6 的通信。</p>
+<h1><span id="ipv6-的过渡技术">IPv6 的过渡技术</span></h1><p>IPv4 升级到 IPv6 肯定不会是一蹴而就的，是需要经历一个十分漫长的过渡阶段，要数十年的时间都不为过。现阶段，就出现了 IPv4 慢慢过渡到 IPv6 的技术。过渡技术要解决最重要的问题就是，如何利用现在大规模的 IPv4 网络进行 IPv6 的通信。</p>
 <p>要解决上面的问题，这里主要介绍 3 种过渡技术：</p>
 <p>1、双栈技术<br>2、隧道技术<br>3、转换技术（有一些文献叫做翻译技术）</p>
 <p>本章节会对以上的过渡技术，选取几个典型的、我们未来最有机会接触到的具体的过渡技术结合实验观察过渡技术的具体实现和数据包的表现形式。</p>
-<h2 id="双栈技术"><a href="#双栈技术" class="headerlink" title="双栈技术"></a>双栈技术</h2><p>通信节点同时支持 IPv4 和 IPv6。</p>
+<h2><span id="双栈技术">双栈技术</span></h2><p>通信节点同时支持 IPv4 和 IPv6。</p>
 <p>例如在同一个交换机下面有 2 个 Linux 的节点，2 个节点都是 IPv4/IPv6 双栈，节点间原来使用 IPv4 上的 UDP 协议通信传输，现在需要升级为 IPv6 上的 UDP 传输。</p>
 <p>由于 2 个节点都支持 IPv6，那只要修改应用程序为 IPv6 的 socket 通信基本达到目的了。</p>
 <p>上面的例子在局域网通信的改造是很容易的。但在广域网，问题就变得十分复杂了。</p>
@@ -572,14 +585,14 @@
 <p>主机系统发送 A 类查询，则向 DNS 服务器请求对应的 IPv4 地址；系统发送 AAAA 查询，则向 DNS 服务器请求对应的 IPv6 地址。</p>
 <p>图中 Router 支持双协议栈功能。如果主机访问 IPv4 地址为 10.1.1.1 的网络服务器，则可以通过 Router 的 IPv4 协议栈访问目标节点。如果主机访问 IPv6 地址为 3ffe:yyyy::1 的网络服务器，则可以通过 Router 的IPv6协议栈访问目标节点。</p>
 <p>因此，双栈技术一般不会直接部署到网络中，而是配合其他过渡技术一起使用，例如在隧道技术中，在隧道的边界路由器就是双栈的，其他参与通信的节点不要求是双栈的。</p>
-<h2 id="隧道技术"><a href="#隧道技术" class="headerlink" title="隧道技术"></a>隧道技术</h2><p>当前的网络仍然是 IPv4 为主，因此尽可能地充分利用 IPv4 网络进行 IPv6 通信是十分好的手段之一。隧道技术就是这样子的一种过渡技术。</p>
+<h2><span id="隧道技术">隧道技术</span></h2><p>当前的网络仍然是 IPv4 为主，因此尽可能地充分利用 IPv4 网络进行 IPv6 通信是十分好的手段之一。隧道技术就是这样子的一种过渡技术。</p>
 <p>隧道将 IPv6 的数据报文封装在 IPv4 的报文头部后面（IPv6 的数据报文是 IPv4 的载荷部分），IPv6 通信节点之间传输的 IPv6 数据包就可以穿越 IPv4 网络进行传输。</p>
 <p>隧道技术的一个很重要的优点是透明性，通过隧道进行通信的两个 IPv6 节点（或者节点上的应用程序）几乎感觉不到隧道的存在。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20181214143804.png" alt="IPv6典型的隧道"></p>
 <p>根据隧道的出口入口的构成，隧道可以分为路由器-路由器，主机-路由器隧道、路由器-主机、主机-主机隧道等类型。</p>
 <p>上图是一种典型的隧道技术：路由器-路由器隧道，两个 IPv6 网络中的主机通过隧道方式穿越了 IPv4 进行通信。</p>
 <p>其中 C 节点和 D 节点被称为<strong>边界路由器</strong>，边界路由器必须要支持 IPv4-IPv6 双栈。当 IPv6 网络 1 的主机 A 将 IPv6 数据包发给边界路由器 C，C <strong>对 IPv6 数据包进行 IPv4 封装</strong>，然后在 IPv4 网络上进行传输，发送到边界路由器 D，D 收到 IPv4 的数据包后剥掉 IPv4 的包头，<strong>还原 IPv6 的数据包</strong>，发送到 IPv6 网络 2 的主机 B。</p>
-<h2 id="转换技术"><a href="#转换技术" class="headerlink" title="转换技术"></a>转换技术</h2><p>有一些文献叫做：翻译技术。</p>
+<h2><span id="转换技术">转换技术</span></h2><p>有一些文献叫做：翻译技术。</p>
 <p>隧道技术是比较好地解决了在很长期一段时间内还是 IPv4 网络是主流的情况下 IPv6 节点（或者双栈节点）间的通信问题。但是由于 IPv4 到 IPv6 的过渡是十分漫长的，因此也需要解决 <strong>IPv6 节点与 IPv4 节点通信</strong>的问题。协议转换技术可以用来解决这个问题。</p>
 <p>协议转换技术根据协议在网络中位置的不同，分为网络层协议转换、传输层协议转换和应用层协议转换等。</p>
 <p>协议转换技术的核心思路就是<strong>在 IPv4 和 IPv6 通信节点之间部署中间层，将 IPv4 和 IPv6 相互映射转换</strong>。</p>
@@ -597,7 +610,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -743,6 +756,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -755,6 +769,7 @@
 
 
 
+          
         </div>
         
           
@@ -803,7 +818,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -814,7 +829,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -825,7 +840,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -895,23 +910,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -933,7 +948,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IPv6-的表示方法"><span class="nav-text">IPv6 的表示方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IPv6-和-IPv4"><span class="nav-text">IPv6 和 IPv4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何-ping-一个-IPv6-的地址？"><span class="nav-text">如何 ping 一个 IPv6 的地址？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IPv6-的过渡技术"><span class="nav-text">IPv6 的过渡技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#双栈技术"><span class="nav-text">双栈技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隧道技术"><span class="nav-text">隧道技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换技术"><span class="nav-text">转换技术</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">IPv6 的表示方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">IPv6 和 IPv4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">如何 ping 一个 IPv6 的地址？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">IPv6 的过渡技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">双栈技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">隧道技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">转换技术</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -953,7 +968,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1630,6 +1645,7 @@
   
 
   
+
 
 </body>
 </html>

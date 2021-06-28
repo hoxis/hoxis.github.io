@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,15 +540,15 @@
       
         <p>程序调用 MySQL 存储过程时出现 <code>execute command denied to user &#39;xxx&#39;@&#39;%&#39; for routine &#39;xxx.PROCEDURE&#39;</code> 的异常，这与 MySQL 的用户权限设置有关。</p>
 <a id="more"></a>
-<h1 id="场景复现"><a href="#场景复现" class="headerlink" title="场景复现"></a>场景复现</h1><p>在生产环境使用之前的数据库初始化文件导入数据后，一直可以正常使用，在有一次同事做访问权限配置后，程序在不同的地方开始出现下面两种异常：</p>
+<h1><span id="场景复现">场景复现</span></h1><p>在生产环境使用之前的数据库初始化文件导入数据后，一直可以正常使用，在有一次同事做访问权限配置后，程序在不同的地方开始出现下面两种异常：</p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The user specified as a definer ('cluster'@'%') does<span class="built_in"> not </span>exist</span><br><span class="line"></span><br><span class="line">execute command denied to user 'cluster'@'%' for routine 'x86.DELETE_PERFORMANCE_PROC'</span><br></pre></td></tr></table></figure>
 <p>同事当时是修改数据库访问权限限制为只有 <code>&#39;cluster&#39;@&#39;172.24.%&#39;</code> 网段的机器才能访问，但是我的机器是属于该网段的，按理说不会出现异常啊，那究竟是什么原因呢？</p>
-<h1 id="原因追究"><a href="#原因追究" class="headerlink" title="原因追究"></a>原因追究</h1><h2 id="definer-和-invoker"><a href="#definer-和-invoker" class="headerlink" title="definer 和 invoker"></a>definer 和 invoker</h2><p>首先搞清楚 <code>definer</code> 是个什么东西，对于我这个平时基本上只用到增删改查的小白来说，这个名字还是比较陌生的，</p>
+<h1><span id="原因追究">原因追究</span></h1><h2><span id="definer-和-invoker">definer 和 invoker</span></h2><p>首先搞清楚 <code>definer</code> 是个什么东西，对于我这个平时基本上只用到增删改查的小白来说，这个名字还是比较陌生的，</p>
 <p>创建存储过程的时候可以指定 <code>SQL SECURITY</code> 属性，设置为 DEFINER 或者 INVOKER，用来奉告 mysql 在执行存储过程的时候，是以定义者的权限来执行，还是以调用者的权限来执行。DEFINER 表示按定义者拥有的权限来执行，INVOKER 表示用调用者的权限来执行。</p>
 <p>默认情况下，使用 DEFINER 方式，此时调用存储过程的用户必须有存储过程的 EXECUTE 权限，并且 DEFINER 指定的用户必须是在 mysql.user 表中存在的用户。</p>
 <p>DEFINER 模式下，默认 <code>DEFINER=CURRENT_USER</code>，也就是创建存储过程的执行用户，在存储过程执行时，mysql 会检查 DEFINER 定义的用户 <code>&#39;user_name&#39;@&#39;host_name&#39;</code> 的权限；</p>
 <p>INVOKER模式下，在存储过程执行时，会检查存储过程调用者的权限。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><ul>
+<h2><span id="示例">示例</span></h2><ul>
 <li>新建一个存储过程：</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> <span class="string">`test1`</span>;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`account_count`</span>;</span><br><span class="line">DELIMITER ;;</span><br><span class="line"><span class="keyword">USE</span> <span class="string">`test1`</span>;;</span><br><span class="line"><span class="keyword">CREATE</span> DEFINER = <span class="string">'root'</span>@<span class="string">'localhost'</span> <span class="keyword">PROCEDURE</span> account_count()</span><br><span class="line">    <span class="keyword">BEGIN</span></span><br><span class="line">       <span class="keyword">SELECT</span> <span class="string">'Number of accounts:'</span>, <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> mysql.user;</span><br><span class="line">    <span class="keyword">END</span></span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
@@ -565,16 +578,16 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use test1;</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; call account_count();</span><br><span class="line">1142 - <span class="keyword">SELECT</span> command denied <span class="keyword">to</span> <span class="keyword">user</span> <span class="string">'liuhao'</span>@<span class="string">'localhost'</span> <span class="keyword">for</span> <span class="keyword">table</span> <span class="string">'user'</span></span><br></pre></td></tr></table></figure>
 <p>发现系统报错查询不到了，这是因为我们在上述定义的SQL SECURITY 值为 INVOKER，存储过程执行过程中会以 liuhao 具有的权限来执行，其中调用到了 mysql 的库，而我们的 liuhao 帐户只有 test1 库的使用权限，所以会返回失败。</p>
-<h1 id="修改已经定义的-definer"><a href="#修改已经定义的-definer" class="headerlink" title="修改已经定义的 definer"></a>修改已经定义的 definer</h1><p>由于前期在测试库上开发的缘故，我们经常定义到的 definer 为 <code>cluster@%</code>，后来搬移到生产库上又得改回来，存在着大量的更新，上百个的视图、存储过程、函数等一个个改不免太麻烦并且也可能遗漏。如下为总结出的方便修改所有 definer 的方法，可以直到查漏补缺的作用。</p>
+<h1><span id="修改已经定义的-definer">修改已经定义的 definer</span></h1><p>由于前期在测试库上开发的缘故，我们经常定义到的 definer 为 <code>cluster@%</code>，后来搬移到生产库上又得改回来，存在着大量的更新，上百个的视图、存储过程、函数等一个个改不免太麻烦并且也可能遗漏。如下为总结出的方便修改所有 definer 的方法，可以直到查漏补缺的作用。</p>
 <p>现在在 mysql 涉及的 definer 有 view、trigger、function、procedure、event。我们一个个作介绍。</p>
-<h2 id="修改function、procedure的definer"><a href="#修改function、procedure的definer" class="headerlink" title="修改function、procedure的definer"></a>修改function、procedure的definer</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> definer <span class="keyword">from</span> mysql.proc;  <span class="comment">--  函数、存储过程</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> mysql.proc <span class="keyword">set</span> definer=<span class="string">'root@localhost'</span> <span class="keyword">where</span> db=<span class="string">'xxx'</span>; <span class="comment">-- 如果有限定库或其它可以加上where条件</span></span><br></pre></td></tr></table></figure>
-<h2 id="修改-event-的-definer"><a href="#修改-event-的-definer" class="headerlink" title="修改 event 的 definer"></a>修改 event 的 definer</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> DEFINER <span class="keyword">from</span> mysql.EVENT; <span class="comment">-- 定时事件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> mysql.EVENT <span class="keyword">set</span> definer=<span class="string">'root@localhost'</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="修改-view-的-definer"><a href="#修改-view-的-definer" class="headerlink" title="修改 view 的 definer"></a>修改 view 的 definer</h2><p>相比 function 的修改麻烦点：</p>
+<h2><span id="修改function-procedure的definer">修改function、procedure的definer</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> definer <span class="keyword">from</span> mysql.proc;  <span class="comment">--  函数、存储过程</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> mysql.proc <span class="keyword">set</span> definer=<span class="string">'root@localhost'</span> <span class="keyword">where</span> db=<span class="string">'xxx'</span>; <span class="comment">-- 如果有限定库或其它可以加上where条件</span></span><br></pre></td></tr></table></figure>
+<h2><span id="修改-event-的-definer">修改 event 的 definer</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> DEFINER <span class="keyword">from</span> mysql.EVENT; <span class="comment">-- 定时事件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> mysql.EVENT <span class="keyword">set</span> definer=<span class="string">'root@localhost'</span>;</span><br></pre></td></tr></table></figure>
+<h2><span id="修改-view-的-definer">修改 view 的 definer</span></h2><p>相比 function 的修改麻烦点：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> DEFINER <span class="keyword">from</span> information_schema.VIEWS; </span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">concat</span>(<span class="string">"alter DEFINER=`user`@`localhost` SQL SECURITY DEFINER VIEW "</span>,TABLE_SCHEMA,<span class="string">"."</span>,TABLE_NAME,<span class="string">" as "</span>,VIEW_DEFINITION,<span class="string">";"</span>) <span class="keyword">from</span> information_schema.VIEWS <span class="keyword">where</span> DEFINER&lt;&gt;<span class="string">'user@localhost'</span>;</span><br></pre></td></tr></table></figure>
 <p>查询出来的语句再执行一遍就好了。</p>
-<h2 id="修改-trigger-的-definer"><a href="#修改-trigger-的-definer" class="headerlink" title="修改 trigger 的 definer"></a>修改 trigger 的 definer</h2><p>目前还没有具体方便的方法，可以借助工具端如 HeidiSQL、sqlyog 等来一个个修改。注意改前有必要锁表，因为如果改的过程中有其它表改变而触发，会造成数据不一致。</p>
+<h2><span id="修改-trigger-的-definer">修改 trigger 的 definer</span></h2><p>目前还没有具体方便的方法，可以借助工具端如 HeidiSQL、sqlyog 等来一个个修改。注意改前有必要锁表，因为如果改的过程中有其它表改变而触发，会造成数据不一致。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Flush</span> <span class="keyword">tables</span> <span class="keyword">with</span> readlock</span><br><span class="line"></span><br><span class="line"><span class="keyword">Unlock</span> <span class="keyword">tables</span></span><br></pre></td></tr></table></figure>
-<h2 id="其他sql"><a href="#其他sql" class="headerlink" title="其他sql"></a>其他sql</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">procedure</span> DELETE_HOT_EVENT_PROC; <span class="comment">-- 查询存储过程创建语句</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">PROCEDURE</span> <span class="keyword">STATUS</span>; <span class="comment">-- 查询所有存储过程的状态</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">FUNCTION</span> <span class="keyword">STATUS</span>; <span class="comment">-- 查询函数的状态</span></span><br></pre></td></tr></table></figure>
+<h2><span id="其他sql">其他sql</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">procedure</span> DELETE_HOT_EVENT_PROC; <span class="comment">-- 查询存储过程创建语句</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">PROCEDURE</span> <span class="keyword">STATUS</span>; <span class="comment">-- 查询所有存储过程的状态</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">FUNCTION</span> <span class="keyword">STATUS</span>; <span class="comment">-- 查询函数的状态</span></span><br></pre></td></tr></table></figure>
 <hr>
 <p>参考：</p>
 <ol>
@@ -592,7 +605,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -738,6 +751,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -750,6 +764,7 @@
 
 
 
+          
         </div>
         
           
@@ -798,7 +813,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -809,7 +824,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -820,7 +835,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -890,23 +905,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -928,7 +943,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#场景复现"><span class="nav-text">场景复现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因追究"><span class="nav-text">原因追究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#definer-和-invoker"><span class="nav-text">definer 和 invoker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改已经定义的-definer"><span class="nav-text">修改已经定义的 definer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改function、procedure的definer"><span class="nav-text">修改function、procedure的definer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-event-的-definer"><span class="nav-text">修改 event 的 definer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-view-的-definer"><span class="nav-text">修改 view 的 definer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-trigger-的-definer"><span class="nav-text">修改 trigger 的 definer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他sql"><span class="nav-text">其他sql</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">场景复现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">原因追究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">definer 和 invoker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">修改已经定义的 definer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">修改function、procedure的definer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">修改 event 的 definer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">修改 view 的 definer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">修改 trigger 的 definer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">其他sql</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -948,7 +963,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1625,6 +1640,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -214,8 +214,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -324,6 +326,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -372,6 +384,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -535,7 +548,7 @@
 <p>在数据库中，除传统的计算资源（CPU、RAM、I/O）的争用以外，数据也是一种供许多用户共享的资源。</p>
 <p>如何保证数据并发访问的一致性、有效性是所在有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
 <a id="more"></a>
-<h1 id="为什么要有锁？"><a href="#为什么要有锁？" class="headerlink" title="为什么要有锁？"></a>为什么要有锁？</h1><p>使用数据库，避免不了并发问题，当并发事务同时访问一个资源时，有可能导致数据不一致，因此需要一种机制来<strong>将数据访问顺序化，以保证数据库数据的一致性</strong>。</p>
+<h1><span id="为什么要有锁">为什么要有锁？</span></h1><p>使用数据库，避免不了并发问题，当并发事务同时访问一个资源时，有可能导致数据不一致，因此需要一种机制来<strong>将数据访问顺序化，以保证数据库数据的一致性</strong>。</p>
 <p>锁就是其中的一种机制。</p>
 <p>我们可以用公厕做个比喻。</p>
 <p>公厕是可供多个消费者使用的，因此可能出现多个人同时需要使用厕所的情况。</p>
@@ -543,16 +556,16 @@
 <p>为了避免冲突，于是厕所里装了锁，某一个人在上测试时，可以在里面用锁锁住，其他人就不能再从外面打开了，只能等待。</p>
 <p>等里面的人出来了，从里面把锁打开，外面的人才能进去。</p>
 <p>下面，带你一起梳理下 MySQL 的锁管理机制和锁的执行流程，先有一个大致的脉络。</p>
-<h1 id="MySQL-的锁管理机制"><a href="#MySQL-的锁管理机制" class="headerlink" title="MySQL 的锁管理机制"></a>MySQL 的锁管理机制</h1><p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1544677562501.png" alt="MySQL 的锁管理机制"></p>
+<h1><span id="mysql-的锁管理机制">MySQL 的锁管理机制</span></h1><p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1544677562501.png" alt="MySQL 的锁管理机制"></p>
 <p>1、全局读锁 — FLUSH TABLES WITH READ LOCK（SQL层）</p>
 <p>2、表级 table-level 数据锁（SQL层）</p>
 <p>3、Meta-data 元数据锁：在 table cache 缓存里实现的，为 DDL（Data Definition Language）提供隔离操作。</p>
 <p>4、存储引擎特有机制 — row locks行锁，page locks页锁，table locks表级，版本控制（在引擎中实现）</p>
 <p>相对其他数据库而言，MySQL 的锁机制比较简单，其最显著的特点是不同的存储引擎支持不同的锁机制。</p>
-<h1 id="MySQL-的锁执行流程"><a href="#MySQL-的锁执行流程" class="headerlink" title="MySQL 的锁执行流程"></a>MySQL 的锁执行流程</h1><p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1544599923225.png" alt="MySQL 的锁执行流程"></p>
+<h1><span id="mysql-的锁执行流程">MySQL 的锁执行流程</span></h1><p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1544599923225.png" alt="MySQL 的锁执行流程"></p>
 <p>1、计算语句使用到的所有表；<br>2、在每个表：打开表，从 table cache 缓存里得到 TABLE 对象，并在此表加上 meta-data 元数据锁；<br>3、等待全局读锁后改变数据；<br>4、在每个表：锁表，在表加上 table-level 数据锁；<br>5、执行语句：调用：handler::write_row()/read_rnd()/read_index() 等；隐式地调用引擎级 engine-level 锁机制；<br>6、在每个表：释放表的数据锁；<br>7、在每个表：释放表的 DDL 锁并把表放回 table cache 缓存里；</p>
 <p>下面，我们开始简单针对每一种锁，看下都有什么特点。</p>
-<h1 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁"></a>全局锁</h1><p>加了全局锁后，整个库变为只读状态，所有的写操作都会被阻塞，包括：</p>
+<h1><span id="全局锁">全局锁</span></h1><p>加了全局锁后，整个库变为只读状态，所有的写操作都会被阻塞，包括：</p>
 <ul>
 <li>数据的增删改</li>
 <li>表结构的创建、修改</li>
@@ -561,25 +574,25 @@
 <p>加全局锁的命令：<code>Flush tables with read lock</code>，即 FTWRL。</p>
 <p>全局锁的主要使用场景是全库的逻辑备份，加了全局锁进行备份时有一定的使用风险：</p>
 <p>1、若在主库备份，备份期间只读，会影响业务；<br>2、若在从库备份，从库只读，无法及时同步主可以的更新，造成主从不一致；</p>
-<h2 id="mysqldump-–single-transaction"><a href="#mysqldump-–single-transaction" class="headerlink" title="mysqldump –single-transaction"></a>mysqldump –single-transaction</h2><p>也许你还记得，我们在之前讲事务的时候，有一个隔离级别叫做<strong>可重复读</strong>，也就是设置了隔离级别进入事务后，别的事务更改数据不会影响当前的读取。</p>
+<h2><span id="mysqldump-single-transaction">mysqldump –single-transaction</span></h2><p>也许你还记得，我们在之前讲事务的时候，有一个隔离级别叫做<strong>可重复读</strong>，也就是设置了隔离级别进入事务后，别的事务更改数据不会影响当前的读取。</p>
 <p>使用 mysqldump 命令，结合 <code>--single-transaction</code> 参数，可以将隔离级别设置为：REPEATABLE READ。</p>
 <p>并且随后再执行一条 START TRANSACTION 语句，让整个数据在 dump 过程中保证数据的一致性，这个选项对 InnoDB 的数据表很有用，且不会锁表。</p>
 <p>为了确保使用 –single-transaction 命令时，最终 dump 文件的有效性。需没有下列语句 ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE，因为一致性读不能隔离上述语句。所以如果在 dump 过程中，使用上述语句，可能会导致 dump 出来的文件数据不一致或者不可用。</p>
 <p><strong>为啥不直接使用 mysqldump –single-transaction 来备份？</strong></p>
 <p>因为，有些引擎不支持事务啊，比如 MyISAM 引擎，所以，现在大家都在力推用 InnoDB 替代 MyISAM。</p>
-<h2 id="set-global-readonly-true？"><a href="#set-global-readonly-true？" class="headerlink" title="set global readonly=true？"></a>set global readonly=true？</h2><p><code>set global readonly=true</code> 也可以将全局表设为只读状态，有啥区别呢？</p>
+<h2><span id="set-global-readonlytrue">set global readonly=true？</span></h2><p><code>set global readonly=true</code> 也可以将全局表设为只读状态，有啥区别呢？</p>
 <p>首先，修改 global 变量的方式影响面更大，不建议使用。</p>
 <p>另外，异常处理机制上和 FTWRL 有差异：</p>
 <ul>
 <li>FTWRL 命令：客户端异常断开，MySQL 会自动释放全局锁，整个库回到正常更新的状态</li>
 <li>readonly 状态下，客户端发生异常，数据库会一直保持 readonly 状态，导致整个库长时间处于不可写状态</li>
 </ul>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ul>
+<h2><span id="注意点">注意点</span></h2><ul>
 <li>FTWRL 前有读写的话 ，FTWRL 都会等待读写执行完毕后才执行</li>
 <li>FTWRL 执行的时候要刷脏页的数据到磁盘，要保持数据的一致性</li>
 <li>执行 FTWRL 时候会等待所有事务都提交完毕</li>
 </ul>
-<h1 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h1><h2 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h2><p><strong>语法</strong></p>
+<h1><span id="表级锁">表级锁</span></h1><h2><span id="表锁">表锁</span></h2><p><strong>语法</strong></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOCK TABLES tbl_name ; # 不影响其他表的写操作</span><br></pre></td></tr></table></figure>
 <p>解锁也是：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UNLOCK</span> <span class="keyword">TABLES</span>;</span><br></pre></td></tr></table></figure>
@@ -591,7 +604,7 @@
 </ul>
 <p>P.S.  MYSQL 的 read lock 和 wirte lock</p>
 <p><strong>read-lock</strong>：允许其他并发的读请求，但阻塞写请求，即可以同时读，但不允许任何写，也叫共享锁<br><strong>write-lock</strong>：不允许其他并发的读和写请求，是排他的（exclusive），也叫独占锁</p>
-<h2 id="元数据锁（MDL：metadata-lock）"><a href="#元数据锁（MDL：metadata-lock）" class="headerlink" title="元数据锁（MDL：metadata lock）"></a>元数据锁（MDL：metadata lock）</h2><p>元数据锁不需要显式使用，在访问一个表的时候会<strong>自动加上</strong>。</p>
+<h2><span id="元数据锁mdlmetadata-lock">元数据锁（MDL：metadata lock）</span></h2><p>元数据锁不需要显式使用，在访问一个表的时候会<strong>自动加上</strong>。</p>
 <p>它的作用主要是保证读写的正确性。</p>
 <ul>
 <li>表的增删改查操作，需要先加 MDL 读锁；</li>
@@ -602,15 +615,15 @@
 <p>如果有两个线程要同时给一个表加字段，其中一个要等另一个执行完才能开始执行。</p>
 <p>事务中的 MDL 锁，在语句执行开始时申请，但是语句结束后并不会马上释放，而会等到<strong>整个事务提交后再释放</strong>。</p>
 <p>因此，需要避免长事务，因为长事务会造成锁一直不能释放，后续的操作会堆积，这个库的线程很快就会爆满。</p>
-<h1 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h1><p>行锁是引擎层实现的，像 MyISAM 引擎就直接不支持行锁，这些引擎在并发控制只能用表锁！</p>
-<h2 id="InnoDB-的行锁"><a href="#InnoDB-的行锁" class="headerlink" title="InnoDB 的行锁"></a>InnoDB 的行锁</h2><p>两阶段协议：</p>
+<h1><span id="行锁">行锁</span></h1><p>行锁是引擎层实现的，像 MyISAM 引擎就直接不支持行锁，这些引擎在并发控制只能用表锁！</p>
+<h2><span id="innodb-的行锁">InnoDB 的行锁</span></h2><p>两阶段协议：</p>
 <ul>
 <li>需要的时候加上</li>
 <li>事务结束时释放</li>
 </ul>
 <p>当需要锁多个行时，尽量把影响并发的锁往后放，这样可以最大程度的减少事务之间的锁等待，提升并发度。</p>
 <p><strong>另外，InnoDB 的 行锁建立在索引的基础上，锁的是索引。因此，如果更新的列没建索引会锁住整个表。</strong></p>
-<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1544611654188.png" alt="死锁"></p>
+<h2><span id="死锁">死锁</span></h2><p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1544611654188.png" alt="死锁"></p>
 <p>不同线程出现循环资源依赖，涉及的线程都在等待别的线程释放资源。</p>
 <p><strong>死锁对策</strong></p>
 <p>1、主动等待超时，由参数 <code>innodb_lock_wait_timeout</code> 设置，但是业务无法等待；</p>
@@ -632,13 +645,13 @@
 <li>改 MySQL 源码</li>
 <li>将热更新的行数据拆分成逻辑上的多行来减少锁冲突，但是业务复杂度可能会大大提高</li>
 </ul>
-<h2 id="更新一条记录时具体什么时候用行锁什么时候是表锁"><a href="#更新一条记录时具体什么时候用行锁什么时候是表锁" class="headerlink" title="更新一条记录时具体什么时候用行锁什么时候是表锁"></a>更新一条记录时具体什么时候用行锁什么时候是表锁</h2><p>引擎支持行锁就行锁，比如 innodb；</p>
+<h2><span id="更新一条记录时具体什么时候用行锁什么时候是表锁">更新一条记录时具体什么时候用行锁什么时候是表锁</span></h2><p>引擎支持行锁就行锁，比如 innodb；</p>
 <p>引擎不支持行锁就表锁，比如 myisam；</p>
-<h1 id="Online-DDL-的过程"><a href="#Online-DDL-的过程" class="headerlink" title="Online DDL 的过程"></a>Online DDL 的过程</h1><p>在 MySQL5.6 中，开始支持更多的 alter table 类型操作来避免 copy data，同时支持了在线上 DDL 的过程中不阻塞 DML 操作，真正意义上的实现了 Online DDL。</p>
+<h1><span id="online-ddl-的过程">Online DDL 的过程</span></h1><p>在 MySQL5.6 中，开始支持更多的 alter table 类型操作来避免 copy data，同时支持了在线上 DDL 的过程中不阻塞 DML 操作，真正意义上的实现了 Online DDL。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1544612220451.png" alt="Online DDL的原理"></p>
 <p>1、拿 MDL 写锁<br>2、降级成 MDL 读锁<br>3、真正做 DDL<br>4、升级成 MDL 写锁<br>5、释放 MDL 锁</p>
 <p>1、2、4、5 如果没有锁冲突，执行时间非常短。<br>第 3 步占用了 DDL 绝大部分时间，这期间这个表可以正常读写数据，是因此称为「online」 </p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<h1><span id="总结">总结</span></h1><ul>
 <li>表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。<ul>
 <li>这些存储引擎通过总是一次性同时获取所有需要的锁以及总是按相同的顺序获取表锁来避免死锁。</li>
 <li>表级锁更适合于以查询为主，并发用户少，只有少量按索引条件更新数据的应用，如 Web 应用</li>
@@ -669,7 +682,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -817,6 +830,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -829,6 +843,7 @@
 
 
 
+          
         </div>
         
           
@@ -877,7 +892,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -888,7 +903,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -899,7 +914,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -969,23 +984,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1007,7 +1022,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要有锁？"><span class="nav-text">为什么要有锁？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-的锁管理机制"><span class="nav-text">MySQL 的锁管理机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-的锁执行流程"><span class="nav-text">MySQL 的锁执行流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全局锁"><span class="nav-text">全局锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqldump-–single-transaction"><span class="nav-text">mysqldump –single-transaction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-global-readonly-true？"><span class="nav-text">set global readonly=true？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意点"><span class="nav-text">注意点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表级锁"><span class="nav-text">表级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表锁"><span class="nav-text">表锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元数据锁（MDL：metadata-lock）"><span class="nav-text">元数据锁（MDL：metadata lock）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#行锁"><span class="nav-text">行锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB-的行锁"><span class="nav-text">InnoDB 的行锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新一条记录时具体什么时候用行锁什么时候是表锁"><span class="nav-text">更新一条记录时具体什么时候用行锁什么时候是表锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Online-DDL-的过程"><span class="nav-text">Online DDL 的过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">为什么要有锁？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">MySQL 的锁管理机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">MySQL 的锁执行流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">全局锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">mysqldump –single-transaction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">set global readonly=true？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">表级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">表锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">元数据锁（MDL：metadata lock）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">行锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">InnoDB 的行锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">更新一条记录时具体什么时候用行锁什么时候是表锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Online DDL 的过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1027,7 +1042,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1704,6 +1719,7 @@
   
 
   
+
 
 </body>
 </html>

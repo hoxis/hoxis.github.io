@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -528,7 +541,7 @@
         <p>有时候一些普遍的设计模式应用得非常广泛，慢慢的就形成了一种语法，或者叫 <code>语法糖</code>，Python 中的<a href="https://docs.python.org/3/tutorial/datastructures.html#tut-listcomps" target="_blank" rel="noopener">列表推导式</a> 就是其中的典型代表。列表推导式是一种可以让代码更简洁，并且可以增加可读性和执行效率的方法，但是要掌握好这个语法则有些难。</p>
 <p>下面就带你好好认识下 <code>列表推导式</code>，学完之后你就知道这个语法糖有多「甜」。</p>
 <a id="more"></a>
-<h1 id="1-从一个例子开始"><a href="#1-从一个例子开始" class="headerlink" title="1 从一个例子开始"></a>1 从一个例子开始</h1><p>事情的起因是这样的，在交流群里，一个小伙伴问如何把下面这种数据：</p>
+<h1><span id="1-从一个例子开始">1 从一个例子开始</span></h1><p>事情的起因是这样的，在交流群里，一个小伙伴问如何把下面这种数据：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">'city'</span>: <span class="string">'北京北京'</span>, <span class="string">'max_temp'</span>: <span class="string">'35'</span>, <span class="string">'min_temp'</span>: <span class="string">'23'</span>&#125;, </span><br><span class="line">&#123;<span class="string">'city'</span>: <span class="string">'北京海淀'</span>, <span class="string">'max_temp'</span>: <span class="string">'36'</span>, <span class="string">'min_temp'</span>: <span class="string">'23'</span>&#125;]</span><br></pre></td></tr></table></figure>
 <p>转换成这种：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="string">'北京北京'</span>, <span class="string">'35'</span>), (<span class="string">'北京海淀'</span>, <span class="string">'36'</span>)]</span><br></pre></td></tr></table></figure>
@@ -538,7 +551,7 @@
 <p>其实，这种时候就可以用列表推导式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_list = [(item[<span class="string">'city'</span>], item[<span class="string">'max_temp'</span>]) <span class="keyword">for</span> item <span class="keyword">in</span> old_list]</span><br></pre></td></tr></table></figure>
 <p>是不是更加优雅，简洁？</p>
-<h1 id="2-到底什么是列表推导式"><a href="#2-到底什么是列表推导式" class="headerlink" title="2 到底什么是列表推导式"></a>2 到底什么是列表推导式</h1><p>通过上面的例子，我们可以看出列表解析式是将一个列表（实际上适用于任何<strong>可迭代对象</strong>）转换成另一个列表的工具。</p>
+<h1><span id="2-到底什么是列表推导式">2 到底什么是列表推导式</span></h1><p>通过上面的例子，我们可以看出列表解析式是将一个列表（实际上适用于任何<strong>可迭代对象</strong>）转换成另一个列表的工具。</p>
 <p>并且在转换过程中，可以指定元素必须符合一定的条件，才能添加至新的列表中，这样每个元素都可以按需要进行转换。</p>
 <blockquote>
 <p>可迭代对象：<br>以直接作用于 for 循环的数据类型有以下几种：</p>
@@ -548,16 +561,16 @@
 </ul>
 <p>这些可以直接作用于 for 循环的对象统称为可迭代对象： Iterable。<br>可以使用 isinstance() 判断一个对象是否是 Iterable 对象，如：<code>isinstance([1,2,3], Iterable)</code></p>
 </blockquote>
-<h1 id="3-基本语法"><a href="#3-基本语法" class="headerlink" title="3 基本语法"></a>3 基本语法</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_list = [expression(i) <span class="keyword">for</span> i <span class="keyword">in</span> old_list <span class="keyword">if</span> condition(i)]</span><br></pre></td></tr></table></figure>
+<h1><span id="3-基本语法">3 基本语法</span></h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_list = [expression(i) <span class="keyword">for</span> i <span class="keyword">in</span> old_list <span class="keyword">if</span> condition(i)]</span><br></pre></td></tr></table></figure>
 <p>翻译成 for 循环就是：</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span><span class="type">_list</span> = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> old_list:<span class="type"></span></span><br><span class="line"><span class="type">    if </span>(condition):<span class="type"></span></span><br><span class="line"><span class="type">        new_list</span>.append(expression(i))</span><br></pre></td></tr></table></figure>
-<h1 id="4-使用示例"><a href="#4-使用示例" class="headerlink" title="4 使用示例"></a>4 使用示例</h1><h2 id="4-1-list-元素的简单处理"><a href="#4-1-list-元素的简单处理" class="headerlink" title="4.1 list 元素的简单处理"></a>4.1 list 元素的简单处理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"><span class="comment"># 对每个元素求平方</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i**<span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> x])</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个元素乘以 3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i*<span class="number">3</span> <span class="keyword">for</span> i <span class="keyword">in</span> x])</span><br><span class="line">[<span class="number">0</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">12</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">21</span>, <span class="number">24</span>, <span class="number">27</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取其中的偶数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i%<span class="number">2</span>==<span class="number">0</span>])</span><br><span class="line">[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="4-2-for-的嵌套"><a href="#4-2-for-的嵌套" class="headerlink" title="4.2 for 的嵌套"></a>4.2 for 的嵌套</h2><p>语法如下：</p>
+<h1><span id="4-使用示例">4 使用示例</span></h1><h2><span id="41-list-元素的简单处理">4.1 list 元素的简单处理</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"><span class="comment"># 对每个元素求平方</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i**<span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> x])</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个元素乘以 3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i*<span class="number">3</span> <span class="keyword">for</span> i <span class="keyword">in</span> x])</span><br><span class="line">[<span class="number">0</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">12</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">21</span>, <span class="number">24</span>, <span class="number">27</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取其中的偶数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i <span class="keyword">for</span> i <span class="keyword">in</span> x <span class="keyword">if</span> i%<span class="number">2</span>==<span class="number">0</span>])</span><br><span class="line">[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+<h2><span id="42-for-的嵌套">4.2 for 的嵌套</span></h2><p>语法如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[ expression <span class="keyword">for</span> x <span class="keyword">in</span> X [<span class="keyword">if</span> condition1 <span class="keyword">if</span> condition2]</span><br><span class="line">             <span class="keyword">for</span> y <span class="keyword">in</span> Y [<span class="keyword">if</span> condition]</span><br><span class="line">             ...</span><br><span class="line">             <span class="keyword">for</span> n <span class="keyword">in</span> N [<span class="keyword">if</span> condition] ]</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([ (x, y) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>) <span class="keyword">if</span> x % <span class="number">2</span> <span class="keyword">if</span> x &gt; <span class="number">3</span> <span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">10</span>) <span class="keyword">if</span> y &gt; <span class="number">7</span> <span class="keyword">if</span> y != <span class="number">8</span> ])</span><br><span class="line">[(<span class="number">5</span>, <span class="number">9</span>), (<span class="number">7</span>, <span class="number">9</span>), (<span class="number">9</span>, <span class="number">9</span>)]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[(x,y) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">3</span>) <span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">3</span>)]</span><br><span class="line">[(<span class="number">0</span>, <span class="number">0</span>), (<span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">0</span>), (<span class="number">1</span>, <span class="number">1</span>), (<span class="number">1</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">0</span>), (<span class="number">2</span>, <span class="number">1</span>), (<span class="number">2</span>, <span class="number">2</span>)]</span><br></pre></td></tr></table></figure>
 <p>理论上可以嵌套多层，不过一般两层，不会超过三层。</p>
-<h2 id="4-3-对字符串操作"><a href="#4-3-对字符串操作" class="headerlink" title="4.3 对字符串操作"></a>4.3 对字符串操作</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>words = [<span class="string">"this"</span>,<span class="string">"is"</span>,<span class="string">"a"</span>,<span class="string">"list"</span>,<span class="string">"of"</span>,<span class="string">"words"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取每个单词的首字母</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print( [word[<span class="number">0</span>] <span class="keyword">for</span> word <span class="keyword">in</span> words])</span><br><span class="line">[<span class="string">'t'</span>, <span class="string">'i'</span>, <span class="string">'a'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>, <span class="string">'w'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对字符串列表中的单词取小写</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[x.lower() <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">"A"</span>,<span class="string">"b"</span>,<span class="string">"Ca"</span>]]</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'ca'</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="4-4-对-dict-操作"><a href="#4-4-对-dict-操作" class="headerlink" title="4.4 对 dict 操作"></a>4.4 对 dict 操作</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;<span class="string">'a'</span>:<span class="number">1</span>,<span class="string">'b'</span>:<span class="number">2</span>,<span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 筛选 value 值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i <span class="keyword">for</span> i <span class="keyword">in</span> d.values() <span class="keyword">if</span> i &gt;<span class="number">1</span>])</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取 key 值列表，并且可以加 if 判断</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i <span class="keyword">for</span> i <span class="keyword">in</span> d.keys()])</span><br><span class="line">[<span class="string">'b'</span>, <span class="string">'a'</span>, <span class="string">'c'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 value 不重复的情况下，交换 key 和 value</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(&#123;(j,i) <span class="keyword">for</span> (i,j) <span class="keyword">in</span> d.items() &#125;)</span><br><span class="line">&#123;(<span class="number">1</span>, <span class="string">'a'</span>), (<span class="number">3</span>, <span class="string">'c'</span>), (<span class="number">2</span>, <span class="string">'b'</span>)&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="43-对字符串操作">4.3 对字符串操作</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>words = [<span class="string">"this"</span>,<span class="string">"is"</span>,<span class="string">"a"</span>,<span class="string">"list"</span>,<span class="string">"of"</span>,<span class="string">"words"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取每个单词的首字母</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print( [word[<span class="number">0</span>] <span class="keyword">for</span> word <span class="keyword">in</span> words])</span><br><span class="line">[<span class="string">'t'</span>, <span class="string">'i'</span>, <span class="string">'a'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>, <span class="string">'w'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对字符串列表中的单词取小写</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[x.lower() <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">"A"</span>,<span class="string">"b"</span>,<span class="string">"Ca"</span>]]</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'ca'</span>]</span><br></pre></td></tr></table></figure>
+<h2><span id="44-对-dict-操作">4.4 对 dict 操作</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;<span class="string">'a'</span>:<span class="number">1</span>,<span class="string">'b'</span>:<span class="number">2</span>,<span class="string">'c'</span>:<span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 筛选 value 值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i <span class="keyword">for</span> i <span class="keyword">in</span> d.values() <span class="keyword">if</span> i &gt;<span class="number">1</span>])</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取 key 值列表，并且可以加 if 判断</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([i <span class="keyword">for</span> i <span class="keyword">in</span> d.keys()])</span><br><span class="line">[<span class="string">'b'</span>, <span class="string">'a'</span>, <span class="string">'c'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 value 不重复的情况下，交换 key 和 value</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(&#123;(j,i) <span class="keyword">for</span> (i,j) <span class="keyword">in</span> d.items() &#125;)</span><br><span class="line">&#123;(<span class="number">1</span>, <span class="string">'a'</span>), (<span class="number">3</span>, <span class="string">'c'</span>), (<span class="number">2</span>, <span class="string">'b'</span>)&#125;</span><br></pre></td></tr></table></figure>
 <p>列表推导式讲到这里，相信大家应该都能理解个差不多了。从实际使用经验来看，列表推导式使用的频率是非常高的，也是相当好用的。掌握列表推导式使用时机的关键，在于不断练习识别那些看上去像列表推导式的问题。</p>
 <p>而对于列表推导式的多层 for 循环，尤其是 3 层以上的或带复杂筛选条件的，会牺牲较多的可读性，还是建议用 for 循环实现，多几行代码就多几行吧。</p>
 
@@ -571,7 +584,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -717,6 +730,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -729,6 +743,7 @@
 
 
 
+          
         </div>
         
           
@@ -777,7 +792,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -788,7 +803,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -799,7 +814,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -869,23 +884,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -907,7 +922,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-从一个例子开始"><span class="nav-text">1 从一个例子开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-到底什么是列表推导式"><span class="nav-text">2 到底什么是列表推导式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-基本语法"><span class="nav-text">3 基本语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-使用示例"><span class="nav-text">4 使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-list-元素的简单处理"><span class="nav-text">4.1 list 元素的简单处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-for-的嵌套"><span class="nav-text">4.2 for 的嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-对字符串操作"><span class="nav-text">4.3 对字符串操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-对-dict-操作"><span class="nav-text">4.4 对 dict 操作</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1 从一个例子开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2 到底什么是列表推导式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3 基本语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">4 使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">4.1 list 元素的简单处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">4.2 for 的嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">4.3 对字符串操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">4.4 对 dict 操作</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -927,7 +942,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1604,6 +1619,7 @@
   
 
   
+
 
 </body>
 </html>

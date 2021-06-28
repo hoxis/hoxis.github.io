@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -531,7 +544,7 @@
 <p>实际上，这个程序的功能只是告知计算机显示 Hello World 这句话。传统意义上，程序员一般用这个程序测试一种新的系统或编程语言。对程序员来说，看到这两个单词显示在电脑屏幕上，往往表示他们的代码已经能够编译、装载以及正常运行了，这个输出结果就是为了证明这一点。</p>
 <p>这个测试程序在一定程度上具有特殊的象征意义。在过去的几十年间，这个程序已经渐渐地演化成为了一个久负盛名的传统。</p>
 <p>几乎所有的程序员，无论是在你之前，或在你之后，当第一次实现与计算机成功沟通之后，在某种程度上，他们的肾上腺素就会急剧上升（激动不已）。以下就是这个著名程序的诞生故事。</p>
-<h2 id="Hello-World-究竟从何而来？"><a href="#Hello-World-究竟从何而来？" class="headerlink" title="Hello World 究竟从何而来？"></a>Hello World 究竟从何而来？</h2><p>Hello, World 最早是由 Brian Kernighan 创建的。</p>
+<h2><span id="hello-world-究竟从何而来">Hello World 究竟从何而来？</span></h2><p>Hello, World 最早是由 Brian Kernighan 创建的。</p>
 <p>1978年，Brian Kernighan 写了一本名叫《C 程序设计语言》的编程书，在程序员中广为流传。他在这本书中第一次引用的 Hello World 程序，源自他在1973年编写的一部讲授 B 语言的编程教程：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">main()&#123;</span><br><span class="line">extrn a,b,c;</span><br><span class="line">putchar(a); putchar(b); putchar(c); putchar('!*n');</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a 'hell';</span><br><span class="line">b 'o, w';</span><br><span class="line">c 'orld';</span><br></pre></td></tr></table></figure>
 <p>但是非常不幸的是，当 Forbes India 杂志采访他的时候，他自己对这段传奇故事中一些记忆已经有点儿模糊了。当他被问及为什么选择『Hello, World!』时，他回答说，『我只记得，我好像看过一幅漫画，讲述一枚鸡蛋和一只小鸡的故事，在那副漫画中，小鸡说了一句『Hello World』。</p>
@@ -551,7 +564,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -697,6 +710,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -709,6 +723,7 @@
 
 
 
+          
         </div>
         
           
@@ -757,7 +772,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -768,7 +783,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -779,7 +794,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -849,23 +864,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -887,7 +902,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World-究竟从何而来？"><span class="nav-text">Hello World 究竟从何而来？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Hello World 究竟从何而来？</span></a></li></ol></div>
             
 
           </div>
@@ -907,7 +922,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1584,6 +1599,7 @@
   
 
   
+
 
 </body>
 </html>

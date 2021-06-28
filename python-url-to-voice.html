@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -533,22 +546,22 @@
 <li>文本转语音，通过接口将文本转换成语音文件；</li>
 <li>语音文件的发声，即将语音文件读出；</li>
 </ol>
-<h1 id="网页正文识别"><a href="#网页正文识别" class="headerlink" title="网页正文识别"></a>网页正文识别</h1><p>我们之所以用 Python，就是因为 Python 有着丰富的库，网页正文识别也不在话下。这里我尝试了 <code>readability</code>、<code>goose-extractor</code>、<code>cx-extractor-python</code>，</p>
-<h2 id="readability"><a href="#readability" class="headerlink" title="readability"></a>readability</h2><p><a href="https://github.com/buriy/python-readability" target="_blank" rel="noopener">readability</a> 支持 Python3，使用 <code>pip install readability-lxml</code> 安装即可。</p>
+<h1><span id="网页正文识别">网页正文识别</span></h1><p>我们之所以用 Python，就是因为 Python 有着丰富的库，网页正文识别也不在话下。这里我尝试了 <code>readability</code>、<code>goose-extractor</code>、<code>cx-extractor-python</code>，</p>
+<h2><span id="readability">readability</span></h2><p><a href="https://github.com/buriy/python-readability" target="_blank" rel="noopener">readability</a> 支持 Python3，使用 <code>pip install readability-lxml</code> 安装即可。</p>
 <p>readability 使用起来也很方便：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> readability <span class="keyword">import</span> Document</span><br><span class="line"></span><br><span class="line">response = requests.get(<span class="string">'https://hoxis.github.io/run-ansible-without-specifying-the-inventory-but-the-host-directly.html'</span>)</span><br><span class="line">doc = Document(response.text)</span><br><span class="line">print(doc.title())</span><br></pre></td></tr></table></figure>
 <p>但是 readability 提取到的正文内容不是文本，里面仍包含 HTML 标签。</p>
 <p>当然也可以结合其他组件再对 HTML 进行处理，如 <code>html2text</code>，我们这里就不再延伸，有兴趣的可以自行尝试。</p>
-<h2 id="goose3"><a href="#goose3" class="headerlink" title="goose3"></a>goose3</h2><p>Goose 本来是一个用 Java 编写的文章提取器，后来就有了 Python 实现版： <a href="https://github.com/goose3/goose3" target="_blank" rel="noopener">goose3</a> 。</p>
+<h2><span id="goose3">goose3</span></h2><p>Goose 本来是一个用 Java 编写的文章提取器，后来就有了 Python 实现版： <a href="https://github.com/goose3/goose3" target="_blank" rel="noopener">goose3</a> 。</p>
 <p>使用起来也很方便，同时对中文支持也不错。使用 <code>pip install goose3</code> 即可安装。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> goose3 <span class="keyword">import</span> Goose</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> goose3.text <span class="keyword">import</span> StopWordsChinese</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url  = <span class="string">'http://news.china.com/socialgd/10000169/20180616/32537640_all.html'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g = Goose(&#123;<span class="string">'stopwords_class'</span>: StopWordsChinese&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>article = g.extract(url=url)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(article.cleaned_text[:<span class="number">150</span>])</span><br><span class="line">北京时间<span class="number">6</span>月<span class="number">15</span>日<span class="number">23</span>:<span class="number">00</span>(圣彼得堡当地时间<span class="number">18</span>:<span class="number">00</span>)，<span class="number">2018</span>年世界杯B组一场比赛在圣彼得堡球场展开角逐，伊朗<span class="number">1</span>比<span class="number">0</span>险胜摩洛哥，伊朗前锋阿兹蒙半场结束前错过单刀机会，鲍哈杜兹第<span class="number">95</span>分钟自摆乌</span><br><span class="line">龙。这是伊朗<span class="number">20</span>年来首度在世界杯决赛圈取胜。</span><br><span class="line"></span><br><span class="line">本届世界杯，既相继出现替补便进球，贴补梅开二度以及东道主</span><br></pre></td></tr></table></figure>
 <p>可以看出网页正文提取效果还不错，基本满足我们的要求，可以使用！</p>
 <blockquote>
 <p>注意：goose 还有另外一个 Python2 的版本：<code>Python-Goose</code>，使用方法和 goose3 基本一样。</p>
 </blockquote>
-<h1 id="文本转语音"><a href="#文本转语音" class="headerlink" title="文本转语音"></a>文本转语音</h1><p>文本转语音，<a href="http://ai.baidu.com/docs#/TTS-API/top" target="_blank" rel="noopener">百度</a>、<a href="https://helpcdn.aliyun.com/document_detail/52793.html?spm=a2c4g.11186623.6.577.CyUtzC" target="_blank" rel="noopener">阿里</a>、<a href="https://cloud.tencent.com/document/product/441/8217" target="_blank" rel="noopener">腾讯</a>、<a href="http://doc.xfyun.cn/rest_api/" target="_blank" rel="noopener">讯飞</a>等都有提供 REST API 接口，阿里和腾讯的申请相对时间较长，阿里的貌似还要收费，百度和讯飞的在线申请后即可使用，没办法，好的东西得来总是要曲折一些。其中百度的没有调用量的限制（其实默认是 200000 次/天），讯飞有每天 500 次的限制。</p>
+<h1><span id="文本转语音">文本转语音</span></h1><p>文本转语音，<a href="http://ai.baidu.com/docs#/TTS-API/top" target="_blank" rel="noopener">百度</a>、<a href="https://helpcdn.aliyun.com/document_detail/52793.html?spm=a2c4g.11186623.6.577.CyUtzC" target="_blank" rel="noopener">阿里</a>、<a href="https://cloud.tencent.com/document/product/441/8217" target="_blank" rel="noopener">腾讯</a>、<a href="http://doc.xfyun.cn/rest_api/" target="_blank" rel="noopener">讯飞</a>等都有提供 REST API 接口，阿里和腾讯的申请相对时间较长，阿里的貌似还要收费，百度和讯飞的在线申请后即可使用，没办法，好的东西得来总是要曲折一些。其中百度的没有调用量的限制（其实默认是 200000 次/天），讯飞有每天 500 次的限制。</p>
 <p>这里我们使用百度的 REST API 接口中的语言合成接口，一方面原因是百度的调用次数没有限制，另一方面，我大致看了下讯飞的接口文档，接口限制还是比较多的。还有就是百度提供了 REST API 的 Python 封装，使用也更方便。</p>
-<h2 id="baidu-aip-的使用"><a href="#baidu-aip-的使用" class="headerlink" title="baidu-aip 的使用"></a>baidu-aip 的使用</h2><p>百度提供了 Python SDK，使用 <code>pip install baidu-aip</code> 可以直接安装。接口的使用可以参考接口文档：<a href="http://ai.baidu.com/docs#/TTS-Online-Python-SDK/top" target="_blank" rel="noopener">http://ai.baidu.com/docs#/TTS-Online-Python-SDK/top</a>。</p>
+<h2><span id="baidu-aip-的使用">baidu-aip 的使用</span></h2><p>百度提供了 Python SDK，使用 <code>pip install baidu-aip</code> 可以直接安装。接口的使用可以参考接口文档：<a href="http://ai.baidu.com/docs#/TTS-Online-Python-SDK/top" target="_blank" rel="noopener">http://ai.baidu.com/docs#/TTS-Online-Python-SDK/top</a>。</p>
 <p>使用示例如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> aip <span class="keyword">import</span> AipSpeech</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">你的 APPID AK SK </span></span><br><span class="line"><span class="string">均可在服务控制台中的应用列表中查看。</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">APP_ID = <span class="string">'你的 App ID'</span></span><br><span class="line">API_KEY = <span class="string">'你的 Api Key'</span></span><br><span class="line">SECRET_KEY = <span class="string">'你的 Secret Key'</span></span><br><span class="line"></span><br><span class="line">client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">result  = client.synthesis(<span class="string">'你好，你在做什么'</span>, <span class="string">'zh'</span>, <span class="number">3</span>, &#123;</span><br><span class="line">    <span class="string">'vol'</span>: <span class="number">5</span>,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 识别正确返回语音二进制 错误则返回dict 参照下面错误码</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> isinstance(result, dict):</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'auido.mp3'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(result)</span><br></pre></td></tr></table></figure>
 <p>接口参数：</p>
@@ -613,24 +626,24 @@
 </tbody>
 </table>
 <p>接口对单次传入的文本进行了限制，合成文本长度必须小于1024字节，如果文本长度过长，就需要进行切割处理，采用多次请求的方式，分别转换成语音文件，最后再将多个语音文件合并成一个。</p>
-<h2 id="文本切割"><a href="#文本切割" class="headerlink" title="文本切割"></a>文本切割</h2><p>可以使用如下代码将文本分割成多个长度为 500 的文本列表</p>
+<h2><span id="文本切割">文本切割</span></h2><p>可以使用如下代码将文本分割成多个长度为 500 的文本列表</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将文本按 500 的长度分割成多个文本</span></span><br><span class="line">text_list = [text[i:i+<span class="number">500</span>] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(text), <span class="number">500</span>)]</span><br></pre></td></tr></table></figure>
-<h2 id="语言文件合并"><a href="#语言文件合并" class="headerlink" title="语言文件合并"></a>语言文件合并</h2><p>我们使用 <a href="https://github.com/jiaaro/pydub" target="_blank" rel="noopener">pydub</a> 来处理生成的音频文件。使用 <code>pip install pydub</code> 即可安装。</p>
+<h2><span id="语言文件合并">语言文件合并</span></h2><p>我们使用 <a href="https://github.com/jiaaro/pydub" target="_blank" rel="noopener">pydub</a> 来处理生成的音频文件。使用 <code>pip install pydub</code> 即可安装。</p>
 <p>另外还 Ubuntu 环境需要安装依赖 <code>sudo apt-get install libav-tools</code>，Windows 环境需要到 <a href="https://ffmpeg.zeranoe.com/builds/" target="_blank" rel="noopener">https://ffmpeg.zeranoe.com/builds/</a> 下载 <code>FFmpeg</code>，并将其配置到环境变量中。</p>
 <p>若还有问题，可以参考官网配置：<a href="https://github.com/jiaaro/pydub" target="_blank" rel="noopener">https://github.com/jiaaro/pydub</a>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 合并音频文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_voice</span><span class="params">(file_list)</span>:</span></span><br><span class="line">    voice_dict = &#123;&#125;</span><br><span class="line">    song = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">for</span> i,f <span class="keyword">in</span> enumerate(file_list):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            song = AudioSegment.from_file(f,<span class="string">"mp3"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 拼接音频文件</span></span><br><span class="line">            song += AudioSegment.from_file(f,<span class="string">"mp3"</span>)</span><br><span class="line">        <span class="comment"># 删除临时音频</span></span><br><span class="line">        os.unlink(f)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 导出合并后的音频文件，格式为MP3格式</span></span><br><span class="line">    file_name = str(uuid.uuid1()) + <span class="string">".mp3"</span></span><br><span class="line">    song.export(file_name, format=<span class="string">"mp3"</span>)</span><br><span class="line">    <span class="keyword">return</span> file_name</span><br></pre></td></tr></table></figure>
 <p>通过百度的接口，我们可以将文字转化成音频文件，下面的问题就是如何播放音频文件。</p>
-<h1 id="音频文件播放"><a href="#音频文件播放" class="headerlink" title="音频文件播放"></a>音频文件播放</h1><p>网上获取到 Python 播放 wav 文件的方式由好几种，包括 pyaudio、pygame、winsound、playsound。不过测试下来，只有 <a href="https://github.com/TaylorSMarks/playsound" target="_blank" rel="noopener">playsound</a> 成功。其他方式有兴趣的可以试下，有问题可以留言交流。</p>
+<h1><span id="音频文件播放">音频文件播放</span></h1><p>网上获取到 Python 播放 wav 文件的方式由好几种，包括 pyaudio、pygame、winsound、playsound。不过测试下来，只有 <a href="https://github.com/TaylorSMarks/playsound" target="_blank" rel="noopener">playsound</a> 成功。其他方式有兴趣的可以试下，有问题可以留言交流。</p>
 <p>使用 <code>pip install playsound</code> 安装后即可使用。</p>
 <p>使用也很简单：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> playsound <span class="keyword">import</span> playsound</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>playsound(<span class="string">'/path/to/a/sound/file/you/want/to/play.mp3'</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>说明：音频的播放需要在图形化页面下运行，因为命令行模式下，没有播放声音的出口。</p>
 </blockquote>
-<h1 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">from</span> pydub <span class="keyword">import</span> AudioSegment</span><br><span class="line"><span class="keyword">from</span> aip <span class="keyword">import</span> AipSpeech</span><br><span class="line"><span class="keyword">from</span> playsound <span class="keyword">import</span> playsound</span><br><span class="line"><span class="keyword">from</span> goose3 <span class="keyword">import</span> Goose</span><br><span class="line"><span class="keyword">from</span> goose3.text <span class="keyword">import</span> StopWordsChinese</span><br><span class="line"></span><br><span class="line"><span class="string">""" 你的 百度 APPID AK SK """</span></span><br><span class="line">APP_ID = <span class="string">'11407664'</span></span><br><span class="line">API_KEY = <span class="string">'GT69E8M6sgOcSnIGElrgXo1e'</span></span><br><span class="line">SECRET_KEY = <span class="string">'fOCr1mwnyGOEjZg93GoonaGqzqp0paIB'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 命令行输入参数处理</span></span><br><span class="line">parser = argparse.ArgumentParser()</span><br><span class="line">parser.add_argument(<span class="string">'-u'</span>, <span class="string">'--url'</span>, type=str, help=<span class="string">"input the target url"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取参数</span></span><br><span class="line">args = parser.parse_args()</span><br><span class="line">URL = args.url</span><br><span class="line"></span><br><span class="line">client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">text_to_voice</span><span class="params">(text)</span>:</span></span><br><span class="line">    file_name = str(uuid.uuid1()) + <span class="string">'.mp3'</span></span><br><span class="line">    result = client.synthesis(text, <span class="string">'zh'</span>, <span class="number">3</span>, &#123;</span><br><span class="line">        <span class="string">'vol'</span>: <span class="number">5</span>,</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 识别正确返回语音二进制 错误则返回 dict 参照下面错误码</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> isinstance(result, dict):</span><br><span class="line">        <span class="keyword">with</span> open(file_name, <span class="string">'wb+'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(result)</span><br><span class="line">    <span class="keyword">return</span> file_name</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_text</span><span class="params">(url)</span>:</span></span><br><span class="line">    g = Goose(&#123;<span class="string">'stopwords_class'</span>: StopWordsChinese&#125;)</span><br><span class="line">    article = g.extract(url=url)</span><br><span class="line">    <span class="keyword">return</span> article.cleaned_text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并音频文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_voice</span><span class="params">(file_list)</span>:</span></span><br><span class="line">    voice_dict = &#123;&#125;</span><br><span class="line">    song = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">for</span> i,f <span class="keyword">in</span> enumerate(file_list):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            song = AudioSegment.from_file(f,<span class="string">"mp3"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 拼接音频文件</span></span><br><span class="line">            song += AudioSegment.from_file(f,<span class="string">"mp3"</span>)</span><br><span class="line">        <span class="comment"># 删除临时音频</span></span><br><span class="line">        os.unlink(f)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 导出合并后的音频文件，格式为MP3格式</span></span><br><span class="line">    file_name = str(uuid.uuid1()) + <span class="string">".mp3"</span></span><br><span class="line">    song.export(file_name, format=<span class="string">"mp3"</span>)</span><br><span class="line">    <span class="keyword">return</span> file_name</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># url = "http://news.china.com/socialgd/10000169/20180616/32537640_all.html"</span></span><br><span class="line">    text = get_text(URL)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将文本按 500 的长度分割成多个文本</span></span><br><span class="line">    text_list = [text[i:i+<span class="number">500</span>] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(text), <span class="number">500</span>)]</span><br><span class="line">    file_list = []</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> text_list:</span><br><span class="line">        file_list.append(text_to_voice(t))</span><br><span class="line">    <span class="comment"># print(file_list)</span></span><br><span class="line">    final_voice = merge_voice(file_list)</span><br><span class="line">    print(final_voice)</span><br><span class="line">    <span class="comment"># 播放音频</span></span><br><span class="line">    playsound(final_voice)</span><br></pre></td></tr></table></figure>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python page2voice<span class="selector-class">.py</span> -u <span class="string">"https://so.gushiwen.org/shiwenv_c244fc77f6fb.aspx"</span></span><br></pre></td></tr></table></figure>
+<h1><span id="实现代码">实现代码</span></h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">from</span> pydub <span class="keyword">import</span> AudioSegment</span><br><span class="line"><span class="keyword">from</span> aip <span class="keyword">import</span> AipSpeech</span><br><span class="line"><span class="keyword">from</span> playsound <span class="keyword">import</span> playsound</span><br><span class="line"><span class="keyword">from</span> goose3 <span class="keyword">import</span> Goose</span><br><span class="line"><span class="keyword">from</span> goose3.text <span class="keyword">import</span> StopWordsChinese</span><br><span class="line"></span><br><span class="line"><span class="string">""" 你的 百度 APPID AK SK """</span></span><br><span class="line">APP_ID = <span class="string">'11407664'</span></span><br><span class="line">API_KEY = <span class="string">'GT69E8M6sgOcSnIGElrgXo1e'</span></span><br><span class="line">SECRET_KEY = <span class="string">'fOCr1mwnyGOEjZg93GoonaGqzqp0paIB'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 命令行输入参数处理</span></span><br><span class="line">parser = argparse.ArgumentParser()</span><br><span class="line">parser.add_argument(<span class="string">'-u'</span>, <span class="string">'--url'</span>, type=str, help=<span class="string">"input the target url"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取参数</span></span><br><span class="line">args = parser.parse_args()</span><br><span class="line">URL = args.url</span><br><span class="line"></span><br><span class="line">client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">text_to_voice</span><span class="params">(text)</span>:</span></span><br><span class="line">    file_name = str(uuid.uuid1()) + <span class="string">'.mp3'</span></span><br><span class="line">    result = client.synthesis(text, <span class="string">'zh'</span>, <span class="number">3</span>, &#123;</span><br><span class="line">        <span class="string">'vol'</span>: <span class="number">5</span>,</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 识别正确返回语音二进制 错误则返回 dict 参照下面错误码</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> isinstance(result, dict):</span><br><span class="line">        <span class="keyword">with</span> open(file_name, <span class="string">'wb+'</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(result)</span><br><span class="line">    <span class="keyword">return</span> file_name</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_text</span><span class="params">(url)</span>:</span></span><br><span class="line">    g = Goose(&#123;<span class="string">'stopwords_class'</span>: StopWordsChinese&#125;)</span><br><span class="line">    article = g.extract(url=url)</span><br><span class="line">    <span class="keyword">return</span> article.cleaned_text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并音频文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_voice</span><span class="params">(file_list)</span>:</span></span><br><span class="line">    voice_dict = &#123;&#125;</span><br><span class="line">    song = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">for</span> i,f <span class="keyword">in</span> enumerate(file_list):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            song = AudioSegment.from_file(f,<span class="string">"mp3"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 拼接音频文件</span></span><br><span class="line">            song += AudioSegment.from_file(f,<span class="string">"mp3"</span>)</span><br><span class="line">        <span class="comment"># 删除临时音频</span></span><br><span class="line">        os.unlink(f)</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># 导出合并后的音频文件，格式为MP3格式</span></span><br><span class="line">    file_name = str(uuid.uuid1()) + <span class="string">".mp3"</span></span><br><span class="line">    song.export(file_name, format=<span class="string">"mp3"</span>)</span><br><span class="line">    <span class="keyword">return</span> file_name</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># url = "http://news.china.com/socialgd/10000169/20180616/32537640_all.html"</span></span><br><span class="line">    text = get_text(URL)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将文本按 500 的长度分割成多个文本</span></span><br><span class="line">    text_list = [text[i:i+<span class="number">500</span>] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(text), <span class="number">500</span>)]</span><br><span class="line">    file_list = []</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> text_list:</span><br><span class="line">        file_list.append(text_to_voice(t))</span><br><span class="line">    <span class="comment"># print(file_list)</span></span><br><span class="line">    final_voice = merge_voice(file_list)</span><br><span class="line">    print(final_voice)</span><br><span class="line">    <span class="comment"># 播放音频</span></span><br><span class="line">    playsound(final_voice)</span><br></pre></td></tr></table></figure>
+<h2><span id="运行">运行</span></h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python page2voice<span class="selector-class">.py</span> -u <span class="string">"https://so.gushiwen.org/shiwenv_c244fc77f6fb.aspx"</span></span><br></pre></td></tr></table></figure>
 <p>运行后，代码就会自动解析网页并进行朗读啦。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此，网页到音频的转换就结束了，当然程序没有这么完美，比如中英文混合的网页解析和转换的结果就不怎么理想，但是纯中文的新闻页面效果还是不错的。</p>
+<h1><span id="总结">总结</span></h1><p>至此，网页到音频的转换就结束了，当然程序没有这么完美，比如中英文混合的网页解析和转换的结果就不怎么理想，但是纯中文的新闻页面效果还是不错的。</p>
 <p>源码已上传至 <a href="https://github.com/hoxis/to_voice/blob/master/page2voice.py" target="_blank" rel="noopener">GitHub</a>，欢迎取阅。</p>
 <hr>
 
@@ -644,7 +657,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -792,6 +805,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -804,6 +818,7 @@
 
 
 
+          
         </div>
         
           
@@ -852,7 +867,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -863,7 +878,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -874,7 +889,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -944,23 +959,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -982,7 +997,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网页正文识别"><span class="nav-text">网页正文识别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#readability"><span class="nav-text">readability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#goose3"><span class="nav-text">goose3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文本转语音"><span class="nav-text">文本转语音</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#baidu-aip-的使用"><span class="nav-text">baidu-aip 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本切割"><span class="nav-text">文本切割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语言文件合并"><span class="nav-text">语言文件合并</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#音频文件播放"><span class="nav-text">音频文件播放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现代码"><span class="nav-text">实现代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">网页正文识别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">readability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">goose3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">文本转语音</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">baidu-aip 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">文本切割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">语言文件合并</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">音频文件播放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实现代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1002,7 +1017,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1679,6 +1694,7 @@
   
 
   
+
 
 </body>
 </html>

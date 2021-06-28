@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -525,13 +538,13 @@
       
 
       
-        <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>现象很简单，数据库服务器被宕机，当然是在没有停数据库服务的情况下。</p>
+        <h1><span id="现象">现象</span></h1><p>现象很简单，数据库服务器被宕机，当然是在没有停数据库服务的情况下。</p>
 <p>机器重启后，试图重启MySQL服务，无果，查看错误日志：</p>
 <a id="more"></a>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">170920  0:30:17  InnoDB: Assertion failure <span class="keyword">in</span> thread 140107687212800 <span class="keyword">in</span> file /<span class="built_in">export</span>/home/pb2/build/sb_0-2629600-1291399482.5/mysql-5.5.10/storage/innobase/include/fut0lst.ic line 83</span><br><span class="line">InnoDB: Failing assertion: addr.page == FIL_NULL || addr.boffset &gt;= FIL_PAGE_DATA</span><br><span class="line">InnoDB: We intentionally generate a memory <span class="built_in">trap</span>.</span><br><span class="line">InnoDB: Submit a detailed bug report to http://bugs.mysql.com.</span><br><span class="line">InnoDB: If you get repeated assertion failures or crashes, even</span><br><span class="line">InnoDB: immediately after the mysqld startup, there may be</span><br><span class="line">InnoDB: corruption <span class="keyword">in</span> the InnoDB tablespace. Please refer to</span><br><span class="line">InnoDB: http://dev.mysql.com/doc/refman/5.1/en/forcing-recovery.html</span><br><span class="line">InnoDB: about forcing recovery.</span><br><span class="line">170920  0:30:17 - mysqld got signal 6 ;</span><br><span class="line">This could be because you hit a bug. It is also possible that this binary</span><br><span class="line">or one of the libraries it was linked against is corrupt, improperly built,</span><br><span class="line">or misconfigured. This error can also be caused by malfunctioning hardware.</span><br><span class="line">We will try our best to scrape up some info that will hopefully <span class="built_in">help</span> diagnose</span><br><span class="line">the problem, but since we have already crashed, something is definitely wrong</span><br><span class="line">and this may fail.</span><br><span class="line"></span><br><span class="line">key_buffer_size=16777216</span><br><span class="line">read_buffer_size=262144</span><br><span class="line">max_used_connections=0</span><br><span class="line">max_threads=500</span><br><span class="line">thread_count=0</span><br><span class="line">connection_count=0</span><br><span class="line">It is possible that mysqld could use up to </span><br><span class="line">key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 406067 K</span><br><span class="line">bytes of memory</span><br><span class="line">Hope that<span class="string">'s ok; if not, decrease some variables in the equation.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">thd: 0x0</span></span><br><span class="line"><span class="string">Attempting backtrace. You can use the following information to find out</span></span><br><span class="line"><span class="string">where mysqld died. If you see no messages after this, something went</span></span><br><span class="line"><span class="string">terribly wrong...</span></span><br><span class="line"><span class="string">stack_bottom = (nil) thread_stack 0x40000</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld(my_print_stacktrace+0x39)[0x916839]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld(handle_segfault+0x359)[0x4fc0d9]</span></span><br><span class="line"><span class="string">/lib64/libpthread.so.0(+0xf4a0)[0x7f6d5ca9f4a0]</span></span><br><span class="line"><span class="string">/lib64/libc.so.6(gsignal+0x35)[0x7f6d5be4a885]</span></span><br><span class="line"><span class="string">/lib64/libc.so.6(abort+0x175)[0x7f6d5be4c065]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x7d5601]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x7ca012]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x7ca357]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x7cce1a]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x7b89e8]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x78d97d]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld(_Z24ha_initialize_handlertonP13st_plugin_int+0x48)[0x6683a8]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x57ddba]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld(_Z11plugin_initPiPPci+0xb5d)[0x581cbd]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x50212c]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld(_Z11mysqld_mainiPPc+0x3c2)[0x504742]</span></span><br><span class="line"><span class="string">/lib64/libc.so.6(__libc_start_main+0xfd)[0x7f6d5be36cdd]</span></span><br><span class="line"><span class="string">/usr/local/mysql/bin/mysqld[0x4fa3fa]</span></span><br><span class="line"><span class="string">The manual page at http://dev.mysql.com/doc/mysql/en/crashing.html contains</span></span><br><span class="line"><span class="string">information that should help you find out what is causing the crash.</span></span><br><span class="line"><span class="string">170920 00:30:17 mysqld_safe mysqld from pid file /usr/local/mysql/data/localhost.localdomain.pid ended</span></span><br><span class="line"><span class="string">170920 01:04:55 mysqld_safe Starting mysqld daemon with databases from /usr/local/mysql/data</span></span><br><span class="line"><span class="string">170920  1:04:55 [Warning] Ignoring user change to '</span>ser=mysql<span class="string">' because the user was set to '</span>mysql<span class="string">' earlier on the command line</span></span><br></pre></td></tr></table></figure>
-<h1 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h1><p>刚开始的重点放在了这段日志上：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">It is possible that mysqld could use up to </span><br><span class="line">key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 406067 K</span><br><span class="line">bytes of memory</span><br><span class="line">Hope that<span class="string">'s ok; if not, decrease some variables in the equation.</span></span><br></pre></td></tr></table></figure></p>
+<h1><span id="解决过程">解决过程</span></h1><p>刚开始的重点放在了这段日志上：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">It is possible that mysqld could use up to </span><br><span class="line">key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 406067 K</span><br><span class="line">bytes of memory</span><br><span class="line">Hope that<span class="string">'s ok; if not, decrease some variables in the equation.</span></span><br></pre></td></tr></table></figure></p>
 <p>以为是MySQL的一些参数设置有问题，结合Google结果，对<code>/etc/my.cnf</code>进行了修改，仍无果。问题解决之后想来，因为之前MySQL是运行正常的，因此配置一般不会有问题，当时也是“病急乱投医”了。</p>
-<h2 id="1-Forcing-InnoDB-Recovery"><a href="#1-Forcing-InnoDB-Recovery" class="headerlink" title="1. Forcing InnoDB Recovery"></a>1. Forcing InnoDB Recovery</h2><p>设置恢复模式启动mysql，在 /etc/my.cnf中添加如下配置：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">innodb_force_recovery = 1</span><br></pre></td></tr></table></figure></p>
+<h2><span id="1-forcing-innodb-recovery">1. Forcing InnoDB Recovery</span></h2><p>设置恢复模式启动mysql，在 /etc/my.cnf中添加如下配置：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">innodb_force_recovery = 1</span><br></pre></td></tr></table></figure></p>
 <p><strong>其中后面的值设置为1、如果1不能恢复，再逐步增加为2/3/4等。直到能启动mysql为止！！！</strong></p>
 <p>Forcing InnoDB Recovery提供了6个等级的修复模式，需要注意的是值大于3的时候，会对数据文件造成永久的破坏，不可恢复。六个等级的介绍摘抄如下：</p>
 <ol>
@@ -542,12 +555,12 @@
 <li><strong>SRV_FORCE_NO_UNDO_LOG_SCAN</strong><br>Does not look at undo logs when starting the database: InnoDB treats even incomplete transactions as committed. This value can permanently corrupt data files.</li>
 <li><strong>SRV_FORCE_NO_LOG_REDO</strong><br>Does not do the redo log roll-forward in connection with recovery. This value can permanently corrupt data files. Leaves database pages in an obsolete state, which in turn may introduce more corruption into B-trees and other database structures.</li>
 </ol>
-<h2 id="恢复模式下启动MySQL"><a href="#恢复模式下启动MySQL" class="headerlink" title="恢复模式下启动MySQL"></a>恢复模式下启动MySQL</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysqld_safe -user=mysql&amp;</span><br></pre></td></tr></table></figure>
+<h2><span id="恢复模式下启动mysql">恢复模式下启动MySQL</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql/bin/mysqld_safe -user=mysql&amp;</span><br></pre></td></tr></table></figure>
 <p>重启成功后，测试数据库是否可以正常连接：<code>mysql -uroot -p123456</code></p>
-<h2 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h2><p>恢复模式数据库是只读的，当然和恢复级别相关。<br>现在需要做的是将数据库数据备份，然后清除之前的错误数据，最后再从备份数据中进行恢复。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123456 <span class="comment">--all-databases  &gt; all_mysql_backup.sql</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="原数据清理或备份"><a href="#原数据清理或备份" class="headerlink" title="原数据清理或备份"></a>原数据清理或备份</h2><p>清理数据前需要先将数据库服务停止。<br>将数据库的data目录进行备份，相当于恢复到数据库刚安装完成时的状态。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir data-bak</span><br><span class="line"><span class="built_in">cd</span> data</span><br><span class="line">mv * ../data-bak/</span><br></pre></td></tr></table></figure></p>
-<h2 id="数据恢复"><a href="#数据恢复" class="headerlink" title="数据恢复"></a>数据恢复</h2><h3 id="数据库初始化"><a href="#数据库初始化" class="headerlink" title="数据库初始化"></a>数据库初始化</h3><p>因为所有的数据都已删除掉，因此需要进行MySQL的初始化。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql											</span><br><span class="line">./scripts/mysql_install_db --user=mysql&amp;</span><br></pre></td></tr></table></figure></p>
-<h3 id="备份数据恢复"><a href="#备份数据恢复" class="headerlink" title="备份数据恢复"></a>备份数据恢复</h3><p>登录MySQL：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p123456</span><br></pre></td></tr></table></figure></p>
+<h2><span id="数据备份">数据备份</span></h2><p>恢复模式数据库是只读的，当然和恢复级别相关。<br>现在需要做的是将数据库数据备份，然后清除之前的错误数据，最后再从备份数据中进行恢复。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123456 <span class="comment">--all-databases  &gt; all_mysql_backup.sql</span></span><br></pre></td></tr></table></figure></p>
+<h2><span id="原数据清理或备份">原数据清理或备份</span></h2><p>清理数据前需要先将数据库服务停止。<br>将数据库的data目录进行备份，相当于恢复到数据库刚安装完成时的状态。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir data-bak</span><br><span class="line"><span class="built_in">cd</span> data</span><br><span class="line">mv * ../data-bak/</span><br></pre></td></tr></table></figure></p>
+<h2><span id="数据恢复">数据恢复</span></h2><h3><span id="数据库初始化">数据库初始化</span></h3><p>因为所有的数据都已删除掉，因此需要进行MySQL的初始化。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql											</span><br><span class="line">./scripts/mysql_install_db --user=mysql&amp;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="备份数据恢复">备份数据恢复</span></h3><p>登录MySQL：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p123456</span><br></pre></td></tr></table></figure></p>
 <p>登录后，在数据库中执行下列语句，即可恢复数据：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /app/all_mysql_backup.sql</span><br></pre></td></tr></table></figure></p>
 <p>恢复后对数据进行检查。</p>
 
@@ -561,7 +574,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -709,6 +722,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -721,6 +735,7 @@
 
 
 
+          
         </div>
         
           
@@ -769,7 +784,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -780,7 +795,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -791,7 +806,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -861,23 +876,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -899,7 +914,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#现象"><span class="nav-text">现象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决过程"><span class="nav-text">解决过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Forcing-InnoDB-Recovery"><span class="nav-text">1. Forcing InnoDB Recovery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#恢复模式下启动MySQL"><span class="nav-text">恢复模式下启动MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据备份"><span class="nav-text">数据备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原数据清理或备份"><span class="nav-text">原数据清理或备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据恢复"><span class="nav-text">数据恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库初始化"><span class="nav-text">数据库初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#备份数据恢复"><span class="nav-text">备份数据恢复</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">现象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">解决过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">1. Forcing InnoDB Recovery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">恢复模式下启动MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">数据备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">原数据清理或备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">数据恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">数据库初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">备份数据恢复</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -919,7 +934,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1596,6 +1611,7 @@
   
 
   
+
 
 </body>
 </html>

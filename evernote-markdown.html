@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -223,8 +223,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -333,6 +335,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -381,6 +393,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -541,17 +554,17 @@
       
         <p>也许是我后知后觉了，到今天我才发现印象笔记（Windows 版）支持 Markdown 了。</p>
 <a id="more"></a>
-<h1 id="为什么选择印象？"><a href="#为什么选择印象？" class="headerlink" title="为什么选择印象？"></a><strong>为什么选择印象？</strong></h1><p>我一直是大象的拥趸，翻了下笔记列表，发现自己从 14 年开始使用的大象，也许更早。</p>
+<h1><span id="为什么选择印象"><strong>为什么选择印象？</strong></span></h1><p>我一直是大象的拥趸，翻了下笔记列表，发现自己从 14 年开始使用的大象，也许更早。</p>
 <p>期间，我试用过好多其他的云笔记，为知、有道、麦库、彩云、OneNote 等等。</p>
 <p>其中，为知、有道用的比较多，那就来说说它们俩。</p>
-<h2 id="1、受不了有道的UI"><a href="#1、受不了有道的UI" class="headerlink" title="1、受不了有道的UI"></a>1、受不了有道的UI</h2><p>虽然有道云笔记的功能越来越丰富，迭代的速度也是大象不能比的。</p>
+<h2><span id="1-受不了有道的ui">1、受不了有道的UI</span></h2><p>虽然有道云笔记的功能越来越丰富，迭代的速度也是大象不能比的。</p>
 <p>有道在 16 年就支持 Markdown 了，当然我也去使用了，有一段时间我以为我会在有道留下来。</p>
 <p>然而，有道的 UI（Windows版）是我不能忍的！</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1546824611203.png" alt="Windows版有道"></p>
 <p>各位看官，看下有道的文件夹图标，能忍吗？反正我不能忍。</p>
 <p>还有广告，有道差这点钱吗，非要在这么显眼的地方放个广告吗？</p>
 <p>对，就因为这两个也许你能忍的小缺陷，我逃离了有道。</p>
-<h2 id="2、不再是「云笔记」的为知"><a href="#2、不再是「云笔记」的为知" class="headerlink" title="2、不再是「云笔记」的为知"></a>2、不再是「云笔记」的为知</h2><p>slogan：<strong>大脑是用来思考的，记录的事交给我们</strong></p>
+<h2><span id="2-不再是云笔记的为知">2、不再是「云笔记」的为知</span></h2><p>slogan：<strong>大脑是用来思考的，记录的事交给我们</strong></p>
 <p>不得不说，为知的 slogan 是最符合云笔记的定位的。</p>
 <p>有一段时间，为知成了我的主力云笔记。</p>
 <p>它基本上满足了我所有的需求：Markdown、剪藏、多层目录、笔记快捷方式等等。</p>
@@ -563,20 +576,20 @@
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1546824681627.png" alt="你好"></p>
 <p>意思就是，免费版的不再支持云端同步。</p>
 <p>我……</p>
-<h2 id="3、又爱又恨的印象"><a href="#3、又爱又恨的印象" class="headerlink" title="3、又爱又恨的印象"></a>3、又爱又恨的印象</h2><p>slogan：<strong>使用印象笔记 共同成就更多</strong></p>
+<h2><span id="3-又爱又恨的印象">3、又爱又恨的印象</span></h2><p>slogan：<strong>使用印象笔记 共同成就更多</strong></p>
 <p>我觉得大象的 slogan 明显没有为知的好了。</p>
 <p>现在印象是我的主力了，印象笔记的基本功能可以满足日常使用，整体 UI 是这几个里面看着最舒服的一个。</p>
 <p>另外，印象的一大特色就是关联了很多外部应用，EverMemo、clippings.io 等等，这些小工具都支持导出到印象。</p>
 <p>我一直期望值大象什么时候能够支持 Markdown，这样我就不用再去纠结，前端时间发现 Mac 版的已经支持了，我这个苦逼的 Windows 版被暂时忽略，桑心…</p>
 <p>前几天，在折腾时，设置里无意中发现了可以勾选体验 Beta 版本，我就想也许 Beta 版本有什么惊喜等着我。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1546824697110.png" alt="开启beta"></p>
-<h1 id="久等了，Markdown"><a href="#久等了，Markdown" class="headerlink" title="久等了，Markdown"></a><strong>久等了，Markdown</strong></h1><p>今天，我例行「检查更新」时，意外的发现有了新版本，更新日志了赫然写着支持 Markdown，毫不犹豫，我点击了<strong>更新</strong>！</p>
+<h1><span id="久等了markdown"><strong>久等了，Markdown</strong></span></h1><p>今天，我例行「检查更新」时，意外的发现有了新版本，更新日志了赫然写着支持 Markdown，毫不犹豫，我点击了<strong>更新</strong>！</p>
 <p>更新完成：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1546824720287.png" alt="Markdown图标"></p>
 <blockquote>
 <p>P.S. 这个新建 Markdown 的图标有必要弄这么大么？</p>
 </blockquote>
-<h2 id="1、初体验"><a href="#1、初体验" class="headerlink" title="1、初体验"></a>1、初体验</h2><p>新建一个 Markdown 笔记：</p>
+<h2><span id="1-初体验">1、初体验</span></h2><p>新建一个 Markdown 笔记：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1546824748706.png" alt="新建"></p>
 <p>这个编辑界面的配置和功能和有道的很相似，编辑栏都会分为左右两侧，左侧用于编辑，右侧用来预览。</p>
 <p>再来看一下它的工具栏（动图）：</p>
@@ -593,7 +606,7 @@
 <blockquote>
 <p>我连什么是甘特图都不知道……</p>
 </blockquote>
-<h2 id="2、效果演示"><a href="#2、效果演示" class="headerlink" title="2、效果演示"></a>2、效果演示</h2><p>下面我就挑几个效果演示一下。</p>
+<h2><span id="2-效果演示">2、效果演示</span></h2><p>下面我就挑几个效果演示一下。</p>
 <p><strong>代码</strong></p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1546824827845.png" alt="代码显示效果"></p>
 <p>一般，也就能看的阶段。</p>
@@ -636,7 +649,7 @@
 <li><p>@h=100w=200</p>
 </li>
 </ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>不管怎样，大象对于 Markdown 的支持还是很不错的，坚定了我留在大象的信心。</p>
+<h1><span id="总结"><strong>总结</strong></span></h1><p>不管怎样，大象对于 Markdown 的支持还是很不错的，坚定了我留在大象的信心。</p>
 <p>但是我 iOS 版本还是只支持查看，不支持编辑，不知道后续是否会进行支持。</p>
 <p>另外，笔记通过链接分享的功能什么时候会有？</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/elephant.gif" alt title="elephant"></p>
@@ -651,7 +664,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -797,6 +810,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -809,6 +823,7 @@
 
 
 
+          
         </div>
         
           
@@ -857,7 +872,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -868,7 +883,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -879,7 +894,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -949,23 +964,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -987,7 +1002,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么选择印象？"><span class="nav-text">为什么选择印象？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、受不了有道的UI"><span class="nav-text">1、受不了有道的UI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、不再是「云笔记」的为知"><span class="nav-text">2、不再是「云笔记」的为知</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、又爱又恨的印象"><span class="nav-text">3、又爱又恨的印象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#久等了，Markdown"><span class="nav-text">久等了，Markdown</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、初体验"><span class="nav-text">1、初体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、效果演示"><span class="nav-text">2、效果演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">为什么选择印象？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">1、受不了有道的UI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">2、不再是「云笔记」的为知</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">3、又爱又恨的印象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">久等了，Markdown</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">1、初体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">2、效果演示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1007,7 +1022,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1684,6 +1699,7 @@
   
 
   
+
 
 </body>
 </html>

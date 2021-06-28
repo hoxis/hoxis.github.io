@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -215,8 +215,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -325,6 +327,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -373,6 +385,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -542,7 +555,7 @@
 <a id="more"></a>
 <p>本文脑图：<a href="https://mubu.com/doc/hyPYP01r-G" target="_blank" rel="noopener">https://mubu.com/doc/hyPYP01r-G</a></p>
 <p>话不多说，我们先手动实验一把。</p>
-<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>我们建个表先：</p>
+<h1><span id="实验">实验</span></h1><p>我们建个表先：</p>
 <figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">CREATE</span> TABLE <span class="symbol">`t`</span> (</span><br><span class="line">  <span class="symbol">`id`</span> int(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="symbol">`k`</span> int(<span class="number">11</span>) DEFAULT <span class="literal">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`id`</span>)</span><br><span class="line">) ENGINE=InnoDB;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t(id, k) <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>),(<span class="number">2</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
 <p>然后做如下操作：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545286973820.png" alt="实验1"></p>
@@ -555,12 +568,12 @@
 <li>B 读到的值是 3</li>
 </ul>
 <p>看上去 B 事务违反了可重复读隔离级别的概念，为啥呢？</p>
-<h1 id="原因探索"><a href="#原因探索" class="headerlink" title="原因探索"></a>原因探索</h1><p>之前在学习事务隔离级别时，我们接触到了一个「视图」的概念，这个视图和我们平常接触的 view 视图并不一样。</p>
-<h2 id="MySQL-中的两个「视图」的区别"><a href="#MySQL-中的两个「视图」的区别" class="headerlink" title="MySQL 中的两个「视图」的区别"></a>MySQL 中的两个「视图」的区别</h2><p>一、常说的视图：view</p>
+<h1><span id="原因探索">原因探索</span></h1><p>之前在学习事务隔离级别时，我们接触到了一个「视图」的概念，这个视图和我们平常接触的 view 视图并不一样。</p>
+<h2><span id="mysql-中的两个视图的区别">MySQL 中的两个「视图」的区别</span></h2><p>一、常说的视图：view</p>
 <p>① 是用查询语句定义的<strong>虚拟表</strong>；<br>② 在调用时执行查询，并生成结果；<br>③ 创建方法：<code>create view...</code>；</p>
 <p>二、MVCC 中的一致性视图（consistent read view）</p>
 <p>① 用于<strong>支持隔离级别的实现</strong>：RC（Read Committed，读提交）和 RR（Repeatable Read，可重复读）<br>② 没有物理结构，作用是事务执行期间<strong>用来定义我能看到什么数据</strong>；<br>③ 其中，可重复读：每个事务启动是都会重建读视图，整个事务存在期间都用这个视图；</p>
-<h2 id="快照是什么"><a href="#快照是什么" class="headerlink" title="快照是什么"></a>快照是什么</h2><p>很多文章都会说可重复读隔离级别下，<strong>事务启动时会生成整个库的快照</strong>。</p>
+<h2><span id="快照是什么">快照是什么</span></h2><p>很多文章都会说可重复读隔离级别下，<strong>事务启动时会生成整个库的快照</strong>。</p>
 <p>那么这个快照是什么？</p>
 <p>我们要先了解下<strong>数据的版本</strong>问题：</p>
 <p>其实每个事务都有一个标识 id：trx_id，是在事务启动时向存储引擎的事务系统申请的，并且是<strong>按照申请顺序严格递增</strong>的。</p>
@@ -569,7 +582,7 @@
 <p>如图所示，一行数据被多次事务修改时，这行数据会存储多个版本，如 V1、V2、V3 等。</p>
 <p>每个版本会记录了关联的事务 id，这里的版本并不是物理上存在的，需要根据<strong>版本号+undo log</strong> 来获取。</p>
 <p>其实，快照就是版本号的集合。</p>
-<h2 id="事务启动时发生了什么"><a href="#事务启动时发生了什么" class="headerlink" title="事务启动时发生了什么"></a>事务启动时发生了什么</h2><p>可重复读隔离级别下，事务的属性是这样的：可以看到所有已提交的更新，所有未提交的更新都不能看到。对于同一行数据，以最新一次的事务提交为数据基准。</p>
+<h2><span id="事务启动时发生了什么">事务启动时发生了什么</span></h2><p>可重复读隔离级别下，事务的属性是这样的：可以看到所有已提交的更新，所有未提交的更新都不能看到。对于同一行数据，以最新一次的事务提交为数据基准。</p>
 <p>另外，事务启动后，很可能存在其他<strong>活跃事务（启动且未提交）</strong>，我们把这些活跃事务的 id 组成一个数组，并且记数组中 trx_id 最小的记为<strong>低水位</strong>，trx_id 最大的记为<strong>高水位</strong>。</p>
 <p>因此，所有的事务 id 可以分成下图这种：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545295850393.png" alt="事务 id"></p>
@@ -587,7 +600,7 @@
 <p>2、其中<strong>已提交（可见）</strong>：[1, 2, 3, 6, 7]，<strong>未开始的（不可见）</strong>：[10, 11, 12]，当前 id：[8]</p>
 <p>3、那么活跃 id 数组（不可见）：[4, 5, 9]，高水位：9，低水位：4；</p>
 <p>4、高低水位之间既有<strong>已提交但不在数组中</strong>的（可见）：[6, 7]，又有<strong>活跃的</strong>（不可见）：[4, 5, 9]</p>
-<h1 id="实验复盘"><a href="#实验复盘" class="headerlink" title="实验复盘"></a>实验复盘</h1><p>按照上面的数组和水位的概念，我们来捋一下文章开头的实验。</p>
+<h1><span id="实验复盘">实验复盘</span></h1><p>按照上面的数组和水位的概念，我们来捋一下文章开头的实验。</p>
 <p>首先，假设事务 A 的 id 为 10，启动后，A 的活跃数组就是 [10]；</p>
 <p>接下来是事务 B，id 为 11，启动后，B 的活跃数组是 [10, 11]；</p>
 <p>最后是 C，id 为 12，启动后，活跃数组是 [10, 11, 12]；</p>
@@ -596,14 +609,14 @@
 <p>接下来 B 来处理，它会将 k 的值更新为 3，此时就有三个版本的数据：（事务id-9, 1），（事务id-12, 2）,（事务id-11, 3）</p>
 <p>最后 A 事务，由于 A 启动时，B、C 事务都未提交，所以它们的数据更新对于 A 来说都是看不到的，因此 A 获取到的结果是 1。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545299018249.png" alt="实验复盘图"></p>
-<h1 id="更新的逻辑"><a href="#更新的逻辑" class="headerlink" title="更新的逻辑"></a>更新的逻辑</h1><p>不知道你注意到没有，上面的复盘中，有一个重要的点，我们没有说。</p>
+<h1><span id="更新的逻辑">更新的逻辑</span></h1><p>不知道你注意到没有，上面的复盘中，有一个重要的点，我们没有说。</p>
 <p>按照可重复读的逻辑，B 执行更新时，看到的 k 的值应该是 1，执行更新的话，就直接造成了 C 操作中的数据丢失。</p>
 <p>但是事务 B 在更新时，为什么读取到了事务 C 更新的数据？</p>
 <p>这里有一条规则，就是更新数据都是<strong>先读后写</strong>的，而这个读，只能<strong>读当前的最新值</strong>，称为<strong>当前读</strong>（current read），</p>
 <p>即，更新数据时<strong>总是读取已经提交完成的最新版本</strong>。</p>
 <p>另外，除了 update 语句外，select 语句如果加锁，也是当前读。</p>
 <figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">读锁（S 锁，共享锁）：mysql&gt; <span class="keyword">select</span> k <span class="keyword">from</span> t <span class="keyword">where</span> id=<span class="number">1</span> lock <span class="keyword">in</span> share mode;</span><br><span class="line">写锁（X 锁，排他锁）：mysql&gt; <span class="keyword">select</span> k <span class="keyword">from</span> t <span class="keyword">where</span> id=<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>可重复读的能力是怎么实现的？</strong></p>
+<h1><span id="总结">总结</span></h1><p><strong>可重复读的能力是怎么实现的？</strong></p>
 <p>把握以下几点：</p>
 <p>1、可重复读的核心就是<strong>一致性读</strong>（consistent read）；</p>
 <p>2、而事务更新数据的时候，只能用<strong>当前读</strong>。</p>
@@ -613,7 +626,7 @@
 <p>2、<strong>当前读</strong>，保证了当前事务修改数据时，不会丢失其他事务已经提交的修改。</p>
 <p>3、<strong>两阶段锁协议</strong>，保证了当前事务修改数据时，不会丢失其他事务未提交的修改。</p>
 <p>4、RR 是通过事务启动时创建一致性识图来实现，RC 是语句执行时创建一致性识图来实现</p>
-<h1 id="课后题目"><a href="#课后题目" class="headerlink" title="课后题目"></a>课后题目</h1><p>我们用下面的语句初始化一个表：</p>
+<h1><span id="课后题目">课后题目</span></h1><p>我们用下面的语句初始化一个表：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE `t` (</span><br><span class="line">  `id` int(11) NOT NULL,</span><br><span class="line">  `c` int(11) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t(<span class="keyword">id</span>, c) <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>),(<span class="number">2</span>,<span class="number">2</span>),(<span class="number">3</span>,<span class="number">3</span>),(<span class="number">4</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
 <p>你是否可以尝试制造出下面的「诡异」现象？</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545367367146.png" alt="诡异"></p>
@@ -692,7 +705,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -840,6 +853,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -852,6 +866,7 @@
 
 
 
+          
         </div>
         
           
@@ -900,7 +915,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -911,7 +926,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -922,7 +937,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -992,23 +1007,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1030,7 +1045,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-text">实验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因探索"><span class="nav-text">原因探索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-中的两个「视图」的区别"><span class="nav-text">MySQL 中的两个「视图」的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快照是什么"><span class="nav-text">快照是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务启动时发生了什么"><span class="nav-text">事务启动时发生了什么</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验复盘"><span class="nav-text">实验复盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新的逻辑"><span class="nav-text">更新的逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题目"><span class="nav-text">课后题目</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">原因探索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">MySQL 中的两个「视图」的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">快照是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">事务启动时发生了什么</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实验复盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">更新的逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">课后题目</span></a></li></ol></div>
             
 
           </div>
@@ -1050,7 +1065,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1727,6 +1742,7 @@
   
 
   
+
 
 </body>
 </html>

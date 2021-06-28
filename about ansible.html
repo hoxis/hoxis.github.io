@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -222,8 +222,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -332,6 +334,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -380,6 +392,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -544,8 +557,8 @@
       
         <p>本文主要记录本人学习ansible中的一些知识点，对ansible的一些模块进行一些简单的介绍。</p>
 <a id="more"></a>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br><span class="line">yum -y install ansible</span><br></pre></td></tr></table></figure>
-<h1 id="Ansible基础"><a href="#Ansible基础" class="headerlink" title="Ansible基础"></a>Ansible基础</h1><h2 id="Ansible架构图"><a href="#Ansible架构图" class="headerlink" title="Ansible架构图"></a>Ansible架构图</h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515564257351.jpg" alt="Ansible架构图"></p>
+<h1><span id="安装">安装</span></h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br><span class="line">yum -y install ansible</span><br></pre></td></tr></table></figure>
+<h1><span id="ansible基础">Ansible基础</span></h1><h2><span id="ansible架构图">Ansible架构图</span></h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515564257351.jpg" alt="Ansible架构图"></p>
 <p>Ansible核心组件说明</p>
 <ul>
 <li>Ansible：Ansible的核心程序</li>
@@ -555,24 +568,24 @@
 <li>Custom Modules：自定义模块，完成Ansible核心模块无法完成的功能，此模块支持任何语言编写。</li>
 <li>Connection Plugins：连接插件，Ansible和Host通信使用</li>
 </ul>
-<h2 id="Ansible执行过程"><a href="#Ansible执行过程" class="headerlink" title="Ansible执行过程"></a>Ansible执行过程</h2><p>暖色调的代表已经模块化<br><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515564367657.jpg" alt="Ansible执行过程"></p>
-<h2 id="清单文件"><a href="#清单文件" class="headerlink" title="清单文件"></a>清单文件</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[servers]</span></span><br><span class="line">172<span class="selector-class">.20</span><span class="selector-class">.21</span><span class="selector-class">.120</span></span><br><span class="line">172<span class="selector-class">.20</span><span class="selector-class">.21</span><span class="selector-class">.121</span></span><br><span class="line">172<span class="selector-class">.20</span><span class="selector-class">.21</span><span class="selector-class">.123</span></span><br></pre></td></tr></table></figure>
+<h2><span id="ansible执行过程">Ansible执行过程</span></h2><p>暖色调的代表已经模块化<br><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515564367657.jpg" alt="Ansible执行过程"></p>
+<h2><span id="清单文件">清单文件</span></h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[servers]</span></span><br><span class="line">172<span class="selector-class">.20</span><span class="selector-class">.21</span><span class="selector-class">.120</span></span><br><span class="line">172<span class="selector-class">.20</span><span class="selector-class">.21</span><span class="selector-class">.121</span></span><br><span class="line">172<span class="selector-class">.20</span><span class="selector-class">.21</span><span class="selector-class">.123</span></span><br></pre></td></tr></table></figure>
 <p>默认清单文件是<code>/etc/ansible/hosts</code>。</p>
 <p>同时也可以在运行时通过<code>-i</code>参数来指定清单文件。</p>
-<h2 id="测试主机连通性"><a href="#测试主机连通性" class="headerlink" title="测试主机连通性"></a>测试主机连通性</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible www.baidu.com -m ping</span><br></pre></td></tr></table></figure>
+<h2><span id="测试主机连通性">测试主机连通性</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible www.baidu.com -m ping</span><br></pre></td></tr></table></figure>
 <p>发现执行结果异常，这是因为<code>ansible</code>只纳管定义在<strong>清单文件</strong>中的主机。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1514178939675.jpg" alt="需要清单文件"></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible servers -m ping</span><br><span class="line">ansible servers -m ping -o</span><br></pre></td></tr></table></figure>
 <p>通过<code>-o</code>参数，可以让结果在一行中进行显示。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1514179663946.jpg" alt="测试主机连通性"></p>
-<h2 id="执行远程指令"><a href="#执行远程指令" class="headerlink" title="执行远程指令"></a>执行远程指令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible servers -m shell -a <span class="string">'uptime'</span></span><br><span class="line">ansible servers -m <span class="built_in">command</span> -a <span class="string">'uptime'</span></span><br></pre></td></tr></table></figure>
+<h2><span id="执行远程指令">执行远程指令</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible servers -m shell -a <span class="string">'uptime'</span></span><br><span class="line">ansible servers -m <span class="built_in">command</span> -a <span class="string">'uptime'</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1514179908403.jpg" alt="执行远程指令"></p>
-<h2 id="远程主机的yum管理"><a href="#远程主机的yum管理" class="headerlink" title="远程主机的yum管理"></a>远程主机的yum管理</h2><h3 id="确认软件是否安装"><a href="#确认软件是否安装" class="headerlink" title="确认软件是否安装"></a>确认软件是否安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m shell -a 'rpm -qa|grep httpd'</span></span><br><span class="line"> [WARNING]: Consider using yum, dnf or zypper module rather than running rpm</span><br><span class="line"></span><br><span class="line">172.20.21.121 | FAILED | rc=1 &gt;&gt;</span><br><span class="line">non-zero <span class="built_in">return</span> code</span><br></pre></td></tr></table></figure>
-<h3 id="安装httpd"><a href="#安装httpd" class="headerlink" title="安装httpd"></a>安装httpd</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m yum -a 'name=httpd state=latest'</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"Repository base is listed more than once in the configuration\nRepository updates is listed more than once in the configuration\nRepository extras is listed more than once in the configuration\nRepository centosplus is listed more than once in the configuration\nThere are unfinished transactions remaining. You might consider running yum-complete-transaction, or \"yum-complete-transaction --cleanup-only\" and \"yum history redo last\", first to finish them. If those don't work you'll have to try removing/installing packages by hand (maybe package-cleanup can help).\nThe program yum-complete-transaction is found in the yum-utils package.\n"</span>, </span><br><span class="line">    <span class="string">"rc"</span>: 0, </span><br><span class="line">    <span class="string">"results"</span>: [</span><br><span class="line">        ...<span class="string">"</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="再次安装"><a href="#再次安装" class="headerlink" title="再次安装"></a>再次安装</h3><p>再次安装时，就会检查客户端已安装的组件是否是最新的，若是最新的就不会再次安装。<code>changed</code>字段会返回<code>false</code>。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m yum -a 'name=httpd state=latest'</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"rc"</span>: 0, </span><br><span class="line">    <span class="string">"results"</span>: [</span><br><span class="line">        <span class="string">"All packages providing httpd are up to date"</span>, </span><br><span class="line">        <span class="string">""</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="Ansible组件-Inventory"><a href="#Ansible组件-Inventory" class="headerlink" title="Ansible组件 - Inventory"></a>Ansible组件 - Inventory</h1><h2 id="Inventory主机清单"><a href="#Inventory主机清单" class="headerlink" title="Inventory主机清单"></a>Inventory主机清单</h2><p><a href="http://docs.ansible.com/ansible/intro_inventory.html" target="_blank" rel="noopener">inventory文件</a>通常用于定义要管理主机的认证信息，例如ssh登录所需的用户名、密码以及key相关信息。<br><code>/etc/ansible/hosts</code>文件配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[apache]</span><br><span class="line">172.20.21.121</span><br><span class="line">172.20.21.123</span><br><span class="line"></span><br><span class="line">[nginx]</span><br><span class="line">172.20.21.[120:121]</span><br><span class="line"></span><br><span class="line"># 把一个组作为另一个组的子成员</span><br><span class="line">[servers:children]</span><br><span class="line">apache</span><br><span class="line">nginx</span><br><span class="line"></span><br><span class="line"># 定义组变量</span><br><span class="line">[servers:vars]</span><br><span class="line">ansible_ssh_user='root'</span><br><span class="line">ansible_ssh_pass='123456'</span><br></pre></td></tr></table></figure></p>
+<h2><span id="远程主机的yum管理">远程主机的yum管理</span></h2><h3><span id="确认软件是否安装">确认软件是否安装</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m shell -a 'rpm -qa|grep httpd'</span></span><br><span class="line"> [WARNING]: Consider using yum, dnf or zypper module rather than running rpm</span><br><span class="line"></span><br><span class="line">172.20.21.121 | FAILED | rc=1 &gt;&gt;</span><br><span class="line">non-zero <span class="built_in">return</span> code</span><br></pre></td></tr></table></figure>
+<h3><span id="安装httpd">安装httpd</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m yum -a 'name=httpd state=latest'</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"Repository base is listed more than once in the configuration\nRepository updates is listed more than once in the configuration\nRepository extras is listed more than once in the configuration\nRepository centosplus is listed more than once in the configuration\nThere are unfinished transactions remaining. You might consider running yum-complete-transaction, or \"yum-complete-transaction --cleanup-only\" and \"yum history redo last\", first to finish them. If those don't work you'll have to try removing/installing packages by hand (maybe package-cleanup can help).\nThe program yum-complete-transaction is found in the yum-utils package.\n"</span>, </span><br><span class="line">    <span class="string">"rc"</span>: 0, </span><br><span class="line">    <span class="string">"results"</span>: [</span><br><span class="line">        ...<span class="string">"</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3><span id="再次安装">再次安装</span></h3><p>再次安装时，就会检查客户端已安装的组件是否是最新的，若是最新的就不会再次安装。<code>changed</code>字段会返回<code>false</code>。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m yum -a 'name=httpd state=latest'</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"rc"</span>: 0, </span><br><span class="line">    <span class="string">"results"</span>: [</span><br><span class="line">        <span class="string">"All packages providing httpd are up to date"</span>, </span><br><span class="line">        <span class="string">""</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1><span id="ansible组件-inventory">Ansible组件 - Inventory</span></h1><h2><span id="inventory主机清单">Inventory主机清单</span></h2><p><a href="http://docs.ansible.com/ansible/intro_inventory.html" target="_blank" rel="noopener">inventory文件</a>通常用于定义要管理主机的认证信息，例如ssh登录所需的用户名、密码以及key相关信息。<br><code>/etc/ansible/hosts</code>文件配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[apache]</span><br><span class="line">172.20.21.121</span><br><span class="line">172.20.21.123</span><br><span class="line"></span><br><span class="line">[nginx]</span><br><span class="line">172.20.21.[120:121]</span><br><span class="line"></span><br><span class="line"># 把一个组作为另一个组的子成员</span><br><span class="line">[servers:children]</span><br><span class="line">apache</span><br><span class="line">nginx</span><br><span class="line"></span><br><span class="line"># 定义组变量</span><br><span class="line">[servers:vars]</span><br><span class="line">ansible_ssh_user='root'</span><br><span class="line">ansible_ssh_pass='123456'</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible apache --list-hosts</span></span><br><span class="line">  hosts (2):</span><br><span class="line">    172.20.21.121</span><br><span class="line">    172.20.21.123</span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible nginx --list-hosts</span></span><br><span class="line">  hosts (2):</span><br><span class="line">    172.20.21.120</span><br><span class="line">    172.20.21.121</span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible servers --list-hosts</span></span><br><span class="line">  hosts (3):</span><br><span class="line">    172.20.21.121</span><br><span class="line">    172.20.21.123</span><br><span class="line">    172.20.21.120</span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible all -m shell -a 'hostname' -o</span></span><br><span class="line">172.20.21.123 | SUCCESS | rc=0 | (stdout) centos7</span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 | (stdout) centos7</span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 | (stdout) centos7</span><br></pre></td></tr></table></figure>
-<h2 id="Ansible-Inventory-内置参数"><a href="#Ansible-Inventory-内置参数" class="headerlink" title="Ansible Inventory 内置参数"></a>Ansible Inventory 内置参数</h2><table>
+<h2><span id="ansible-inventory-内置参数">Ansible Inventory 内置参数</span></h2><table>
 <thead>
 <tr>
 <th>参数</th>
@@ -628,24 +641,24 @@
 </tr>
 </tbody>
 </table>
-<h1 id="Ansible组件-Ad-Hoc"><a href="#Ansible组件-Ad-Hoc" class="headerlink" title="Ansible组件 - Ad-Hoc"></a>Ansible组件 - Ad-Hoc</h1><p>ad hoc，临时的，在ansible中是指需要快速执行，并且不需要报错的命令。对于复杂的命令则需要playbook。</p>
-<h2 id="执行命令-m-shell"><a href="#执行命令-m-shell" class="headerlink" title="执行命令 -m shell"></a>执行命令 -m shell</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m shell -a 'hostname' -o</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 | (stdout) centos7</span><br><span class="line">172.20.21.123 | SUCCESS | rc=0 | (stdout) centos7</span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 | (stdout) centos7</span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m shell -a 'uname -r' -o</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 | (stdout) 3.10.0-514.26.2.el7.x86_64</span><br><span class="line">172.20.21.123 | SUCCESS | rc=0 | (stdout) 3.10.0-514.26.2.el7.x86_64</span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 | (stdout) 3.10.0-514.26.2.el7.x86_64</span><br></pre></td></tr></table></figure>
-<h2 id="复制文件-m-copy"><a href="#复制文件-m-copy" class="headerlink" title="复制文件 -m copy"></a>复制文件 -m copy</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -m copy -a <span class="string">"src=test.sh dest=/tmp"</span></span><br></pre></td></tr></table></figure>
+<h1><span id="ansible组件-ad-hoc">Ansible组件 - Ad-Hoc</span></h1><p>ad hoc，临时的，在ansible中是指需要快速执行，并且不需要报错的命令。对于复杂的命令则需要playbook。</p>
+<h2><span id="执行命令-m-shell">执行命令 -m shell</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m shell -a 'hostname' -o</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 | (stdout) centos7</span><br><span class="line">172.20.21.123 | SUCCESS | rc=0 | (stdout) centos7</span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 | (stdout) centos7</span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible servers -m shell -a 'uname -r' -o</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 | (stdout) 3.10.0-514.26.2.el7.x86_64</span><br><span class="line">172.20.21.123 | SUCCESS | rc=0 | (stdout) 3.10.0-514.26.2.el7.x86_64</span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 | (stdout) 3.10.0-514.26.2.el7.x86_64</span><br></pre></td></tr></table></figure>
+<h2><span id="复制文件-m-copy">复制文件 -m copy</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible all -m copy -a <span class="string">"src=test.sh dest=/tmp"</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515151749113.jpg" alt="复制文件"></p>
-<h2 id="软件包管理-m-yum"><a href="#软件包管理-m-yum" class="headerlink" title="软件包管理 -m yum"></a>软件包管理 -m yum</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible apache -m yum -a <span class="string">"name=vim state=present"</span></span><br></pre></td></tr></table></figure>
+<h2><span id="软件包管理-m-yum">软件包管理 -m yum</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible apache -m yum -a <span class="string">"name=vim state=present"</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515215799249.jpg" alt="软件包安装"></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible apache -m yum -a <span class="string">'name=httpd state=absent'</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515215694583.jpg" alt="软件包卸载"></p>
-<h2 id="服务管理-m-service"><a href="#服务管理-m-service" class="headerlink" title="服务管理 -m service"></a>服务管理 -m service</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible apache -m service -a <span class="string">"name=httpd state=restarted enabled=yes"</span></span><br></pre></td></tr></table></figure>
+<h2><span id="服务管理-m-service">服务管理 -m service</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible apache -m service -a <span class="string">"name=httpd state=restarted enabled=yes"</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515216105015.jpg" alt="服务管理"></p>
-<h1 id="Ansible组件-Facts"><a href="#Ansible组件-Facts" class="headerlink" title="Ansible组件 - Facts"></a>Ansible组件 - Facts</h1><p>facts组件是Ansible用于采集被管理主机信息的功能，可以使用<code>setup</code>模块查看主机所有的facts信息。可以使用<code>filter</code>参数对结果进行过滤。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible apache -m setup</span><br><span class="line">ansible apache -m setup -a <span class="string">"filter=ansible_default_ipv4"</span></span><br></pre></td></tr></table></figure></p>
+<h1><span id="ansible组件-facts">Ansible组件 - Facts</span></h1><p>facts组件是Ansible用于采集被管理主机信息的功能，可以使用<code>setup</code>模块查看主机所有的facts信息。可以使用<code>filter</code>参数对结果进行过滤。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible apache -m setup</span><br><span class="line">ansible apache -m setup -a <span class="string">"filter=ansible_default_ipv4"</span></span><br></pre></td></tr></table></figure></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515216783015.jpg" alt="setup模块"></p>
-<h1 id="Ansible组件-playbook"><a href="#Ansible组件-playbook" class="headerlink" title="Ansible组件 - playbook"></a>Ansible组件 - playbook</h1><p><code>playbook</code>是有一个或者多个<code>play</code>组成的列表。<code>play</code>的主要功能在于将实现归并为一组的主机装扮成实现通过ansible中的<code>task</code>定义好的角色<code>role</code>。</p>
+<h1><span id="ansible组件-playbook">Ansible组件 - playbook</span></h1><p><code>playbook</code>是有一个或者多个<code>play</code>组成的列表。<code>play</code>的主要功能在于将实现归并为一组的主机装扮成实现通过ansible中的<code>task</code>定义好的角色<code>role</code>。</p>
 <p>根本上来讲，所谓的<code>task</code>无非是调用ansible的一个<code>module</code>。将多个<code>play</code>组织在一个<code>playbook</code>中，即可以让他们联合起来按事先编排的机制完成某一任务。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515218215574.jpg" alt="playbook结构"></p>
-<h2 id="playbook示例"><a href="#playbook示例" class="headerlink" title="playbook示例"></a>playbook示例</h2><h3 id="yaml剧本"><a href="#yaml剧本" class="headerlink" title="yaml剧本"></a>yaml剧本</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- hosts: apache</span><br><span class="line">  tasks:</span><br><span class="line">  - name: Install httpd</span><br><span class="line">    yum: <span class="attribute">name</span>=httpd <span class="attribute">state</span>=present</span><br><span class="line"></span><br><span class="line">  - name: copy httpd conf</span><br><span class="line">    template: <span class="attribute">src</span>=/etc/httpd/conf/httpd.conf <span class="attribute">dest</span>=/etc/httpd/conf/httpd.conf</span><br><span class="line">              <span class="attribute">owner</span>=root <span class="attribute">group</span>=root <span class="attribute">mode</span>=0644</span><br><span class="line">    notify:</span><br><span class="line">    - Restart Apache Service</span><br><span class="line"></span><br><span class="line">  - name: <span class="builtin-name">enable</span> httpd is runing</span><br><span class="line">    service: <span class="attribute">name</span>=httpd <span class="attribute">state</span>=started <span class="attribute">enabled</span>=<span class="literal">yes</span></span><br><span class="line"></span><br><span class="line">  handlers:</span><br><span class="line">  - name: Restart Apache Service</span><br><span class="line">    service: <span class="attribute">name</span>=httpd <span class="attribute">state</span>=restarted</span><br></pre></td></tr></table></figure>
-<h3 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook apapche.yaml --syntax-check</span><br><span class="line">ansible-playbook apapche.yaml --list-task</span><br><span class="line">ansible-playbook apapche.yaml --list-hosts</span><br></pre></td></tr></table></figure>
-<h3 id="执行playbook"><a href="#执行playbook" class="headerlink" title="执行playbook"></a>执行playbook</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook apapche.yaml</span><br></pre></td></tr></table></figure>
+<h2><span id="playbook示例">playbook示例</span></h2><h3><span id="yaml剧本">yaml剧本</span></h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- hosts: apache</span><br><span class="line">  tasks:</span><br><span class="line">  - name: Install httpd</span><br><span class="line">    yum: <span class="attribute">name</span>=httpd <span class="attribute">state</span>=present</span><br><span class="line"></span><br><span class="line">  - name: copy httpd conf</span><br><span class="line">    template: <span class="attribute">src</span>=/etc/httpd/conf/httpd.conf <span class="attribute">dest</span>=/etc/httpd/conf/httpd.conf</span><br><span class="line">              <span class="attribute">owner</span>=root <span class="attribute">group</span>=root <span class="attribute">mode</span>=0644</span><br><span class="line">    notify:</span><br><span class="line">    - Restart Apache Service</span><br><span class="line"></span><br><span class="line">  - name: <span class="builtin-name">enable</span> httpd is runing</span><br><span class="line">    service: <span class="attribute">name</span>=httpd <span class="attribute">state</span>=started <span class="attribute">enabled</span>=<span class="literal">yes</span></span><br><span class="line"></span><br><span class="line">  handlers:</span><br><span class="line">  - name: Restart Apache Service</span><br><span class="line">    service: <span class="attribute">name</span>=httpd <span class="attribute">state</span>=restarted</span><br></pre></td></tr></table></figure>
+<h3><span id="检查">检查</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook apapche.yaml --syntax-check</span><br><span class="line">ansible-playbook apapche.yaml --list-task</span><br><span class="line">ansible-playbook apapche.yaml --list-hosts</span><br></pre></td></tr></table></figure>
+<h3><span id="执行playbook">执行playbook</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook apapche.yaml</span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515219697082.jpg" alt="执行playbook"></p>
 
       
@@ -658,7 +671,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -804,6 +817,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -816,6 +830,7 @@
 
 
 
+          
         </div>
         
           
@@ -864,7 +879,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -875,7 +890,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -886,7 +901,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -956,23 +971,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -994,7 +1009,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ansible基础"><span class="nav-text">Ansible基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansible架构图"><span class="nav-text">Ansible架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansible执行过程"><span class="nav-text">Ansible执行过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清单文件"><span class="nav-text">清单文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试主机连通性"><span class="nav-text">测试主机连通性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行远程指令"><span class="nav-text">执行远程指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程主机的yum管理"><span class="nav-text">远程主机的yum管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#确认软件是否安装"><span class="nav-text">确认软件是否安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装httpd"><span class="nav-text">安装httpd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再次安装"><span class="nav-text">再次安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ansible组件-Inventory"><span class="nav-text">Ansible组件 - Inventory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Inventory主机清单"><span class="nav-text">Inventory主机清单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansible-Inventory-内置参数"><span class="nav-text">Ansible Inventory 内置参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ansible组件-Ad-Hoc"><span class="nav-text">Ansible组件 - Ad-Hoc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#执行命令-m-shell"><span class="nav-text">执行命令 -m shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制文件-m-copy"><span class="nav-text">复制文件 -m copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件包管理-m-yum"><span class="nav-text">软件包管理 -m yum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务管理-m-service"><span class="nav-text">服务管理 -m service</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ansible组件-Facts"><span class="nav-text">Ansible组件 - Facts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ansible组件-playbook"><span class="nav-text">Ansible组件 - playbook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#playbook示例"><span class="nav-text">playbook示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yaml剧本"><span class="nav-text">yaml剧本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查"><span class="nav-text">检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行playbook"><span class="nav-text">执行playbook</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Ansible基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Ansible架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Ansible执行过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">清单文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">测试主机连通性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">执行远程指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">远程主机的yum管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">确认软件是否安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">安装httpd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">再次安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Ansible组件 - Inventory</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Inventory主机清单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Ansible Inventory 内置参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Ansible组件 - Ad-Hoc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">执行命令 -m shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">复制文件 -m copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">软件包管理 -m yum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">服务管理 -m service</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Ansible组件 - Facts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Ansible组件 - playbook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">playbook示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">yaml剧本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">执行playbook</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1014,7 +1029,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1691,6 +1706,7 @@
   
 
   
+
 
 </body>
 </html>

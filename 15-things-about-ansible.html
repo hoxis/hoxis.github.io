@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,39 +540,39 @@
       
         <p>最近一直在用 Ansible 做一些东西，决定分享我在学习过程中学到的一些东西，我认为你应该知道的关于 Ansible 的 15 件事的清单。 如果你觉得有什么遗漏的，欢迎留言分享！</p>
 <a id="more"></a>
-<h1 id="1-您可以将参数传递给角色"><a href="#1-您可以将参数传递给角色" class="headerlink" title="1 - 您可以将参数传递给角色"></a>1 - 您可以将参数传递给角色</h1><p>创建角色来组织您的剧本是一个很好的做法。 假设我们想要创建一个安装Jenkins的角色。 此角色的文件夹结构可能如下所示：</p>
+<h1><span id="1-您可以将参数传递给角色">1 - 您可以将参数传递给角色</span></h1><p>创建角色来组织您的剧本是一个很好的做法。 假设我们想要创建一个安装Jenkins的角色。 此角色的文件夹结构可能如下所示：</p>
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">jenkins/</span><br><span class="line">   <span class="keyword">files</span>/</span><br><span class="line">   templates/</span><br><span class="line">   tasks/</span><br><span class="line">   handlers/</span><br><span class="line">   defaults/</span><br></pre></td></tr></table></figure>
 <p>文件夹 <code>defaults</code> 用于存储角色的默认变量值。在其中我们可以有这个 <code>main.yml</code> 文件：</p>
 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">jenkins_port:</span> <span class="number">8080</span></span><br><span class="line"><span class="symbol">jenkins_context_path:</span> /jenkins</span><br><span class="line"><span class="symbol">jenkins_home:</span> /jenkins</span><br></pre></td></tr></table></figure>
 <p>您可以通过将不同的参数传递给角色来覆盖默认变量，如下所示：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">roles</span>:</span><br><span class="line">   <span class="selector-tag">-</span> &#123; <span class="attribute">role</span>: jenkins, jenkins_port: <span class="number">8181</span>, jenkins_home: <span class="string">'/jenkins1'</span> &#125;</span><br><span class="line">   <span class="selector-tag">-</span> &#123; <span class="attribute">role</span>: jenkins, jenkins_port: <span class="number">8080</span>, jenkins_home: <span class="string">'/jenkins2'</span> &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="2-如何使命令模块具有幂等性"><a href="#2-如何使命令模块具有幂等性" class="headerlink" title="2 - 如何使命令模块具有幂等性"></a>2 - 如何使命令模块具有幂等性</h1><p>幂等性是某些操作的属性，可以多次执行而不改变初始应用程序的结果。 这个概念出现在大多数Ansible模块中：您指定了所需的最终状态，Ansible决定是否应该运行任务。 默认情况下，此原则不适用于command模块。 默认情况下，如果您在playbook中有以下任务，它将始终运行：</p>
+<h1><span id="2-如何使命令模块具有幂等性">2 - 如何使命令模块具有幂等性</span></h1><p>幂等性是某些操作的属性，可以多次执行而不改变初始应用程序的结果。 这个概念出现在大多数Ansible模块中：您指定了所需的最终状态，Ansible决定是否应该运行任务。 默认情况下，此原则不适用于command模块。 默认情况下，如果您在playbook中有以下任务，它将始终运行：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">command:</span> <span class="regexp">/usr/</span>bin/create-database.sh</span><br></pre></td></tr></table></figure>
 <p>为了实现幂等性，您可以使用属性creates 。 如果存在，Ansible将仅在模式指定的文件不存在时运行命令任务。 或者，您可以使用removes ，它仅在指定的文件存在时才执行任务。</p>
 <figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">command </span>: /<span class="string">usr/</span><span class="string">bin/</span><span class="built_in">create-database.sh</span> <span class="string">creates </span>= /<span class="string">path/</span><span class="string">to/</span><span class="string">database</span></span><br></pre></td></tr></table></figure>
 <p>始终要记住，Ansible有很多模块，大多数常见操作都不需要使用命令模块。 例如，有一些模块用于创建文件系统 ， 修改iptables和管理cron条目 。 默认情况下，所有这些模块都是幂等的，因此您始终应该更喜欢它们。</p>
-<h1 id="3-使用Ansible安装程序模块收集有关主机的信息"><a href="#3-使用Ansible安装程序模块收集有关主机的信息" class="headerlink" title="3 - 使用Ansible安装程序模块收集有关主机的信息"></a>3 - 使用Ansible安装程序模块收集有关主机的信息</h1><p>你可能已经看到Ansible在运行一个剧本时所做的第一件事是这样的：</p>
+<h1><span id="3-使用ansible安装程序模块收集有关主机的信息">3 - 使用Ansible安装程序模块收集有关主机的信息</span></h1><p>你可能已经看到Ansible在运行一个剧本时所做的第一件事是这样的：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TASK [ setup] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>* ok: [ servername]</span><br></pre></td></tr></table></figure>
 <p>发生这种情况是因为Ansible在执行第一个任务之前调用特殊模块setup 。 设置模块连接到主机并收集各种详细信息：IP地址，磁盘空间，CPU架构，可用内存等。 手动调用此模块可能很有用，可以快速收集有关主机的信息。 为此，只需运行以下命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ansible localhost -m setup</span></span><br><span class="line">localhost | SUCCESS =&gt; &#123;</span><br><span class="line">  "ansible_facts": &#123;</span><br><span class="line">    "ansible_all_ipv4_addresses": [</span><br><span class="line">        "10.27.12.77",</span><br><span class="line">        "192.168.33.1"</span><br><span class="line">    ],</span><br><span class="line">    (MANY more facts)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="4-您可以列出剧本的所有任务"><a href="#4-您可以列出剧本的所有任务" class="headerlink" title="4 - 您可以列出剧本的所有任务"></a>4 - 您可以列出剧本的所有任务</h1><p>想要记住剧本的作用吗？ 使用–list-tasks标志运行ansible-playbook ，Ansible将列出其所有任务：</p>
+<h1><span id="4-您可以列出剧本的所有任务">4 - 您可以列出剧本的所有任务</span></h1><p>想要记住剧本的作用吗？ 使用–list-tasks标志运行ansible-playbook ，Ansible将列出其所有任务：</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook install-jenkins.yml <span class="comment">--list-tasks</span></span><br><span class="line">PLAY: #<span class="number">1</span></span><br><span class="line">  tasks:</span><br><span class="line">    <span class="keyword">TASK</span>: meta</span><br><span class="line">    <span class="keyword">TASK</span>: open-jdk : <span class="type">Install</span> open jdk <span class="number">1.8</span></span><br><span class="line">    <span class="keyword">TASK</span>: mount-partition : <span class="type">Creating</span> the filesystem <span class="keyword">for</span> the device &#123;&#123; device &#125;&#125;  (<span class="keyword">if</span> needed)</span><br><span class="line">    <span class="keyword">TASK</span>: mount-partition : <span class="type">Mounting</span> the device &#123;&#123; device &#125;&#125; on path &#123;&#123; path &#125;&#125;</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Ensure</span> Jenkins repo <span class="keyword">is</span> installed.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Add</span> Jenkins repo GPG key.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Ensure</span> Jenkins <span class="keyword">is</span> present.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Ensures</span> that the home directory exists</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">include</span></span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Ensure</span> Jenkins <span class="keyword">is</span> started <span class="keyword">and</span> runs on startup.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Wait</span> <span class="keyword">for</span> Jenkins to start up before proceeding.</span><br><span class="line">    <span class="keyword">TASK</span>: jenkins : <span class="type">Get</span> the jenkins-cli jarfile from the Jenkins server.</span><br></pre></td></tr></table></figure>
-<h1 id="5-如果要存储敏感信息，请使用ansible-vault"><a href="#5-如果要存储敏感信息，请使用ansible-vault" class="headerlink" title="5 - 如果要存储敏感信息，请使用ansible-vault"></a>5 - 如果要存储敏感信息，请使用ansible-vault</h1><p>如果您的某个任务需要敏感信息（比如数据库用户和密码），最好将这些信息加密，而不是以纯文本形式存储。</p>
+<h1><span id="5-如果要存储敏感信息请使用ansible-vault">5 - 如果要存储敏感信息，请使用ansible-vault</span></h1><p>如果您的某个任务需要敏感信息（比如数据库用户和密码），最好将这些信息加密，而不是以纯文本形式存储。</p>
 <p>Ansible附带一个名为ansible-vault的命令行工具，允许您创建和管理加密文件。 这样，您可以将加密文件提交到源代码控制，只有拥有解密密码的用户才能读取它。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Encrypt an existing file. You'll need to create an encryption password.</span></span><br><span class="line">ansible-vault encrypt secrets.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Creates a new, encrypted file. You'll need to create an encryption password.</span></span><br><span class="line">ansible-vault create secrets.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Decrypt a file. You'll have to enter password used for encryption.</span></span><br><span class="line"><span class="comment"># Use it with caution! Don't leave your files unecrypted.</span></span><br><span class="line">ansible-vault decrypt secrets.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Edit an encrypted file (uses vim by default, can be overriden by the environment variable $EDITOR)</span></span><br><span class="line">ansible-vault <span class="builtin-name">edit</span> secrets.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print the contents of the encrypted file</span></span><br><span class="line">ansible-vault <span class="builtin-name">edit</span> secrets.yml</span><br></pre></td></tr></table></figure>
 <p>如果您在Playbook中导入vars_file secrets.yml，Ansible将失败，因为它不知道如何读取加密文件。 您必须指定命令行参数–ask-vault-pass ，这将使Ansible提示您加密文件的密码。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook playbook<span class="selector-class">.yml</span> -<span class="selector-tag">i</span> hosts --ask-vault-password</span><br></pre></td></tr></table></figure>
 <p>另一种方法是将密码存储在一个文件中（不应该提交），并使用–vault-password-file参数指定文件的路径。 如果此文件标记为可执行文件，Ansible将运行它并使用输出作为密码。</p>
-<h1 id="6-使用with-items可能是个好主意"><a href="#6-使用with-items可能是个好主意" class="headerlink" title="6 - 使用with_items可能是个好主意"></a>6 - 使用with_items可能是个好主意</h1><p>当您使用with_items子句时，Ansible将创建一个名为{ {item } }的变量，其中包含当前迭代的值。 有些模块可以很好地处理项目集合，实际上比使用不同参数多次运行相同任务更快。</p>
+<h1><span id="6-使用with_items可能是个好主意">6 - 使用with_items可能是个好主意</span></h1><p>当您使用with_items子句时，Ansible将创建一个名为{ {item } }的变量，其中包含当前迭代的值。 有些模块可以很好地处理项目集合，实际上比使用不同参数多次运行相同任务更快。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Installing all packages with one task (faster)</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">install</span> <span class="string">required</span> <span class="string">packages</span> <span class="string">using</span> <span class="string">the</span> <span class="string">apt</span> <span class="string">module</span></span><br><span class="line"><span class="attr">    apt:</span> <span class="string">package=&#123;&#123;</span> <span class="string">item</span> <span class="string">&#125;&#125;</span>  <span class="string">update_cache=yes</span></span><br><span class="line"><span class="attr">    sudo:</span> <span class="literal">True</span></span><br><span class="line"><span class="attr">    with_items:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">git</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">memcached</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">nginx</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Installing packages individually (slower)</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">install</span> <span class="string">git</span></span><br><span class="line"><span class="attr">    apt:</span> <span class="string">package=git</span> <span class="string">update_cache=yes</span></span><br><span class="line"><span class="attr">    sudo:</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">install</span> <span class="string">memcached</span></span><br><span class="line"><span class="attr">    apt:</span> <span class="string">package=memcached</span> <span class="string">update_cache=yes</span></span><br><span class="line"><span class="attr">    sudo:</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">install</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">    apt:</span> <span class="string">package=nginx</span> <span class="string">update_cache=yes</span></span><br><span class="line"><span class="attr">    sudo:</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
-<h1 id="7-本地行动的运作方式"><a href="#7-本地行动的运作方式" class="headerlink" title="7 - 本地行动的运作方式"></a>7 - 本地行动的运作方式</h1><p>有时您可能希望在本地计算机上运行任务，而不是在远程计算机上运行它。 当我们想要等待服务器启动（如果它刚刚启动）或者我们想要在负载均衡器池中添加一些节点（或删除它们）时，这可能很有用：</p>
+<h1><span id="7-本地行动的运作方式">7 - 本地行动的运作方式</span></h1><p>有时您可能希望在本地计算机上运行任务，而不是在远程计算机上运行它。 当我们想要等待服务器启动（如果它刚刚启动）或者我们想要在负载均衡器池中添加一些节点（或删除它们）时，这可能很有用：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tasks:</span><br><span class="line"> - name: take out of load balancer pool</span><br><span class="line">   local_action: &gt;</span><br><span class="line">      command /usr/bin/take_out_of_pool &#123;&#123; inventory_hostname &#125;&#125;</span><br><span class="line"></span><br><span class="line"> - name: update application</span><br><span class="line">   yum: <span class="attribute">name</span>=acme-web-stack <span class="attribute">state</span>=latest</span><br><span class="line"></span><br><span class="line"> - name: <span class="builtin-name">add</span> back <span class="keyword">to</span> load balancer pool</span><br><span class="line">   local_action: &gt;</span><br><span class="line">      command /usr/bin/take_out_of_pool &#123;&#123; inventory_hostname &#125;&#125;</span><br></pre></td></tr></table></figure>
 <p>下面是如何启动EC2实例并等待其可用的示例：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- name: Launching EC2 Instance</span><br><span class="line">    #<span class="built_in"> instance </span>options here</span><br><span class="line">  register: ec2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- name: Waiting <span class="keyword">for</span> ec2 instances <span class="keyword">to</span> listen on<span class="built_in"> port </span>22</span><br><span class="line">  wait_for:</span><br><span class="line">    <span class="attribute">state</span>=started</span><br><span class="line">    host=&#123;&#123; item.public_dns_name &#125;&#125;</span><br><span class="line">    <span class="attribute">port</span>=22</span><br><span class="line">  with_items: ec2.instances</span><br></pre></td></tr></table></figure>
-<h1 id="8-您可以告诉Ansible仅运行一次任务"><a href="#8-您可以告诉Ansible仅运行一次任务" class="headerlink" title="8 - 您可以告诉Ansible仅运行一次任务"></a>8 - 您可以告诉Ansible仅运行一次任务</h1><p>有时您可能只想运行一次任务，即使有多个主机也是如此。 例如，假设您有多个连接到同一数据库的应用程序服务器，并且您有一个执行数据库迁移的任务。 在这种情况下，您只需运行此任务一次。</p>
+<h1><span id="8-您可以告诉ansible仅运行一次任务">8 - 您可以告诉Ansible仅运行一次任务</span></h1><p>有时您可能只想运行一次任务，即使有多个主机也是如此。 例如，假设您有多个连接到同一数据库的应用程序服务器，并且您有一个执行数据库迁移的任务。 在这种情况下，您只需运行此任务一次。</p>
 <p>要实现这一点，您可以使用run_once参数告诉Ansible只运行一次命令：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- name:</span> <span class="string">run</span> <span class="string">the</span> <span class="string">database</span> <span class="string">migrations</span></span><br><span class="line"><span class="attr">  command:</span> <span class="string">bundle</span> <span class="string">exec</span> <span class="string">rake</span> <span class="attr">db:migrate</span></span><br><span class="line"><span class="attr">  run_once:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h1 id="9-处理程序是特殊类型的任务"><a href="#9-处理程序是特殊类型的任务" class="headerlink" title="9 - 处理程序是特殊类型的任务"></a>9 - 处理程序是特殊类型的任务</h1><p>处理程序是具有唯一名称的任务，只有在被另一个任务通知时才会执行。 它们对于重新启动服务或重新引导系统非常有用。</p>
+<h1><span id="9-处理程序是特殊类型的任务">9 - 处理程序是特殊类型的任务</span></h1><p>处理程序是具有唯一名称的任务，只有在被另一个任务通知时才会执行。 它们对于重新启动服务或重新引导系统非常有用。</p>
 <p>被通知的处理程序将在剧本结束时执行一次 ，无论他们被通知多少次。 您可以使用handler子句声明它们并使用notify触发它们。</p>
 <p>下面是一个示例，说明当文件内容发生更改时如何重新启动两个服务，但仅当文件更改时（从Ansible 文档中提取）：</p>
 <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> <span class="symbol">name:</span> template configuration file</span></span><br><span class="line"><span class="ruby">  <span class="symbol">template:</span> src=template.j2 dest=<span class="regexp">/etc/foo</span>.conf</span></span><br><span class="line"><span class="ruby">  <span class="symbol">notify:</span></span></span><br><span class="line"><span class="ruby">     - restart memcached</span></span><br><span class="line"><span class="ruby">     - restart apache</span></span><br></pre></td></tr></table></figure>
@@ -578,22 +591,22 @@
 <p>如果您未在任务中使用任何Ansible事实，则可以禁用“事实收集”步骤以提高速度。 为此，只需在playbook中添加属性gather_facts: False ：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- hosts:</span> <span class="string">servername</span></span><br><span class="line"><span class="attr">  gather_facts:</span> <span class="literal">False</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">...</span></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
 <p>或者，如果您确实需要使用Ansible事实（由安装任务自动收集），您可以缓存它们，以便后续执行更快。 Ansible文档在此详细介绍了这一点 ，如果您想了解更多信息。</p>
-<h1 id="11-Ansible有几个通知模块"><a href="#11-Ansible有几个通知模块" class="headerlink" title="11 - Ansible有几个通知模块"></a>11 - Ansible有几个通知模块</h1><p>使用Ansible自动进行蓝绿部署？ 运行Playbooks以在AWS上配置新实例？ 让您的团队使用其中一个通知模块。 例如，下面的任务将发送带有自定义消息的松弛通知：</p>
+<h1><span id="11-ansible有几个通知模块">11 - Ansible有几个通知模块</span></h1><p>使用Ansible自动进行蓝绿部署？ 运行Playbooks以在AWS上配置新实例？ 让您的团队使用其中一个通知模块。 例如，下面的任务将发送带有自定义消息的松弛通知：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- hosts: servername</span><br><span class="line">  tasks:</span><br><span class="line">    - name: Send notification message via Slack</span><br><span class="line">      local_action:</span><br><span class="line">        module: slack</span><br><span class="line">        # <span class="keyword">To</span> retrieve your slack token, open your team<span class="built_in"> settings </span><span class="keyword">and</span> look <span class="keyword">for</span> the</span><br><span class="line">        #<span class="built_in"> Incoming </span>Webhooks plugin</span><br><span class="line">        token: &lt;your&gt;/&lt;token&gt;/&lt;goes here&gt;</span><br><span class="line">        msg: <span class="string">"Hello team! I just finished updating our production environment."</span></span><br><span class="line">        channel: <span class="string">"#general"</span></span><br><span class="line">        username: <span class="string">"ansible-bot"</span></span><br></pre></td></tr></table></figure>
 <p>还有一些模块可用于通知irc，twillio，hipchat，jabber 等等 。</p>
-<h1 id="12-EC2实例按其标签自动分组"><a href="#12-EC2实例按其标签自动分组" class="headerlink" title="12 - EC2实例按其标签自动分组"></a>12 - EC2实例按其标签自动分组</h1><p>使用Amazon Web Services和Ansible的EC2动态库存脚本时，所有实例都将根据其特征（例如类型，密钥对和标记）进行分组。 EC2标签只是key =与您的实例关联的名称值，您可以随意使用它们。 有些人使用标签对其生产/登台服务器进行分组，在蓝绿部署期间标记Web服务器甚至“活动”服务器。</p>
+<h1><span id="12-ec2实例按其标签自动分组">12 - EC2实例按其标签自动分组</span></h1><p>使用Amazon Web Services和Ansible的EC2动态库存脚本时，所有实例都将根据其特征（例如类型，密钥对和标记）进行分组。 EC2标签只是key =与您的实例关联的名称值，您可以随意使用它们。 有些人使用标签对其生产/登台服务器进行分组，在蓝绿部署期间标记Web服务器甚至“活动”服务器。</p>
 <p>当按标记对主机进行分组时，EC2动态库存脚本使用以下模式（不带括号）：</p>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tag_<span class="string">[TAG_NAME]</span>_<span class="string">[TAG_VALUE]</span></span><br></pre></td></tr></table></figure>
 <p>因此，如果要在标签为env=staging所有主机上运行任务，只需将其添加到您的playbook：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hosts: tag_env_staging</span><br><span class="line">tasks:</span><br><span class="line">  - <span class="built_in">name</span>: This task will be <span class="built_in">run</span> <span class="keyword">on</span> all servers <span class="keyword">with</span> env == staging</span><br><span class="line">  <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
 <p>为了使它更有趣，您可以使用Ansible模式（ <a href="https://translate.googleusercontent.com/translate_c?depth=1&amp;hl=en&amp;ie=UTF8&amp;prev=_t&amp;rurl=translate.google.com.hk&amp;sl=en&amp;sp=nmt4&amp;tl=zh-CN&amp;u=http://docs.ansible.com/ansible/intro_patterns.html&amp;xid=17259,15700002,15700021,15700124,15700149,15700168,15700186,15700190,15700201&amp;usg=ALkJrhg4HaH3ukvAR_yhK0DatD4s2Azekg#patterns" target="_blank" rel="noopener">docs</a> ）更具体地说明哪些主机应该受任务影响。 例如，如果要在生产数据库服务器上执行特定任务（假设它们已正确标记），则可以使用交叉模式（ <code>:&amp;</code> ），如下所示：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">host<span class="variable">s:</span> tag_env_production&amp;:tag_type_db</span><br><span class="line">task<span class="variable">s:</span></span><br><span class="line">  - name: This task will <span class="keyword">be</span> run <span class="keyword">on</span> <span class="keyword">all</span> servers with <span class="keyword">tags</span> <span class="string">'env=production'</span> <span class="built_in">and</span> <span class="string">'type=db'</span></span><br><span class="line">  # ...</span><br></pre></td></tr></table></figure>
-<h1 id="13-您可以在“Dry-Run”模式下运行"><a href="#13-您可以在“Dry-Run”模式下运行" class="headerlink" title="13 - 您可以在“Dry Run”模式下运行"></a>13 - 您可以在“Dry Run”模式下运行</h1><p>Ansible支持在干运行模式下运行一个剧本（也称为检查模式），在这种模式下，Ansible 不会对你的主机进行任何更改，而只是报告如果没有这个标志运行剧本就会发生什么变化。</p>
+<h1><span id="13-您可以在dry-run模式下运行">13 - 您可以在“Dry Run”模式下运行</span></h1><p>Ansible支持在干运行模式下运行一个剧本（也称为检查模式），在这种模式下，Ansible 不会对你的主机进行任何更改，而只是报告如果没有这个标志运行剧本就会发生什么变化。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ansible-playbook --check playbook.yml</span></span><br></pre></td></tr></table></figure>
 <p>虽然这在某些情况下很有用，但如果您的任务使用条件步骤，它可能无法正常工作。</p>
-<h1 id="14-任务可以一步一步地进行"><a href="#14-任务可以一步一步地进行" class="headerlink" title="14 - 任务可以一步一步地进行"></a>14 - 任务可以一步一步地进行</h1><p>有时您不想在游戏手册中运行所有任务。 当你编写一个新的剧本并想要测试它时，这有点常见。 Ansible提供了一种方法，通过使用–step标志，让您决定要运行哪些任务。 它会让你选择是否要运行任务（y），跳过它（n）或（c）ontinue而不要求。</p>
+<h1><span id="14-任务可以一步一步地进行">14 - 任务可以一步一步地进行</span></h1><p>有时您不想在游戏手册中运行所有任务。 当你编写一个新的剧本并想要测试它时，这有点常见。 Ansible提供了一种方法，通过使用–step标志，让您决定要运行哪些任务。 它会让你选择是否要运行任务（y），跳过它（n）或（c）ontinue而不要求。</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># playbook.yml</span><br><span class="line">- hosts: servername</span><br><span class="line">  tasks:</span><br><span class="line">    - name: First <span class="keyword">task</span></span><br><span class="line">      # ...</span><br><span class="line">    - name: Second <span class="keyword">task</span></span><br><span class="line">      # ...</span><br><span class="line"></span><br><span class="line">$ ansible-playbook provision.yml -i hosts --<span class="keyword">step</span></span><br><span class="line"></span><br><span class="line">&gt; Perform <span class="keyword">task</span>: <span class="keyword">TASK</span>: setup  (y<span class="regexp">/n/</span>c): n  #</span><br><span class="line">&gt; Perform <span class="keyword">task</span>: <span class="keyword">TASK</span>: First <span class="keyword">task</span> (y<span class="regexp">/n/</span>c): n</span><br><span class="line">&gt; Perform <span class="keyword">task</span>: <span class="keyword">TASK</span>: Second <span class="keyword">task</span> (y<span class="regexp">/n/</span>c): y</span><br></pre></td></tr></table></figure>
-<h1 id="15-可以根据标签运行任务"><a href="#15-可以根据标签运行任务" class="headerlink" title="15 - 可以根据标签运行任务"></a>15 - 可以根据标签运行任务</h1><p>您可以将一个或多个标签添加到任务或游戏中。 为此，只需使用tags属性标记要标记的内容：</p>
+<h1><span id="15-可以根据标签运行任务">15 - 可以根据标签运行任务</span></h1><p>您可以将一个或多个标签添加到任务或游戏中。 为此，只需使用tags属性标记要标记的内容：</p>
 <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># playbook.yml</span><br><span class="line">-<span class="ruby"> <span class="symbol">hosts:</span> servername</span></span><br><span class="line"><span class="ruby">  <span class="symbol">tags:</span></span></span><br><span class="line"><span class="ruby">    - server</span></span><br><span class="line"><span class="ruby">  <span class="symbol">tasks:</span></span></span><br><span class="line"><span class="ruby">    - <span class="symbol">name:</span> Download optional files</span></span><br><span class="line"><span class="ruby">      <span class="symbol">tags:</span></span></span><br><span class="line"><span class="ruby">        - download</span></span><br><span class="line"><span class="ruby">        - optional</span></span><br><span class="line"><span class="ruby">    - <span class="symbol">name:</span> Install dependencies</span></span><br><span class="line"><span class="ruby">      <span class="symbol">tags:</span></span></span><br><span class="line"><span class="ruby">        - dependencies</span></span><br></pre></td></tr></table></figure>
 <p>稍后您可以使用标志–tags <tagname> （或简称-t ）和–skip-tags <tagnames> –tags <tagname>来决定运行或跳过哪些标签：</tagname></tagnames></tagname></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># will run only tasks with the tag 'dependencies'</span></span><br><span class="line">$ ansible-playbook <span class="attribute">--tags</span>=dependencies playbook.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># will run all tasks except the ones that contain the tag 'optional'</span></span><br><span class="line">$ ansible-playbook <span class="attribute">--skip-tags</span>=optional playbook.yml</span><br></pre></td></tr></table></figure>
@@ -611,7 +624,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -757,6 +770,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -769,6 +783,7 @@
 
 
 
+          
         </div>
         
           
@@ -817,7 +832,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -828,7 +843,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -839,7 +854,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -909,23 +924,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -947,7 +962,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-您可以将参数传递给角色"><span class="nav-text">1 - 您可以将参数传递给角色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-如何使命令模块具有幂等性"><span class="nav-text">2 - 如何使命令模块具有幂等性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-使用Ansible安装程序模块收集有关主机的信息"><span class="nav-text">3 - 使用Ansible安装程序模块收集有关主机的信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-您可以列出剧本的所有任务"><span class="nav-text">4 - 您可以列出剧本的所有任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-如果要存储敏感信息，请使用ansible-vault"><span class="nav-text">5 - 如果要存储敏感信息，请使用ansible-vault</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-使用with-items可能是个好主意"><span class="nav-text">6 - 使用with_items可能是个好主意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-本地行动的运作方式"><span class="nav-text">7 - 本地行动的运作方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-您可以告诉Ansible仅运行一次任务"><span class="nav-text">8 - 您可以告诉Ansible仅运行一次任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-处理程序是特殊类型的任务"><span class="nav-text">9 - 处理程序是特殊类型的任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-Ansible有几个通知模块"><span class="nav-text">11 - Ansible有几个通知模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-EC2实例按其标签自动分组"><span class="nav-text">12 - EC2实例按其标签自动分组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-您可以在“Dry-Run”模式下运行"><span class="nav-text">13 - 您可以在“Dry Run”模式下运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-任务可以一步一步地进行"><span class="nav-text">14 - 任务可以一步一步地进行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-可以根据标签运行任务"><span class="nav-text">15 - 可以根据标签运行任务</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1 - 您可以将参数传递给角色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2 - 如何使命令模块具有幂等性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3 - 使用Ansible安装程序模块收集有关主机的信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">4 - 您可以列出剧本的所有任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">5 - 如果要存储敏感信息，请使用ansible-vault</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">6 - 使用with_items可能是个好主意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">7 - 本地行动的运作方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">8 - 您可以告诉Ansible仅运行一次任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">9 - 处理程序是特殊类型的任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">11 - Ansible有几个通知模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">12 - EC2实例按其标签自动分组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">13 - 您可以在“Dry Run”模式下运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">14 - 任务可以一步一步地进行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">15 - 可以根据标签运行任务</span></a></li></ol></div>
             
 
           </div>
@@ -967,7 +982,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1644,6 +1659,7 @@
   
 
   
+
 
 </body>
 </html>

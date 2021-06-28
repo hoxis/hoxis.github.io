@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -215,8 +215,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -325,6 +327,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -373,6 +385,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -533,29 +546,29 @@
       
         <p>CentOS 7 中默认安装了 Python，版本比较低（2.7.5），为了使用新版 3.x，需要对旧版本进行升级。</p>
 <a id="more"></a>
-<h1 id="下载新版本python"><a href="#下载新版本python" class="headerlink" title="下载新版本python"></a>下载新版本python</h1><p>在python官网下载最新的源码包：<a href="https://www.python.org/downloads/source/" target="_blank" rel="noopener">https://www.python.org/downloads/source/</a>。</p>
+<h1><span id="下载新版本python">下载新版本python</span></h1><p>在python官网下载最新的源码包：<a href="https://www.python.org/downloads/source/" target="_blank" rel="noopener">https://www.python.org/downloads/source/</a>。</p>
 <p>可以直接下载然后上传到服务器，也可以通过wget进行下载：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513565379144.jpg" alt="wget下载新版本python"></p>
-<h1 id="安装准备-提前排雷"><a href="#安装准备-提前排雷" class="headerlink" title="安装准备-提前排雷"></a>安装准备-提前排雷</h1><h2 id="安装gcc相关"><a href="#安装gcc相关" class="headerlink" title="安装gcc相关"></a>安装gcc相关</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install make gcc gcc-c++</span><br></pre></td></tr></table></figure>
+<h1><span id="安装准备-提前排雷">安装准备-提前排雷</span></h1><h2><span id="安装gcc相关">安装gcc相关</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install make gcc gcc-c++</span><br></pre></td></tr></table></figure>
 <p>因为是源码编译安装，需要gcc相关组件的支持，否则在编译时会报如下错误。</p>
 <p>执行<code>./configure</code>时，报错：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513565540319.jpg" alt="错误截图"></p>
 <p>说明没有安装合适的编译器。这时，需要安装/升级<code>gcc</code>及其它依赖包。然后重新执行。</p>
-<h2 id="安装zlib相关"><a href="#安装zlib相关" class="headerlink" title="安装zlib相关"></a>安装zlib相关</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install zlib*</span><br></pre></td></tr></table></figure>
+<h2><span id="安装zlib相关">安装zlib相关</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install zlib*</span><br></pre></td></tr></table></figure>
 <p>在<code>make</code>阶段，需要<code>zlib</code>组件。否则会报<code>zlib not available</code>的异常。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513566104178.jpg" alt="zlib not available"></p>
 <p>从错误信息分析，就是缺少了zlib的解压缩类库，安装即可。然后重新编译安装python。</p>
-<h2 id="安装readline-devel"><a href="#安装readline-devel" class="headerlink" title="安装readline-devel"></a>安装readline-devel</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install readline-devel</span><br></pre></td></tr></table></figure>
+<h2><span id="安装readline-devel">安装readline-devel</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install readline-devel</span><br></pre></td></tr></table></figure>
 <p>否则会出现安装完成后<code>Python</code>终端无法使用退格，上下左右。需要安装<code>readline-devel</code>后重新编译安装Python。<br><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2017-12-18%20130506.gif" alt="无法使用退格等"></p>
-<h1 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h1><h2 id="编译-安装"><a href="#编译-安装" class="headerlink" title="编译 安装"></a>编译 安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python-3.6.3.tgz</span><br><span class="line"><span class="built_in">cd</span> Python-3.6.3</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make insatll</span><br></pre></td></tr></table></figure>
-<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>安装成功以后，就可以查看Python的版本：</p>
+<h1><span id="安装配置">安装配置</span></h1><h2><span id="编译-安装">编译 安装</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf Python-3.6.3.tgz</span><br><span class="line"><span class="built_in">cd</span> Python-3.6.3</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make insatll</span><br></pre></td></tr></table></figure>
+<h2><span id="验证">验证</span></h2><p>安装成功以后，就可以查看Python的版本：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513566329220.jpg" alt="验证Python版本"></p>
 <p>一个是旧版本 2.x，另外一个是新版本 3.x。<br>注意：在<code>/usr/local/bin/</code>下有一个<code>python3</code>的链接，指向<code>bin</code>目录下的<code>python 3.6</code>。</p>
-<h1 id="安装后的配置"><a href="#安装后的配置" class="headerlink" title="安装后的配置"></a>安装后的配置</h1><h2 id="设置-3-x-为默认版本"><a href="#设置-3-x-为默认版本" class="headerlink" title="设置 3.x 为默认版本"></a>设置 3.x 为默认版本</h2><p>查看 Python 的路径，在<code>/usr/bin</code>下面。可以看到<code>python</code>软链接的是<code>python 2.7</code>，所以，执行<code>python</code>就相当于执行<code>python 2.7</code>。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 bin]<span class="comment"># ls -al /usr/bin | grep python</span></span><br><span class="line">lrwxrwxrwx.  1 root root          7 8月  17 18:01 python -&gt; python2</span><br><span class="line">lrwxrwxrwx.  1 root root          9 8月  17 18:01 python2 -&gt; python2.7</span><br><span class="line">-rwxr-xr-x.  1 root root       7136 11月  6 2016 python2.7</span><br></pre></td></tr></table></figure></p>
-<h3 id="备份python2"><a href="#备份python2" class="headerlink" title="备份python2"></a>备份python2</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /usr/bin/python /usr/bin/python2.7.bak</span><br></pre></td></tr></table></figure>
-<h3 id="修改软连接"><a href="#修改软连接" class="headerlink" title="修改软连接"></a>修改软连接</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/<span class="built_in">local</span>/bin/python3.6 /usr/bin/python</span><br></pre></td></tr></table></figure>
+<h1><span id="安装后的配置">安装后的配置</span></h1><h2><span id="设置-3x-为默认版本">设置 3.x 为默认版本</span></h2><p>查看 Python 的路径，在<code>/usr/bin</code>下面。可以看到<code>python</code>软链接的是<code>python 2.7</code>，所以，执行<code>python</code>就相当于执行<code>python 2.7</code>。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 bin]<span class="comment"># ls -al /usr/bin | grep python</span></span><br><span class="line">lrwxrwxrwx.  1 root root          7 8月  17 18:01 python -&gt; python2</span><br><span class="line">lrwxrwxrwx.  1 root root          9 8月  17 18:01 python2 -&gt; python2.7</span><br><span class="line">-rwxr-xr-x.  1 root root       7136 11月  6 2016 python2.7</span><br></pre></td></tr></table></figure></p>
+<h3><span id="备份python2">备份python2</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /usr/bin/python /usr/bin/python2.7.bak</span><br></pre></td></tr></table></figure>
+<h3><span id="修改软连接">修改软连接</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/<span class="built_in">local</span>/bin/python3.6 /usr/bin/python</span><br></pre></td></tr></table></figure>
 <p>这时再查看Python版本：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 bin]<span class="comment"># python -V</span></span><br><span class="line">Python 3.6.3</span><br></pre></td></tr></table></figure></p>
-<h2 id="配置-yum"><a href="#配置-yum" class="headerlink" title="配置 yum"></a>配置 yum</h2><p>升级<code>Python</code>之后，由于将默认的<code>python</code>指向了<code>python3</code>，<code>yum</code>不能正常使用，需要编辑 <code>yum</code>的配置文件，改为使用<code>python2.7</code>：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 bin]<span class="comment"># vim /usr/bin/yum</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#!/usr/bin/python2.7</span></span><br><span class="line">import sys</span><br><span class="line">try:</span><br><span class="line">    import yum</span><br></pre></td></tr></table></figure></p>
+<h2><span id="配置-yum">配置 yum</span></h2><p>升级<code>Python</code>之后，由于将默认的<code>python</code>指向了<code>python3</code>，<code>yum</code>不能正常使用，需要编辑 <code>yum</code>的配置文件，改为使用<code>python2.7</code>：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 bin]<span class="comment"># vim /usr/bin/yum</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#!/usr/bin/python2.7</span></span><br><span class="line">import sys</span><br><span class="line">try:</span><br><span class="line">    import yum</span><br></pre></td></tr></table></figure></p>
 <p>同时修改<code>/usr/libexec/urlgrabber-ext-down</code>中的配置。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 bin]<span class="comment"># vim /usr/libexec/urlgrabber-ext-down</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#! /usr/bin/python2.7</span></span><br><span class="line"><span class="comment">#  A very simple external downloader</span></span><br><span class="line"><span class="comment">#  Copyright 2011-2012 Zdenek Pavlas</span></span><br></pre></td></tr></table></figure></p>
 <hr>
 <p>参考：<br><a href="http://blog.csdn.net/liang19890820/article/details/51079633" target="_blank" rel="noopener">http://blog.csdn.net/liang19890820/article/details/51079633</a><br><a href="https://www.cnblogs.com/uangyy/p/5980998.html" target="_blank" rel="noopener">https://www.cnblogs.com/uangyy/p/5980998.html</a></p>
@@ -570,7 +583,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -718,6 +731,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -730,6 +744,7 @@
 
 
 
+          
         </div>
         
           
@@ -778,7 +793,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -789,7 +804,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -800,7 +815,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -870,23 +885,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -908,7 +923,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载新版本python"><span class="nav-text">下载新版本python</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装准备-提前排雷"><span class="nav-text">安装准备-提前排雷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装gcc相关"><span class="nav-text">安装gcc相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装zlib相关"><span class="nav-text">安装zlib相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装readline-devel"><span class="nav-text">安装readline-devel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装配置"><span class="nav-text">安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译-安装"><span class="nav-text">编译 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装后的配置"><span class="nav-text">安装后的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-3-x-为默认版本"><span class="nav-text">设置 3.x 为默认版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#备份python2"><span class="nav-text">备份python2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改软连接"><span class="nav-text">修改软连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-yum"><span class="nav-text">配置 yum</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">下载新版本python</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">安装准备-提前排雷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装gcc相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装zlib相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装readline-devel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">编译 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">安装后的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">设置 3.x 为默认版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">备份python2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">修改软连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">配置 yum</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -928,7 +943,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1605,6 +1620,7 @@
   
 
   
+
 
 </body>
 </html>

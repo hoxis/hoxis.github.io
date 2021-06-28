@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -525,10 +538,10 @@
       
 
       
-        <h1 id="什么是-Ansible-facts"><a href="#什么是-Ansible-facts" class="headerlink" title="什么是 Ansible facts"></a>什么是 Ansible facts</h1><p>Ansible facts 是远程系统的信息，主要包含IP地址，操作系统，以太网设备，mac 地址，时间/日期相关数据，硬件信息等信息。</p>
+        <h1><span id="什么是-ansible-facts">什么是 Ansible facts</span></h1><p>Ansible facts 是远程系统的信息，主要包含IP地址，操作系统，以太网设备，mac 地址，时间/日期相关数据，硬件信息等信息。</p>
 <a id="more"></a>
 <p>Ansible facts 对于需要根据远程主机的信息作为执行条件操作的场景非常有用。例如，根据远程服务器使用的操作系统版本，可以安装不同版本的软件包。或者也可以显示与每台远程计算机相关的一些信息，例如每台设备上有多少 RAM 可用。</p>
-<h1 id="如何获取-Ansible-facts"><a href="#如何获取-Ansible-facts" class="headerlink" title="如何获取 Ansible facts"></a>如何获取 Ansible facts</h1><p>默认情况下，在使用 Ansible 对远程主机执行任何一个 playbook 之前，总会先通过 setup 模块获取 facts，并暂存在内存中，直至该 playbook 执行结束。</p>
+<h1><span id="如何获取-ansible-facts">如何获取 Ansible facts</span></h1><p>默认情况下，在使用 Ansible 对远程主机执行任何一个 playbook 之前，总会先通过 setup 模块获取 facts，并暂存在内存中，直至该 playbook 执行结束。</p>
 <p>这意味着，想要在 playbook 中引用主机变量，至少先与该主机通信一次，以便 Ansible 能够访问其 facts，尽管有时候只需要来自该主机的少量信息。</p>
 <p>Ansible 提供了 setup 模块来收集主机的系统信息，这些 facts 信息可以直接以变量的形式使用。</p>
 <p>如果想查看 setup 模块获取到的数据，可以在命令行上通过调用 setup 模块命令查看：</p>
@@ -538,7 +551,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">time ansible localhost -m setup</span><br><span class="line"></span><br><span class="line">real	0m3.321s</span><br><span class="line">user	0m1.797s</span><br><span class="line">sys	0m0.205s</span><br></pre></td></tr></table></figure>
 <p>在被控主机较少的情况下，收集信息还可以容忍，如果被控主机数量非常大，收集 facts 信息会消耗掉非常多时间。</p>
 <p>那怎么办呢？优化 Ansible 运行速度，最简单的莫过于设置 facts 缓存了。</p>
-<h1 id="设置-facts-缓存"><a href="#设置-facts-缓存" class="headerlink" title="设置 facts 缓存"></a>设置 facts 缓存</h1><p>我们可以设置 <code>gather_facts: no</code> 来禁止 Ansible 收集 facts 信息，但是有时候又需要使用 facts 中的内容，这时候可以设置 facts 的缓存。</p>
+<h1><span id="设置-facts-缓存">设置 facts 缓存</span></h1><p>我们可以设置 <code>gather_facts: no</code> 来禁止 Ansible 收集 facts 信息，但是有时候又需要使用 facts 中的内容，这时候可以设置 facts 的缓存。</p>
 <p>例如，我们可以在空闲的时候收集 facts，缓存下来，在需要的时候直接读取缓存进行引用。</p>
 <p>Ansible 1.8 版本开始，引入了 facts 缓存功能。</p>
 <p>Ansible 的配置文件中可以修改 gathering 的值为 <code>smart</code>、<code>implicit</code> 或者 <code>explicit</code>。</p>
@@ -548,16 +561,16 @@
 <li>explicit 则表示默认不收集，要显式收集，必须使用 <code>gather_facts: Ture</code>。</li>
 </ul>
 <p>在使用 facts 缓存时（即设置为 smart），Ansible 支持两种 facts 缓存：redis 和 jsonfile。</p>
-<h2 id="使用-redis-缓存"><a href="#使用-redis-缓存" class="headerlink" title="使用 redis 缓存"></a>使用 redis 缓存</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gathering</span> = smart</span><br><span class="line"><span class="attr">fact_caching_timeout</span> = <span class="number">86400</span></span><br><span class="line"><span class="attr">fact_caching</span> = redis</span><br><span class="line"><span class="attr">fact_caching_connection</span> = <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若 redis 设置了密码</span></span><br><span class="line"><span class="comment"># fact_caching_connection = localhost:6379:0:admin</span></span><br></pre></td></tr></table></figure>
+<h2><span id="使用-redis-缓存">使用 redis 缓存</span></h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gathering</span> = smart</span><br><span class="line"><span class="attr">fact_caching_timeout</span> = <span class="number">86400</span></span><br><span class="line"><span class="attr">fact_caching</span> = redis</span><br><span class="line"><span class="attr">fact_caching_connection</span> = <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">6379</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若 redis 设置了密码</span></span><br><span class="line"><span class="comment"># fact_caching_connection = localhost:6379:0:admin</span></span><br></pre></td></tr></table></figure>
 <p>在使用 redis 缓存后，出现异常（若未出现，请忽略）：<code>TypeError: the JSON object must be str, not &#39;bytes&#39;</code>，加上 <code>-vvv</code> 打印出调试信息后，定位到 /usr/local/lib/python3.5/dist-packages/ansible-2.5.0-py3.5.egg/ansible/plugins/cache/redis.py 文件中的 第 90 行：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self._cache[key] = json.loads(value)</span><br></pre></td></tr></table></figure>
 <p>将其修改为如下即可：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self._cache[key] = json.loads(value.decode(<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
-<h2 id="使用-json-文件环境"><a href="#使用-json-文件环境" class="headerlink" title="使用 json 文件环境"></a>使用 json 文件环境</h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 json 文件缓存</span></span><br><span class="line"><span class="attr">fact_caching</span> = jsonfile</span><br><span class="line"><span class="attr">fact_caching_connection</span> = /tmp/mycachedir</span><br></pre></td></tr></table></figure>
+<h2><span id="使用-json-文件环境">使用 json 文件环境</span></h2><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 json 文件缓存</span></span><br><span class="line"><span class="attr">fact_caching</span> = jsonfile</span><br><span class="line"><span class="attr">fact_caching_connection</span> = /tmp/mycachedir</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意：这个目录需要是一个可读写的目录。</p>
 </blockquote>
-<h2 id="效果测试"><a href="#效果测试" class="headerlink" title="效果测试"></a>效果测试</h2><p>随便新建一个剧本，这里我们随便执行一个 command 指令：</p>
+<h2><span id="效果测试">效果测试</span></h2><p>随便新建一个剧本，这里我们随便执行一个 command 指令：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- hosts:</span> <span class="number">192.168</span><span class="number">.9</span><span class="number">.21</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">test</span> <span class="string">ping</span></span><br><span class="line"><span class="attr">      command:</span> <span class="string">whoami</span></span><br></pre></td></tr></table></figure>
 <p>未使用 facts 缓存的耗时：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># time ansible-playbook ping.yml</span></span><br><span class="line"></span><br><span class="line">PLAY [10.254.9.21] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>*</span><br><span class="line"></span><br><span class="line">TASK [Gathering Facts] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>ok: [10.254.9.21]</span><br><span class="line"></span><br><span class="line">TASK [test ping] <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*changed: [10.254.9.21]</span><br><span class="line"></span><br><span class="line">PLAY RECAP <span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>**10.254.9.21                : ok=2    changed=1    unreachable=0    failed=0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">real    0m15.870s</span><br><span class="line">user    0m2.766s</span><br><span class="line">sys     0m0.938s</span><br></pre></td></tr></table></figure>
@@ -569,7 +582,7 @@
 <p>若使用的是 json 缓存，配置的目录中会生成如下文件：</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ tree facts_cache/</span><br><span class="line">facts_cache/</span><br><span class="line">└── <span class="number">10.254</span><span class="number">.9</span><span class="number">.21</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span> directories, <span class="number">1</span> file</span><br></pre></td></tr></table></figure>
 <p>其中存放的就是主机的 facts 信息。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>不同网络环境下的耗时肯定是不同的，但是设置缓存是肯定可以加快 Ansible 运行速度的，特别是 playbook 的运行。</p>
+<h1><span id="总结">总结</span></h1><p>不同网络环境下的耗时肯定是不同的，但是设置缓存是肯定可以加快 Ansible 运行速度的，特别是 playbook 的运行。</p>
 <p>另外，可以在空闲时间手动进行 facts 缓存的更新，从而避免执行真正的任务时再去更新缓存。</p>
 <p>当然，优化 Ansible 运行速度还有其他方法，后面我再继续给大家分享。</p>
 
@@ -583,7 +596,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -729,6 +742,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -741,6 +755,7 @@
 
 
 
+          
         </div>
         
           
@@ -789,7 +804,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -800,7 +815,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -811,7 +826,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -881,23 +896,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -919,7 +934,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是-Ansible-facts"><span class="nav-text">什么是 Ansible facts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何获取-Ansible-facts"><span class="nav-text">如何获取 Ansible facts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置-facts-缓存"><span class="nav-text">设置 facts 缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-redis-缓存"><span class="nav-text">使用 redis 缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-json-文件环境"><span class="nav-text">使用 json 文件环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果测试"><span class="nav-text">效果测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">什么是 Ansible facts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">如何获取 Ansible facts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">设置 facts 缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">使用 redis 缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">使用 json 文件环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">效果测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -939,7 +954,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1616,6 +1631,7 @@
   
 
   
+
 
 </body>
 </html>

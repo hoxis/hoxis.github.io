@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -582,9 +595,9 @@
 </tr>
 </tbody>
 </table>
-<h1 id="RabbitMQ-集群安装"><a href="#RabbitMQ-集群安装" class="headerlink" title="RabbitMQ 集群安装"></a>RabbitMQ 集群安装</h1><p>在 192.168.151.7、192.168.151.18、192.168.151.19 三个节点上分别安装配置。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install rabbitmq-server</span><br><span class="line">service rabbitmq-server start</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user admin admin</span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line">set_permissions -p / admin <span class="string">'.*'</span> <span class="string">'.*'</span> <span class="string">'.*'</span></span><br><span class="line">rabbitmqctl set_permissions -p / admin <span class="string">'.*'</span> <span class="string">'.*'</span> <span class="string">'.*'</span></span><br><span class="line"></span><br><span class="line">rabbitmq-plugins <span class="built_in">enable</span> rabbitmq_management</span><br></pre></td></tr></table></figure>
+<h1><span id="rabbitmq-集群安装">RabbitMQ 集群安装</span></h1><p>在 192.168.151.7、192.168.151.18、192.168.151.19 三个节点上分别安装配置。</p>
+<h2><span id="安装">安装</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install rabbitmq-server</span><br><span class="line">service rabbitmq-server start</span><br></pre></td></tr></table></figure>
+<h2><span id="配置">配置</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user admin admin</span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line">set_permissions -p / admin <span class="string">'.*'</span> <span class="string">'.*'</span> <span class="string">'.*'</span></span><br><span class="line">rabbitmqctl set_permissions -p / admin <span class="string">'.*'</span> <span class="string">'.*'</span> <span class="string">'.*'</span></span><br><span class="line"></span><br><span class="line">rabbitmq-plugins <span class="built_in">enable</span> rabbitmq_management</span><br></pre></td></tr></table></figure>
 <ul>
 <li>局域网配置</li>
 </ul>
@@ -614,27 +627,27 @@
 <p>RabbitMQ 集群至此安装完成。可以通过访问各节点的 <a href="http://192.168.151.7:15672/" target="_blank" rel="noopener">http://192.168.151.7:15672/</a> 管理页面查看 RabbitMQ 状态。用户名密码使用之前配置的 admin/admin。</p>
 <p>Keepalived 监控 192.168.151.18、192.168.151.19 上的 HAproxy，利用 Keepalived 的 VIP 漂移技术，若两台服务器上的 HAprox 都工作正常，则 VIP 与优先级别高的服务器（主服务器）绑定，当主服务器当掉时，则与从服务器绑定，而 VIP 则是暴露给外部访问的 IP；HAproxy 利用 Keepalived 生产的 VIP 对多台 RabbitMQ 进行读负载均衡。</p>
 <p>下面对上面的 RabbitMQ 集群进行高可用配置，HAproxy 和 Keepalived 的安装方法这里不再赘述。</p>
-<h1 id="高可用架构"><a href="#高可用架构" class="headerlink" title="高可用架构"></a>高可用架构</h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524885102581.jpg" alt="Keepalived + HAproxy"></p>
+<h1><span id="高可用架构">高可用架构</span></h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524885102581.jpg" alt="Keepalived + HAproxy"></p>
 <p>其中 Keepalived 来控制 HAproxy 的高可用，HAproxy 的作用是控制下层应用的负载均衡，同时可以用来保证下层应用的高可用。</p>
-<h1 id="HAproxy"><a href="#HAproxy" class="headerlink" title="HAproxy"></a>HAproxy</h1><p>HAproxy 是一个七层的负载均衡高度器，和 nginx 是属于一个层次上的，而 lvs 是一个四层的负载均衡高度器，它最多只能工作在 TCP/IP 协议栈上，所以对于代理转发，HAproxy 做的可以比 lvs 更细腻。</p>
+<h1><span id="haproxy">HAproxy</span></h1><p>HAproxy 是一个七层的负载均衡高度器，和 nginx 是属于一个层次上的，而 lvs 是一个四层的负载均衡高度器，它最多只能工作在 TCP/IP 协议栈上，所以对于代理转发，HAproxy 做的可以比 lvs 更细腻。</p>
 <p>HAProxy 提供高可用性、负载均衡以及基于 TCP 和 HTTP 应用的代理，支持虚拟主机，它是免费、快速并且可靠的一种解决方案。HAProxy 特别适用于那些负载特大的 web 站点，这些站点通常又需要会话保持或七层处理。HAProxy 运行在当前的硬件上，完全可以支持数以万计的并发连接。并且它的运行模式使得它可以很简单安全的整合进您当前的架构中，同时可以保护你的 web 服务器不被暴露到网络上。</p>
-<h2 id="HAproxy-配置"><a href="#HAproxy-配置" class="headerlink" title="HAproxy 配置"></a>HAproxy 配置</h2><p>这里仅列出了主要内容。</p>
+<h2><span id="haproxy-配置">HAproxy 配置</span></h2><p>这里仅列出了主要内容。</p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">####################HAProxy配置中分成五部分内容，当然这些组件不是必选的，可以根据需要选择部分作为配置。</span><br><span class="line">#global  ：参数是进程级的，通常和操作系统（OS）相关。这些参数一般只设置一次，如果配置无误，就不需要再次配置进行修改</span><br><span class="line">#defaults：配置默认参数的，这些参数可以被利用配置到frontend，backend，listen组件</span><br><span class="line">#frontend：接收请求的前端虚拟节点，Frontend可以根据规则直接指定具体使用后端的 backend(可动态选择)。</span><br><span class="line">#backend ：后端服务集群的配置，是真实的服务器，一个Backend对应一个或者多个实体服务器。</span><br><span class="line">#listen  ：Frontend和Backend的组合体。</span><br><span class="line"></span><br><span class="line">listen rabbitmq</span><br><span class="line">    bind <span class="number">192.168</span><span class="number">.151</span><span class="number">.108</span>:<span class="number">5673</span></span><br><span class="line">    balance  roundrobin</span><br><span class="line">    mode  tcp</span><br><span class="line">    option tcplog</span><br><span class="line">    option  tcpka</span><br><span class="line">    bind-process <span class="number">7</span></span><br><span class="line">    timeout client <span class="number">15</span>s</span><br><span class="line">    timeout connect <span class="number">3</span>s</span><br><span class="line">    timeout server <span class="number">15</span>s</span><br><span class="line">    server HRB-PCRP1-M-BCCLM-CTL7 <span class="number">192.168</span><span class="number">.151</span><span class="number">.7</span>:<span class="number">5672</span>   check inter <span class="number">5000</span> rise <span class="number">2</span> fall <span class="number">3</span></span><br><span class="line">    server HRB-PCRP1-M-BCCLM-CTL18 <span class="number">192.168</span><span class="number">.151</span><span class="number">.18</span>:<span class="number">5672</span>  check inter <span class="number">5000</span> rise <span class="number">2</span> fall <span class="number">3</span></span><br><span class="line">    server HRB-PCRP1-M-BCCLM-CTL19 <span class="number">192.168</span><span class="number">.151</span><span class="number">.19</span>:<span class="number">5672</span>  check inter <span class="number">5000</span> rise <span class="number">2</span> fall <span class="number">3</span></span><br><span class="line">    </span><br><span class="line">    # weight - 调节服务器的负重</span><br><span class="line">    # check - 允许对该服务器进行健康检查</span><br><span class="line">    # inter - 设置连续的两次健康检查之间的时间，单位为毫秒(ms)，默认值 <span class="number">2000</span>(ms)</span><br><span class="line">    # rise - 指定多少次连续成功的健康检查后，可认定该服务器处于可操作状态，默认值 <span class="number">2</span></span><br><span class="line">    # fall - 指定多少次不成功的健康检查后，认为服务器为当掉状态，默认值 <span class="number">3</span></span><br><span class="line">    # maxconn - 指定可被发送到该服务器的最大并发连接数</span><br><span class="line">    </span><br><span class="line"># 配置haproxy web监控，查看统计信息 </span><br><span class="line">listen private_monitoring :<span class="number">8100</span> </span><br><span class="line">       mode    http </span><br><span class="line">       option  httplog </span><br><span class="line">       stats   enable </span><br><span class="line">       #设置haproxy监控地址为http:<span class="comment">//localhost:8100/stats </span></span><br><span class="line">       stats   uri  /stats </span><br><span class="line">       stats   refresh <span class="number">5</span>s</span><br></pre></td></tr></table></figure>
 <p>这里使用了一个 listen 块来同时实现前端和后端，也可以由前端（frontend）和后端（backend）配置。</p>
 <p>最后我们打开 <a href="http://192.168.151.18:8100/stats" target="_blank" rel="noopener">http://192.168.151.18:8100/stats</a>，看一下监控页面，如果显示出正常就表明已经将 HAProxy 负载均衡配置好了！</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1524894773557.jpg" alt="HAProxy stats"></p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>启动 HAproxy 时可能会出现 <code>cannot bind socket</code> 的异常，这是因为 HAproxy 配置中使用了 VIP，但此时还没有启动 Keepalived，那么就还没有 VIP 绑定。</p>
+<h2><span id="注意点">注意点</span></h2><p>启动 HAproxy 时可能会出现 <code>cannot bind socket</code> 的异常，这是因为 HAproxy 配置中使用了 VIP，但此时还没有启动 Keepalived，那么就还没有 VIP 绑定。</p>
 <p>这时需要在 <code>/etc/sysctl.conf</code> 文件中配置如下内容：</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.<span class="attr">ip_nonlocal_bind</span> = <span class="number">1</span> <span class="comment"># 意思是启动haproxy的时候，允许忽视VIP的存在</span></span><br><span class="line">net.ipv4.<span class="attr">ip_forward</span> = <span class="number">1</span> <span class="comment"># 打开内核的转发功能</span></span><br></pre></td></tr></table></figure>
 <p>然后运行 <code>sysctl –p</code> 使其生效。</p>
-<h1 id="Keepalived"><a href="#Keepalived" class="headerlink" title="Keepalived"></a>Keepalived</h1><p>Keepalived 的作用是检测服务器的健康状态，在所有可能出现单点故障的地方为其提供高可用。如果有一台服务器死机，或工作出现故障，Keepalived 将检测到，并将有故障的服务器从系统中剔除，当服务器工作正常后 Keepalived 自动将服务器加入到服务器群中，这些工作全部自动完成，不需要人工干涉，需要人工做的只是修复故障的服务器。</p>
+<h1><span id="keepalived">Keepalived</span></h1><p>Keepalived 的作用是检测服务器的健康状态，在所有可能出现单点故障的地方为其提供高可用。如果有一台服务器死机，或工作出现故障，Keepalived 将检测到，并将有故障的服务器从系统中剔除，当服务器工作正常后 Keepalived 自动将服务器加入到服务器群中，这些工作全部自动完成，不需要人工干涉，需要人工做的只是修复故障的服务器。</p>
 <p>这里使用的实现方式是单活方式，即主节点的 HAproxy 正常运行，备节点的会被停止。当主节点的出现故障时，备节点的 HAproxy 会自动启动。当主节点的恢复后，备节点的会自动停止。</p>
 <p>当然 Keepalived 的高可用控制不止这一种，也可以有其他配置方式。</p>
-<h2 id="Keepalived-主节点配置"><a href="#Keepalived-主节点配置" class="headerlink" title="Keepalived 主节点配置"></a>Keepalived 主节点配置</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">vrrp_script chk_haproxy &#123;</span><br><span class="line">   <span class="built_in"> script </span><span class="string">"service haproxy status"</span> # 服务探测，返回0说明服务是正常的</span><br><span class="line">    interval 1                      # 每隔1秒探测一次</span><br><span class="line">    weight -2                       # 不正常时，权重-1，即haproxy上线，权重加2；下线，权重减2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance haproxy &#123;</span><br><span class="line">    state MASTER            # 主机为MASTER，备机为BACKUP</span><br><span class="line">   <span class="built_in"> interface </span>bond0         # 监测网络端口，用ipconfig查看</span><br><span class="line">    virtual_router_id 108   # 主备机必须相同</span><br><span class="line">    priority 100            # 主备机取不同的优先级，主机要大。</span><br><span class="line">    advert_int 1            #<span class="built_in"> VRRP </span>Multicast广播周期秒数</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS      # VRRP认证方式</span><br><span class="line">        auth_pass 1234      # VRRP口令 主备机密码必须相同</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    track_script &#123;          # 调用haproxy进程检测脚本，备节点不配置</span><br><span class="line">        chk_haproxy</span><br><span class="line">    &#125;</span><br><span class="line">    track_interface &#123;</span><br><span class="line">        bond0</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;     # VIP 漂移地址 即集群IP地址</span><br><span class="line">        192.168.151.108/25 dev bond0 </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Keepalived-备节点"><a href="#Keepalived-备节点" class="headerlink" title="Keepalived 备节点"></a>Keepalived 备节点</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance haproxy &#123;</span><br><span class="line">    state BACKUP     </span><br><span class="line">   <span class="built_in"> interface </span>bond0 </span><br><span class="line">    virtual_router_id 108</span><br><span class="line">    priority 99</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1234</span><br><span class="line">    &#125;</span><br><span class="line">    track_interface &#123;</span><br><span class="line">        bond0</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.151.108</span><br><span class="line">    &#125;</span><br><span class="line">    notify_master <span class="string">"/etc/keepalived/notify.sh master"</span> # 当前节点成为master时，通知脚本执行任务，一般用于启动某服务</span><br><span class="line">    notify_backup <span class="string">"/etc/keepalived/notify.sh backup"</span> # 当前节点成为backup时，通知脚本执行任务，一般用于关闭某服务</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="notify-sh-脚本"><a href="#notify-sh-脚本" class="headerlink" title="notify.sh 脚本"></a>notify.sh 脚本</h2><p>放在 <code>/etc/keepalived/</code> 目录下，并赋予可执行权限。</p>
+<h2><span id="keepalived-主节点配置">Keepalived 主节点配置</span></h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">vrrp_script chk_haproxy &#123;</span><br><span class="line">   <span class="built_in"> script </span><span class="string">"service haproxy status"</span> # 服务探测，返回0说明服务是正常的</span><br><span class="line">    interval 1                      # 每隔1秒探测一次</span><br><span class="line">    weight -2                       # 不正常时，权重-1，即haproxy上线，权重加2；下线，权重减2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance haproxy &#123;</span><br><span class="line">    state MASTER            # 主机为MASTER，备机为BACKUP</span><br><span class="line">   <span class="built_in"> interface </span>bond0         # 监测网络端口，用ipconfig查看</span><br><span class="line">    virtual_router_id 108   # 主备机必须相同</span><br><span class="line">    priority 100            # 主备机取不同的优先级，主机要大。</span><br><span class="line">    advert_int 1            #<span class="built_in"> VRRP </span>Multicast广播周期秒数</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS      # VRRP认证方式</span><br><span class="line">        auth_pass 1234      # VRRP口令 主备机密码必须相同</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    track_script &#123;          # 调用haproxy进程检测脚本，备节点不配置</span><br><span class="line">        chk_haproxy</span><br><span class="line">    &#125;</span><br><span class="line">    track_interface &#123;</span><br><span class="line">        bond0</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;     # VIP 漂移地址 即集群IP地址</span><br><span class="line">        192.168.151.108/25 dev bond0 </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="keepalived-备节点">Keepalived 备节点</span></h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance haproxy &#123;</span><br><span class="line">    state BACKUP     </span><br><span class="line">   <span class="built_in"> interface </span>bond0 </span><br><span class="line">    virtual_router_id 108</span><br><span class="line">    priority 99</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1234</span><br><span class="line">    &#125;</span><br><span class="line">    track_interface &#123;</span><br><span class="line">        bond0</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.151.108</span><br><span class="line">    &#125;</span><br><span class="line">    notify_master <span class="string">"/etc/keepalived/notify.sh master"</span> # 当前节点成为master时，通知脚本执行任务，一般用于启动某服务</span><br><span class="line">    notify_backup <span class="string">"/etc/keepalived/notify.sh backup"</span> # 当前节点成为backup时，通知脚本执行任务，一般用于关闭某服务</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="notifysh-脚本">notify.sh 脚本</span></h2><p>放在 <code>/etc/keepalived/</code> 目录下，并赋予可执行权限。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">case <span class="string">"$1"</span> <span class="keyword">in</span></span><br><span class="line">    master)</span><br><span class="line">        notify master</span><br><span class="line">        service haproxy start</span><br><span class="line">        <span class="keyword">exit</span> <span class="number">0</span></span><br><span class="line">    ;;</span><br><span class="line">    backup)</span><br><span class="line">        notify backup</span><br><span class="line">        service haproxy stop</span><br><span class="line">        <span class="keyword">exit</span> <span class="number">0</span></span><br><span class="line">    ;;</span><br><span class="line">    fault)</span><br><span class="line">        notify fault</span><br><span class="line">        service haproxy stop</span><br><span class="line">        <span class="keyword">exit</span> <span class="number">0</span></span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">        echo <span class="string">'Usage: `basename $0` &#123;master|backup|fault&#125;'</span></span><br><span class="line">        <span class="keyword">exit</span> <span class="number">1</span></span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
-<h2 id="Keepalived-执行过程"><a href="#Keepalived-执行过程" class="headerlink" title="Keepalived 执行过程"></a>Keepalived 执行过程</h2><p>MASTER - 初始 priority 为 100，BACKUP - 初始 priority 为 99</p>
+<h2><span id="keepalived-执行过程">Keepalived 执行过程</span></h2><p>MASTER - 初始 priority 为 100，BACKUP - 初始 priority 为 99</p>
 <ul>
 <li><p>模拟 MASTER 产生故障：</p>
 <ul>
@@ -668,7 +681,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -814,6 +827,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -826,6 +840,7 @@
 
 
 
+          
         </div>
         
           
@@ -874,7 +889,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -885,7 +900,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -896,7 +911,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -966,23 +981,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1004,7 +1019,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RabbitMQ-集群安装"><span class="nav-text">RabbitMQ 集群安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高可用架构"><span class="nav-text">高可用架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HAproxy"><span class="nav-text">HAproxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HAproxy-配置"><span class="nav-text">HAproxy 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意点"><span class="nav-text">注意点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keepalived"><span class="nav-text">Keepalived</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Keepalived-主节点配置"><span class="nav-text">Keepalived 主节点配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keepalived-备节点"><span class="nav-text">Keepalived 备节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#notify-sh-脚本"><span class="nav-text">notify.sh 脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keepalived-执行过程"><span class="nav-text">Keepalived 执行过程</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">RabbitMQ 集群安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">高可用架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">HAproxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">HAproxy 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Keepalived</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Keepalived 主节点配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Keepalived 备节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">notify.sh 脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Keepalived 执行过程</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1024,7 +1039,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1701,6 +1716,7 @@
   
 
   
+
 
 </body>
 </html>

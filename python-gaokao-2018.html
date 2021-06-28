@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -216,8 +216,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -326,6 +328,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -374,6 +386,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -535,7 +548,7 @@
         <p>最近一周一直在帮家里小弟看高考志愿，所以更新的没那么频繁了，请大家见谅。</p>
 <p>在看各高校的往年分数时，忍不住手痒，想着能不能给它爬下来？哈哈，说干就干！</p>
 <a id="more"></a>
-<h1 id="1-流程分析"><a href="#1-流程分析" class="headerlink" title="1 流程分析"></a>1 流程分析</h1><p>之前无意中在这个网站发现有各个高校的历年录取分数线：<a href="https://gkcx.eol.cn" target="_blank" rel="noopener">https://gkcx.eol.cn</a>。</p>
+<h1><span id="1-流程分析">1 流程分析</span></h1><p>之前无意中在这个网站发现有各个高校的历年录取分数线：<a href="https://gkcx.eol.cn" target="_blank" rel="noopener">https://gkcx.eol.cn</a>。</p>
 <p>我们的目标是用 Python 将下面页面的数据导出到 Excel：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530168054058.jpg" alt="南京邮电大学"></p>
 <p>这个页面的 URL 是：<a href="https://gkcx.eol.cn/schoolhtm/schoolTemple/school160.htm" target="_blank" rel="noopener">https://gkcx.eol.cn/schoolhtm/schoolTemple/school160.htm</a>，显然是需要一个 <code>school_id</code> 拼接而成的，那么如何获取这个 school_id 呢？</p>
@@ -547,7 +560,7 @@
 <li>访问详情地址，抓取目标数据</li>
 <li>处理目标数据，存储到 Excel 中</li>
 </ul>
-<h1 id="2-获取-school-id"><a href="#2-获取-school-id" class="headerlink" title="2 获取 school_id"></a>2 获取 school_id</h1><p>按下 <code>F12</code>，可以看出搜索调用的 URL 是：<code>https://gkcx.eol.cn/soudaxue/queryschool.html?&amp;keyWord1=南京邮电大学</code>，但是我们发现该请求的 response 里并没有高校列表，所以猜测这里是有二次数据请求获取到高校的列表，然后解析显示到页面的。</p>
+<h1><span id="2-获取-school_id">2 获取 school_id</span></h1><p>按下 <code>F12</code>，可以看出搜索调用的 URL 是：<code>https://gkcx.eol.cn/soudaxue/queryschool.html?&amp;keyWord1=南京邮电大学</code>，但是我们发现该请求的 response 里并没有高校列表，所以猜测这里是有二次数据请求获取到高校的列表，然后解析显示到页面的。</p>
 <p>顺着请求流，我们看到了这么一个请求：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530150363229.jpg" alt="获取高校列表"></p>
 <p>并且它的 response 刚好是一个包含高校信息的 json，到这里应该还是顺利的，我们只要从这个 json 里解析出我们想要的东西，然后继续后面的步骤就可以了。要注意该请求的 <code>Referer</code>。</p>
@@ -555,15 +568,15 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(&#123;</span><br><span class="line"> "totalRecord": &#123;"num": "2"&#125;,</span><br><span class="line"> "school":  [</span><br><span class="line">    &#123;</span><br><span class="line">   <span class="attr">"schoolid"</span>: <span class="string">"160"</span>,</span><br><span class="line">   <span class="attr">"schoolname"</span>: <span class="string">"南京邮电大学"</span>,</span><br><span class="line">...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>它是被 <code>();</code> 包围着的，不是一个合法的 json 数据，这里需要对其进行处理后才能解析 json：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 返回数据包含 ();，需要特殊处理</span></span><br><span class="line">text = ((response.text).split(<span class="string">');'</span>,<span class="number">1</span>)[<span class="number">0</span>]).split(<span class="string">'('</span>,<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">j = json.loads(text)</span><br></pre></td></tr></table></figure>
-<h1 id="3-分数线获取"><a href="#3-分数线获取" class="headerlink" title="3 分数线获取"></a>3 分数线获取</h1><p>学校的详情页面是：<a href="https://gkcx.eol.cn/schoolhtm/schoolTemple/school160.htm" target="_blank" rel="noopener">https://gkcx.eol.cn/schoolhtm/schoolTemple/school160.htm</a>，同样的套路，在点击后 response 里并没有分数线数据，我想也是二次请求吧，果然在请求流里找到了这个：</p>
+<h1><span id="3-分数线获取">3 分数线获取</span></h1><p>学校的详情页面是：<a href="https://gkcx.eol.cn/schoolhtm/schoolTemple/school160.htm" target="_blank" rel="noopener">https://gkcx.eol.cn/schoolhtm/schoolTemple/school160.htm</a>，同样的套路，在点击后 response 里并没有分数线数据，我想也是二次请求吧，果然在请求流里找到了这个：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530162107354.jpg" alt="分数线数据"></p>
 <p>这里的两个请求刚好将高校的每年分数线和各专业的分数线以 XML 的格式返回，Very Good！</p>
 <p>下面要做的就是 XML 解析啦。</p>
-<h1 id="4-XML-解析"><a href="#4-XML-解析" class="headerlink" title="4 XML 解析"></a>4 XML 解析</h1><p>这里我们使用 <code>xml.etree.ElementTree</code> 来解析 XML：</p>
+<h1><span id="4-xml-解析">4 XML 解析</span></h1><p>这里我们使用 <code>xml.etree.ElementTree</code> 来解析 XML：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">areapionts</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">areapiont</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">year</span>&gt;</span>2017<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">specialname</span>&gt;</span>软件工程（嵌入式培养）<span class="tag">&lt;/<span class="name">specialname</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maxfs</span>&gt;</span>369<span class="tag">&lt;/<span class="name">maxfs</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">varfs</span>&gt;</span>366<span class="tag">&lt;/<span class="name">varfs</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">minfs</span>&gt;</span>364<span class="tag">&lt;/<span class="name">minfs</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">pc</span>&gt;</span>一批<span class="tag">&lt;/<span class="name">pc</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">stype</span>&gt;</span>理科<span class="tag">&lt;/<span class="name">stype</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">areapiont</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>由于数据比较规整，解析也很简单：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">areapionts = ET.fromstring(response.text)</span><br><span class="line"><span class="keyword">for</span> areapiont <span class="keyword">in</span> areapionts:</span><br><span class="line">    print(areapiont.find(<span class="string">'year'</span>).text)</span><br><span class="line">    print(areapiont.find(<span class="string">'specialname'</span>).text)</span><br></pre></td></tr></table></figure>
-<h1 id="5-Excel-写入"><a href="#5-Excel-写入" class="headerlink" title="5 Excel 写入"></a>5 Excel 写入</h1><p>Excel 的写入需要借助于 <code>openpyxl</code> 模块。</p>
+<h1><span id="5-excel-写入">5 Excel 写入</span></h1><p>Excel 的写入需要借助于 <code>openpyxl</code> 模块。</p>
 <ul>
 <li>openpyxl 简单使用示例</li>
 </ul>
@@ -572,10 +585,10 @@
 <li>XML 解析写入 Excel</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_excel</span><span class="params">(school,xml,wb)</span>:</span></span><br><span class="line">    sheet = wb.create_sheet(title=<span class="string">'各专业历年录取分数线'</span>)</span><br><span class="line">    sheet.column_dimensions[<span class="string">'B'</span>].width = <span class="number">40</span></span><br><span class="line">    sheet[<span class="string">'A1'</span>] = <span class="string">'年份'</span></span><br><span class="line">    sheet[<span class="string">'B1'</span>] = <span class="string">'专业'</span></span><br><span class="line">    sheet[<span class="string">'C1'</span>] = <span class="string">'最高分'</span></span><br><span class="line">    sheet[<span class="string">'D1'</span>] = <span class="string">'平均分'</span></span><br><span class="line">    sheet[<span class="string">'E1'</span>] = <span class="string">'最低分'</span></span><br><span class="line">    sheet[<span class="string">'F1'</span>] = <span class="string">'批次'</span></span><br><span class="line">    sheet[<span class="string">'G1'</span>] = <span class="string">'录取批次'</span></span><br><span class="line"></span><br><span class="line">    areapionts = ET.fromstring(xml)</span><br><span class="line">    column = <span class="number">1</span> </span><br><span class="line">    <span class="keyword">for</span> areapiont <span class="keyword">in</span> areapionts:</span><br><span class="line">        column += <span class="number">1</span></span><br><span class="line">        sheet.cell(column,<span class="number">1</span>).value = areapiont.find(<span class="string">'year'</span>).text</span><br><span class="line">        sheet.cell(column,<span class="number">2</span>).value = areapiont.find(<span class="string">'specialname'</span>).text</span><br><span class="line">        sheet.cell(column,<span class="number">3</span>).value = areapiont.find(<span class="string">'maxfs'</span>).text</span><br><span class="line">        sheet.cell(column,<span class="number">4</span>).value = areapiont.find(<span class="string">'varfs'</span>).text</span><br><span class="line">        sheet.cell(column,<span class="number">5</span>).value = areapiont.find(<span class="string">'minfs'</span>).text</span><br><span class="line">        sheet.cell(column,<span class="number">6</span>).value = areapiont.find(<span class="string">'pc'</span>).text</span><br><span class="line">        sheet.cell(column,<span class="number">7</span>).value = areapiont.find(<span class="string">'stype'</span>).text</span><br><span class="line">    wb.save(<span class="string">'&#123;&#125;.xlsx'</span>.format(school[<span class="string">'schoolname'</span>]))</span><br></pre></td></tr></table></figure>
-<h1 id="执行效果"><a href="#执行效果" class="headerlink" title="执行效果"></a>执行效果</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python gkcx.py</span><br><span class="line">Please the school name：南京邮电大学</span><br><span class="line">共检索到 2 个高校：[<span class="string">'南京邮电大学'</span>, <span class="string">'南京邮电大学通达学院'</span>]</span><br><span class="line">数据获取完成，已下载到脚本目录</span><br></pre></td></tr></table></figure>
+<h1><span id="执行效果">执行效果</span></h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python gkcx.py</span><br><span class="line">Please the school name：南京邮电大学</span><br><span class="line">共检索到 2 个高校：[<span class="string">'南京邮电大学'</span>, <span class="string">'南京邮电大学通达学院'</span>]</span><br><span class="line">数据获取完成，已下载到脚本目录</span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530168004546.jpg" alt="执行结果"></p>
 <p>结果看着还可以，但是还是有问题的，因为各省的分数线肯定是不一样的，这里默认检索出的是学校所在省的分数线，因此若要获取在其他省的分数线，还需要进一步处理，有兴趣的同学不妨动手试一下。后台回复「高考」可以获取源码。</p>
-<h1 id="福利预告"><a href="#福利预告" class="headerlink" title="福利预告"></a>福利预告</h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530168725171.jpg" alt="福利书目"></p>
+<h1><span id="福利预告">福利预告</span></h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530168725171.jpg" alt="福利书目"></p>
 <p>随着公众号的壮大，最近开始有出版社找到我进行赠书的合作活动，我会在最近几天将活动发出，有兴趣的不妨关注下本公众号，等待福利降临！</p>
 <hr>
 
@@ -589,7 +602,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -737,6 +750,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -749,6 +763,7 @@
 
 
 
+          
         </div>
         
           
@@ -797,7 +812,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -808,7 +823,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -819,7 +834,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -889,23 +904,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -927,7 +942,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-流程分析"><span class="nav-text">1 流程分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-获取-school-id"><span class="nav-text">2 获取 school_id</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-分数线获取"><span class="nav-text">3 分数线获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-XML-解析"><span class="nav-text">4 XML 解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Excel-写入"><span class="nav-text">5 Excel 写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行效果"><span class="nav-text">执行效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#福利预告"><span class="nav-text">福利预告</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1 流程分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2 获取 school_id</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3 分数线获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">4 XML 解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">5 Excel 写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">执行效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">福利预告</span></a></li></ol></div>
             
 
           </div>
@@ -947,7 +962,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1624,6 +1639,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -530,7 +543,7 @@
 <p>其实，Ansible Inventory 是包含<code>静态 Inventory</code> 和<code>动态 Inventory</code> 两部分的，静态 Inventory 指的是在文件中指定的主机和组，动态 Inventory 指通过外部脚本获取主机列表，并按照 ansible 所要求的格式返回给 ansilbe 命令的。这部分一般会结合 CMDB 资管系统、云计算平台等获取主机信息。由于主机资源一般会动态的进行增减，而这些系统一般会智能更新。我们可以通过这些工具提供的 API 或者接入库查询等方式返回主机列表。</p>
 <p>比如为了结合资产管理系统（CMDB），所以要使用到动态获取 inventory 的方法，这样可以省去配置 ansible 服务端的 hosts，所有的客户端 IP、帐号、密码、端口都可以从 CMDB 中获取到。</p>
 <p>只要你的脚本输出格式是满足要求的 JSON，这样就可以成为一个动态的资产生成器。</p>
-<h1 id="脚本规约"><a href="#脚本规约" class="headerlink" title="脚本规约"></a>脚本规约</h1><p>用于生成 JSON 的脚本对实现语言没有要求，它可以是一个可执行脚本、二进制文件，或者其他任何可以运行文件，但是必须输出为 JSON 格式，同时必须支持两个参数：<code>--list</code> 和 <code>--host &lt;hostname&gt;</code>。</p>
+<h1><span id="脚本规约">脚本规约</span></h1><p>用于生成 JSON 的脚本对实现语言没有要求，它可以是一个可执行脚本、二进制文件，或者其他任何可以运行文件，但是必须输出为 JSON 格式，同时必须支持两个参数：<code>--list</code> 和 <code>--host &lt;hostname&gt;</code>。</p>
 <ul>
 <li><code>--list</code>：用于返回所有的主机组信息，每个组所包含的主机列表 <code>hosts</code>、所含子组列表 <code>children</code>、主机组变量列表 <code>vars</code> 都应该是字典形式的，<code>_meta</code> 用来存放主机变量。</li>
 </ul>
@@ -541,9 +554,9 @@
 </ul>
 <p>如：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"host_specific_var"</span>: <span class="string">"foo"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="脚本实现"><a href="#脚本实现" class="headerlink" title="脚本实现"></a>脚本实现</h1><p>一个参考实现框架如下：</p>
+<h1><span id="脚本实现">脚本实现</span></h1><p>一个参考实现框架如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment">#coding:utf8</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">all</span><span class="params">()</span>:</span></span><br><span class="line">    info_dict = &#123;</span><br><span class="line">    <span class="string">"all"</span>:[</span><br><span class="line">        <span class="string">"10.10.0.109"</span>,</span><br><span class="line">        <span class="string">"10.10.0.112"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    print(json.dumps(info_dict,indent=<span class="number">4</span>))</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">group</span><span class="params">()</span>:</span></span><br><span class="line">    host1 = [<span class="string">'10.10.0.112'</span>]</span><br><span class="line">    host2 = [<span class="string">'10.10.0.112'</span>,<span class="string">'10.10.0.109'</span>]</span><br><span class="line">    group1 = <span class="string">'test1'</span></span><br><span class="line">    group2 = <span class="string">'test2'</span></span><br><span class="line">    hostdata = &#123;</span><br><span class="line">        group1:&#123;<span class="string">"hosts"</span>:host1&#125;,</span><br><span class="line">        group2:&#123;<span class="string">"hosts"</span>:host2&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    print(json.dumps(hostdata,indent=<span class="number">4</span>))</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">host</span><span class="params">(ip)</span>:</span></span><br><span class="line">    info_dict = &#123;</span><br><span class="line">        <span class="string">"10.10.0.112"</span>: &#123;</span><br><span class="line">            <span class="string">"ansible_ssh_host"</span>:<span class="string">"10.10.0.112"</span>,</span><br><span class="line">            <span class="string">"ansible_ssh_port"</span>:<span class="number">22</span>,</span><br><span class="line">            <span class="string">"ansible_ssh_user"</span>:<span class="string">"root"</span>,</span><br><span class="line">            <span class="string">"ansible_ssh_pass"</span>:<span class="string">"123457"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"10.10.0.109"</span>: &#123;</span><br><span class="line">            <span class="string">"ansible_ssh_host"</span>:<span class="string">"10.10.0.109"</span>,</span><br><span class="line">            <span class="string">"ansible_ssh_port"</span>:<span class="number">22</span>,</span><br><span class="line">            <span class="string">"ansible_ssh_user"</span>:<span class="string">"root"</span>,</span><br><span class="line">            <span class="string">"ansible_ssh_pass"</span>:<span class="string">"xxxx"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    print(json.dumps(info_dict,indent=<span class="number">4</span>))</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> len(sys.argv) == <span class="number">2</span> <span class="keyword">and</span> (sys.argv[<span class="number">1</span>] == <span class="string">'--list'</span>):</span><br><span class="line">    group()</span><br><span class="line"><span class="keyword">elif</span> len(sys.argv) == <span class="number">3</span> <span class="keyword">and</span> (sys.argv[<span class="number">1</span>] == <span class="string">'--host'</span>):</span><br><span class="line">    host(sys.argv[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"Usage: %s --list or --host &lt;hostname&gt;"</span> % sys.argv[<span class="number">0</span>])</span><br><span class="line">    sys.exit(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>使用方法和静态 inventory 类似：</p>
+<h1><span id="使用">使用</span></h1><p>使用方法和静态 inventory 类似：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以指定组</span></span><br><span class="line">$ ansible -i dynamic_investory.py all --list-hosts</span><br><span class="line">  hosts (3):</span><br><span class="line">    127.0.0.1</span><br><span class="line">    10.10.0.112</span><br><span class="line">    10.10.0.109</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以指定主机</span></span><br><span class="line">$ ansible -i dynamic_investory.py 127.0.0.1 --list-hosts</span><br><span class="line">  hosts (1):</span><br><span class="line">    127.0.0.1</span><br></pre></td></tr></table></figure>
 <hr>
 <p>参考：</p>
@@ -565,7 +578,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -711,6 +724,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -723,6 +737,7 @@
 
 
 
+          
         </div>
         
           
@@ -771,7 +786,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -782,7 +797,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -793,7 +808,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -863,23 +878,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -901,7 +916,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本规约"><span class="nav-text">脚本规约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本实现"><span class="nav-text">脚本实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-text">使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">脚本规约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">脚本实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">使用</span></a></li></ol></div>
             
 
           </div>
@@ -921,7 +936,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1598,6 +1613,7 @@
   
 
   
+
 
 </body>
 </html>

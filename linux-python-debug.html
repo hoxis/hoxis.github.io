@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -533,10 +546,10 @@
 <p>这时该怎么办呢？</p>
 <a id="more"></a>
 <p>今天，就给大家介绍一个 Linux 下调试 Python 程序的工具。</p>
-<h1 id="pdb简介"><a href="#pdb简介" class="headerlink" title="pdb简介"></a>pdb简介</h1><p>pdb 调试器是 Python 标准库提供的，因此最为方便，不需要安装其他组件，直接 import 后就能使用。</p>
+<h1><span id="pdb简介">pdb简介</span></h1><p>pdb 调试器是 Python 标准库提供的，因此最为方便，不需要安装其他组件，直接 import 后就能使用。</p>
 <p>pdb 调试器提供了调试所需的大多数功能，如断点、单行步进、堆栈帧的检查等等。</p>
-<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">l <span class="comment"># 查看运行到哪行代码 </span></span><br><span class="line">n <span class="comment"># 单步运行，跳过函数 </span></span><br><span class="line">s <span class="comment"># 单步运行，可进入函数 </span></span><br><span class="line">p 变量 <span class="comment"># 查看变量值 </span></span><br><span class="line">b 行号 <span class="comment"># 断点设置到第几行 </span></span><br><span class="line">b <span class="comment"># 显示所有断点列表 </span></span><br><span class="line">cl 断点号 <span class="comment"># 删除某个断点 </span></span><br><span class="line">cl <span class="comment"># 删除所有断点 </span></span><br><span class="line">c <span class="comment"># 跳到下一个断点 </span></span><br><span class="line">r <span class="comment"># return 当前函数 </span></span><br><span class="line"><span class="keyword">exit</span> <span class="comment"># 退出</span></span><br></pre></td></tr></table></figure>
-<h1 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h1><blockquote>
+<h1><span id="常用命令">常用命令</span></h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">l <span class="comment"># 查看运行到哪行代码 </span></span><br><span class="line">n <span class="comment"># 单步运行，跳过函数 </span></span><br><span class="line">s <span class="comment"># 单步运行，可进入函数 </span></span><br><span class="line">p 变量 <span class="comment"># 查看变量值 </span></span><br><span class="line">b 行号 <span class="comment"># 断点设置到第几行 </span></span><br><span class="line">b <span class="comment"># 显示所有断点列表 </span></span><br><span class="line">cl 断点号 <span class="comment"># 删除某个断点 </span></span><br><span class="line">cl <span class="comment"># 删除所有断点 </span></span><br><span class="line">c <span class="comment"># 跳到下一个断点 </span></span><br><span class="line">r <span class="comment"># return 当前函数 </span></span><br><span class="line"><span class="keyword">exit</span> <span class="comment"># 退出</span></span><br></pre></td></tr></table></figure>
+<h1><span id="使用示例">使用示例</span></h1><blockquote>
 <p>本文 Python 环境：Python 3.5.2</p>
 </blockquote>
 <p>我们先准备一小段演示程序：</p>
@@ -552,7 +565,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> pdb</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    pdb.set_trace()</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">        print(<span class="string">"===start==="</span>)</span><br><span class="line">        pdb.set_trace()</span><br><span class="line">        c = add(<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">        print(<span class="string">"===end==="</span>)</span><br></pre></td></tr></table></figure>
 <p>此时，运行程序，就会自动跳转到设置的断点处：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190109165557.png" alt></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>没了图形化页面，调试只能这么来了，不过还好，pdb 使用看着不难吧。</p>
+<h1><span id="总结">总结</span></h1><p>没了图形化页面，调试只能这么来了，不过还好，pdb 使用看着不难吧。</p>
 <p>其实还有一些增强的调试器，比如 IPython 的 ipdb 和 pdb++，它们一般都提供了更好的用户体验，添加了有用的额外功能，例如语法突出高亮、更好的回溯和自省。</p>
 <p>后面有机会再给大家分享吧！</p>
 
@@ -566,7 +579,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -714,6 +727,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -726,6 +740,7 @@
 
 
 
+          
         </div>
         
           
@@ -774,7 +789,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -785,7 +800,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -796,7 +811,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -866,23 +881,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -904,7 +919,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pdb简介"><span class="nav-text">pdb简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用示例"><span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">pdb简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -924,7 +939,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1601,6 +1616,7 @@
   
 
   
+
 
 </body>
 </html>

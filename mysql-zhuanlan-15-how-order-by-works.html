@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -216,8 +216,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -326,6 +328,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -374,6 +386,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -536,7 +549,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> city,<span class="keyword">name</span>,age <span class="keyword">from</span> t <span class="keyword">where</span> city=<span class="string">'杭州'</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">name</span> <span class="keyword">limit</span> <span class="number">1000</span>  ;</span><br></pre></td></tr></table></figure>
 <p>执行流程是怎样的？</p>
 <a id="more"></a>
-<h1 id="全字段排序"><a href="#全字段排序" class="headerlink" title="全字段排序"></a>全字段排序</h1><p>MySQL 会给每个线程分配一块内存用于排序，称为 sort_buffer。</p>
+<h1><span id="全字段排序">全字段排序</span></h1><p>MySQL 会给每个线程分配一块内存用于排序，称为 sort_buffer。</p>
 <p>这里使用 city 作为查询条件，为了避免全表扫描，可以在 city 上加上索引。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190318190150.png" alt></p>
 <p>上面语句的执行流程如下：</p>
@@ -552,7 +565,7 @@
 <p>内存放不下时，就需要使用外部排序，外部排序一般使用归并排序算法。可以这么简单理解，MySQL 将需要排序的数据分成 12 份，每一份单独排序后存在这些临时文件中。然后把这 12 个有序文件再合并成一个有序的大文件。</p>
 <p>examined_rows 表示参与排序的行数是 4000 行。</p>
 <p>sort_mode 里面的 packed_additional_fields 的意思是，排序过程对字符串做了“紧凑”处理。即使 name 字段的定义是 varchar(16)，在排序过程中还是要按照实际长度来分配空间的。</p>
-<h1 id="rowid-排序"><a href="#rowid-排序" class="headerlink" title="rowid 排序"></a>rowid 排序</h1><p>上述算法中，只对原表中的数据读了一次，剩下的操作都是在 sort_buffer 和临时文件中进行的，如果要返回的字段过多时， sort_buffer 明显放不下，这样就要用到很多临时文件，排序性能就会很差。</p>
+<h1><span id="rowid-排序">rowid 排序</span></h1><p>上述算法中，只对原表中的数据读了一次，剩下的操作都是在 sort_buffer 和临时文件中进行的，如果要返回的字段过多时， sort_buffer 明显放不下，这样就要用到很多临时文件，排序性能就会很差。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> max_length_for_sort_data = <span class="number">16</span>;</span><br></pre></td></tr></table></figure>
 <p>max_length_for_sort_data，是 MySQL 中专门<strong>控制用于排序的行数据的长度</strong>的一个参数。它的意思是，如果单行的长度超过这个值，MySQL 就认为单行太大，要换一个算法。</p>
 <p>新的算法放入 sort_buffer 的字段，只有要排序的列（即 name 字段）和主键 id。</p>
@@ -560,10 +573,10 @@
 <p>1、初始化 sort_buffer，确定放入 name、id 两个字段；<br>2、从索引中找到第一个满足 city 条件的主键 id；<br>3、回表，根据主键 id 取出整行数据，取 name、id 的值，存入 sort_buffer；<br>4、重复步骤 2、3，这样所有满足 city 条件的字段，并存入到了 sort_buffer 中；<br>5、对 sort_buffer 中的数据按字段 name 做快速排序；<br>6、遍历排序结果，取前 1000 行，按照 id 再去原表查询 city、name 和 age 三个字段返回给客户端。</p>
 <p>如下图：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190318191824.png" alt></p>
-<h1 id="全字段排序-VS-rowid-排序"><a href="#全字段排序-VS-rowid-排序" class="headerlink" title="全字段排序 VS rowid 排序"></a>全字段排序 VS rowid 排序</h1><p>如果担心内存小，影响排序效率，才会采用 rowid 排序算法，但是需要回到原表查询结果；</p>
+<h1><span id="全字段排序-vs-rowid-排序">全字段排序 VS rowid 排序</span></h1><p>如果担心内存小，影响排序效率，才会采用 rowid 排序算法，但是需要回到原表查询结果；</p>
 <p>如果内存足够大，MySQL 会优先选择全字段排序。</p>
 <p>体现了 MySQL 的一个设计思想：<strong>如果内存够，就要多利用内存，尽量减少磁盘访问</strong>。</p>
-<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>如果能够保证从 city 取出的数据已经是按 name 递增排序的，那就不用再排序了。</p>
+<h1><span id="优化">优化</span></h1><p>如果能够保证从 city 取出的数据已经是按 name 递增排序的，那就不用再排序了。</p>
 <p>比如，这样的联合索引：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t <span class="keyword">add</span> <span class="keyword">index</span> city_user(city, <span class="keyword">name</span>);</span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190318192729.png" alt></p>
@@ -584,7 +597,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -732,6 +745,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -744,6 +758,7 @@
 
 
 
+          
         </div>
         
           
@@ -792,7 +807,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -803,7 +818,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -814,7 +829,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -884,23 +899,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -922,7 +937,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#全字段排序"><span class="nav-text">全字段排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rowid-排序"><span class="nav-text">rowid 排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全字段排序-VS-rowid-排序"><span class="nav-text">全字段排序 VS rowid 排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-text">优化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">全字段排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">rowid 排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">全字段排序 VS rowid 排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">优化</span></a></li></ol></div>
             
 
           </div>
@@ -942,7 +957,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1619,6 +1634,7 @@
   
 
   
+
 
 </body>
 </html>

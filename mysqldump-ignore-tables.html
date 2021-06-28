@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -211,8 +211,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -321,6 +323,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -369,6 +381,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -531,18 +544,18 @@
 <p>要备份和导入这些表都需要很长时间，并且再次导入时可能还会遇到问题。</p>
 <p>但是，其他的表我们是需要其表结构和表数据的，那么怎么处理呢？</p>
 <a id="more"></a>
-<h1 id="查看数据库表中所有表的行数"><a href="#查看数据库表中所有表的行数" class="headerlink" title="查看数据库表中所有表的行数"></a>查看数据库表中所有表的行数</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> table_name,table_rows <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> TABLE_SCHEMA = <span class="string">'database'</span> <span class="keyword">order</span> <span class="keyword">by</span> table_rows <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+<h1><span id="查看数据库表中所有表的行数">查看数据库表中所有表的行数</span></h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> table_name,table_rows <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> TABLE_SCHEMA = <span class="string">'database'</span> <span class="keyword">order</span> <span class="keyword">by</span> table_rows <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
 <p>比如查看 mysql 库中所有表的行数：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-1-1564650822863.png" alt="查看数据条数"></p>
 <p>也可以查看所有库中表的行数：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> table_name,table_rows <span class="keyword">from</span> information_schema.tables <span class="keyword">order</span> <span class="keyword">by</span> table_rows <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
-<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><p>导出数据库 database 中<strong>所有表</strong>到 database.sql 文件中 </p>
+<h1><span id="导出">导出</span></h1><p>导出数据库 database 中<strong>所有表</strong>到 database.sql 文件中 </p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123456 -d database &gt; database.sql</span><br></pre></td></tr></table></figure>
 <p>导出除了 table1 和 table2 其余所有表中的数据，到 database.sql 文件中 </p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123456 -d database <span class="comment">--ignore-table=database.table1 --ignore-table=database.table2 &gt;&gt; database.sql</span></span><br></pre></td></tr></table></figure>
 <p>只导出指定表中的数据 </p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p123456 -t database table1 table2 &gt; database.sql</span><br></pre></td></tr></table></figure>
-<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p123456 database2 &lt; database.sql</span><br></pre></td></tr></table></figure>
+<h1><span id="导入">导入</span></h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p123456 database2 &lt; database.sql</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -553,7 +566,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -646,8 +659,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/good-things-nainiu.html" rel="prev" title="这个工具一点也不比百度云差！">
-                这个工具一点也不比百度云差！ <i class="fa fa-chevron-right"></i>
+              <a href="/kubernetes-runasuser.html" rel="prev" title="Kubernetes：如何修改容器服务的运行用户？">
+                Kubernetes：如何修改容器服务的运行用户？ <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -699,6 +712,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -711,6 +725,7 @@
 
 
 
+          
         </div>
         
           
@@ -759,7 +774,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -770,7 +785,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -781,7 +796,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -851,23 +866,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -889,7 +904,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#查看数据库表中所有表的行数"><span class="nav-text">查看数据库表中所有表的行数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导出"><span class="nav-text">导出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导入"><span class="nav-text">导入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">查看数据库表中所有表的行数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">导出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">导入</span></a></li></ol></div>
             
 
           </div>
@@ -909,7 +924,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1586,6 +1601,7 @@
   
 
   
+
 
 </body>
 </html>

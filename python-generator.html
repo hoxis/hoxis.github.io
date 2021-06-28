@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,7 +545,7 @@
 <p>简单说，就是一个函数，里面用到了关键字 yield，就成为了一个生成器 </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>g = [x*x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">5</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g = (x*x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">5</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g</span><br><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x7f2a07743fc0</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line"><span class="meta">... </span>    print(i)</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line"><span class="meta">... </span>    print(i)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
 <p>看起来除了把 <code>[]</code> 换成 <code>()</code> 外没什么不同。但是，你不可以再次使用 for i in g，因为生成器只能被迭代一次：先计算出 0，然后继续计算 1，然后计算 4，一个跟一个的。</p>
-<h2 id="yield-关键字"><a href="#yield-关键字" class="headerlink" title="yield 关键字"></a>yield 关键字</h2><p><code>yield</code> 是一个类似 <code>return</code> 的关键字，只是这个函数返回的是个生成器。</p>
+<h2><span id="yield-关键字">yield 关键字</span></h2><p><code>yield</code> 是一个类似 <code>return</code> 的关键字，只是这个函数返回的是个生成器。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">gen</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'---1---'</span>)</span><br><span class="line"><span class="meta">... </span>    mlist = range(<span class="number">3</span>)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> i <span class="keyword">in</span> mlist:</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'---2---'</span>)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">yield</span> i*i</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'---3---'</span>)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mygen = gen()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(mygen)</span><br><span class="line">--<span class="number">-1</span>---</span><br><span class="line">--<span class="number">-2</span>---</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(mygen)</span><br><span class="line">--<span class="number">-3</span>---</span><br><span class="line">--<span class="number">-2</span>---</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(mygen)</span><br><span class="line">--<span class="number">-3</span>---</span><br><span class="line">--<span class="number">-2</span>---</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(mygen)</span><br><span class="line">--<span class="number">-3</span>---</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure>
 <p>你必须要理解：当你调用这个函数的时候，函数内部的代码并不立马执行，这个函数只是返回一个生成器对象，这有点蹊跷不是吗。</p>
 <p>那么，函数内的代码什么时候执行呢？当你使用 for 进行迭代的时候.</p>
@@ -541,7 +554,7 @@
 <p>如果生成器内部没有定义 yield 关键字，那么这个生成器被认为成空的。这种情况可能因为是循环进行没了，或者是没有满足 if/else 条件。</p>
 <p>在上面的例子，我们在循环过程中不断调用 yield ，就会不断中断。当然要给循环设置一个条件来退出循环，不然就会产生一个无限数列出来。同样的，把函数改成 generator 后，我们基本上从来不会用 next() 来获取下一个返回值，而是直接使用 for 循环来迭代：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i <span class="keyword">in</span> mygen:</span><br><span class="line"><span class="meta">... </span>    print(i)</span><br><span class="line">...</span><br><span class="line">--<span class="number">-1</span>---</span><br><span class="line">--<span class="number">-2</span>---</span><br><span class="line"><span class="number">0</span></span><br><span class="line">--<span class="number">-3</span>---</span><br><span class="line">--<span class="number">-2</span>---</span><br><span class="line"><span class="number">1</span></span><br><span class="line">--<span class="number">-3</span>---</span><br><span class="line">--<span class="number">-2</span>---</span><br><span class="line"><span class="number">4</span></span><br><span class="line">--<span class="number">-3</span>---</span><br></pre></td></tr></table></figure>
-<h2 id="生成器和函数的区别"><a href="#生成器和函数的区别" class="headerlink" title="生成器和函数的区别"></a>生成器和函数的区别</h2><ul>
+<h2><span id="生成器和函数的区别">生成器和函数的区别</span></h2><ul>
 <li>直接调用生成器，不会执行； <ul>
 <li>举个栗子：a = f() # 这里 f() 是个生成器</li>
 <li>运行上面这句，f() 不会执行，首次执行需要使用 next(a) 或 a.send(None)，后面会细讲</li>
@@ -551,7 +564,7 @@
 <li>下次再接着执行，会从上次中断的 yield 处接着执行，并可以通过 send() 传递参数，当然继续中断在下一个 yield 处</li>
 <li>如果通过 send() 或 next() 执行 generator，而没有找到下一个 yield，会报错</li>
 </ul>
-<h2 id="next-和-send"><a href="#next-和-send" class="headerlink" title="next() 和 send()"></a>next() 和 send()</h2><ul>
+<h2><span id="next-和-send">next() 和 send()</span></h2><ul>
 <li><p>return = send(msg) </p>
 <ul>
 <li>传递参数 msg 给 <code>当前中断</code> yield 前面的变量</li>
@@ -568,7 +581,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'start'</span>)</span><br><span class="line">    a = <span class="keyword">yield</span> <span class="number">1</span>  <span class="comment"># 可以返回参数1，并接收传递的参数给a</span></span><br><span class="line">    print(a)</span><br><span class="line">    print(<span class="string">'middle'</span>)</span><br><span class="line">    b = <span class="keyword">yield</span> <span class="number">2</span>  <span class="comment"># 可以返回参数2，并接收传递的参数给b</span></span><br><span class="line">    print(b)</span><br><span class="line">    print(<span class="string">'next'</span>)</span><br><span class="line">    c = <span class="keyword">yield</span> <span class="number">3</span>  <span class="comment"># 可以返回参数3，并接收传递的参数给c</span></span><br><span class="line">    print(c)  <span class="comment"># 这里貌似永远不会执行，因为总会在上一行的yield处结束</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = f()  <span class="comment"># 这里不会执行，即没有任何打印信息</span></span><br><span class="line"><span class="comment"># a.next() #这种写法在python3里面会报错</span></span><br><span class="line">return1 = next(a)  <span class="comment"># 输出start，中断在yield 1处，返回yield后面的1给return1</span></span><br><span class="line"><span class="comment"># return1 = a.send(None) # 效果同上一条语句</span></span><br><span class="line"><span class="comment"># return1 = a.send('test') # 这里会报错，生成器启动时只能传入 None，因为没有变量接收传入的值， TypeError: can't send non-None value to a just-started generator</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果首次执行generator，就传递一个非None的参数，因为第一次执行不是从一般的中断yield处执行起，所以没有yield关键字来接收传参，就会报错</span></span><br><span class="line">print(return1)</span><br><span class="line">return2 = next(a)  <span class="comment"># 传入参数为None，即a=None，返回2给return2</span></span><br><span class="line">print(return2)</span><br><span class="line">return3 = a.send(<span class="string">'msg'</span>)  <span class="comment"># 传入参数msg，即b=msg,返回3给return3</span></span><br><span class="line">print(return3)</span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">start</span><br><span class="line"><span class="number">1</span></span><br><span class="line">None</span><br><span class="line">middle</span><br><span class="line"><span class="number">2</span></span><br><span class="line">msg</span><br><span class="line">next</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>生成器是这样一个函数，它记住上一次返回时在函数体中的位置。对生成器函数的第二次（或第 n 次）调用跳转至该函数中间，而上次调用的所有局部变量都保持不变。</p>
+<h2><span id="总结">总结</span></h2><p>生成器是这样一个函数，它记住上一次返回时在函数体中的位置。对生成器函数的第二次（或第 n 次）调用跳转至该函数中间，而上次调用的所有局部变量都保持不变。</p>
 <p>生成器不仅记住了它数据状态，还记住了它在流控制构造（在命令式编程中，这种构造不只是数据值）中的位置。</p>
 <p>生成器的特点：</p>
 <ul>
@@ -586,7 +599,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -732,6 +745,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -744,6 +758,7 @@
 
 
 
+          
         </div>
         
           
@@ -792,7 +807,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -803,7 +818,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -814,7 +829,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -884,23 +899,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -922,7 +937,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#yield-关键字"><span class="nav-text">yield 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器和函数的区别"><span class="nav-text">生成器和函数的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#next-和-send"><span class="nav-text">next() 和 send()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">yield 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">生成器和函数的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">next() 和 send()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -942,7 +957,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1619,6 +1634,7 @@
   
 
   
+
 
 </body>
 </html>

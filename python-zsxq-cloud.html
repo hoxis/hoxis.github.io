@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -531,16 +544,16 @@
       
         <p>最近打算抓取知识星球的数据，分析下大家喜欢发布哪方面的主题，用词云的方式展示出来。</p>
 <a id="more"></a>
-<h1 id="请求参数分析"><a href="#请求参数分析" class="headerlink" title="请求参数分析"></a>请求参数分析</h1><p>这里我们使用网页版进行爬取，首先用 <code>Chrome</code> 登陆<a href="https://wx.zsxq.com/dweb" target="_blank" rel="noopener">知识星球</a>，登陆成功后按下 <code>F12</code> 打开 <code>Developer Tools</code>，并进入查看网络请求窗口。</p>
+<h1><span id="请求参数分析">请求参数分析</span></h1><p>这里我们使用网页版进行爬取，首先用 <code>Chrome</code> 登陆<a href="https://wx.zsxq.com/dweb" target="_blank" rel="noopener">知识星球</a>，登陆成功后按下 <code>F12</code> 打开 <code>Developer Tools</code>，并进入查看网络请求窗口。</p>
 <p>然后在页面点击一个订阅的星球，此时网络会去请求该星球的数据，肯定会有一个 <code>topics?scope=digests&amp;count=20</code> 的 <code>GET</code> 请求，点击该请求，在请求头里会有一个 <code>Authorization</code> 参数，将该参数对应的值记下。该参数相当于一个认证 ID，在一段时间内一直有效，后面爬虫就会一直使用该数值请求数据。</p>
 <p>网页版星球是没有分页的，后在下拉框到底部后自动加载，此时我们可以看到请求地址是：<code>topics?count=20&amp;end_time=2018-06-14T00%3A00%3A52.603%2B0800</code>，是根据时间来进行请求的，这个请求应该满足我们按时段分析数据的需求。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529049884560.jpg" alt="Developer Tools"></p>
 <p>我们来分析 <code>帅张和他的朋友们</code> 的星球数据，其基本 URL 是 <code>https://api.zsxq.com/v1.10/groups/2421112121/</code>。</p>
-<h1 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h1><p>用 Postman 测试接口，可以得到返回的数据是一大坨 json 数据，形如：</p>
+<h1><span id="数据解析">数据解析</span></h1><p>用 Postman 测试接口，可以得到返回的数据是一大坨 json 数据，形如：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"succeeded"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"resp_data"</span>: &#123;</span><br><span class="line">        <span class="attr">"topics"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"topic_id"</span>: <span class="number">15412524852542</span>,</span><br><span class="line">                <span class="attr">"group"</span>: &#123;</span><br><span class="line">                    <span class="attr">"group_id"</span>: <span class="number">2421112121</span>,</span><br><span class="line">                    <span class="attr">"name"</span>: <span class="string">"帅张和他的朋友们"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"talk"</span>,</span><br><span class="line">                <span class="attr">"talk"</span>: &#123;</span><br><span class="line">                    <span class="attr">"owner"</span>: &#123;</span><br><span class="line">                        <span class="attr">"user_id"</span>: <span class="number">552444151844</span>,</span><br><span class="line">                        <span class="attr">"name"</span>: <span class="string">"啊拉丁神经"</span>,</span><br><span class="line">                        <span class="attr">"avatar_url"</span>: <span class="string">"https://file.zsxq.com/1d5/12/d51200c1e3a063c47b1bcc1c40dc89c08a291fadfe4cb9fa193fbcc6584cb0e9_min.jpg"</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="attr">"text"</span>: <span class="string">"这里是主题内容"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">"likes_count"</span>: <span class="number">11</span>,</span><br><span class="line">                <span class="attr">"comments_count"</span>: <span class="number">12</span>,</span><br></pre></td></tr></table></figure>
 <p>可以看出返回的数据是一个 <code>topics</code> 的 list，其中每个 topic 中包含着用户信息、主题内容、点赞数、评论数、评论内容、点赞者的信息、创建时间等等，我们可以使用 <code>jsonpath</code> 组件从返回数据中解析出我们想要的文本数据。</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jsonpath.jsonpath(<span class="literal">result</span>, <span class="string">"$..topics[*]..text"</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<h1><span id="实现">实现</span></h1><h2><span id="准备工作">准备工作</span></h2><ul>
 <li>安装必要的组件：jsonpath、jieba、numpy、wordcloud 等；</li>
 <li>准备字体文件，如本文的 fangsong_GB2312.ttf；</li>
 <li>准备词云形状图片，如本文的 python.png；</li>
@@ -551,10 +564,10 @@
 <li>使用 jieba 进行分词，并对分词的结果以空格隔开；</li>
 <li>对分词后的文本生成词云；</li>
 </ul>
-<h2 id="jieba-分词"><a href="#jieba-分词" class="headerlink" title="jieba 分词"></a>jieba 分词</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'result.txt'</span>).read()</span><br><span class="line">wordlist = jieba.cut(f, cut_all=<span class="keyword">True</span>)</span><br><span class="line">wl_space_split = <span class="string">" "</span>.join(wordlist)</span><br></pre></td></tr></table></figure>
+<h2><span id="jieba-分词">jieba 分词</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">'result.txt'</span>).read()</span><br><span class="line">wordlist = jieba.cut(f, cut_all=<span class="keyword">True</span>)</span><br><span class="line">wl_space_split = <span class="string">" "</span>.join(wordlist)</span><br></pre></td></tr></table></figure>
 <p>这样就可以得到一个分词后的 list 结果。</p>
 <p>其实生成词云的 generate 函数是可以对全部文本进行自动分词，但是对中文支持不好，所以这里我们使用 jieba 先进行了分词。</p>
-<h2 id="生成词云"><a href="#生成词云" class="headerlink" title="生成词云"></a>生成词云</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">coloring = numpy.array(Image.open(<span class="string">"python.png"</span>))</span><br><span class="line">my_wordcloud = WordCloud(background_color=<span class="string">"white"</span>, max_words=<span class="number">2000</span>, mask=coloring, </span><br><span class="line">                font_path=<span class="string">'fangsong_GB2312.ttf'</span>, max_font_size=<span class="number">50</span>, random_state=<span class="number">42</span>).generate(wl_space_split)</span><br><span class="line">my_wordcloud.to_file(<span class="string">'test.png'</span>)</span><br></pre></td></tr></table></figure>
+<h2><span id="生成词云">生成词云</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">coloring = numpy.array(Image.open(<span class="string">"python.png"</span>))</span><br><span class="line">my_wordcloud = WordCloud(background_color=<span class="string">"white"</span>, max_words=<span class="number">2000</span>, mask=coloring, </span><br><span class="line">                font_path=<span class="string">'fangsong_GB2312.ttf'</span>, max_font_size=<span class="number">50</span>, random_state=<span class="number">42</span>).generate(wl_space_split)</span><br><span class="line">my_wordcloud.to_file(<span class="string">'test.png'</span>)</span><br></pre></td></tr></table></figure>
 <p>其中参数含义如下：</p>
 <ul>
 <li>width,height,margin 可以设置图片属性</li>
@@ -563,10 +576,10 @@
 </ul>
 <p>另外，<code>font_path</code>：这个是在词云图中显示文字的字体存放的路径，特别是在显示中文的时候，这个参数尤为重要，如果缺省的话容易造成乱码，如下：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1529042979454.jpg" alt="中文乱码"></p>
-<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ python zsxq_cloud.py -d <span class="string">"2018-06-13"</span></span><br><span class="line">Building prefix dict from the default dictionary ...</span><br><span class="line">Loading model from cache /tmp/jieba.cache</span><br><span class="line">Loading model cost 1.000 seconds.</span><br><span class="line">Prefix dict has been built succesfully.</span><br></pre></td></tr></table></figure>
+<h1><span id="运行">运行</span></h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ python zsxq_cloud.py -d <span class="string">"2018-06-13"</span></span><br><span class="line">Building prefix dict from the default dictionary ...</span><br><span class="line">Loading model from cache /tmp/jieba.cache</span><br><span class="line">Loading model cost 1.000 seconds.</span><br><span class="line">Prefix dict has been built succesfully.</span><br></pre></td></tr></table></figure>
 <p>运行成功后会在当前目录生成一个 test.png 的图片：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/test.png" alt="生成结果"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>可以看到，词云展示实现起来不过 10 行代码，数据的获取才是关键。这里我只是分析一天的数据生成词云，那么一个月的数据如何获取呢？大家不妨想一下。</p>
+<h1><span id="总结">总结</span></h1><p>可以看到，词云展示实现起来不过 10 行代码，数据的获取才是关键。这里我只是分析一天的数据生成词云，那么一个月的数据如何获取呢？大家不妨想一下。</p>
 <p>另外，下回准备对星球数据换个方向进行分析，分析下大家喜欢在哪一天发文，在一天里的什么时候发文，且听下回分解~</p>
 <p>代码已上传至 <a href="https://github.com/hoxis/Python/blob/master/python-web-scraping/scrapingEnv/zsxq/zsxq_cloud.py" target="_blank" rel="noopener">GitHub</a>，点击阅读原文下载。</p>
 
@@ -580,7 +593,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -728,6 +741,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -740,6 +754,7 @@
 
 
 
+          
         </div>
         
           
@@ -788,7 +803,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -799,7 +814,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -810,7 +825,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -880,23 +895,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -918,7 +933,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#请求参数分析"><span class="nav-text">请求参数分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据解析"><span class="nav-text">数据解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jieba-分词"><span class="nav-text">jieba 分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成词云"><span class="nav-text">生成词云</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">请求参数分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">数据解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">jieba 分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">生成词云</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -938,7 +953,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1615,6 +1630,7 @@
   
 
   
+
 
 </body>
 </html>

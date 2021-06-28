@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -216,8 +216,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -326,6 +328,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -374,6 +386,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -544,22 +557,22 @@
 <p>其实执行流程和查询流程一致，只是最后执行器执行的是找到这条数据，并进行更新。</p>
 <p>另外，更新过程还涉及到一个重要的日志模块，即 <code>redo log</code>（重做日志）和 <code>binlog</code>（归档日志）。</p>
 <p>我个人是只听过 binlog 的。</p>
-<h1 id="redo-log"><a href="#redo-log" class="headerlink" title="redo log"></a>redo log</h1><p>和大多数关系型数据库一样，InnoDB 记录了对数据文件的物理更改，并保证总是<strong>日志先行</strong>。</p>
+<h1><span id="redo-log">redo log</span></h1><p>和大多数关系型数据库一样，InnoDB 记录了对数据文件的物理更改，并保证总是<strong>日志先行</strong>。</p>
 <p>也就是所谓的 WAL（Write-Ahead Logging），即在持久化数据文件前，保证之前的 redo 日志已经写到磁盘。</p>
 <p>MySQL 的每一次更新并没有每次都写入磁盘，InnoDB 引擎会先将记录写到 redo log 里，并更新到内存中，然后再适当的时候，再把这个记录更新到磁盘。</p>
 <p>这里有必要贴一下 InnoDB 的存储结构图：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542522706182.jpg" alt="InnoDB 物理存储结构"></p>
 <p>如果下面看的各种空间懵逼了，建议回来看一眼这个图。</p>
-<h2 id="redo-log-是啥"><a href="#redo-log-是啥" class="headerlink" title="redo log 是啥"></a>redo log 是啥</h2><p>当数据库对数据做修改的时候，需要把数据页从磁盘读到 buffer pool 中，然后在 buffer pool 中进行修改，那么这个时候 buffer pool 中的数据页就与磁盘上的数据页<strong>内容不一致</strong>，我们称 buffer pool 的数据页为 <strong>dirty page 脏数据</strong>。</p>
+<h2><span id="redo-log-是啥">redo log 是啥</span></h2><p>当数据库对数据做修改的时候，需要把数据页从磁盘读到 buffer pool 中，然后在 buffer pool 中进行修改，那么这个时候 buffer pool 中的数据页就与磁盘上的数据页<strong>内容不一致</strong>，我们称 buffer pool 的数据页为 <strong>dirty page 脏数据</strong>。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542522801848.jpg" alt="dirty page"></p>
 <p>这里也可以看出，所有的更新操作都是现在 <code>dirty page</code> 中进行的。</p>
 <p>如果这个时候发生非正常的 DB 服务重启，那么这些数据还没在内存，并没有同步到磁盘文件中（注意，同步到磁盘文件是个随机 IO），也就是会发生<strong>数据丢失</strong>。</p>
 <p>如果这个时候，能够在有一个文件，当 buffer pool 中的 dirty page 变更结束后，<strong>把相应修改记录记录到这个文件</strong>（注意，记录日志是<strong>顺序 IO</strong>），那么当 DB 服务发生 crash 的情况，恢复 DB 的时候，也可以根据这个文件的记录内容，重新应用到磁盘文件，数据保持一致。</p>
 <p>这个文件就是 redo log ，<strong>用于记录数据修改后的记录</strong>，顺序记录。</p>
 <p>我理解的，redo log 就是存放 dirty page 的物理空间。</p>
-<h2 id="log-何时产生-amp-释放？"><a href="#log-何时产生-amp-释放？" class="headerlink" title="log 何时产生 &amp; 释放？"></a>log 何时产生 &amp; 释放？</h2><p>在事务开始之后就产生 redo log，redo log 的落盘并不是随着事务的提交才写入的，而是在<strong>事务的执行过程中</strong>，便开始写入 redo log 文件中。</p>
+<h2><span id="log-何时产生-amp-释放">log 何时产生 &amp; 释放？</span></h2><p>在事务开始之后就产生 redo log，redo log 的落盘并不是随着事务的提交才写入的，而是在<strong>事务的执行过程中</strong>，便开始写入 redo log 文件中。</p>
 <p>当对应事务的脏页写入到磁盘之后，redo log 的使命也就完成了，重做日志占用的空间就可以重用（被覆盖）。</p>
-<h2 id="如何写？"><a href="#如何写？" class="headerlink" title="如何写？"></a>如何写？</h2><p>Redo log 文件以 <code>ib_logfile[number]</code> 命名，并以顺序的方式写入文件文件，写满时则回溯到第一个文件，进行覆盖写。</p>
+<h2><span id="如何写">如何写？</span></h2><p>Redo log 文件以 <code>ib_logfile[number]</code> 命名，并以顺序的方式写入文件文件，写满时则回溯到第一个文件，进行覆盖写。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542522969406.jpg" alt="循环写"></p>
 <p>如图所示：</p>
 <ul>
@@ -573,9 +586,9 @@
 <p>通常在未做 checkpoint 的日志超过文件总大小的 76% 之后，InnoDB 认为这可能是个不安全的点，会强制的 preflush 脏页，导致大量用户线程 stall 住。</p>
 <p>如果可预期会有这样的场景，我们建议调大 redo log 文件的大小。可以做一次干净的 shutdown，然后修改 Redo log 配置，重启实例。</p>
 <p>参考：<br><a href="http://mysql.taobao.org/monthly/2015/05/01/" target="_blank" rel="noopener">http://mysql.taobao.org/monthly/2015/05/01/</a></p>
-<h2 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h2><p>默认情况下，对应的物理文件位于数据库的 data 目录下的 <code>ib_logfile1</code>、<code>ib_logfile2</code>。</p>
+<h2><span id="相关配置">相关配置</span></h2><p>默认情况下，对应的物理文件位于数据库的 data 目录下的 <code>ib_logfile1</code>、<code>ib_logfile2</code>。</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">innodb_log_group_home_dir 指定日志文件组所在的路径，默认<span class="string">./</span> ，表示在数据库的数据目录下。</span><br><span class="line">innodb_log_files_in_group 指定重做日志文件组中文件的数量，默认2</span><br><span class="line"><span class="comment"># 关于文件的大小和数量，由一下两个参数配置</span></span><br><span class="line">innodb_log_file_size 重做日志文件的大小。</span><br><span class="line">innodb_mirrored_log_groups 指定了日志镜像文件组的数量，默认1</span><br></pre></td></tr></table></figure>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>redo log 有一个缓存区 <code>Innodb_log_buffer</code>，默认大小为 8M，Innodb 存储引擎先将重做日志写入 innodb_log_buffer 中。</p>
+<h2><span id="其他">其他</span></h2><p>redo log 有一个缓存区 <code>Innodb_log_buffer</code>，默认大小为 8M，Innodb 存储引擎先将重做日志写入 innodb_log_buffer 中。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542524577634.jpg" alt="写 redo log 过程"></p>
 <p>然后会通过以下三种方式将 innodb 日志缓冲区的日志刷新到磁盘：</p>
 <p>1、Master Thread 每秒一次执行刷新 Innodb_log_buffer 到重做日志文件；<br>2、每个事务提交时会将重做日志刷新到重做日志文件；<br>3、当 redo log 缓存可用空间少于一半时，重做日志缓存被刷新到重做日志文件；</p>
@@ -586,24 +599,24 @@
 <li>所有没有提交的事务的数据自动回滚。</li>
 </ul>
 <hr>
-<h1 id="binlog"><a href="#binlog" class="headerlink" title="binlog"></a>binlog</h1><p>如前文所讲，MySQL 整体可以分为 Server 层和引擎层。</p>
+<h1><span id="binlog">binlog</span></h1><p>如前文所讲，MySQL 整体可以分为 Server 层和引擎层。</p>
 <p>其实，redo log 是属于引擎层的 <strong>InnoDB 所特有</strong>的日志，而 Server 层也有自己的日志，即 binlog（归档日志）。</p>
-<h2 id="记录了什么"><a href="#记录了什么" class="headerlink" title="记录了什么"></a>记录了什么</h2><p>逻辑格式的日志，可以简单认为就是执行过的事务中的 sql 语句。</p>
+<h2><span id="记录了什么">记录了什么</span></h2><p>逻辑格式的日志，可以简单认为就是执行过的事务中的 sql 语句。</p>
 <p>但又不完全是 sql 语句这么简单，而是包括了执行的 sql 语句（增删改）反向的信息。</p>
 <p>也就意味着 delete 对应着 delete 本身和其反向的 insert；update 对应着 update 执行前后的版本的信息；insert 对应着 delete 和 insert 本身的信息。</p>
-<h2 id="何时产生-amp-释放"><a href="#何时产生-amp-释放" class="headerlink" title="何时产生 &amp; 释放"></a>何时产生 &amp; 释放</h2><p><strong>事务提交的时候</strong>，一次性将事务中的 sql 语句按照一定的格式记录到 binlog 中。因此，对于较大事务的提交，可能会变得比较慢一些。</p>
+<h2><span id="何时产生-amp-释放">何时产生 &amp; 释放</span></h2><p><strong>事务提交的时候</strong>，一次性将事务中的 sql 语句按照一定的格式记录到 binlog 中。因此，对于较大事务的提交，可能会变得比较慢一些。</p>
 <p>binlog 的默认是保持时间由参数 <code>expire_logs_days</code> 配置，也就是说对于非活动的日志文件，在生成时间超过配置的天数之后，会被自动删除。</p>
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>1、redo log 是 InnoDB 引擎特有的，binlog 是 MySQL 的 Server 层实现，所有引擎都可以使用；<br>2、内容不同：redo log 是<strong>物理日志</strong>，记录的是在数据页上做了什么修改,是正在执行中的 dml 以及 ddl 语句；而 binlog 是逻辑日志，记录的是语句的原始逻辑，已经提交完毕之后的 dml 以及 ddl sql 语句，如「给 ID=2 的这一行的 c 字段加 1」；<br>3、写方式不同：redo log 是循环写的，空间固定；binlog 是可以一直追加写的，一个文件写到一定大小后，会继续写下一个，之前写的文件不会被覆盖；<br>4、作用不同：redo log 主要用来保证事务安全，作为异常 down 机或者介质故障后的数据恢复使用，binlog 主要用来做主从复制和即时点恢复时使用；<br>5、另外，两者日志产生的时间，可以释放的时间，在可释放的情况下清理机制，都是完全不同的。</p>
+<h2><span id="区别">区别</span></h2><p>1、redo log 是 InnoDB 引擎特有的，binlog 是 MySQL 的 Server 层实现，所有引擎都可以使用；<br>2、内容不同：redo log 是<strong>物理日志</strong>，记录的是在数据页上做了什么修改,是正在执行中的 dml 以及 ddl 语句；而 binlog 是逻辑日志，记录的是语句的原始逻辑，已经提交完毕之后的 dml 以及 ddl sql 语句，如「给 ID=2 的这一行的 c 字段加 1」；<br>3、写方式不同：redo log 是循环写的，空间固定；binlog 是可以一直追加写的，一个文件写到一定大小后，会继续写下一个，之前写的文件不会被覆盖；<br>4、作用不同：redo log 主要用来保证事务安全，作为异常 down 机或者介质故障后的数据恢复使用，binlog 主要用来做主从复制和即时点恢复时使用；<br>5、另外，两者日志产生的时间，可以释放的时间，在可释放的情况下清理机制，都是完全不同的。</p>
 <p>参考：<br><a href="http://www.importnew.com/28039.html" target="_blank" rel="noopener">http://www.importnew.com/28039.html</a></p>
 <hr>
-<h1 id="数据更新事务流程"><a href="#数据更新事务流程" class="headerlink" title="数据更新事务流程"></a>数据更新事务流程</h1><p>有了对这两个日志的概念性理解，我们再来看执行器和 InnoDB 引擎在执行这个简单的 update 语句时的内部流程。</p>
+<h1><span id="数据更新事务流程">数据更新事务流程</span></h1><p>有了对这两个日志的概念性理解，我们再来看执行器和 InnoDB 引擎在执行这个简单的 update 语句时的内部流程。</p>
 <p>1、执行器先找引擎取 ID=2 这一行。ID 是主键，引擎直接用树搜索找到这一行。如果 ID=2 这一行所在的数据页本来就在内存中，就直接返回给执行器；否则，需要先从磁盘读入内存，然后再返回。</p>
 <p>2、执行器拿到引擎给的行数据，把这个值加上 1，比如原来是 N，现在就是 N+1，得到新的一行数据，再调用引擎接口写入这行新数据。</p>
 <p>3、引擎将这行新数据更新到内存中，同时将这个更新操作<strong>记录到 redo log</strong> 里面，此时 redo log 处于 <strong>prepare 状态</strong>。然后告知执行器执行完成了，随时可以提交事务。</p>
 <p>4、执行器生成这个操作的 binlog，并把 <strong>binlog 写入磁盘</strong>；</p>
 <p>5、执行器调用引擎的<strong>提交事务</strong>接口，引擎把刚刚写入的 redo log 改成提交（commit）状态，更新完成。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542525461917.jpg" alt="事务流程"></p>
-<h2 id="两阶段提交"><a href="#两阶段提交" class="headerlink" title="两阶段提交"></a>两阶段提交</h2><p>上面处理 redo log 和 binlog 看着是不是有点懵逼？</p>
+<h2><span id="两阶段提交">两阶段提交</span></h2><p>上面处理 redo log 和 binlog 看着是不是有点懵逼？</p>
 <p>其实这就是所谓的两阶段提交，即 COMMIT 会被自动的分成 prepare 和 commit 两个阶段。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542525628954.jpg" alt="两阶段提交"></p>
 <p>MySQL 在 prepare 阶段会生成 xid，然后会在 commit 阶段写入到 binlog 中。在进行恢复时事务要提交还是回滚，是由 Binlog 来决定的。</p>
@@ -614,7 +627,7 @@
 <p>PS：记录 Binlog 是在 InnoDB 引擎 Prepare（即 Redo Log 写入磁盘）之后，这点至关重要。<br>另外需要注意的一点就是，SQL 语句产生的 Redo 日志会一直刷新到磁盘（master thread 每秒 fsync redo log），而 Binlog 是事务 commit 时才刷新到磁盘，如果 binlog 太大则 commit 时会慢。</p>
 </blockquote>
 <p>参考：<br><a href="http://www.ywnds.com/?p=7892" target="_blank" rel="noopener">http://www.ywnds.com/?p=7892</a></p>
-<h1 id="如何恢复数据？"><a href="#如何恢复数据？" class="headerlink" title="如何恢复数据？"></a>如何恢复数据？</h1><p>当需要恢复到指定的某一秒时，比如某天下午两点发现中午十二点有一次误删表，需要找回数据，那你可以这么做：</p>
+<h1><span id="如何恢复数据">如何恢复数据？</span></h1><p>当需要恢复到指定的某一秒时，比如某天下午两点发现中午十二点有一次误删表，需要找回数据，那你可以这么做：</p>
 <p>1、首先，找到最近的一次全量备份，如果你运气好，可能就是昨天晚上的一个备份，从这个备份恢复到临时库；</p>
 <p>2、然后，从备份的时间点开始，将备份的 binlog 依次取出来，重放到中午误删表之前的那个时刻。</p>
 <p>这样你的临时库就跟误删之前的线上库一样了，然后你可以把表数据从临时库取出来，按需要恢复到线上库去。</p>
@@ -627,7 +640,7 @@
 <li>当事务在 binlog 日志已经 fsync 到磁盘后 crash，但是 InnoDB 没有来得及 commit，此时 MySQL 数据库 recovery 的时候将会读出 binlog 中的 xid，然后告诉 InnoDB 提交这些 xid 的事务，InnoDB 提交完这些事务后会回滚其它的事务，使存储引擎和二进制日志始终保持一致。</li>
 </ul>
 <p>总结起来说就是如果一个事务在 prepare 阶段中落盘成功，并在 MySQL Server 层中的 binlog 也写入成功，那这个事务必定 commit 成功。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>介绍了 MySQL 里面最重要的两个日志，即物理日志 redo log 和逻辑日志 binlog。</p>
+<h1><span id="总结">总结</span></h1><p>介绍了 MySQL 里面最重要的两个日志，即物理日志 redo log 和逻辑日志 binlog。</p>
 <p>redo log 用于保证 crash-safe 能力。<code>innodb_flush_log_at_trx_commit</code> 这个参数设置成 1 的时候，表示<strong>每次事务的 redo log 都直接持久化到磁盘</strong>。这个参数我建议你设置成 1，这样可以保证 MySQL 异常重启之后数据不丢失。</p>
 <p><code>sync_binlog</code> 这个参数设置成 1 的时候，表示<strong>每次事务的 binlog 都持久化到磁盘</strong>。这个参数我也建议你设置成 1，这样可以保证 MySQL 异常重启之后 binlog 不丢失。</p>
 <p>我还跟你介绍了与 MySQL 日志系统密切相关的「两阶段提交」。两阶段提交是跨系统维持数据逻辑一致性时常用的一个方案，即使你不做数据库内核开发，日常开发中也有可能会用到。</p>
@@ -643,7 +656,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -791,6 +804,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -803,6 +817,7 @@
 
 
 
+          
         </div>
         
           
@@ -851,7 +866,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -862,7 +877,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -873,7 +888,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -943,23 +958,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -981,7 +996,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redo-log"><span class="nav-text">redo log</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#redo-log-是啥"><span class="nav-text">redo log 是啥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#log-何时产生-amp-释放？"><span class="nav-text">log 何时产生 &amp; 释放？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写？"><span class="nav-text">如何写？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关配置"><span class="nav-text">相关配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#binlog"><span class="nav-text">binlog</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#记录了什么"><span class="nav-text">记录了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何时产生-amp-释放"><span class="nav-text">何时产生 &amp; 释放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据更新事务流程"><span class="nav-text">数据更新事务流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两阶段提交"><span class="nav-text">两阶段提交</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何恢复数据？"><span class="nav-text">如何恢复数据？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">redo log</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">redo log 是啥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">log 何时产生 &amp; 释放？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">如何写？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">相关配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">binlog</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">记录了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">何时产生 &amp; 释放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">数据更新事务流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">两阶段提交</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">如何恢复数据？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1001,7 +1016,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1678,6 +1693,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,13 +540,13 @@
       
         <p>第四章主要涉及文件的写入，包括使用<code>with</code>语句、<code>pickle</code>处理文件等。</p>
 <a id="more"></a>
-<h2 id="简单文件写入"><a href="#简单文件写入" class="headerlink" title="简单文件写入"></a>简单文件写入</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>out = open(<span class="string">'data.out'</span>, <span class="string">'w'</span>) <span class="comment"># 以w模式打开，在写入前会清空文件</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">"测试一下"</span>,file=out)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>out.close() <span class="comment"># 一定要进行close，即刷新输出</span></span><br></pre></td></tr></table></figure>
+<h2><span id="简单文件写入">简单文件写入</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>out = open(<span class="string">'data.out'</span>, <span class="string">'w'</span>) <span class="comment"># 以w模式打开，在写入前会清空文件</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">"测试一下"</span>,file=out)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>out.close() <span class="comment"># 一定要进行close，即刷新输出</span></span><br></pre></td></tr></table></figure>
 <p>可以看到在当前工作目录下生成了一个<code>data.out</code>文件，内容为：测试一下。</p>
 <blockquote>
 <p>当尝试往一个不存在的文件写入时，程序首先会创建一个新文件。</p>
 </blockquote>
-<h2 id="读取-写入文件"><a href="#读取-写入文件" class="headerlink" title="读取/写入文件"></a>读取/写入文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">man = []</span><br><span class="line">other = []</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    data = open(<span class="string">'sketch.txt'</span>)</span><br><span class="line">    <span class="keyword">for</span> each_line <span class="keyword">in</span> data:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            (role, line_spoken) = each_line.split(<span class="string">':'</span>, <span class="number">1</span>)</span><br><span class="line">            line_spoken = line_spoken.strip() <span class="comment"># 去除字符串中的首尾空字符</span></span><br><span class="line">            <span class="keyword">if</span> role == <span class="string">'Man'</span>:</span><br><span class="line">                man.append(line_spoken)</span><br><span class="line">            <span class="keyword">elif</span> role == <span class="string">'Other Man'</span>:</span><br><span class="line">                other.append(line_spoken)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    data.close()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">'文件不存在！'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    man_file = open(<span class="string">'man_data.txt'</span>,<span class="string">'w'</span>)</span><br><span class="line">    other_file = open(<span class="string">'other_data.txt'</span>,<span class="string">'w'</span>)</span><br><span class="line">    print(man,file=man_file)</span><br><span class="line">    print(other,file=other_file)</span><br><span class="line"></span><br><span class="line">    man_file.close()</span><br><span class="line">    other_file.close()</span><br><span class="line"><span class="keyword">except</span> IOError:</span><br><span class="line">    print(<span class="string">'文件异常'</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="使用with处理文件异常"><a href="#使用with处理文件异常" class="headerlink" title="使用with处理文件异常"></a>使用with处理文件异常</h2><ul>
+<h2><span id="读取写入文件">读取/写入文件</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">man = []</span><br><span class="line">other = []</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    data = open(<span class="string">'sketch.txt'</span>)</span><br><span class="line">    <span class="keyword">for</span> each_line <span class="keyword">in</span> data:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            (role, line_spoken) = each_line.split(<span class="string">':'</span>, <span class="number">1</span>)</span><br><span class="line">            line_spoken = line_spoken.strip() <span class="comment"># 去除字符串中的首尾空字符</span></span><br><span class="line">            <span class="keyword">if</span> role == <span class="string">'Man'</span>:</span><br><span class="line">                man.append(line_spoken)</span><br><span class="line">            <span class="keyword">elif</span> role == <span class="string">'Other Man'</span>:</span><br><span class="line">                other.append(line_spoken)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    data.close()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    print(<span class="string">'文件不存在！'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    man_file = open(<span class="string">'man_data.txt'</span>,<span class="string">'w'</span>)</span><br><span class="line">    other_file = open(<span class="string">'other_data.txt'</span>,<span class="string">'w'</span>)</span><br><span class="line">    print(man,file=man_file)</span><br><span class="line">    print(other,file=other_file)</span><br><span class="line"></span><br><span class="line">    man_file.close()</span><br><span class="line">    other_file.close()</span><br><span class="line"><span class="keyword">except</span> IOError:</span><br><span class="line">    print(<span class="string">'文件异常'</span>)</span><br></pre></td></tr></table></figure>
+<h2><span id="使用with处理文件异常">使用with处理文件异常</span></h2><ul>
 <li>通常的<code>try/expect/finally</code>方式：</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    data = data = open(<span class="string">'missing'</span>, <span class="string">'w'</span>)</span><br><span class="line">    print(data.readline(), end=<span class="string">''</span>)</span><br><span class="line"><span class="keyword">except</span> IOError <span class="keyword">as</span> err:</span><br><span class="line">    print(<span class="string">'File error'</span> + str(err))</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'data'</span> <span class="keyword">in</span> locals():</span><br><span class="line">        data.close()</span><br></pre></td></tr></table></figure>
@@ -545,9 +558,9 @@
 <p>with语句利用了一种名为<strong>上下文管理协议（context management protocol）</strong>的python技术。</p>
 </blockquote>
 <p>使用<code>with</code>时，不再需要操心关闭打开的文件，因为python解释器会自动的进行。</p>
-<h2 id="pickle"><a href="#pickle" class="headerlink" title="pickle"></a>pickle</h2><p>可以保存和加载几乎任何Python数据对象，包括列表。<br>使用<code>pickle</code>很简单，只需要导入所需的模块，然后使用<code>dump()</code>保存数据，以后再某个时间点可以使用<code>load()</code>来恢复数据。但是这些操作的一个要求就是必须要以<strong>二进制访问模式</strong>打开这些文件。出现异常时，<code>pickle</code>会产生一个<code>PickleError</code>类型的异常。</p>
+<h2><span id="pickle">pickle</span></h2><p>可以保存和加载几乎任何Python数据对象，包括列表。<br>使用<code>pickle</code>很简单，只需要导入所需的模块，然后使用<code>dump()</code>保存数据，以后再某个时间点可以使用<code>load()</code>来恢复数据。但是这些操作的一个要求就是必须要以<strong>二进制访问模式</strong>打开这些文件。出现异常时，<code>pickle</code>会产生一个<code>PickleError</code>类型的异常。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle <span class="comment"># 一定要导入pickle模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'mydata.pickle'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> mysavadata: <span class="comment">#b代表使用二进制模式打开文件</span></span><br><span class="line">    pickle.dump([<span class="number">1</span>, <span class="number">2</span>, <span class="string">'three'</span>], mysavadata) <span class="comment"># 使用dump保存数据文件</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'mydata.pickle'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> myrestoredata:</span><br><span class="line">    a_list = pickle.load(myrestoredata) <span class="comment"># 使用load从文件恢复数据</span></span><br><span class="line">print(a_list)</span><br></pre></td></tr></table></figure>
-<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="open-函数"><a href="#open-函数" class="headerlink" title="open()函数"></a>open()函数</h3><p><code>open(file, mode=&#39;r&#39;, buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)</code>：打开一个文件并返回对应的文件对象，若文件不存在，将抛出<code>OSError</code>异常。</p>
+<h2><span id="知识点">知识点</span></h2><h3><span id="open函数">open()函数</span></h3><p><code>open(file, mode=&#39;r&#39;, buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)</code>：打开一个文件并返回对应的文件对象，若文件不存在，将抛出<code>OSError</code>异常。</p>
 <p>主要参数：</p>
 <ul>
 <li><code>file</code>：可以是一个代表文件路径（绝对路径或者相对路径）字符串或者一个包装好的文件对象</li>
@@ -591,8 +604,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="str-strip-chars-函数"><a href="#str-strip-chars-函数" class="headerlink" title="str.strip([chars])函数"></a>str.strip([chars])函数</h3><p>没有参数则清除首尾的空白字符，有参数（比如<code>a</code>），怎将首尾中的a全部清除，直到不是<code>a</code>的字符，如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'   spacious   '</span>.strip()</span><br><span class="line"><span class="string">'spacious'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'www.example.com'</span>.strip(<span class="string">'cmowz.'</span>)</span><br><span class="line"><span class="string">'example'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="locals-：返回当前作用域中的变量集合"><a href="#locals-：返回当前作用域中的变量集合" class="headerlink" title="locals()：返回当前作用域中的变量集合"></a>locals()：返回当前作用域中的变量集合</h3><p>当一行代码要使用变量<code>x</code>的值时，Python会到所有可用的名字空间去查找变量，按照如下顺序：</p>
+<h3><span id="strstripchars函数">str.strip([chars])函数</span></h3><p>没有参数则清除首尾的空白字符，有参数（比如<code>a</code>），怎将首尾中的a全部清除，直到不是<code>a</code>的字符，如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'   spacious   '</span>.strip()</span><br><span class="line"><span class="string">'spacious'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'www.example.com'</span>.strip(<span class="string">'cmowz.'</span>)</span><br><span class="line"><span class="string">'example'</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="locals返回当前作用域中的变量集合">locals()：返回当前作用域中的变量集合</span></h3><p>当一行代码要使用变量<code>x</code>的值时，Python会到所有可用的名字空间去查找变量，按照如下顺序：</p>
 <ul>
 <li>局部名字空间：特指<code>当前函数</code>或类的方法。如果函数定义了一个局部变量<code>x</code>，Python将使用这个变量，然后停止搜索。</li>
 <li>全局名字空间：特指<code>当前的模块</code>。如果模块定义了一个名为<code>x</code>的变量，函数或类，Python将使用这个变量然后停止搜索。</li>
@@ -600,12 +613,12 @@
 </ul>
 <p>如果Python在这些名字空间找不到<code>x</code>它将放弃查找并引发一个<code>NameError</code>的异常，同时传递<code>There is no variable named &#39;x&#39;</code>这样一条信息。</p>
 <p>象Python中的许多事情一样，名字空间在运行时直接可以访问。特别地，局部名字空间可以通过内置的<code>locals</code>函数来访问。全局（模块级别）名字空间可以通过<code>globals</code>函数来访问。</p>
-<h3 id="str-函数"><a href="#str-函数" class="headerlink" title="str()函数"></a>str()函数</h3><p>返回对象的string类型，<code>str(object)</code>将调用<code>object.__str__()</code>，类似于Java中的<code>toString()</code>方法</p>
-<h3 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a><code>with</code>语句</h3><p>有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。</p>
+<h3><span id="str函数">str()函数</span></h3><p>返回对象的string类型，<code>str(object)</code>将调用<code>object.__str__()</code>，类似于Java中的<code>toString()</code>方法</p>
+<h3><span id="with语句"><code>with</code>语句</span></h3><p>有一些任务，可能事先需要设置，事后做清理工作。对于这种场景，Python的with语句提供了一种非常方便的处理方式。一个很好的例子是文件处理，你需要获取一个文件句柄，从文件中读取数据，然后关闭文件句柄。</p>
 <p>如果不用with语句，代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file = open(<span class="string">"/tmp/foo.txt"</span>)</span><br><span class="line">data = file.read()</span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure></p>
 <p>这里有两个问题。一是可能忘记关闭文件句柄；二是文件读取数据发生异常，没有进行任何处理。下面是处理异常的加强版本：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">file = open(<span class="string">"/tmp/foo.txt"</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    data = file.read()</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    file.close()</span><br></pre></td></tr></table></figure></p>
 <p>虽然这段代码运行良好，但是太冗长了。这时候就是with一展身手的时候了。除了有更优雅的语法，with还可以很好的处理上下文环境产生的异常。下面是with版本的代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"/tmp/foo.txt"</span>) <span class="keyword">as</span> file:</span><br><span class="line">    data = file.read()</span><br></pre></td></tr></table></figure></p>
-<h3 id="if-elif"><a href="#if-elif" class="headerlink" title="if/elif"></a>if/elif</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> role == <span class="string">'Man'</span>:</span><br><span class="line">    man.append(line_spoken)</span><br><span class="line"><span class="keyword">elif</span> role == <span class="string">'Other Man'</span>: <span class="comment"># elif相当于 else if</span></span><br><span class="line">    other.append(line_spoken)</span><br></pre></td></tr></table></figure>
+<h3><span id="ifelif">if/elif</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> role == <span class="string">'Man'</span>:</span><br><span class="line">    man.append(line_spoken)</span><br><span class="line"><span class="keyword">elif</span> role == <span class="string">'Other Man'</span>: <span class="comment"># elif相当于 else if</span></span><br><span class="line">    other.append(line_spoken)</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -616,7 +629,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -764,6 +777,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -776,6 +790,7 @@
 
 
 
+          
         </div>
         
           
@@ -824,7 +839,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -835,7 +850,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -846,7 +861,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -916,23 +931,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -954,7 +969,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单文件写入"><span class="nav-text">简单文件写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取-写入文件"><span class="nav-text">读取/写入文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用with处理文件异常"><span class="nav-text">使用with处理文件异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pickle"><span class="nav-text">pickle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点"><span class="nav-text">知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#open-函数"><span class="nav-text">open()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#str-strip-chars-函数"><span class="nav-text">str.strip([chars])函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locals-：返回当前作用域中的变量集合"><span class="nav-text">locals()：返回当前作用域中的变量集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#str-函数"><span class="nav-text">str()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#with语句"><span class="nav-text">with语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-elif"><span class="nav-text">if/elif</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简单文件写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">读取/写入文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">使用with处理文件异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">pickle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">open()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">str.strip([chars])函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">locals()：返回当前作用域中的变量集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">str()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">with语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">if/elif</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -974,7 +989,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1651,6 +1666,7 @@
   
 
   
+
 
 </body>
 </html>

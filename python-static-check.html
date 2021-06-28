@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,14 +545,14 @@
 <blockquote>
 <p>本文使用之前文章<a href="https://hoxis.github.io/python-gaokao-2018.html">Python 助你填写高考志愿</a>中的代码作为测试代码。另外有些输出过长的，进行了截取。</p>
 </blockquote>
-<h1 id="pep8-pycodestyle"><a href="#pep8-pycodestyle" class="headerlink" title="pep8/pycodestyle"></a>pep8/pycodestyle</h1><p>相信大家多多少少都见过 PEP 8，那 PEP 8 到底是个啥？</p>
+<h1><span id="pep8pycodestyle">pep8/pycodestyle</span></h1><p>相信大家多多少少都见过 PEP 8，那 PEP 8 到底是个啥？</p>
 <p>其实 PEP 8 是一种 Python 代码规范指南，可以参阅官网：<a href="https://www.python.org/dev/peps/pep-0008/" target="_blank" rel="noopener">https://www.python.org/dev/peps/pep-0008/</a>，其目的是为了保持代码的一致性、可读性。</p>
 <p>检查自己代码是否符合 PEP 8 规范，一个简单的工具就是：pep8。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install pep8</span><br></pre></td></tr></table></figure>
+<h2><span id="安装">安装</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install pep8</span><br></pre></td></tr></table></figure>
 <p>在使用时发现 pep8 给出了一个警告：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ pep8 gkcx.py</span><br><span class="line">/usr/<span class="built_in">local</span>/lib/python3.5/dist-packages/pep8.py:2124: UserWarning:</span><br><span class="line"></span><br><span class="line">pep8 has been renamed to pycodestyle (GitHub issue <span class="comment">#466)</span></span><br><span class="line">Use of the pep8 tool will be removed <span class="keyword">in</span> a future release.</span><br><span class="line">Please install and use `pycodestyle` instead.</span><br><span class="line"></span><br><span class="line">$ pip install pycodestyle</span><br><span class="line">$ pycodestyle ...</span><br><span class="line"></span><br><span class="line">  <span class="string">'\n\n'</span></span><br></pre></td></tr></table></figure>
 <p>意思是 pep8 已被 pycodestyle 替代！</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>基本使用方法：<code>$ pycodestyle [file name or directory name]</code></p>
+<h2><span id="使用">使用</span></h2><p>基本使用方法：<code>$ pycodestyle [file name or directory name]</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ pycodestyle gkcx.py</span><br><span class="line">gkcx.py:11:80: E501 line too long (135 &gt; 79 characters)</span><br><span class="line">gkcx.py:14:1: E302 expected 2 blank lines, found 1</span><br><span class="line">gkcx.py:15:80: E501 line too long (94 &gt; 79 characters)</span><br><span class="line">...省略部分</span><br><span class="line">gkcx.py:67:1: E305 expected 2 blank lines after class or <span class="keyword">function</span> definition, found 1</span><br><span class="line">gkcx.py:71:80: E501 line too long (100 &gt; 79 characters)</span><br><span class="line">gkcx.py:82:25: E231 missing whitespace after <span class="string">','</span></span><br><span class="line">gkcx.py:82:29: E231 missing whitespace after <span class="string">','</span></span><br><span class="line">gkcx.py:84:1: W293 blank line contains whitespace</span><br><span class="line">gkcx.py:84:1: W391 blank line at end of file</span><br></pre></td></tr></table></figure>
 <ul>
 <li>参数 <code>--statistics -qq</code> ：对结果进行汇总</li>
@@ -553,7 +566,7 @@
 <li>参数 <code>--ignore</code>：忽略指定输出</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ pycodestyle gkcx.py --ignore=E225,E501,E231</span><br><span class="line">gkcx.py:14:1: E302 expected 2 blank lines, found 1</span><br><span class="line">gkcx.py:18:19: E203 whitespace before <span class="string">':'</span></span><br><span class="line">gkcx.py:20:19: E203 whitespace before <span class="string">':'</span></span><br><span class="line">gkcx.py:21:19: E203 whitespace before <span class="string">':'</span></span><br><span class="line">gkcx.py:32:1: E302 expected 2 blank lines, found 1</span><br><span class="line">gkcx.py:41:1: E302 expected 2 blank lines, found 1</span><br><span class="line">gkcx.py:55:15: W291 trailing whitespace</span><br><span class="line">gkcx.py:67:1: E305 expected 2 blank lines after class or <span class="keyword">function</span> definition, found 1</span><br><span class="line">gkcx.py:84:1: W293 blank line contains whitespace</span><br><span class="line">gkcx.py:84:1: W391 blank line at end of file</span><br></pre></td></tr></table></figure>
-<h2 id="错误码含义"><a href="#错误码含义" class="headerlink" title="错误码含义"></a>错误码含义</h2><ul>
+<h2><span id="错误码含义">错误码含义</span></h2><ul>
 <li><code>E...</code>：错误</li>
 <li><code>W...</code>：警告</li>
 <li>100 型：缩进问题</li>
@@ -565,30 +578,30 @@
 <li>700 型：声明问题</li>
 <li>900 型：语法错误</li>
 </ul>
-<h1 id="Pyflakes"><a href="#Pyflakes" class="headerlink" title="Pyflakes"></a>Pyflakes</h1><p>一个用于检查 Python 源文件错误的简单程序。</p>
+<h1><span id="pyflakes">Pyflakes</span></h1><p>一个用于检查 Python 源文件错误的简单程序。</p>
 <p>Pyflakes 分析程序并且检查<strong>各种错误</strong>。它通过解析源文件实现，无需导入它，因此在模块中使用是安全的，没有任何的副作用。</p>
 <ul>
 <li>不会检查代码风格</li>
 <li>由于它是单独检查各个文件，因此它也相当的快，当然检测范围也有一定的局限</li>
 </ul>
-<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyflakes</span><br></pre></td></tr></table></figure>
-<h2 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h2><p><code>$ pyflakes [ file name or directory name]</code></p>
+<h2><span id="安装">安装</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyflakes</span><br></pre></td></tr></table></figure>
+<h2><span id="使用">使用</span></h2><p><code>$ pyflakes [ file name or directory name]</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pyflakes gkcx.py</span></span><br><span class="line">gkcx.py:3: 'bs4.BeautifulSoup' imported but unused</span><br><span class="line">gkcx.py:6: 're' imported but unused</span><br></pre></td></tr></table></figure>
-<h1 id="Pylint"><a href="#Pylint" class="headerlink" title="Pylint"></a>Pylint</h1><p>PyLint 是 Python 源代码分析器，可以分析 Python 代码中的错误，查找不符合代码风格标准和有潜在问题的代码，是一个可以用于验证多个文件的模块和包的工具。</p>
+<h1><span id="pylint">Pylint</span></h1><p>PyLint 是 Python 源代码分析器，可以分析 Python 代码中的错误，查找不符合代码风格标准和有潜在问题的代码，是一个可以用于验证多个文件的模块和包的工具。</p>
 <p>缺省情况下，PyLint 启用许多规则。它具有高度可配置性，从代码内部处理程序控制它。另外，编写插件添加到自己的检查中是可能的。</p>
-<h2 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ pip install pylint</span><br><span class="line"></span><br><span class="line">$ pylint --version</span><br><span class="line">pylint 2.0.0</span><br><span class="line">astroid 2.0.1</span><br><span class="line">Python 3.5.2 (default, Nov 23 2017, 16:37:01)</span><br><span class="line">[GCC 5.4.0 20160609]</span><br></pre></td></tr></table></figure>
-<h2 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h2><p>基本使用：<code>pylint [options] module_or_package</code></p>
+<h2><span id="安装">安装</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ pip install pylint</span><br><span class="line"></span><br><span class="line">$ pylint --version</span><br><span class="line">pylint 2.0.0</span><br><span class="line">astroid 2.0.1</span><br><span class="line">Python 3.5.2 (default, Nov 23 2017, 16:37:01)</span><br><span class="line">[GCC 5.4.0 20160609]</span><br></pre></td></tr></table></figure>
+<h2><span id="使用">使用</span></h2><p>基本使用：<code>pylint [options] module_or_package</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ pylint gkcx.py</span><br><span class="line">************* Module gkcx</span><br><span class="line">gkcx.py:11:0: C0301: Line too long (135/100) (line-too-long)</span><br><span class="line">gkcx.py:25:47: C0326: Exactly one space required after comma</span><br><span class="line">    response = requests.request(<span class="string">"GET"</span>, data_url,headers=headers,params=params)</span><br><span class="line">                                               ^ (bad-whitespace)</span><br><span class="line">gkcx.py:36:0: C0301: Line too long (113/100) (line-too-long)</span><br><span class="line">gkcx.py:1:0: C0111: Missing module docstring (missing-docstring)</span><br><span class="line">gkcx.py:10:0: C0103: Constant name <span class="string">"headers"</span> doesn<span class="string">'t conform to UPPER_CASE naming style (invalid-name)</span></span><br><span class="line"><span class="string">...省略部分</span></span><br><span class="line"><span class="string">gkcx.py:14:18: W0621: Redefining name '</span>school_name<span class="string">' from outer scope (line 68) (redefined-outer-name)</span></span><br><span class="line"><span class="string">gkcx.py:32:0: C0111: Missing function docstring (missing-docstring)</span></span><br><span class="line"><span class="string">gkcx.py:33:4: W0622: Redefining built-in '</span>id<span class="string">' (redefined-builtin)</span></span><br><span class="line"><span class="string">gkcx.py:32:12: W0621: Redefining name '</span>school<span class="string">' from outer scope (line 72) (redefined-outer-name)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">------------------------------------------------------------------</span></span><br><span class="line"><span class="string">Your code has been rated at 3.33/10 (previous run: 3.33/10, +0.00)</span></span><br></pre></td></tr></table></figure>
 <p>发现 Pylint 还会给代码整体打一个分数，我们就可以根据提示一步步调优，提高分数！10 分满分。</p>
 <p>如果运行两次 Pylint，它会同时显示出当前和上次的运行结果，从而可以看出代码质量是否得到了改进。</p>
-<h2 id="错误代码含义"><a href="#错误代码含义" class="headerlink" title="错误代码含义"></a>错误代码含义</h2><ul>
+<h2><span id="错误代码含义">错误代码含义</span></h2><ul>
 <li><code>C</code>：惯例，违反了编码风格标准</li>
 <li><code>R</code>：重构，代码非常糟糕</li>
 <li><code>W</code>：警告，某些 Python 特定的问题</li>
 <li><code>E</code>：错误，很可能是代码中的错误</li>
 <li><code>F</code>：致命错误，阻止 Pylint 进一步运行的错误</li>
 </ul>
-<h1 id="flake8"><a href="#flake8" class="headerlink" title="flake8"></a>flake8</h1><p>Flake8 是由 Python 官方发布的一款辅助检测 Python 代码是否规范的工具，相对于目前热度比较高的 Pylint 来说，Flake8 检查规则灵活，支持集成额外插件，扩展性强。Flake8 是对下面三个工具的封装：</p>
+<h1><span id="flake8">flake8</span></h1><p>Flake8 是由 Python 官方发布的一款辅助检测 Python 代码是否规范的工具，相对于目前热度比较高的 Pylint 来说，Flake8 检查规则灵活，支持集成额外插件，扩展性强。Flake8 是对下面三个工具的封装：</p>
 <ol>
 <li>PyFlakes：静态检查 Python <strong>代码逻辑错误</strong>的工具。</li>
 <li>Pep8： 静态检查 PEP8 <strong>编码风格</strong>的工具。</li>
@@ -596,8 +609,8 @@
 </ol>
 <p>不光对以上三个工具的封装，Flake8还提供了扩展的开发接口。</p>
 <p>官方文档：<a href="https://pypi.python.org/pypi/flake8/" target="_blank" rel="noopener">https://pypi.python.org/pypi/flake8/</a></p>
-<h2 id="安装-3"><a href="#安装-3" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip install flake8       </span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> flake8 --version</span></span><br><span class="line">3.5.0 (mccabe: 0.6.1, pycodestyle: 2.3.1, pyflakes: 1.6.0) CPython 3.5.2 on Linux</span><br></pre></td></tr></table></figure>
-<h2 id="使用-3"><a href="#使用-3" class="headerlink" title="使用"></a>使用</h2><p>基本使用方法：<code>flake8 [file name or directory name]</code></p>
+<h2><span id="安装">安装</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip install flake8       </span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> flake8 --version</span></span><br><span class="line">3.5.0 (mccabe: 0.6.1, pycodestyle: 2.3.1, pyflakes: 1.6.0) CPython 3.5.2 on Linux</span><br></pre></td></tr></table></figure>
+<h2><span id="使用">使用</span></h2><p>基本使用方法：<code>flake8 [file name or directory name]</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ flake8 gkcx.py</span><br><span class="line">gkcx.py:3:1: F401 <span class="string">'bs4.BeautifulSoup'</span> imported but unused</span><br><span class="line">gkcx.py:6:1: F401 <span class="string">'re'</span> imported but unused</span><br><span class="line">gkcx.py:11:80: E501 line too long (135 &gt; 79 characters)</span><br><span class="line">gkcx.py:14:1: E302 expected 2 blank lines, found 1</span><br><span class="line">...省略部分</span><br><span class="line">gkcx.py:71:80: E501 line too long (100 &gt; 79 characters)</span><br><span class="line">gkcx.py:82:25: E231 missing whitespace after <span class="string">','</span></span><br><span class="line">gkcx.py:82:29: E231 missing whitespace after <span class="string">','</span></span><br><span class="line">gkcx.py:84:1: W293 blank line contains whitespace</span><br><span class="line">gkcx.py:84:1: W391 blank line at end of file</span><br></pre></td></tr></table></figure>
 <p>PyFlakes 和 Pep8 的输出将合并起来一起返回。可以看出 flake8 不止检查代码错误，还会对代码规范不对的地方进行检查，比如：一行代码过长。</p>
 <blockquote>
@@ -615,13 +628,13 @@
 <li>通过 <code>--select</code> 参数设置只展示指定输出：</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ flake8 gkcx.py --select F401</span><br><span class="line">gkcx.py:3:1: F401 <span class="string">'bs4.BeautifulSoup'</span> imported but unused</span><br><span class="line">gkcx.py:6:1: F401 <span class="string">'re'</span> imported but unused</span><br></pre></td></tr></table></figure>
-<h2 id="错误码含义-1"><a href="#错误码含义-1" class="headerlink" title="错误码含义"></a>错误码含义</h2><p>Flake8 基础错误返回码一共有三类：</p>
+<h2><span id="错误码含义">错误码含义</span></h2><p>Flake8 基础错误返回码一共有三类：</p>
 <ul>
 <li><code>E***</code>/<code>W***</code>：PEP8 中的 error 和 warning。</li>
 <li><code>F***</code>：通过 PyFlakes 检测出的 error，其实 PyFlakes 本身是不提供错误返回码的，flake8 对 pyflakes 返回的错误消息进行了分类。</li>
 <li><code>C9**</code>：通过 McCabe 检测出的代码复杂度。</li>
 </ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Python 静态代码检查工具不止这几个，大家可以挑选合适的进行使用。本人也没有进行深入地探究，有兴趣进行高阶使用的可以参照官网。</p>
+<h1><span id="总结">总结</span></h1><p>Python 静态代码检查工具不止这几个，大家可以挑选合适的进行使用。本人也没有进行深入地探究，有兴趣进行高阶使用的可以参照官网。</p>
 <p>另外，各个工具应该都有对应的插件，比如 vim、vscode、eclipse、pycharm 上应该都能集成上述工具，大家可以网上找下适合自己 ide 的插件进行安装。</p>
 <p>有些人估计看到那么多异常也会烦，但是毕竟是可以培养大家代码规范的，后续工作后，肯定也有相应的代码规范，建议大家养成习惯。</p>
 
@@ -635,7 +648,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -781,6 +794,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -793,6 +807,7 @@
 
 
 
+          
         </div>
         
           
@@ -841,7 +856,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -852,7 +867,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -863,7 +878,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -933,23 +948,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -971,7 +986,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pep8-pycodestyle"><span class="nav-text">pep8/pycodestyle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误码含义"><span class="nav-text">错误码含义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pyflakes"><span class="nav-text">Pyflakes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-1"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-1"><span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pylint"><span class="nav-text">Pylint</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-2"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-2"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误代码含义"><span class="nav-text">错误代码含义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flake8"><span class="nav-text">flake8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-3"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-3"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误码含义-1"><span class="nav-text">错误码含义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">pep8/pycodestyle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">错误码含义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Pyflakes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Pylint</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">错误代码含义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">flake8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">错误码含义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -991,7 +1006,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1668,6 +1683,7 @@
   
 
   
+
 
 </body>
 </html>

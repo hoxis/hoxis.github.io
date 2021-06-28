@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,7 +540,7 @@
       
         <p>Python 高级知识点，如 <code>==</code> 和 is 的区别，位运算。</p>
 <a id="more"></a>
-<h1 id="import-导入模块"><a href="#import-导入模块" class="headerlink" title="import 导入模块"></a>import 导入模块</h1><h2 id="import-搜索路径"><a href="#import-搜索路径" class="headerlink" title="import 搜索路径"></a>import 搜索路径</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; sys.path</span><br><span class="line">['', '/usr/lib/python35.zip', '/usr/lib/python3<span class="number">.5</span>', '/usr/lib/python3<span class="number">.5</span>/plat-x86_64-linux-gnu', '/usr/lib/python3<span class="number">.5</span>/lib-dynload', '/home/liuhao/.local/lib/python3<span class="number">.5</span>/site-packages', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/setuptools<span class="number">-38.4</span><span class="number">.0</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/flansible<span class="number">-1.0</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/Flask_RESTful<span class="number">-0.3</span><span class="number">.6</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/aniso8601<span class="number">-3.0</span><span class="number">.0</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/ansible<span class="number">-2.5</span><span class="number">.0</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/suitable<span class="number">-0.10</span><span class="number">.1</span>-py3<span class="number">.5</span>.egg', '/usr/lib/python3/dist-packages']</span><br></pre></td></tr></table></figure>
+<h1><span id="import-导入模块">import 导入模块</span></h1><h2><span id="import-搜索路径">import 搜索路径</span></h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; sys.path</span><br><span class="line">['', '/usr/lib/python35.zip', '/usr/lib/python3<span class="number">.5</span>', '/usr/lib/python3<span class="number">.5</span>/plat-x86_64-linux-gnu', '/usr/lib/python3<span class="number">.5</span>/lib-dynload', '/home/liuhao/.local/lib/python3<span class="number">.5</span>/site-packages', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/setuptools<span class="number">-38.4</span><span class="number">.0</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/flansible<span class="number">-1.0</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/Flask_RESTful<span class="number">-0.3</span><span class="number">.6</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/aniso8601<span class="number">-3.0</span><span class="number">.0</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/ansible<span class="number">-2.5</span><span class="number">.0</span>-py3<span class="number">.5</span>.egg', '/usr/local/lib/python3<span class="number">.5</span>/dist-packages/suitable<span class="number">-0.10</span><span class="number">.1</span>-py3<span class="number">.5</span>.egg', '/usr/lib/python3/dist-packages']</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>路径搜索</p>
 <ul>
@@ -539,9 +552,9 @@
 </li>
 </ul>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sys<span class="selector-class">.path</span><span class="selector-class">.append</span>(<span class="string">'/home/itcast/xxx'</span>)</span><br><span class="line">sys<span class="selector-class">.path</span><span class="selector-class">.insert</span>(<span class="number">0</span>, <span class="string">'/home/itcast/xxx'</span>)    #可以确保先搜索这个路径</span><br></pre></td></tr></table></figure>
-<h2 id="重新导入模块"><a href="#重新导入模块" class="headerlink" title="重新导入模块"></a>重新导入模块</h2><p>模块被导入后，<code>import module</code>不能重新导入模块，重新导入需用</p>
+<h2><span id="重新导入模块">重新导入模块</span></h2><p>模块被导入后，<code>import module</code>不能重新导入模块，重新导入需用</p>
 <figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> imp <span class="keyword">import</span> reload</span><br><span class="line">reload(test) <span class="comment"># 重新导入模块</span></span><br></pre></td></tr></table></figure>
-<h1 id="和-is"><a href="#和-is" class="headerlink" title="== 和 is"></a>== 和 is</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">300</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">300</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<h1><span id="和-is">== 和 is</span></h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">300</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">300</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">'123'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>is 是比较两个引用是否指向了同一个对象（引用比较）也被叫做同一性运算符，这个运算符比较判断的是对象间的唯一身份标识，也就是id是否相同。</li>
 <li>== 用来比较判断两个对象的 value （值）是否相等</li>
@@ -561,7 +574,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">300</span></span><br><span class="line">b = <span class="number">300</span></span><br><span class="line">print(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
 <p>正确答案是 True。</p>
 <p>是不是很惊喜 <span class="github-emoji" title="smirk" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f60f.png?v8">&#x1f60f;</span> </p>
-<h1 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h1><ul>
+<h1><span id="位运算">位运算</span></h1><ul>
 <li><code>&amp;</code> 按位与</li>
 <li><code>|</code> 按位或</li>
 <li><code>^</code> 按位异或</li>
@@ -572,27 +585,27 @@
 <blockquote>
 <p>用途: 直接操作二进制、省内存、效率高</p>
 </blockquote>
-<h2 id="lt-lt-按位左移"><a href="#lt-lt-按位左移" class="headerlink" title="&lt;&lt; 按位左移"></a>&lt;&lt; 按位左移</h2><p>各二进位全部左移 n 位，高位丢弃，低位补 0</p>
+<h2><span id="ltlt-按位左移">&lt;&lt; 按位左移</span></h2><p>各二进位全部左移 n 位，高位丢弃，低位补 0</p>
 <p>注意事项：</p>
 <ul>
 <li>左移 1 位相当于乘以 2，可以用于快速计算一个数乘以 2 的 n 次方（ 8&lt;&lt;3 等同于 8*2^3）</li>
 <li>左移可能会改变一个数的正负性</li>
 </ul>
-<h2 id="gt-gt-按位右移"><a href="#gt-gt-按位右移" class="headerlink" title="&gt;&gt; 按位右移"></a>&gt;&gt; 按位右移</h2><p>各二进位全部右移 n 位，保持符号位不变</p>
+<h2><span id="gtgt-按位右移">&gt;&gt; 按位右移</span></h2><p>各二进位全部右移 n 位，保持符号位不变</p>
 <p>x &gt;&gt; n，x 的所有二进制位向右移动 n 位，移出的位删掉，移进的位补符号位 右移不会改变一个数的符号</p>
 <p>注意事项：</p>
 <ul>
 <li>右移 1 位相当于除以 2</li>
 <li>x 右移 n 位就相当于除以 2 的 n 次方，用途：快速计算一个数除以 2 的 n 次方（8&gt;&gt;3 等同于 8/2^3）</li>
 </ul>
-<h2 id="amp-按位与"><a href="#amp-按位与" class="headerlink" title="&amp; 按位与"></a>&amp; 按位与</h2><p>全 1 才 1 否则 0 ：只有对应的两个二进位均为 1 时，结果位才为 1，否则为 0</p>
-<h2 id="按位或"><a href="#按位或" class="headerlink" title="| 按位或"></a>| 按位或</h2><p>有 1 就 1：只要对应的二个二进位有一个为 1 时，结果位就为 1，否则为 0</p>
-<h2 id="按位异或"><a href="#按位异或" class="headerlink" title="^ 按位异或"></a>^ 按位异或</h2><p>不同为 1：当对应的二进位相异（不相同）时，结果为 1，否则为 0</p>
+<h2><span id="amp-按位与">&amp; 按位与</span></h2><p>全 1 才 1 否则 0 ：只有对应的两个二进位均为 1 时，结果位才为 1，否则为 0</p>
+<h2><span id="按位或">| 按位或</span></h2><p>有 1 就 1：只要对应的二个二进位有一个为 1 时，结果位就为 1，否则为 0</p>
+<h2><span id="按位异或">^ 按位异或</span></h2><p>不同为 1：当对应的二进位相异（不相同）时，结果为 1，否则为 0</p>
 <ol>
 <li>任何数和 1 进行 &amp; 操作，得到这个数的最低位。即：<code>数字&amp;1</code> = 数字的二进制形式的最低位</li>
 <li>位运算优先级</li>
 </ol>
-<h1 id="私有化"><a href="#私有化" class="headerlink" title="私有化"></a>私有化</h1><ul>
+<h1><span id="私有化">私有化</span></h1><ul>
 <li><code>xx</code>：公有变量</li>
 <li><code>_x</code>：单前置下划线，私有化属性或方法，<code>from somemodule import *</code> 禁止导入，类对象和子类可以访问</li>
 <li><code>__xx</code>：双前置下划线，避免与子类中的属性命名冲突，无法在外部直接访问（名字重整所以访问不到）</li>
@@ -605,7 +618,7 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ python private.py</span><br><span class="line">18</span><br><span class="line">[<span class="string">'_Person__age'</span>, <span class="string">'__class__'</span>, <span class="string">'__delattr__'</span>, <span class="string">'__dict__'</span>, <span class="string">'__dir__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__eq__'</span>, <span class="string">'__format__'</span>, <span class="string">'__ge__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__gt__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__le__'</span>, <span class="string">'__lt__'</span>, <span class="string">'__module__'</span>, <span class="string">'__ne__'</span>, <span class="string">'__new__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>, <span class="string">'__weakref__'</span>, <span class="string">'getAge'</span>, <span class="string">'setAge'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以看到新增了一个新的属性</span></span><br><span class="line">[<span class="string">'_Person__age'</span>, <span class="string">'__age'</span>, <span class="string">'__class__'</span>, <span class="string">'__delattr__'</span>, <span class="string">'__dict__'</span>, <span class="string">'__dir__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__eq__'</span>, <span class="string">'__format__'</span>, <span class="string">'__ge__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__gt__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__le__'</span>, <span class="string">'__lt__'</span>, <span class="string">'__module__'</span>, <span class="string">'__ne__'</span>, <span class="string">'__new__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>, <span class="string">'__weakref__'</span>, <span class="string">'getAge'</span>, <span class="string">'setAge'</span>]</span><br><span class="line">20</span><br><span class="line">18</span><br></pre></td></tr></table></figure>
 <p>可以看到 Python 对类的私有属性进行了重整，<code>__age</code> 变成了 <code>_Person__age</code>，因此无法直接获取到。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<h2><span id="总结">总结</span></h2><ul>
 <li>父类中属性名为 <code>__xx</code> 的，子类不继承，子类不能访问</li>
 <li>如果在子类中向 <code>__xx</code> 赋值，那么会在子类中定义的一个与父类相同名字的属性</li>
 <li><code>_xx</code> 的变量、函数、类在使用 <code>from xxx import *</code> 时都不会被导入</li>
@@ -635,7 +648,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -781,6 +794,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -793,6 +807,7 @@
 
 
 
+          
         </div>
         
           
@@ -841,7 +856,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -852,7 +867,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -863,7 +878,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -933,23 +948,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -971,7 +986,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#import-导入模块"><span class="nav-text">import 导入模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import-搜索路径"><span class="nav-text">import 搜索路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新导入模块"><span class="nav-text">重新导入模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#和-is"><span class="nav-text">== 和 is</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lt-lt-按位左移"><span class="nav-text">&lt;&lt; 按位左移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gt-gt-按位右移"><span class="nav-text">&gt;&gt; 按位右移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#amp-按位与"><span class="nav-text">&amp; 按位与</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位或"><span class="nav-text">| 按位或</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位异或"><span class="nav-text">^ 按位异或</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#私有化"><span class="nav-text">私有化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">import 导入模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">import 搜索路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">重新导入模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">== 和 is</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">&lt;&lt; 按位左移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">&gt;&gt; 按位右移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">&amp; 按位与</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">| 按位或</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">^ 按位异或</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">私有化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -991,7 +1006,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1668,6 +1683,7 @@
   
 
   
+
 
 </body>
 </html>

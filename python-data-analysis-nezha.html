@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -222,8 +222,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -332,6 +334,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -380,6 +392,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -553,15 +566,15 @@
 <p>那么，这部动画，到底大家对其评价如何？</p>
 <p>大量票房背后的数据里又隐藏了哪些东西？</p>
 <p>本文抓取了猫眼 20W+ 的短评，并进行了简单的数据分析，带大家一起看下，观众的真实想法。</p>
-<h1 id="一、电影总体评价如何？"><a href="#一、电影总体评价如何？" class="headerlink" title="一、电影总体评价如何？"></a>一、电影总体评价如何？</h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-《哪吒》各评分数量.png" alt="《哪吒》各评分数量"></p>
+<h1><span id="一-电影总体评价如何">一、电影总体评价如何？</span></h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-《哪吒》各评分数量.png" alt="《哪吒》各评分数量"></p>
 <p>猫眼电影的评分为 0-10 分，从上图可以看到，<strong>有 97.3% 的观众给出了 8 分以上的高分，给出满分 10 分的更是达到了 85%。</strong></p>
 <p>只有极小一部分观众（1%）打了 4 分以下的低分。</p>
 <p>总体来说，观众还是很喜欢这部电影的，<strong>票房好</strong>的同时，<strong>口碑也好，名利双收！</strong></p>
-<h1 id="二、总体评价的时间走向如何？"><a href="#二、总体评价的时间走向如何？" class="headerlink" title="二、总体评价的时间走向如何？"></a>二、总体评价的时间走向如何？</h1><p>下面来分析一下自首映以来的<strong>每天的评分变化趋势</strong>。</p>
+<h1><span id="二-总体评价的时间走向如何">二、总体评价的时间走向如何？</span></h1><p>下面来分析一下自首映以来的<strong>每天的评分变化趋势</strong>。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-评分走势图.png" alt="评分走势图"></p>
 <p>从图中可以看出，从首映开始，评分就一直居高不下，而且没有下滑的趋势，始终在 9.5 以上，这几天的总体平均分维持在 9.63 分，说明大家对该片的肯定。</p>
 <p>至于后续大家对其的评价如何，是否会出现滑铁卢？还需要时间来检验。</p>
-<h1 id="三、该片的观众分布"><a href="#三、该片的观众分布" class="headerlink" title="三、该片的观众分布"></a>三、该片的观众分布</h1><h2 id="地理位置分布"><a href="#地理位置分布" class="headerlink" title="地理位置分布"></a>地理位置分布</h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-观众地理分布.png" alt="观众地理分布"></p>
+<h1><span id="三-该片的观众分布">三、该片的观众分布</span></h1><h2><span id="地理位置分布">地理位置分布</span></h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-观众地理分布.png" alt="观众地理分布"></p>
 <p>从上图可以看出，《哪吒》的观影人群主要集中在<strong>沿海一带</strong>，这些地方经济相对发达，城市人口基数庞大，极多的荧幕数量和座位、极高密度的排片场次，让观众便捷观影，活跃的观众评论也多，自然也就成为票房的主要贡献者。</p>
 <p>其实这条线和<strong>胡焕庸线</strong>是非常契合的</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-2-1564722937146.png" alt="胡焕庸线"></p>
@@ -570,11 +583,11 @@
 <p>观众来源排名前 20 的城市依次为：北京、深圳、广州、成都、上海、重庆、东莞、长沙、武汉、西安、天津、郑州、南京、佛山、杭州、昆明、沈阳、长春、青岛、大连。</p>
 <p>电影消费是城市文化消费的一部分，从某种角度来看，可以反映出一个<strong>城市的购买力</strong>。</p>
 <p>当然，这里没有考虑城市的总人数，存在一定的不严谨。</p>
-<h2 id="性别分布"><a href="#性别分布" class="headerlink" title="性别分布"></a>性别分布</h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-观众性别分布图.png" alt="观众性别分布图"></p>
+<h2><span id="性别分布">性别分布</span></h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-观众性别分布图.png" alt="观众性别分布图"></p>
 <p>从上图可以看出，猫眼上的观众大多没有公开自己的性别信息，也有可能是注册时默认就是未知性别。</p>
 <p>男女相比的话，也没有很大的区分，二者相差并不多，男生稍稍多于女生。</p>
 <p>总之，《哪吒》是一部男女皆宜的片子。</p>
-<h1 id="四、AI-分析评论的情感倾向"><a href="#四、AI-分析评论的情感倾向" class="headerlink" title="四、AI 分析评论的情感倾向"></a>四、AI 分析评论的情感倾向</h1><p>该片的评分甚高，但是评论透露出观众的情感到底是怎样的呢？</p>
+<h1><span id="四-ai-分析评论的情感倾向">四、AI 分析评论的情感倾向</span></h1><p>该片的评分甚高，但是评论透露出观众的情感到底是怎样的呢？</p>
 <p>下面我调用了腾讯 AI 开放平台的情感倾向分析接口，得出了每条评论的情感倾向值，及其分布情况。</p>
 <blockquote>
 <p>情感分析接口能够对带有情感色彩的主观性文本进行分析、处理、归纳和推理，识别出用户的情感倾向，是积极还是消极，并且提供各自概率。</p>
@@ -596,16 +609,16 @@
 <p>从评论内容分析结果来看，正向情感指数的观众是远高于负向的，这也有观众的评分情况契合。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-评论情感指数走势图.png" alt="评论情感指数走势图"></p>
 <p>从评论情感指数走势图可以看出，情感指数一直在 0.77 上下徘徊，也算是一直处于正向情感中了。</p>
-<h1 id="五、为什么那么多高分？"><a href="#五、为什么那么多高分？" class="headerlink" title="五、为什么那么多高分？"></a>五、为什么那么多高分？</h1><p>绝大部分观众都对这部电影打出了高分，那么大家是因为什么喜欢这部电影的呢？</p>
+<h1><span id="五-为什么那么多高分">五、为什么那么多高分？</span></h1><p>绝大部分观众都对这部电影打出了高分，那么大家是因为什么喜欢这部电影的呢？</p>
 <p>为此我整理出打了 8 分以上的观众评论，并制作了评论词云图，字体越大，说明这个词在评论中被提及得越多。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-positive_text.png" alt="高分评论词云"></p>
 <p>1、大大的<strong>好看</strong>二字，说明大家都觉得这部电影真的很不错，超级非常好看！</p>
 <p>2、另外，剧情、特效、搞笑、画面、情节、感动等字眼，也说明了该片得到大家的认可之处；</p>
 <p>3、国产、崛起等字眼，也说明了该片在国产片中算是一匹黑马，并且其票房已经登上国产动画电影票房第一的宝座。</p>
-<h1 id="打低分的观众都说了些什么？"><a href="#打低分的观众都说了些什么？" class="headerlink" title="打低分的观众都说了些什么？"></a>打低分的观众都说了些什么？</h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-negative_text.png" alt="低分评论词云"></p>
+<h1><span id="打低分的观众都说了些什么">打低分的观众都说了些什么？</span></h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-6-negative_text.png" alt="低分评论词云"></p>
 <p>1、大大的<strong>好看</strong>二字说明有些观众打分的随意性，但是评论还是真实的。</p>
 <p>2、垃圾、不好、难看等字眼，也说明了确实有一部分观众不喜欢该片；</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总得来说，《哪吒》在猫眼的认可度还是很高的，从其评分、评论都可见一斑。</p>
+<h1><span id="总结">总结</span></h1><p>总得来说，《哪吒》在猫眼的认可度还是很高的，从其评分、评论都可见一斑。</p>
 <p>虽然存在一些评价不高的情况，但是瑕不掩瑜，从来就没有让每个人都满意的东西。</p>
 <p>所以，大家可以去支持一波《哪吒》，当然，也希望国产电影可以涌现出更多类似哪吒的电影，这样才有希望。</p>
 <blockquote>
@@ -632,7 +645,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -702,9 +715,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/爬虫/" rel="tag"><i class="fa fa-tag"></i> 爬虫</a>
-          
             <a href="/tags/数据可视化/" rel="tag"><i class="fa fa-tag"></i> 数据可视化</a>
+          
+            <a href="/tags/爬虫/" rel="tag"><i class="fa fa-tag"></i> 爬虫</a>
           
         </div>
       
@@ -717,8 +730,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux-shell-string-is-null.html" rel="next" title="linux shell 中判断字符串为空的正确方法">
-                <i class="fa fa-chevron-left"></i> linux shell 中判断字符串为空的正确方法
+              <a href="/windows-ocr.html" rel="next" title="老哥，能不能不截图！">
+                <i class="fa fa-chevron-left"></i> 老哥，能不能不截图！
               </a>
             
           </div>
@@ -780,6 +793,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -792,6 +806,7 @@
 
 
 
+          
         </div>
         
           
@@ -840,7 +855,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -851,7 +866,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -862,7 +877,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -932,23 +947,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -970,7 +985,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、电影总体评价如何？"><span class="nav-text">一、电影总体评价如何？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、总体评价的时间走向如何？"><span class="nav-text">二、总体评价的时间走向如何？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、该片的观众分布"><span class="nav-text">三、该片的观众分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#地理位置分布"><span class="nav-text">地理位置分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性别分布"><span class="nav-text">性别分布</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、AI-分析评论的情感倾向"><span class="nav-text">四、AI 分析评论的情感倾向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、为什么那么多高分？"><span class="nav-text">五、为什么那么多高分？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打低分的观众都说了些什么？"><span class="nav-text">打低分的观众都说了些什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">一、电影总体评价如何？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">二、总体评价的时间走向如何？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">三、该片的观众分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">地理位置分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">性别分布</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">四、AI 分析评论的情感倾向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">五、为什么那么多高分？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">打低分的观众都说了些什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -990,7 +1005,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1667,6 +1682,7 @@
   
 
   
+
 
 </body>
 </html>

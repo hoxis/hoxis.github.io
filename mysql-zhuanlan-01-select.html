@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -542,7 +555,7 @@
 <p>比如，我们有个简单的表 T，它有个 ID 字段，那么我们可以执行下面的语句：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from T where ID=10;</span><br></pre></td></tr></table></figure>
 <p>语句执行很简单，但是具体到 MySQL 内部，其实是一个完整的执行流程。</p>
-<h1 id="MySQL-的基本架构"><a href="#MySQL-的基本架构" class="headerlink" title="MySQL 的基本架构"></a>MySQL 的基本架构</h1><p>从下图就可以清楚地看出 MySQL 的命令执行流程：</p>
+<h1><span id="mysql-的基本架构">MySQL 的基本架构</span></h1><p>从下图就可以清楚地看出 MySQL 的命令执行流程：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542273369753.jpg" alt="MySQL 的基本架构"></p>
 <p>从该图可以看出，MySQL 主要分为 server 层和存储引擎层。</p>
 <ul>
@@ -551,7 +564,7 @@
 </ul>
 <p>好了，下面开始梳理一次完整的查询流程。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542395937075.jpg" alt="MySQL 执行流程"></p>
-<h1 id="1-连接"><a href="#1-连接" class="headerlink" title="1 连接"></a>1 连接</h1><p>首先通过连接器连接到数据库。</p>
+<h1><span id="1-连接">1 连接</span></h1><p>首先通过连接器连接到数据库。</p>
 <p>连接器的主要作用是<strong>建立连接，获取用户权限，维持连接，管理连接</strong>。</p>
 <p>连接的一般命令就是我们常用的登陆数据库的命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u<span class="variable">$username</span> -h<span class="variable">$host</span> -p<span class="variable">$port</span> -P</span><br></pre></td></tr></table></figure>
@@ -562,7 +575,7 @@
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1542343935492.jpg" alt="睡眠状态"></p>
 <p>当然，连接器不会让你一直握着连接不动，若休眠时间超过 <code>wait_timeout</code>（默认为 8 小时），则会断开当前连接。</p>
 <p>若要再用，对不起，请重新连接~</p>
-<h2 id="长连接和短连接"><a href="#长连接和短连接" class="headerlink" title="长连接和短连接"></a>长连接和短连接</h2><p>其实这里的长短连接不是 MySQL 层面的概念。</p>
+<h2><span id="长连接和短连接">长连接和短连接</span></h2><p>其实这里的长短连接不是 MySQL 层面的概念。</p>
 <ul>
 <li>长连接：长连接是相对于短连接来说的。长连接指在一个连接上可以连续发送多个数据包，在连接保持期间，如果没有数据包发送，需要双方发链路检测包。我理解 MySQL 默认的超时时间 8 小时，就属于一个长链接。</li>
 </ul>
@@ -573,7 +586,7 @@
 <figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">客户端连接</span><span class="literal">-</span><span class="literal">-</span><span class="comment">创建</span> <span class="comment">socket</span> <span class="comment">认证连接</span><span class="literal">-</span><span class="literal">-</span><span class="comment">维护连接</span><span class="literal">-</span><span class="literal">-</span><span class="comment">数据传输</span><span class="literal">-</span><span class="literal">-</span><span class="comment">关闭连接</span></span><br></pre></td></tr></table></figure>
 <p>长连接主要用于在<strong>少量客户端</strong>与服务端的<strong>频繁通信</strong>，因为这时候如果用短连接频繁通信常会发生 Socket 出错，并且频繁创建 Socket 连接也是对资源的浪费。</p>
 <p>专栏中老师是建议使用长链接的，因为建立连接的过程比较复杂，应该尽量减少建立连接的动作。</p>
-<h2 id="长连接的管理"><a href="#长连接的管理" class="headerlink" title="长连接的管理"></a>长连接的管理</h2><p>使用长连接后，随着连接数不断增加，会导致内存占用升高，因为 MySQL 在操作过程中会占用内存来管理连接对象，只有等到连接断开后才会释放。</p>
+<h2><span id="长连接的管理">长连接的管理</span></h2><p>使用长连接后，随着连接数不断增加，会导致内存占用升高，因为 MySQL 在操作过程中会占用内存来管理连接对象，只有等到连接断开后才会释放。</p>
 <p>如果连接一直堆积，就会导致内存占用过大，被系统强行杀掉，也就是会出现 MySQL 重启。</p>
 <p>如何解决这个问题？</p>
 <p>1、定期断开长连接；<br>2、MySQL 5.7+ 的版本中提供了 <code>mysql_reset_connection</code> 来重新初始化连接资源，这时不需要重新连接，就可以将连接恢复到刚刚创建完时的状态；</p>
@@ -595,39 +608,39 @@
 <p>数据库连接池，就是服务器应用建立多个连接到数据库，还没有用的连接就放到连接池上，要的时候就向连接池取，这样比没有连接时再建立新的连接（TCP 建立连接是需要时间的）时要快很多，从而提高传输效率。</p>
 </blockquote>
 <p>如 Spring 框架中，它实现了一个持久连接池，允许其他程序、客户端来连接，这个连接池将被所有连接的客户端共享使用，连接池可以加速连接，也可以减少数据库连接，降低数据库服务器的负载。</p>
-<h1 id="2-查询缓存"><a href="#2-查询缓存" class="headerlink" title="2 查询缓存"></a>2 查询缓存</h1><p><strong>缓存</strong>，就是提前预备好的数据，数据库查询缓存也是缓存的一种。</p>
+<h1><span id="2-查询缓存">2 查询缓存</span></h1><p><strong>缓存</strong>，就是提前预备好的数据，数据库查询缓存也是缓存的一种。</p>
 <p>在解析一个查询语句之前，如果查询缓存是打开的，那么 MySQL 会优先检查这个查询是否命中查询缓存中的数据。</p>
 <p>如果当前的查询恰好命中了查询缓存，那么在返回查询结果之前 MySQL 会检查一次用户权限。若权限没有问题，MySQL 会跳过所有其他阶段（解析、优化、执行等），直接从缓存中拿到结果并返回给客户端。</p>
 <p>这种情况下，查询不会被解析，不用生成执行计划，不会被执行。</p>
-<h2 id="缓存哪里来的？"><a href="#缓存哪里来的？" class="headerlink" title="缓存哪里来的？"></a>缓存哪里来的？</h2><p>查询时如果没有命中查询缓存，MYSQL 会判断该查询是否可以被缓存，而且系统中还没有对应的缓存，则会将其结果写入查询缓存。</p>
+<h2><span id="缓存哪里来的">缓存哪里来的？</span></h2><p>查询时如果没有命中查询缓存，MYSQL 会判断该查询是否可以被缓存，而且系统中还没有对应的缓存，则会将其结果写入查询缓存。</p>
 <p>mysql query cache 的内容为 select 的结果集，在内存中是以 HASH 结构来进行映射。</p>
 <p>cache 会使用完整的 sql 字符串做 key，并<strong>区分大小写</strong>，空格等。即两个 sql 必须完全一致才会导致 cache 命中。</p>
-<h2 id="缓存何时失效？"><a href="#缓存何时失效？" class="headerlink" title="缓存何时失效？"></a>缓存何时失效？</h2><p>在表的结构或数据发生改变时，查询缓存中的数据不再有效。</p>
+<h2><span id="缓存何时失效">缓存何时失效？</span></h2><p>在表的结构或数据发生改变时，查询缓存中的数据不再有效。</p>
 <p>所以查询缓存适合有大量相同查询的应用，不适合有大量数据更新的应用。</p>
 <p>a) 一旦表数据进行<strong>任何一行</strong>的修改，基于该表相关 cache 立即全部失效，并且从缓冲区中移出；<br>b) 为什么不做聪明一点判断修改的是否 cache 的内容？因为分析 cache 内容太复杂，服务器需要追求最大的性能。</p>
-<h2 id="缓存可以提高查询效率的？"><a href="#缓存可以提高查询效率的？" class="headerlink" title="缓存可以提高查询效率的？"></a>缓存可以提高查询效率的？</h2><p>当有大量的查询和大量的修改时，cache 机制可能会造成性能下降。</p>
+<h2><span id="缓存可以提高查询效率的">缓存可以提高查询效率的？</span></h2><p>当有大量的查询和大量的修改时，cache 机制可能会造成性能下降。</p>
 <p>因为每次修改会导致系统去做 cache 失效操作，这就会造成不小的开销。</p>
 <p>另外系统 cache 的访问由一个单一的全局锁来控制，这时候大量的查询将被阻塞，直至锁释放。</p>
 <p>所以不要简单认为设置 cache 必定会带来性能提升。</p>
 <p>参考：<a href="https://www.cnblogs.com/duanxz/p/4385733.html" target="_blank" rel="noopener">https://www.cnblogs.com/duanxz/p/4385733.html</a></p>
 <p>其实，在 8.0 版本开始，缓存功能被直接删除。</p>
-<h1 id="3-解析器"><a href="#3-解析器" class="headerlink" title="3 解析器"></a>3 解析器</h1><h2 id="词法解析"><a href="#词法解析" class="headerlink" title="词法解析"></a>词法解析</h2><p>词法分析的作用是将整个查询分解为多个元素。</p>
+<h1><span id="3-解析器">3 解析器</span></h1><h2><span id="词法解析">词法解析</span></h2><p>词法分析的作用是将整个查询分解为多个元素。</p>
 <p>我们输入的 MySQL 命令，不过是一串长长的字符串，MySQL 的<strong>分析器</strong>会对其进行词法解析。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> T <span class="keyword">where</span> <span class="keyword">ID</span>=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <p>比如，上述语句是由多个字符串和空格组成的一条 SQL 语句，MySQL 需要识别出里面的字符串分别是什么，代表什么。</p>
 <p>MySQL 从你输入的 <code>select</code> 这个关键字识别出来，这是一个查询语句。</p>
 <p>它也要把字符串 <code>T</code> 识别成一个表名，把字符串 <code>ID</code> 识别成一个列。</p>
 <p>其实，大家也可以思考一下，若让你手写一个词法分析的工具，你该如何实现呢？</p>
-<h2 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h2><p>做完初步的词法分析后，就要做<strong>语法分析</strong>。</p>
+<h2><span id="语法分析">语法分析</span></h2><p>做完初步的词法分析后，就要做<strong>语法分析</strong>。</p>
 <p>根据词法分析的结果，语法分析器会根据语法规则，判断你输入的这个 SQL 语句是否满足 MySQL 语法。</p>
 <p>如果你的语句不对，就会收到 <code>You have an error in your SQL syntax</code> 的错误提醒。</p>
 <p>解析器的最终执行结果就是<strong>解析树</strong>，提供给优化器使用。</p>
-<h1 id="4-优化器"><a href="#4-优化器" class="headerlink" title="4 优化器"></a>4 优化器</h1><p>当你提交一个查询的时候，MySQL会分析它，看是否可以做一些优化使处理该查询的速度更快。</p>
-<h2 id="优化器到底干啥的？"><a href="#优化器到底干啥的？" class="headerlink" title="优化器到底干啥的？"></a>优化器到底干啥的？</h2><p>MySQL 的优化器有几个重要任务：</p>
+<h1><span id="4-优化器">4 优化器</span></h1><p>当你提交一个查询的时候，MySQL会分析它，看是否可以做一些优化使处理该查询的速度更快。</p>
+<h2><span id="优化器到底干啥的">优化器到底干啥的？</span></h2><p>MySQL 的优化器有几个重要任务：</p>
 <p>1、选择最合适的索引；<br>2、选择表扫还是走索引；<br>3、选择表关联顺序；<br>4、优化 where 子句；<br>5、排除管理中无用表；<br>6、决定 order by 和 group by 是否走索引；<br>7、尝试使用 inner join 替换 outer join；<br>8、简化子查询，决定结果缓存；<br>9、合并试图；</p>
 <p>MySQL 查询优化器有几个目标，但是其中最主要的目标是<strong>尽可能地使用索引</strong>，并且使用最严格的索引来消除尽可能多的数据行。</p>
 <p>优化器试图排除数据行的原因在于它排除数据行的速度越快，那么找到与条件匹配的数据行也就越快。如果能够首先进行最严格的测试，查询就可以执行地更快。</p>
-<h2 id="优化器是如何工作的？"><a href="#优化器是如何工作的？" class="headerlink" title="优化器是如何工作的？"></a>优化器是如何工作的？</h2><p>到底优化器是如何进行选择的？如果每个点都展开，那都需要很长的篇幅，我再网上翻阅了一些资料，看得也是云里雾里，后面结合专栏老师的讲解再学习吧。</p>
+<h2><span id="优化器是如何工作的">优化器是如何工作的？</span></h2><p>到底优化器是如何进行选择的？如果每个点都展开，那都需要很长的篇幅，我再网上翻阅了一些资料，看得也是云里雾里，后面结合专栏老师的讲解再学习吧。</p>
 <p>这里举几个优化的示例：</p>
 <ul>
 <li>示例 1</li>
@@ -647,14 +660,14 @@
 <p>对于第一行，优化器把表达式 4/2 简化为 2，接着使用 mycol 上的索引来快速地查找小于 2 的值。</p>
 <p>对于第二个表达式，MySQL 必须检索出每个数据行的 mycol 值，乘以 2，接着把结果与 4 进行比较。在这种情况下，不会使用索引。数据列中的每个值都必须被检索到，这样才能计算出比较表达式左边的值。</p>
 <p>优化器的内容还可以有很多，这个专栏老师说后续会还有讲。</p>
-<h1 id="5-执行器"><a href="#5-执行器" class="headerlink" title="5 执行器"></a>5 执行器</h1><p>下面就到了最终的执行阶段，执行开始之前，会先判断是否有操作权限，若没有，会抛出相关异常。</p>
+<h1><span id="5-执行器">5 执行器</span></h1><p>下面就到了最终的执行阶段，执行开始之前，会先判断是否有操作权限，若没有，会抛出相关异常。</p>
 <p>如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。</p>
 <p>比如我们这个例子中的表 T 中，ID 字段没有索引，那么执行器的执行流程是这样的：</p>
 <p>1、调用 InnoDB 引擎接口取这个表的<strong>第一行</strong>，判断 ID 值是不是 10，如果不是则跳过，如果是则将这行存在结果集中；<br>2、调用引擎接口取下一行，重复相同的判断逻辑，直到取到这个表的最后一行。<br>3、执行器将上述遍历过程中<strong>所有满足条件的行</strong>组成的记录集作为结果集返回给客户端。</p>
 <p>至此，这个语句就执行完成了。</p>
 <p>对于有索引的表，执行的逻辑也差不多。第一次调用的是<strong>取满足条件的第一行</strong>这个接口，之后循环取<strong>满足条件的下一行</strong>这个接口，这些接口都是引擎中已经定义好的。</p>
 <p>可以看出，是否有索引，执行效率区别还是很大的，没有索引需要取出所有数据，一个个进行比较；而有索引则是直接取满足条件的数据；</p>
-<h1 id="课后题目"><a href="#课后题目" class="headerlink" title="课后题目"></a>课后题目</h1><p>问题：</p>
+<h1><span id="课后题目">课后题目</span></h1><p>问题：</p>
 <blockquote>
 <p>如果表 T 中没有字段 k，而你执行了这个语句 select * from T where k=1, 那肯定是会报“不存在这个列”的错误： “Unknown column ‘k’ in ‘where clause’”。你觉得这个错误是在我们上面提到的哪个阶段报出来的呢？</p>
 </blockquote>
@@ -683,7 +696,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -829,6 +842,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -841,6 +855,7 @@
 
 
 
+          
         </div>
         
           
@@ -889,7 +904,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -900,7 +915,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -911,7 +926,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -981,23 +996,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1019,7 +1034,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-的基本架构"><span class="nav-text">MySQL 的基本架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-连接"><span class="nav-text">1 连接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#长连接和短连接"><span class="nav-text">长连接和短连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长连接的管理"><span class="nav-text">长连接的管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-查询缓存"><span class="nav-text">2 查询缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存哪里来的？"><span class="nav-text">缓存哪里来的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存何时失效？"><span class="nav-text">缓存何时失效？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存可以提高查询效率的？"><span class="nav-text">缓存可以提高查询效率的？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-解析器"><span class="nav-text">3 解析器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#词法解析"><span class="nav-text">词法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法分析"><span class="nav-text">语法分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-优化器"><span class="nav-text">4 优化器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化器到底干啥的？"><span class="nav-text">优化器到底干啥的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化器是如何工作的？"><span class="nav-text">优化器是如何工作的？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-执行器"><span class="nav-text">5 执行器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题目"><span class="nav-text">课后题目</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">MySQL 的基本架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1 连接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">长连接和短连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">长连接的管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2 查询缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">缓存哪里来的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">缓存何时失效？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">缓存可以提高查询效率的？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3 解析器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">词法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">语法分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">4 优化器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">优化器到底干啥的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">优化器是如何工作的？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">5 执行器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">课后题目</span></a></li></ol></div>
             
 
           </div>
@@ -1039,7 +1054,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1716,6 +1731,7 @@
   
 
   
+
 
 </body>
 </html>

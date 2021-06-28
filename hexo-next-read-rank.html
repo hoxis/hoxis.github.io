@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -211,8 +211,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -321,6 +323,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -369,6 +381,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -529,10 +542,10 @@
       
         <p>新增一个阅读排行页面，可以现在本站文章的阅读排行榜，基于 leancloud 的数据实现。</p>
 <a id="more"></a>
-<h1 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h1><p><code>hexo n page top</code> 新建页面，会生成 top 目录，编辑其中自动生成的 index.md 文件，将其中的代码替换如下：</p>
+<h1><span id="新建页面">新建页面</span></h1><p><code>hexo n page top</code> 新建页面，会生成 top 目录，编辑其中自动生成的 index.md 文件，将其中的代码替换如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"top"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript">AV.initialize(<span class="string">"leancloud_appid"</span>, <span class="string">"leancloud_appkey"</span>);</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript">  <span class="keyword">var</span> time=<span class="number">0</span></span></span><br><span class="line"><span class="actionscript">  <span class="keyword">var</span> title=<span class="string">""</span></span></span><br><span class="line"><span class="actionscript">  <span class="keyword">var</span> url=<span class="string">""</span></span></span><br><span class="line"><span class="actionscript">  <span class="keyword">var</span> query = <span class="keyword">new</span> AV.Query(<span class="string">'Counter'</span>);</span></span><br><span class="line"><span class="actionscript">  query.notEqualTo(<span class="string">'id'</span>,<span class="number">0</span>);</span></span><br><span class="line"><span class="actionscript">  query.descending(<span class="string">'time'</span>);</span></span><br><span class="line"><span class="undefined">  query.limit(1000);</span></span><br><span class="line"><span class="actionscript">  query.find().then(<span class="function"><span class="keyword">function</span> <span class="params">(todo)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">var</span> result=todo[i].attributes;</span></span><br><span class="line"><span class="undefined">      time=result.time;</span></span><br><span class="line"><span class="undefined">      title=result.title;</span></span><br><span class="line"><span class="undefined">      url=result.url;</span></span><br><span class="line"><span class="handlebars"><span class="xml">      // var content="<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">'"+"https://hoxis.github.io"+url+"'</span>&gt;</span>"+title+"<span class="tag">&lt;/<span class="name">a</span>&gt;</span>"+"<span class="tag">&lt;<span class="name">br</span>&gt;</span>"+"<span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">'#fff'</span>&gt;</span>"+"阅读次数："+time+"<span class="tag">&lt;/<span class="name">font</span>&gt;</span>"+"<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span>";</span></span></span><br><span class="line"><span class="actionscript">      <span class="keyword">var</span> content=<span class="string">"&lt;p&gt;"</span>+<span class="string">"&lt;font color='#1C1C1C'&gt;"</span>+<span class="string">"【文章热度:"</span>+time+<span class="string">"℃】"</span>+<span class="string">"&lt;/font&gt;"</span>+<span class="string">"&lt;a href='"</span>+<span class="string">"https://hoxis.github.io"</span>+url+<span class="string">"'&gt;"</span>+title+<span class="string">"&lt;/a&gt;"</span>+<span class="string">"&lt;/p&gt;"</span>;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"top"</span>).innerHTML+=content</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="actionscript">  &#125;, <span class="function"><span class="keyword">function</span> <span class="params">(error)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">"error"</span>);</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>并将其中的 <code>leancloud_appid</code>、<code>leancloud_appkey</code> 和页面链接替换为你的。</p>
-<h1 id="配置菜单显示"><a href="#配置菜单显示" class="headerlink" title="配置菜单显示"></a>配置菜单显示</h1><p>编辑主题配置文件 <code>themes\next\_config.yml</code>，添加 top：</p>
+<h1><span id="配置菜单显示">配置菜单显示</span></h1><p>编辑主题配置文件 <code>themes\next\_config.yml</code>，添加 top：</p>
 <figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / |<span class="type">| home</span></span><br><span class="line">  <span class="built_in">top</span>: /<span class="built_in">top</span>/ |<span class="type">| signal</span></span><br></pre></td></tr></table></figure>
 <p>新增菜单栏的显示名称 <code>hexo/theme/next/languages/zh-Hans.yml</code>，同样新增 top 对应的中文：</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">menu:</span></span><br><span class="line"><span class="symbol">  home:</span> 首页</span><br><span class="line"><span class="symbol">  archives:</span> 归档</span><br><span class="line"><span class="symbol">  categories:</span> 分类</span><br><span class="line"><span class="symbol">  tags:</span> 标签</span><br><span class="line"><span class="symbol">  about:</span> 关于</span><br><span class="line"><span class="symbol">  search:</span> 搜索</span><br><span class="line"><span class="symbol">  schedule:</span> 日程表</span><br><span class="line"><span class="symbol">  sitemap:</span> 站点地图</span><br><span class="line"><span class="symbol">  commonweal:</span> 公益<span class="number">404</span></span><br><span class="line"><span class="symbol">  resources:</span> 资源</span><br><span class="line"><span class="symbol">  top:</span> 阅读排行</span><br></pre></td></tr></table></figure>
@@ -549,7 +562,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -695,6 +708,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -707,6 +721,7 @@
 
 
 
+          
         </div>
         
           
@@ -755,7 +770,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -766,7 +781,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -777,7 +792,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -847,23 +862,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -885,7 +900,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#新建页面"><span class="nav-text">新建页面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置菜单显示"><span class="nav-text">配置菜单显示</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">新建页面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">配置菜单显示</span></a></li></ol></div>
             
 
           </div>
@@ -905,7 +920,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1582,6 +1597,7 @@
   
 
   
+
 
 </body>
 </html>

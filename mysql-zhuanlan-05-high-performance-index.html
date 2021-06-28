@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -216,8 +216,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -326,6 +328,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -374,6 +386,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -578,7 +591,7 @@
 </blockquote>
 <p>显然，使用辅助索引出现了回表操作，这势必会影响查询性能，那有什么办法能够减少回表吗？</p>
 <p>下面就开始我们的主题：<strong>如何让 MySQL 索引更高效！</strong></p>
-<h1 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h1><p>上面，我们查询的是 <code>select *</code>，如果是根据 <code>Name</code> 查询 <code>Id</code> 呢？即 <code>select Id from tab where Name=&#39;Jobs&#39;</code>。</p>
+<h1><span id="覆盖索引">覆盖索引</span></h1><p>上面，我们查询的是 <code>select *</code>，如果是根据 <code>Name</code> 查询 <code>Id</code> 呢？即 <code>select Id from tab where Name=&#39;Jobs&#39;</code>。</p>
 <p>很明显，由于辅助索引 Name 上已经存储了 Id 的值，所以这时，查询便不会再次回表查询。</p>
 <p>如果索引已经包含了所有满足查询需要的数据，这时我们称之为<strong>覆盖索引</strong>（Covering Index），这时就不再需要回表操作。</p>
 <p>覆盖索引是一种非常强大的工具，能大大提高查询性能，只需要读取索引而不用读取数据有以下一些优点：</p>
@@ -586,7 +599,7 @@
 <p>2、因为索引是按照列值顺序存储的，所以对于 IO 密集的范围查找会比随机从磁盘读取每一行数据的 IO 少很多。</p>
 <p>3、覆盖索引对 InnoDB 表特别有用。因为 InnoDB 的辅助索引在叶子节点中保存了行的主键值，所以如果二级主键能够覆盖查询，则可以避免对主键索引的二次查询；</p>
 <p><strong>由于覆盖索引可以减少树的搜索次数，显著提升查询性能，所以使用覆盖索引是一个常用的性能优化手段。</strong></p>
-<h1 id="联合索引-最左匹配原则"><a href="#联合索引-最左匹配原则" class="headerlink" title="联合索引/最左匹配原则"></a>联合索引/最左匹配原则</h1><p>又名复合索引，由两个或多个列的索引。</p>
+<h1><span id="联合索引最左匹配原则">联合索引/最左匹配原则</span></h1><p>又名复合索引，由两个或多个列的索引。</p>
 <p>它规定了 MySQL <strong>从左到右</strong>地使用索引字段，对字段的顺序有一定要求。</p>
 <p>另外，<strong>一个查询可以只使用索引中的一部分</strong>，更准确地说是最左侧部分（最左优先），这就是传说中的<strong>最左匹配原则</strong>。</p>
 <p>即最左优先，如：</p>
@@ -603,12 +616,12 @@
 <p>但是对于下面的 sql 是不能使用这个联合索引的，因为叶子节点的 b 值，<code>1,2,1,4,1,2</code> 显然不是排序的。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> b=xxx</span><br></pre></td></tr></table></figure>
 <p><strong>只要满足最左前缀，就可以利用索引来加速检索。这个最左前缀可以是联合索引的最左 N 个字段，也可以是字符串索引的最左 M 个字符。</strong></p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>1、主键字段其实跟所有非主键索引建立了联合索引，只是说如果主键字段没有在联合索引中明确声明，只会在其他索引中处于最右边；</p>
+<h2><span id="注意">注意</span></h2><p>1、主键字段其实跟所有非主键索引建立了联合索引，只是说如果主键字段没有在联合索引中明确声明，只会在其他索引中处于最右边；</p>
 <p>2、最左前缀匹配原则，MySQL 会一直向右匹配直到遇到<strong>范围查询</strong>（&gt;、&lt;、between、like）就停止匹配。</p>
 <p>比如 a = 1 and b = 2 and c &gt; 3 and d = 4 如果建立 (a,b,c,d) 顺序的索引，d 是用不到索引的，如果建立 (a,b,d,c) 的索引，则都可以用到，a,b,d 的顺序可以任意调整。</p>
 <p>3、= 和 in 的条件可以乱序</p>
 <p>MySQL 的查询优化器会帮你优化成索引可以识别的形式。MySQL 查询优化器会判断纠正 SQL 语句该以什么样的顺序执行效率最高，最后才生成真正的执行计划。</p>
-<h2 id="为什么要使用联合索引？"><a href="#为什么要使用联合索引？" class="headerlink" title="为什么要使用联合索引？"></a>为什么要使用联合索引？</h2><p>1、 <strong>减少开销</strong></p>
+<h2><span id="为什么要使用联合索引">为什么要使用联合索引？</span></h2><p>1、 <strong>减少开销</strong></p>
 <p>“一个顶三个”。建一个联合索 引(col1,col2,col3)，实际相当于建了 (col1),(col1,col2),(col1,col2,col3) 三个索引。</p>
 <p>每多一个索引，都会增加写操作的开销和磁盘空间的开销。对于大量数据的表，使用联合索引会大大的减少开销！</p>
 <p>2、 <strong>覆盖索引</strong></p>
@@ -619,12 +632,12 @@
 <p>有 1000W 条数据的表，有如下sql: <code>select col1,col2,col3 from table where col1=1 and col2=2 and col3=3</code>，假设假设每个条件可以筛选出 10% 的数据。</p>
 <p>如果只有单值索引，那么通过该索引能筛选出 1000W_10%=100w 条数据，然后再回表从 100w 条数据中找到符合 col2=2 and col3= 3 的数据，然后再排序，再分页；</p>
 <p>如果是联合索引，通过索引筛选出 1000w_10% <em> 10% </em>10%=1w，效率提升可想而知！</p>
-<h1 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h1><p>索引条件下推（ICP：index condition pushdown）是 MySQL 中一个常用的优化，尤其是当 MySQL 需要从一张表里检索数据时。</p>
+<h1><span id="索引下推">索引下推</span></h1><p>索引条件下推（ICP：index condition pushdown）是 MySQL 中一个常用的优化，尤其是当 MySQL 需要从一张表里检索数据时。</p>
 <p>ICP（index condition pushdown）是 MySQL 利用索引（二级索引）元组和筛字段在索引中的 WHERE 条件从表中提取数据记录的一种优化操作。</p>
 <p>ICP 的思想是：存储引擎在访问索引的时候检查筛选字段在索引中的 where 条件，如果索引元组中的数据不满足推送的索引条件，那么就过滤掉该条数据记录。</p>
 <p>ICP（优化器）尽可能的把 index condition 的处理从 server 层下推到存储引擎层。</p>
 <p>存储引擎使用索引过滤不相关的数据，仅返回符合 index condition 条件的数据给 server 层。也是说数据过滤尽可能存储引擎层进行，而不是返回所有数据给 server 层，然后后再根据 where 条件进行过滤。</p>
-<h2 id="下推过程"><a href="#下推过程" class="headerlink" title="下推过程"></a>下推过程</h2><p><strong>优化器没有使用 ICP 时</strong></p>
+<h2><span id="下推过程">下推过程</span></h2><p><strong>优化器没有使用 ICP 时</strong></p>
 <p>数据访问和提取的过程如下：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165173281.jpg" alt="没有使用ICP"></p>
 <p>①：MySQL Server 发出读取数据的命令，调用存储引擎的索引读或全表表读。此处进行的是索引读。</p>
@@ -646,17 +659,17 @@
 <p>因此比较图一无 ICP 的方式，返回给 MySQL Server 层的即是少量的、 符合条件的数据。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1544165415981.jpg" alt="使用ICP"></p>
 <p>在 ICP 优化开启时，在存储引擎端首先用索引过滤可以过滤的 where 条件，然后再用索引做 data access，被 index condition 过滤掉的数据不必读取，也不会返回 server 端。</p>
-<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p>比如：</p>
+<h2><span id="举例">举例</span></h2><p>比如：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees </span><br><span class="line"><span class="keyword">WHERE</span> first_name=<span class="string">'Mary'</span> </span><br><span class="line"><span class="keyword">AND</span> last_name <span class="keyword">LIKE</span> <span class="string">'%man'</span>;</span><br></pre></td></tr></table></figure>
 <p>在没有 ICP 时，首先通过索引前缀从存储引擎中读出所有 first_name 为 Mary 的记录，然后在 server 端用 where 筛选 last_name 的 like 条件；</p>
 <p>而启用 ICP 后，由于 last_name 的 like 筛选可以通过索引字段进行，那么存储引擎内部通过索引与 where 条件的对比来筛选掉不符合 where 条件的记录，这个过程不需要读出整条记录，同时只返回给 server 筛选后条记录，因此提高了查询性能。</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>有几个关于ICP的事情要注意：</p>
+<h2><span id="注意事项">注意事项</span></h2><p>有几个关于ICP的事情要注意：</p>
 <ul>
 <li>ICP 只能用于二级索引，不能用于主索引；</li>
 <li>也不是全部 where 条件都可以用 ICP 筛选，如果某 where 条件的字段不在索引中，当然还是要读取整条记录做筛选，在这种情况下，仍然要到 server 端做 where 筛选；</li>
 <li>ICP 的加速效果取决于在存储引擎内通过 ICP 筛选掉的数据的比例；</li>
 </ul>
-<h1 id="总结建索引的几大原则"><a href="#总结建索引的几大原则" class="headerlink" title="总结建索引的几大原则"></a>总结建索引的几大原则</h1><p>1、最左前缀匹配原则，非常重要的原则，MySQL 会一直向右匹配直到遇到范围查询 （&gt;、&lt;、between、like）就停止匹配；</p>
+<h1><span id="总结建索引的几大原则">总结建索引的几大原则</span></h1><p>1、最左前缀匹配原则，非常重要的原则，MySQL 会一直向右匹配直到遇到范围查询 （&gt;、&lt;、between、like）就停止匹配；</p>
 <p>2、= 和 in 的条件可以乱序；</p>
 <p>3、尽量选择区分度高的列作为索引，区分度表示字段不重复的比例，比例越大我们扫描的记录数越少；</p>
 <p>4、索引列不能参与计算，保持列「干净」。原因很简单，b+ 树中存的都是数据表中的字段值，但进行检索时，需要把所有元素都应用函数才能比较，显然成本太大。</p>
@@ -681,7 +694,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -829,6 +842,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -841,6 +855,7 @@
 
 
 
+          
         </div>
         
           
@@ -889,7 +904,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -900,7 +915,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -911,7 +926,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -981,23 +996,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1019,7 +1034,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#覆盖索引"><span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联合索引-最左匹配原则"><span class="nav-text">联合索引/最左匹配原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用联合索引？"><span class="nav-text">为什么要使用联合索引？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引下推"><span class="nav-text">索引下推</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下推过程"><span class="nav-text">下推过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举例"><span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结建索引的几大原则"><span class="nav-text">总结建索引的几大原则</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">联合索引/最左匹配原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">为什么要使用联合索引？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">索引下推</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">下推过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结建索引的几大原则</span></a></li></ol></div>
             
 
           </div>
@@ -1039,7 +1054,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1716,6 +1731,7 @@
   
 
   
+
 
 </body>
 </html>

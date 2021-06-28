@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -215,8 +215,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -325,6 +327,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -373,6 +385,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -534,19 +547,19 @@
         <p>以前刚接触 IT 行业，而我身为运维开发，我以为我所需要做的安全就是修改服务器密码为复杂的，ssh 端口改为非 22，还有就是不让人登录服务器就可以保证我维护的东西安全。</p>
 <a id="more"></a>
 <p>工作也好几年了，在这摸爬滚打中，遇到了服务器被黑，网站被人 DDOS 攻击，数据库被篡改等等。服务器也不是你说不让人上就不让人上的，所以 IT 安全这个话题还是比较沉重的，涉及的东西很多，只有你了解得更多，你才会知道你所了解的安全其实是那么少。</p>
-<h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><p>我们很多的公司和环境并未使用第三方审计系统，未能根据记录数据进行分形，并生成审计报表。其实审计系统是很重要的，可以进行操作溯源，这可比你一张嘴说的话有用多了。</p>
+<h1><span id="网络安全">网络安全</span></h1><p>我们很多的公司和环境并未使用第三方审计系统，未能根据记录数据进行分形，并生成审计报表。其实审计系统是很重要的，可以进行操作溯源，这可比你一张嘴说的话有用多了。</p>
 <p>我所在的公司其实是买了一台日志审计系统，但是然并卵，在运维方面，我搭建了 ELK，用于对服务器的操作溯源以及监控系统日志和安全日志，这个已经完全达到我想要的效果，另外的系统相关的日志，开发人员自己也有 ELK 系统，他们是用来监控 app 里面的行为操作，也是用于审计的。</p>
 <p>下面就是我自己搭建的 ELK 系统用于监控服务器操作：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545890146959.png" alt="ELK监控服务器"></p>
 <p>其实网络安全范围很广，还有比如说你可以将设备惊醒 ARP 绑定，那就可以避免 arp 攻击等，也可以购买入侵检测设备、入侵防御设备，防火墙等，网络设备定期修改密码，网络设备配置鉴别失败登录处理功能，配置操作超时等功能，尽量使用 https 协议加密传输。</p>
 <p>除上述以外，应定期自检（漏洞扫描、弱口令扫描、基线配置信息等），对主机的端口、弱口令、安全漏洞进行扫描和发现，对已知业务应用漏洞进行扫描和发现，对已知木马进行扫描和发现，对扫描结果进行分析和提交，促进业务安全性管理和安全问题的解决。</p>
-<h1 id="主机安全"><a href="#主机安全" class="headerlink" title="主机安全"></a>主机安全</h1><p>在现在大多数的公司中，操作系统未安装主机入侵检测系统，未能检测到对重要服务器进行入侵的行为，能够记录攻击者的源 IP、攻击类型、攻击目标、攻击时间等，未能够在发生严重入侵事件时提供报警。</p>
+<h1><span id="主机安全">主机安全</span></h1><p>在现在大多数的公司中，操作系统未安装主机入侵检测系统，未能检测到对重要服务器进行入侵的行为，能够记录攻击者的源 IP、攻击类型、攻击目标、攻击时间等，未能够在发生严重入侵事件时提供报警。</p>
 <p>很多人说，这个需要购买硬件 WAF 或者入侵防御设备，这个的确是个不小的花销，一般的公司估计也买不起，像我们，也买不起。</p>
 <p>但是并不是说我们毫无办法。我们可以在操作系统安装实时检测与查杀恶意代码的软件产品，对恶意代码实时检测与查杀，如 OSSEC 和 HIDS 等，这些产品都是免费开源的。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545890221825.png" alt="OSSEC"></p>
 <p>主机安全还包括系统配置安全、验证安全等等。</p>
 <p>就比如操作系统提供身份鉴别措施、配置鉴别失败处理功能（也就是登录尝试失败次数，这个可以有效防止恶意破解）、加强口令复杂度要求，在原基础上还应不含有常用字符组合、数字组合、键盘顺序等可预测密码组合、重要服务器用使用资源强制访问控制策略（如用户、进程、文件内核级保护）、应限制默认账户的访问权限，修改这些账户的默认口令，条件允许下，应重命名默认账户；</p>
-<h1 id="应用安全"><a href="#应用安全" class="headerlink" title="应用安全"></a>应用安全</h1><p>a）、建议应用系统采用了两种或两种以上的组合机制进行用户身份鉴别；</p>
+<h1><span id="应用安全">应用安全</span></h1><p>a）、建议应用系统采用了两种或两种以上的组合机制进行用户身份鉴别；</p>
 <p>b）、建议应用系统对账号口令复杂度进行限制，口令长度限制为 8-20 位；要求口令为数字、字母字符至少两种组合，限制口令周期不大于半年；</p>
 <p>c）、建议应用系统启用登录失败处理功能，限制次数不大于 5 次，并且对登录失败用户进行帐号处理；</p>
 <p>d）、建议应用系统应启用用户身份鉴别信息复杂度要求和登录失败处理功能；</p>
@@ -557,13 +570,13 @@
 <p>i）、建议应用系统限制一个访问账号或一个请求进程的最大限额；</p>
 <p>j）、建议应用系统提供服务优先级设定功能，根据安全策略设定访问帐户或请求进程的优先级，根据优先级分配系统资源；</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545890813067.png" alt="应用安全"></p>
-<h1 id="数据安全及备份恢复"><a href="#数据安全及备份恢复" class="headerlink" title="数据安全及备份恢复"></a>数据安全及备份恢复</h1><p>a）、建议提供异地数据备份功能，利用通信网络将关键数据定时批量传送到备用场地；</p>
+<h1><span id="数据安全及备份恢复">数据安全及备份恢复</span></h1><p>a）、建议提供异地数据备份功能，利用通信网络将关键数据定时批量传送到备用场地；</p>
 <p>b）、建议提供主要网络设备、通信线路和数据处理系统的硬件冗余，保证系统的高可用性；</p>
 <p>c）、数据的开发、测试环境如果要导入生产数据，则需要指定数据脱敏流程，将敏感的个人信息，如银行卡、手机号等信息做脱敏；</p>
 <p>d）、数据的访问要有严格的流程，非运维人员如要访问数据，在走完权限申请流程后，可以给予他读取的权限，但是不能给他将数据备份至本地的权限，该操作可以通过windows堡垒机进行权限限制，通过管理员将该人员的剪贴板禁用即可；</p>
 <p>e）、数据库一年要升级一次，即使你的数据库是放在内网的，但是你不能保证你们开发人员的代码不会被入侵，只要代码被入侵，或者被植入后门，就可以通过你的程序扫描到数据库。数据库的漏洞可不止一两个，基本上一年下来，一个稳定版本的数据库可以有 30 个左右的高危漏洞，50 个左右的中危漏洞，这些个漏洞，你靠打补丁的方式根本不是解决办法，最好的方式还是升级到数据库最新版本前一个稳定版；</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1545890625659.png" alt="数据安全"></p>
-<h1 id="web业务安全"><a href="#web业务安全" class="headerlink" title="web业务安全"></a>web业务安全</h1><p>a）、应设置合理的会话超时阀值，在合理范围内尽可能减小会话超时阀值，可以降低会话被劫持和重复攻击的风险，超过会话超时阀值后立刻销毁会话，清除会话的信息；</p>
+<h1><span id="web业务安全">web业务安全</span></h1><p>a）、应设置合理的会话超时阀值，在合理范围内尽可能减小会话超时阀值，可以降低会话被劫持和重复攻击的风险，超过会话超时阀值后立刻销毁会话，清除会话的信息；</p>
 <p>b）、应限制会话并发连接数，限制同一用户的会话并发连接数，避免恶意用户创建多个并发的会话来消耗系统资源，影响业务可用性；</p>
 <p>c）、应确保敏感信息通信信道的安全，建议在客户端与 web 服务器之间使用 SSL。并正确配置 SSL，建议使用 SSL3.0/TLS1.0 以上版本，对称加密密钥长度不少于 128 位，非对称加密密钥长度不少于 1024 位，单向散列值位数不小于 128 位；</p>
 <p>d）、日志记录范围应覆盖到每个用户的关键操作、重要行为、业务资源使用情况等重要事件。如普通用户异常登录、发布恶意代码、异常修改账号信息等行为，以及管理员在业务功能及账号控制方面的关键操作；</p>
@@ -589,7 +602,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -735,6 +748,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -747,6 +761,7 @@
 
 
 
+          
         </div>
         
           
@@ -795,7 +810,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -806,7 +821,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -817,7 +832,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -887,23 +902,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -925,7 +940,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络安全"><span class="nav-text">网络安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主机安全"><span class="nav-text">主机安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用安全"><span class="nav-text">应用安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据安全及备份恢复"><span class="nav-text">数据安全及备份恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web业务安全"><span class="nav-text">web业务安全</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">网络安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">主机安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">应用安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">数据安全及备份恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">web业务安全</span></a></li></ol></div>
             
 
           </div>
@@ -945,7 +960,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1622,6 +1637,7 @@
   
 
   
+
 
 </body>
 </html>

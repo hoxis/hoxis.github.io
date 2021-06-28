@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -221,8 +221,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -331,6 +333,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -379,6 +391,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -561,20 +574,20 @@
 </ul>
 </li>
 </ul>
-<h1 id="配置check"><a href="#配置check" class="headerlink" title="配置check"></a>配置check</h1><p>Sensu Check由两部分组成：检测插件和定义Check。Check插件是在客户端运行的可执行文件，Check定义文件主要用于定义何时以及如何运行插件。</p>
+<h1><span id="配置check">配置check</span></h1><p>Sensu Check由两部分组成：检测插件和定义Check。Check插件是在客户端运行的可执行文件，Check定义文件主要用于定义何时以及如何运行插件。</p>
 <p>Sensu中服务端和客户端都可以进程Check的调度，下面分别对这两种调度方式用实例的方式讲解。</p>
 <p>首先我们需要一个检测HTTP服务状态的插件，并配置一个Check定义文件来执行插件，该执行过程将会由服务端调度。</p>
-<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>在客户端安装插件：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install -y nagios-plugins-http</span><br></pre></td></tr></table></figure></p>
+<h2><span id="安装插件">安装插件</span></h2><p>在客户端安装插件：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install -y nagios-plugins-http</span><br></pre></td></tr></table></figure></p>
 <p>这里你也许会有疑问，“为什么Sensu中要安装Nagios的插件呢？”</p>
 <p>不得不说这是一个好问题，Sensu集成了Nagios检测插件，这意味着Nagios中可以使用的检测插件在Sensu中不用做任何修改即可使用。安装成功后，可以在<code>/usr/lib64/nagios/plugins/check_http</code>中获取到该插件，可以手动运行看下是什么效果。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517196180230.jpg" alt="获取HTTP状态"></p>
 <p>这里可以看出检测的返回结果是失败的，除此之外，Sensu会使用退出状态值（<code>$?</code>）来标记本次检测的最终结果是<code>OK</code>、<code>WARNING</code>、还是<code>CRITICAL</code>。这里返回状态值的是<code>2</code>，表示<code>CRITICAL</code>状态。</p>
-<h2 id="定义Check"><a href="#定义Check" class="headerlink" title="定义Check"></a>定义Check</h2><p>在服务端的<code>/etc/sensu/conf.d</code>中新建一个<code>check_http.json</code>文件，文件内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checks"</span>: &#123;</span><br><span class="line">    <span class="attr">"check_http"</span>: &#123;</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"/usr/lib64/nagios/plugins/check_http -I 127.0.0.1"</span>,</span><br><span class="line">      <span class="attr">"interval"</span>: <span class="number">10</span>,</span><br><span class="line">      <span class="attr">"subscribers"</span>: [<span class="string">"test"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="定义check">定义Check</span></h2><p>在服务端的<code>/etc/sensu/conf.d</code>中新建一个<code>check_http.json</code>文件，文件内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checks"</span>: &#123;</span><br><span class="line">    <span class="attr">"check_http"</span>: &#123;</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"/usr/lib64/nagios/plugins/check_http -I 127.0.0.1"</span>,</span><br><span class="line">      <span class="attr">"interval"</span>: <span class="number">10</span>,</span><br><span class="line">      <span class="attr">"subscribers"</span>: [<span class="string">"test"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>该文件定义了一个名为<code>check_http</code>的Check，执行周期是10s，订阅了<code>test</code>主题的客户端会收到执行该check的请求。</p>
-<h2 id="重启服务端"><a href="#重启服务端" class="headerlink" title="重启服务端"></a>重启服务端</h2><p>在新增了Check定义文件后，需要重启Service和API来重新加载配置。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service sensu-server restart</span><br><span class="line">service sensu-api restart</span><br></pre></td></tr></table></figure></p>
+<h2><span id="重启服务端">重启服务端</span></h2><p>在新增了Check定义文件后，需要重启Service和API来重新加载配置。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service sensu-server restart</span><br><span class="line">service sensu-api restart</span><br></pre></td></tr></table></figure></p>
 <p>在重启后，就可以通过API查看到Check定义已经加载：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517196255608.jpg" alt="获取checks"></p>
-<h2 id="执行日志"><a href="#执行日志" class="headerlink" title="执行日志"></a>执行日志</h2><ul>
+<h2><span id="执行日志">执行日志</span></h2><ul>
 <li>服务端的执行日志<br>也可以通过服务端的Sensu日志来查看Check的调度：</li>
 </ul>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517196377127.jpg" alt="服务端的Sensu日志"></p>
@@ -584,12 +597,12 @@
 </ul>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517196425596.jpg" alt="客户端的执行日志"></p>
 <p>上面的日志可以看出，客户端已经收到Check请求，并且得到了执行，然后将执行结果重新返回到结果队列，以供服务端进程处理。</p>
-<h1 id="安装handler"><a href="#安装handler" class="headerlink" title="安装handler"></a>安装handler</h1><p>在客户端将Check执行结果返回后，服务端需要对结果进行处理。请求的处理可以出发多种形式的事件，本次练习中我们就配置发送邮件警告。</p>
+<h1><span id="安装handler">安装handler</span></h1><p>在客户端将Check执行结果返回后，服务端需要对结果进行处理。请求的处理可以出发多种形式的事件，本次练习中我们就配置发送邮件警告。</p>
 <p>在Check定义文件中可以指定如何处理检查结果，由于我们的定义文件中并没有相关配置，因此会使用默认的handler进行处理。</p>
 <p>下面通过服务端的日志来看一下默认的handler是如何处理的：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517196588861.jpg" alt="默认的handler处理"></p>
 <p>由于默认的handler没有配置，Check的执行结果实际上会被丢弃。这就意味着我们需要配置一个handler。</p>
-<h2 id="配置默认handler"><a href="#配置默认handler" class="headerlink" title="配置默认handler"></a>配置默认handler</h2><p>创建文件<code>/etc/sensu/conf.d/handler_default.json</code>，内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"handlers"</span>: &#123;</span><br><span class="line">    <span class="attr">"default"</span>: &#123;</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"/etc/sensu/plugins/event-file.rb"</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"pipe"</span></span><br><span class="line">      ,<span class="attr">"filter"</span>: <span class="string">"recurrence"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="配置默认handler">配置默认handler</span></h2><p>创建文件<code>/etc/sensu/conf.d/handler_default.json</code>，内容如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"handlers"</span>: &#123;</span><br><span class="line">    <span class="attr">"default"</span>: &#123;</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"/etc/sensu/plugins/event-file.rb"</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"pipe"</span></span><br><span class="line">      ,<span class="attr">"filter"</span>: <span class="string">"recurrence"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>或者，不使用默认的配置，为该handler配置一个名称，并在check定义中进行引用：</p>
 <ul>
 <li>/etc/sensu/conf.d/handler_default.json</li>
@@ -599,14 +612,14 @@
 <li>/etc/sensu/conf.d/check_http.json</li>
 </ul>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"checks"</span>: &#123;</span><br><span class="line">    <span class="attr">"check_http"</span>: &#123;</span><br><span class="line">      <span class="attr">"command"</span>: <span class="string">"/usr/lib64/nagios/plugins/check_http -I 127.0.0.1"</span>,</span><br><span class="line">      <span class="attr">"interval"</span>: <span class="number">60</span>,</span><br><span class="line">      <span class="attr">"subscribers"</span>: [<span class="string">"test"</span>]</span><br><span class="line">      ,<span class="attr">"handler"</span>: <span class="string">"file"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="安装-handler-的插件"><a href="#安装-handler-的插件" class="headerlink" title="安装 handler 的插件"></a>安装 handler 的插件</h3><p>在Sensu服务器端<code>/etc/sensu/plugin/</code>目录下安装handler的插件：<code>event-file.rb</code>：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/sensu/plugins/event-file.rb http://sensuapp.org/docs/1.2/files/event-file.rb</span><br></pre></td></tr></table></figure></p>
-<h1 id="配置-filter"><a href="#配置-filter" class="headerlink" title="配置 filter"></a>配置 filter</h1><p>添加一个filter，用于过滤掉重复出现次数小于5的事件。这样可以避免被监控节点上的误报。Filter在handler的配置文件中指定，可以看到，我们通过名称<code>recurrence</code>在<code>my_handler.json</code>中指定了使用该filter，即大于5次时才会交由handler处理。</p>
+<h3><span id="安装-handler-的插件">安装 handler 的插件</span></h3><p>在Sensu服务器端<code>/etc/sensu/plugin/</code>目录下安装handler的插件：<code>event-file.rb</code>：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/sensu/plugins/event-file.rb http://sensuapp.org/docs/1.2/files/event-file.rb</span><br></pre></td></tr></table></figure></p>
+<h1><span id="配置-filter">配置 filter</span></h1><p>添加一个filter，用于过滤掉重复出现次数小于5的事件。这样可以避免被监控节点上的误报。Filter在handler的配置文件中指定，可以看到，我们通过名称<code>recurrence</code>在<code>my_handler.json</code>中指定了使用该filter，即大于5次时才会交由handler处理。</p>
 <p>同样的，在服务器端<code>/etc/sensu/config.d/</code>目录下添加filter配置文件<code>my_filter.json</code>：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>: &#123;</span><br><span class="line">        <span class="attr">"recurrence"</span>: &#123;</span><br><span class="line">            <span class="attr">"attributes"</span>: &#123;</span><br><span class="line">                <span class="attr">"occurrences"</span>: <span class="string">"eval: value &gt; 5"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="check结果"><a href="#check结果" class="headerlink" title="check结果"></a>check结果</h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517207598269.jpg" alt="页面显示"></p>
+<h1><span id="check结果">check结果</span></h1><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517207598269.jpg" alt="页面显示"></p>
 <p>从上图可以看到，history中连续出现了21个返回值为<code>2</code>，这表示连续21次 check 返回<code>CRITICAL</code>状态，从而通过了filter筛选条件，由hanlder进行处理。</p>
 <p>在<code>/tmp</code>目录中也有相应的文件生成，这表明handler成功的处理了event。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517208027611.jpg" alt="handler处理结果文件"></p>
-<h2 id="filter测试"><a href="#filter测试" class="headerlink" title="filter测试"></a>filter测试</h2><p>下面把客户端的HTTP服务恢复到正常状态，并将之前handler生成的文件删除，然后再停止HTTP状态，看下filter是如何处理的。</p>
+<h2><span id="filter测试">filter测试</span></h2><p>下面把客户端的HTTP服务恢复到正常状态，并将之前handler生成的文件删除，然后再停止HTTP状态，看下filter是如何处理的。</p>
 <p>此时页面已经出现警告，通过history可以看出已经出现1次<code>CRITICAL</code>状态。但此时并没有生成文件，这就表明handler没有处理，表示过滤器生效。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517208325891.jpg" alt="页面状态"></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1517208423791.jpg" alt="handler没有处理"></p>
@@ -626,7 +639,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -772,6 +785,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -784,6 +798,7 @@
 
 
 
+          
         </div>
         
           
@@ -832,7 +847,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -843,7 +858,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -854,7 +869,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -924,23 +939,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -962,7 +977,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#配置check"><span class="nav-text">配置check</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义Check"><span class="nav-text">定义Check</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启服务端"><span class="nav-text">重启服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行日志"><span class="nav-text">执行日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装handler"><span class="nav-text">安装handler</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置默认handler"><span class="nav-text">配置默认handler</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-handler-的插件"><span class="nav-text">安装 handler 的插件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置-filter"><span class="nav-text">配置 filter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#check结果"><span class="nav-text">check结果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#filter测试"><span class="nav-text">filter测试</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">配置check</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">定义Check</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">重启服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">执行日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">安装handler</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">配置默认handler</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">安装 handler 的插件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">配置 filter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">check结果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">filter测试</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -982,7 +997,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1659,6 +1674,7 @@
   
 
   
+
 
 </body>
 </html>

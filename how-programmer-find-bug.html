@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,15 +545,15 @@
         <p>我曾经做了两年大型软件的维护工作，那个项目有 10 多年了，大约 3000 万行以上的代码，参与过开发的有数千人，代码 checkout 出来有大约 5 个 GB，而且 bug 特别多，open 的有上千，即使最高优先级的 showstopper 也有上百。分享下我的 debug 的经验。</p>
 <a id="more"></a>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906143925.png" alt="哥们，有个 bug"></p>
-<h2 id="1-优先解决那些可重现的"><a href="#1-优先解决那些可重现的" class="headerlink" title="1. 优先解决那些可重现的"></a>1. 优先解决那些可重现的</h2><p>可重现的 bug 特别好找，反复调试测试就好了，先把好解决的干掉，这样最节约时间。</p>
-<h2 id="2-问下老员工"><a href="#2-问下老员工" class="headerlink" title="2. 问下老员工"></a>2. 问下老员工</h2><p>对于某些 bug 没有头绪或者现象古怪不知道从哪里下手，找有经验的同事问一下思路，因为在那种开发多年的大型系统里，经常会反复出现同样原因的 bug，原因都类似，改了一处，过一阵子另外一处又冒出来，而且无法根治。</p>
+<h2><span id="1-优先解决那些可重现的">1. 优先解决那些可重现的</span></h2><p>可重现的 bug 特别好找，反复调试测试就好了，先把好解决的干掉，这样最节约时间。</p>
+<h2><span id="2-问下老员工">2. 问下老员工</span></h2><p>对于某些 bug 没有头绪或者现象古怪不知道从哪里下手，找有经验的同事问一下思路，因为在那种开发多年的大型系统里，经常会反复出现同样原因的 bug，原因都类似，改了一处，过一阵子另外一处又冒出来，而且无法根治。</p>
 <p>比如：我那个系统里有个特别危险的 API，接口参数比较难用，一旦有人用错了某些情况下就会出诡异的现象，解决很简单，找到调用这个 API 的地方把调用方式写对就好了。为什么不根治呢？因为要保持兼容性不能改接口了。Windows 系统里就好多这种烂 API。问下老员工吧，说不定他们都遇到过好多次了。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906143934.png" alt="天天写 bug"></p>
-<h2 id="3-放大现象"><a href="#3-放大现象" class="headerlink" title="3. 放大现象"></a>3. 放大现象</h2><p>有些 bug 现象不太明显，那么就想办法增大它的破坏性，把现象放大。这只是个思路，具体怎么放大只能根据具体的代码来定。比如：美剧《豪斯医生》里有一集，怀疑病人心肺有问题，就让病人去跑步机上跑步，加重心肺负担，从而放大症状。</p>
-<h2 id="4-二分法定位"><a href="#4-二分法定位" class="headerlink" title="4. 二分法定位"></a>4. 二分法定位</h2><p>把程序逻辑一点点注释掉，看看还会不会出问题，类似二分查找的方法，逐步缩小问题范围。</p>
-<h2 id="5-模拟现场"><a href="#5-模拟现场" class="headerlink" title="5. 模拟现场"></a>5. 模拟现场</h2><p>有时候我会问自己，如果我要实现 bug 描述的现象我要怎么写代码才行？比如：我遇到一个死锁问题，但是检查代码发现所有的锁都是配对的，没有忘记解锁的地方，而且锁很简单就是一个普通的临界段，保护几行赋值语句而已。这样的代码怎么写才能让他死锁呢？我想如果让我故意制造这样一个现象，只有在上锁的时候强制杀掉线程了。既然这样就可以去看看有谁强杀线程了没有。</p>
-<h2 id="6-制作工具"><a href="#6-制作工具" class="headerlink" title="6. 制作工具"></a>6. 制作工具</h2><p>针对某些 bug 编写一些调试辅助工具。比如，我那个系统没有完善的崩溃报告，虽然也有 dump，但是分析出来的 callstack 经常不准。于是我为解决崩溃问题编写了个工具，会自动扫描代码，在每个函数入口和出口插入 log，以此来定位崩溃点。</p>
-<h2 id="7-掩盖问题"><a href="#7-掩盖问题" class="headerlink" title="7. 掩盖问题"></a>7. 掩盖问题</h2><p>虽然这样做有点不厚道，但是有时不得不这么做。有些 bug 找不到真正的 root cause，但是又要在规定时间内解决，那么我们就可以治疗症状而不去找病因。比如用 try catch 掩盖一些奇怪的崩溃。不到万不得已不要这么干，未来可能会付出更大代价。</p>
+<h2><span id="3-放大现象">3. 放大现象</span></h2><p>有些 bug 现象不太明显，那么就想办法增大它的破坏性，把现象放大。这只是个思路，具体怎么放大只能根据具体的代码来定。比如：美剧《豪斯医生》里有一集，怀疑病人心肺有问题，就让病人去跑步机上跑步，加重心肺负担，从而放大症状。</p>
+<h2><span id="4-二分法定位">4. 二分法定位</span></h2><p>把程序逻辑一点点注释掉，看看还会不会出问题，类似二分查找的方法，逐步缩小问题范围。</p>
+<h2><span id="5-模拟现场">5. 模拟现场</span></h2><p>有时候我会问自己，如果我要实现 bug 描述的现象我要怎么写代码才行？比如：我遇到一个死锁问题，但是检查代码发现所有的锁都是配对的，没有忘记解锁的地方，而且锁很简单就是一个普通的临界段，保护几行赋值语句而已。这样的代码怎么写才能让他死锁呢？我想如果让我故意制造这样一个现象，只有在上锁的时候强制杀掉线程了。既然这样就可以去看看有谁强杀线程了没有。</p>
+<h2><span id="6-制作工具">6. 制作工具</span></h2><p>针对某些 bug 编写一些调试辅助工具。比如，我那个系统没有完善的崩溃报告，虽然也有 dump，但是分析出来的 callstack 经常不准。于是我为解决崩溃问题编写了个工具，会自动扫描代码，在每个函数入口和出口插入 log，以此来定位崩溃点。</p>
+<h2><span id="7-掩盖问题">7. 掩盖问题</span></h2><p>虽然这样做有点不厚道，但是有时不得不这么做。有些 bug 找不到真正的 root cause，但是又要在规定时间内解决，那么我们就可以治疗症状而不去找病因。比如用 try catch 掩盖一些奇怪的崩溃。不到万不得已不要这么干，未来可能会付出更大代价。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536215988325.jpg" alt="永无 bug"></p>
 <p>后记：对于大部分转行的人来说，找机会把自己的基础知识补齐，边工作边补基础知识，真心很重要。</p>
 <blockquote>
@@ -557,7 +570,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -703,6 +716,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -715,6 +729,7 @@
 
 
 
+          
         </div>
         
           
@@ -763,7 +778,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -774,7 +789,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -785,7 +800,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -855,23 +870,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -893,7 +908,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-优先解决那些可重现的"><span class="nav-text">1. 优先解决那些可重现的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-问下老员工"><span class="nav-text">2. 问下老员工</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-放大现象"><span class="nav-text">3. 放大现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-二分法定位"><span class="nav-text">4. 二分法定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-模拟现场"><span class="nav-text">5. 模拟现场</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-制作工具"><span class="nav-text">6. 制作工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-掩盖问题"><span class="nav-text">7. 掩盖问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">1. 优先解决那些可重现的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">2. 问下老员工</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">3. 放大现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">4. 二分法定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">5. 模拟现场</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">6. 制作工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">7. 掩盖问题</span></a></li></ol></div>
             
 
           </div>
@@ -913,7 +928,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1590,6 +1605,7 @@
   
 
   
+
 
 </body>
 </html>

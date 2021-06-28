@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -214,8 +214,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -324,6 +326,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -372,6 +384,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -533,12 +546,12 @@
         <p>用过食行生鲜的同学应该知道，每天可以在食行生鲜签到，签到可以领到 20 积分，在购物时可以抵 2 毛钱。钱虽少，但是积少成多，买菜时可以抵扣一两块钱还是不错的。</p>
 <p>今天我们就用 Python 来实现自动签到，省得我每天打开 APP 来操作了。</p>
 <a id="more"></a>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>要自动签到，最简单的是打开页面分析请求，然后我们用脚本实现请求的自动化。但是发现食行没有页面，只有 APP，这不是一个好消息，这意味着需要抓包处理了。</p>
+<h1><span id="分析">分析</span></h1><p>要自动签到，最简单的是打开页面分析请求，然后我们用脚本实现请求的自动化。但是发现食行没有页面，只有 APP，这不是一个好消息，这意味着需要抓包处理了。</p>
 <p>不过还好，我们有微信。</p>
 <p>在微信里面，我们发现也可以登录食行，这时选择在浏览器中打开页面，~哎~ ，柳暗花明了，我们找到了一个可用的网页地址：wechatx.34580.com</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533011816326.jpg" alt="还好没有做只能在微信端访问的限制"></p>
 <p>下面的操作就好办了，在电脑端的浏览器打开网址，按下 F12，开始起飞~</p>
-<h2 id="登录分析"><a href="#登录分析" class="headerlink" title="登录分析"></a>登录分析</h2><p>点击签到后，会跳转到用户登录页面：<a href="https://wechatx.34580.com/mart/#/sign/in，输入登录信息后，点击登录，同时关注开发调试栏的网络交互信息。" target="_blank" rel="noopener">https://wechatx.34580.com/mart/#/sign/in，输入登录信息后，点击登录，同时关注开发调试栏的网络交互信息。</a></p>
+<h2><span id="登录分析">登录分析</span></h2><p>点击签到后，会跳转到用户登录页面：<a href="https://wechatx.34580.com/mart/#/sign/in，输入登录信息后，点击登录，同时关注开发调试栏的网络交互信息。" target="_blank" rel="noopener">https://wechatx.34580.com/mart/#/sign/in，输入登录信息后，点击登录，同时关注开发调试栏的网络交互信息。</a></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533012605702.jpg" alt="登录"></p>
 <p>可以发现，登录的请求地址是：<a href="https://wechatx.34580.com/sz/Sign/SignInV2，并且会在请求时带着登录信息：" target="_blank" rel="noopener">https://wechatx.34580.com/sz/Sign/SignInV2，并且会在请求时带着登录信息：</a></p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"SourceType"</span>: <span class="string">"9"</span>,</span><br><span class="line">	<span class="attr">"Phone"</span>: <span class="string">"18800000000"</span>,</span><br><span class="line">	<span class="attr">"PassWord"</span>: <span class="string">"98a53578bd74e150"</span>,</span><br><span class="line">	<span class="attr">"ZhuGeDeviceMd5"</span>: <span class="string">"164edd53b71674-02922cef4808a-47e1039-e1000-164edd53b7222e"</span>,</span><br><span class="line">	<span class="attr">"DeviceId"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -548,7 +561,7 @@
 <p>登录成功后，请求会响应一些 token 数据：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"Error"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"Message"</span>: <span class="string">"返回正确"</span>,</span><br><span class="line">    <span class="attr">"Data"</span>: &#123;</span><br><span class="line">        <span class="attr">"CustomerGuid"</span>: <span class="string">"d8cd7c84-xxxx-4369-xxxx-b1e86c027407"</span>,</span><br><span class="line">        <span class="attr">"Phone"</span>: <span class="string">"18800000000"</span>,</span><br><span class="line">        <span class="attr">"AccessToken"</span>: <span class="string">"73c7b5fxxxxxxx"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>只要 Error 字段为 0，就代表登录成功！</p>
-<h2 id="签到分析"><a href="#签到分析" class="headerlink" title="签到分析"></a>签到分析</h2><p>登录成功后，页面会自动跳转到首页，我们可以看到签到图标，点击它，进入签到页面：</p>
+<h2><span id="签到分析">签到分析</span></h2><p>登录成功后，页面会自动跳转到首页，我们可以看到签到图标，点击它，进入签到页面：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533013355981.jpg" alt="签到页面"></p>
 <p>发现进来还是一个签到按钮，套娃啊！再点它！</p>
 <p>终于签到成功！</p>
@@ -558,12 +571,12 @@
 <p>签到请求响应：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"Error"</span>: <span class="number">0</span>,</span><br><span class="line">	<span class="attr">"Message"</span>: <span class="string">"返回正确"</span>,</span><br><span class="line">	<span class="attr">"Data"</span>: &#123;</span><br><span class="line">		<span class="attr">"GetPoints"</span>: <span class="number">5</span>,</span><br><span class="line">		<span class="attr">"SumGetPoints"</span>: <span class="number">840</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>返回说这次签到获得了 5 个积分，其实连续签到 4 天后，每天就可以获得 20 积分了！</p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>通过上面的分析，我们的签到流程也很清晰了，首先就是登陆获取 accesstoken 和 customerguid，然后再去签到就可以了！</p>
+<h1><span id="实现">实现</span></h1><p>通过上面的分析，我们的签到流程也很清晰了，首先就是登陆获取 accesstoken 和 customerguid，然后再去签到就可以了！</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, json, sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(Phone, PassWord)</span>:</span></span><br><span class="line">    url = <span class="string">"https://wechatx.34580.com/sz/Sign/SignInV2"</span></span><br><span class="line">    payload = &#123;</span><br><span class="line">        <span class="string">'SourceType'</span>: <span class="number">9</span>,</span><br><span class="line">        <span class="string">'Phone'</span>: Phone,</span><br><span class="line">        <span class="string">'PassWord'</span>: PassWord</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 测试下来发现，连 header 都不需要</span></span><br><span class="line">    response = requests.post(url, data=json.dumps(payload))</span><br><span class="line">    data = json.loads(response.text)</span><br><span class="line">    is_error = data[<span class="string">'Error'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 登录失败直接退出</span></span><br><span class="line">    <span class="keyword">if</span> is_error:</span><br><span class="line">        print(<span class="string">'登录失败：&#123;&#125;'</span>.format(data[<span class="string">'Message'</span>]))</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'登录成功！'</span>)</span><br><span class="line">        <span class="keyword">return</span> data[<span class="string">'Data'</span>][<span class="string">'CustomerGuid'</span>], data[<span class="string">'Data'</span>][<span class="string">'AccessToken'</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">signin</span><span class="params">(customerguid, accesstoken)</span>:</span></span><br><span class="line">    url = <span class="string">"https://wechatx.34580.com/sz/SignUp/CustomerSignUp"</span></span><br><span class="line"></span><br><span class="line">    querystring = &#123;<span class="string">"accesstoken"</span>: accesstoken,</span><br><span class="line">                   <span class="string">"customerguid"</span>: customerguid, <span class="string">"sourcetype"</span>: <span class="string">"9"</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 这次不需要 body 中的传入数据</span></span><br><span class="line">    response = requests.post(url, params=querystring)</span><br><span class="line">    data = json.loads(response.text)</span><br><span class="line">    is_error = data[<span class="string">'Error'</span>]</span><br><span class="line">    <span class="keyword">if</span> is_error:</span><br><span class="line">        print(data[<span class="string">'Message'</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"签到成功，获取到 &#123;&#125; 个积分"</span>.format(data[<span class="string">'Data'</span>][<span class="string">'GetPoints'</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    Phone = input(<span class="string">'请输入账号：'</span>)</span><br><span class="line">    PassWord = input(<span class="string">'请输入密码：'</span>)</span><br><span class="line"></span><br><span class="line">    customerguid, accesstoken = login(Phone.strip(), PassWord.strip())</span><br><span class="line">    signin(customerguid, accesstoken)</span><br></pre></td></tr></table></figure>
 <p>运行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ python shsx.py</span><br><span class="line">请输入账号：188xxxxxxxx</span><br><span class="line">请输入密码：98a53578bd74e150</span><br><span class="line">登录成功！</span><br><span class="line">签到成功，获取到 20 个积分</span><br></pre></td></tr></table></figure>
 <p>最后，怎么自动执行？把登录信息写死到代码里，然后放到 Linux 下的 crontab 里，每天早上执行一次就行啦~</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这里还有一个遗留问题，就是登录密码的获取，现在还只能通过 F12 查看请求获取到，然后记下来。</p>
+<h1><span id="总结">总结</span></h1><p>这里还有一个遗留问题，就是登录密码的获取，现在还只能通过 F12 查看请求获取到，然后记下来。</p>
 <p>但是，登录密码是怎么加密的，由于本人 js 方面比较薄弱，有能力有兴趣的同学要是能看出来可以留言分享下啊~</p>
 <p>另外，怎么知道是不是签到成功了呢，总不能去看定时任务的执行日志吧，是不是可以发送短信通知或者微信通知？这个且看后续分解。</p>
 
@@ -577,7 +590,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -723,6 +736,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -735,6 +749,7 @@
 
 
 
+          
         </div>
         
           
@@ -783,7 +798,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -794,7 +809,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -805,7 +820,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -875,23 +890,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -913,7 +928,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#登录分析"><span class="nav-text">登录分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#签到分析"><span class="nav-text">签到分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">登录分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">签到分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -933,7 +948,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1610,6 +1625,7 @@
   
 
   
+
 
 </body>
 </html>

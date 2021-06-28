@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -225,8 +225,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -335,6 +337,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -383,6 +395,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -548,7 +561,7 @@
 <p>分享给你</p>
 <a id="more"></a>
 <p>[TOC]</p>
-<h1 id="1、Md2All"><a href="#1、Md2All" class="headerlink" title="1、Md2All"></a>1、Md2All</h1><p>官方网址：<a href="https://md.aclickall.com/" target="_blank" rel="noopener">https://md.aclickall.com/</a></p>
+<h1><span id="1-md2all">1、Md2All</span></h1><p>官方网址：<a href="https://md.aclickall.com/" target="_blank" rel="noopener">https://md.aclickall.com/</a></p>
 <p>Md2All 是用的比较多的一个。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190619225243.png" alt></p>
 <p>它的特点就是<strong>功能丰富、可玩性强</strong>。</p>
@@ -560,7 +573,7 @@
 <p><strong>样式自定义</strong></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190619225338.png" alt></p>
 <p>其他功能：图片、公式、代码、云图床……</p>
-<h1 id="2、Markdown-Nice"><a href="#2、Markdown-Nice" class="headerlink" title="2、Markdown Nice"></a>2、Markdown Nice</h1><p>官方网址：<a href="https://mdnice.github.io/" target="_blank" rel="noopener">https://mdnice.github.io/</a></p>
+<h1><span id="2-markdown-nice">2、Markdown Nice</span></h1><p>官方网址：<a href="https://mdnice.github.io/" target="_blank" rel="noopener">https://mdnice.github.io/</a></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190619224826.png" alt></p>
 <p>相对于 Md2All，Markdown Nice 要<strong>简洁</strong>很多。</p>
 <p>给人的感觉是<strong>干净</strong>，<strong>舒服</strong>。</p>
@@ -579,14 +592,14 @@
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190619225448.png" alt></p>
 <p><strong>图片上传</strong></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190619225733.png" alt></p>
-<h1 id="3、WeChat-Format"><a href="#3、WeChat-Format" class="headerlink" title="3、WeChat Format"></a>3、WeChat Format</h1><p>官方网址：<a href="https://lab.lyric.im/wxformat" target="_blank" rel="noopener">https://lab.lyric.im/wxformat</a></p>
+<h1><span id="3-wechat-format">3、WeChat Format</span></h1><p>官方网址：<a href="https://lab.lyric.im/wxformat" target="_blank" rel="noopener">https://lab.lyric.im/wxformat</a></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190619225946.png" alt></p>
 <p>相比于上面介绍的两种，WeChat Format 的功能显得单薄许多。</p>
 <p>页面风格、渲染风格，都跟 Markdown Nice 类似。</p>
 <p><strong>主题只有两种可选</strong></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190619230258.png" alt></p>
 <p>其他可以调整的就字体和字体大小了。</p>
-<h1 id="4、可能吧公众号-Style"><a href="#4、可能吧公众号-Style" class="headerlink" title="4、可能吧公众号 Style"></a>4、可能吧公众号 Style</h1><p>官方网址：<a href="https://knb.im/mp/" target="_blank" rel="noopener">https://knb.im/mp/</a></p>
+<h1><span id="4-可能吧公众号-style">4、可能吧公众号 Style</span></h1><p>官方网址：<a href="https://knb.im/mp/" target="_blank" rel="noopener">https://knb.im/mp/</a></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190619230521.png" alt></p>
 <p>可能吧公众号提供的一个样式渲染工具。</p>
 <p>这是几个里面功能最弱的一个。</p>
@@ -601,7 +614,7 @@
 <p>标题是普通的效果，加粗的字体的渲染也是很有特色。</p>
 <p>文章头部可以自定义作者名称、头像，再加上阅读时间，逼哥就上去了。</p>
 <p>功能虽然不多，但是有其特点。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总的来说，Md2All 功能最为丰富，可玩性最强。</p>
+<h1><span id="总结">总结</span></h1><p>总的来说，Md2All 功能最为丰富，可玩性最强。</p>
 <p>Markdown Nice 功能稍次于 Md2All，但是页面简洁舒服。</p>
 <p>就到这了，选择哪一个，看你喜欢了</p>
 
@@ -615,7 +628,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -761,6 +774,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -773,6 +787,7 @@
 
 
 
+          
         </div>
         
           
@@ -821,7 +836,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -832,7 +847,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -843,7 +858,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -913,23 +928,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -951,7 +966,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、Md2All"><span class="nav-text">1、Md2All</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、Markdown-Nice"><span class="nav-text">2、Markdown Nice</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、WeChat-Format"><span class="nav-text">3、WeChat Format</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、可能吧公众号-Style"><span class="nav-text">4、可能吧公众号 Style</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1、Md2All</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2、Markdown Nice</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3、WeChat Format</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">4、可能吧公众号 Style</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -971,7 +986,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1648,6 +1663,7 @@
   
 
   
+
 
 </body>
 </html>

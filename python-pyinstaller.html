@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -215,8 +215,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -325,6 +327,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -373,6 +385,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -537,14 +550,14 @@
 <p>就像这样：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/201809201458.gif" alt="hello"></p>
 <p>Python 程序都是脚本的方式，一般是在解析器里运行，如果要发布出去，需要提前安装解析器才可以运行，为了在 Windows 里方便发布，只要点击一个 EXE 文件运行，并且打包所需要库文件，这样发布给用户使用就会更方便。</p>
-<h1 id="PyInstaller"><a href="#PyInstaller" class="headerlink" title="PyInstaller"></a>PyInstaller</h1><p>PyInstaller 是一个十分有用的第三方库，可以用来打包 python 应用程序，打包完的程序就可以在没有安装 Python 解释器的机器上运行了。</p>
+<h1><span id="pyinstaller">PyInstaller</span></h1><p>PyInstaller 是一个十分有用的第三方库，可以用来打包 python 应用程序，打包完的程序就可以在没有安装 Python 解释器的机器上运行了。</p>
 <p>它能够在 Windows、Linux、 Mac OS X 等操作系统下将 Python 源文件打包，通过对源文件打包， Python 程序可以在没有安装 Python 的环境中运行，也可以作为一个 独立文件方便传递和管理。</p>
 <p>PyInstaller 支持 Python 2.7 / 3.4-3.7。可以在 Windows、Mac OS X 和 Linux 上使用，但是并不是跨平台的，而是说你要是希望打包成 .exe 文件，需要在 Windows 系统上运行 PyInstaller 进行打包工作。</p>
 <p>下面我们以 <code>Windows</code> 为例来进行程序的打包工作。</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install pyinstaller</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">python -m pip install pyinstaller</span><br></pre></td></tr></table></figure>
+<h1><span id="安装">安装</span></h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install pyinstaller</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">python -m pip install pyinstaller</span><br></pre></td></tr></table></figure>
 <p>安装成功：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537412275629.jpg" alt="安装成功"></p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F helloworld.py</span><br></pre></td></tr></table></figure>
+<h1><span id="使用">使用</span></h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F helloworld.py</span><br></pre></td></tr></table></figure>
 <p>其中，<code>-F</code> 表示打包成单独的 .exe 文件，这时生成的 .exe 文件会比较大，而且运行速度回较慢。仅仅一个 helloworld 程序，生成的文件就 5MB 大。</p>
 <p>另外，使用 <code>-i</code> 还可以指定可执行文件的图标；<br><code>-w</code> 表示去掉控制台窗口，这在 GUI 界面时非常有用。不过如果是命令行程序的话那就把这个选项删除吧！</p>
 <p>PyInstaller 会对脚本进行解析，并做出如下动作：</p>
@@ -554,7 +567,7 @@
 <p>生成文件：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537418624692.jpg" alt="生成两个目录"></p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537418710463.jpg" alt="生成的可执行文件"></p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>1、直接运行最终的 .exe 程序，可能会出现<strong>一闪而过</strong>的情况，这种情况下要么是程序运行结束（比如直接打印的 helloWorld），要么程序出现错误退出了。</p>
+<h1><span id="注意事项">注意事项</span></h1><p>1、直接运行最终的 .exe 程序，可能会出现<strong>一闪而过</strong>的情况，这种情况下要么是程序运行结束（比如直接打印的 helloWorld），要么程序出现错误退出了。</p>
 <p>这种情况下，建议在命令行 cmd 下运行 .exe 文件，这时就会有文本输出到窗口；</p>
 <p>2、<code>-i</code> 是改变图标的，但是我发现是有些 bug 的，客官请看：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/201809201311.gif" alt="图标变化"></p>
@@ -573,7 +586,7 @@
 <p>然后在生成 exe 文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller helloworld.spec</span><br></pre></td></tr></table></figure>
 <p>然后生成的文件就可以正常引入外部文件了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文只是使用 PyInstaller 打包流程进行简单的介绍，更多内容可以参见官方文档：<a href="https://pyinstaller.readthedocs.io" target="_blank" rel="noopener">https://pyinstaller.readthedocs.io</a>。</p>
+<h1><span id="总结">总结</span></h1><p>本文只是使用 PyInstaller 打包流程进行简单的介绍，更多内容可以参见官方文档：<a href="https://pyinstaller.readthedocs.io" target="_blank" rel="noopener">https://pyinstaller.readthedocs.io</a>。</p>
 <p>欢迎留言交流。</p>
 
       
@@ -586,7 +599,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -734,6 +747,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -746,6 +760,7 @@
 
 
 
+          
         </div>
         
           
@@ -794,7 +809,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -805,7 +820,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -816,7 +831,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -886,23 +901,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -924,7 +939,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PyInstaller"><span class="nav-text">PyInstaller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项"><span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">PyInstaller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -944,7 +959,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1621,6 +1636,7 @@
   
 
   
+
 
 </body>
 </html>

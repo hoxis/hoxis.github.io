@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -211,8 +211,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -321,6 +323,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -369,6 +381,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,7 +545,7 @@
 </blockquote>
 <a id="more"></a>
 <p>主要功能是进行转换匹配，从而可以复用已有的功能。通过给适配器对象组合被适配的对象，然后当客户端调用Target时，适配器会将相应的功能委托给被适配的对象去完成。生活中的适配器模式很常见，比如电压转换器、翻译等。</p>
-<h2 id="适配器模式中的3个角色"><a href="#适配器模式中的3个角色" class="headerlink" title="适配器模式中的3个角色"></a>适配器模式中的3个角色</h2><ul>
+<h2><span id="适配器模式中的3个角色">适配器模式中的3个角色</span></h2><ul>
 <li><p>Target 目标角色<br>该角色定义把其他类转换为何种接口，也就是期望接口。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Target</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -549,19 +562,19 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//原有的业务逻辑</span></span><br><span class="line">        Target target = <span class="keyword">new</span> ConcreteTarget();</span><br><span class="line">        target.request();</span><br><span class="line">        <span class="comment">//现在增加了适配器角色后的业务逻辑</span></span><br><span class="line">        Target target2 = <span class="keyword">new</span> Adapter();</span><br><span class="line">        target2.request();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="适配器的实现"><a href="#适配器的实现" class="headerlink" title="适配器的实现"></a>适配器的实现</h2><p>适配器通常是一个类，一般或让其去实现Target接口，然后再其具体实现里面调用Adaptee。</p>
-<h3 id="类的适配器模式"><a href="#类的适配器模式" class="headerlink" title="类的适配器模式"></a>类的适配器模式</h3><p>当希望将一个类转换成满足另一个新接口的类时，可以使用类的适配器模式，创建一个新类，<strong>继承原有的类Adaptee</strong>，实现新的接口即可。</p>
-<h3 id="对象的适配器模式"><a href="#对象的适配器模式" class="headerlink" title="对象的适配器模式"></a>对象的适配器模式</h3><p>当希望将一个对象转换成满足另一个新接口的对象时，可以创建一个Adapter类，<strong>持有原类Adaptee的一个实例</strong>，在Adapter类的方法中，调用实例的方法就行。</p>
-<h3 id="接口的适配器模式"><a href="#接口的适配器模式" class="headerlink" title="接口的适配器模式"></a>接口的适配器模式</h3><p>当不希望实现一个接口中所有的方法时，可以创建一个抽象类Adapter，实现所有方法，我们写别的类的时候，继承抽象类即可。</p>
-<h3 id="适配器模式的调用顺序"><a href="#适配器模式的调用顺序" class="headerlink" title="适配器模式的调用顺序"></a>适配器模式的调用顺序</h3><p><img src="http://hoxis-github-io.qiniudn.com/150708-adapter-call-sequence.png" alt="适配器模式的调用顺序"></p>
-<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<h2><span id="适配器的实现">适配器的实现</span></h2><p>适配器通常是一个类，一般或让其去实现Target接口，然后再其具体实现里面调用Adaptee。</p>
+<h3><span id="类的适配器模式">类的适配器模式</span></h3><p>当希望将一个类转换成满足另一个新接口的类时，可以使用类的适配器模式，创建一个新类，<strong>继承原有的类Adaptee</strong>，实现新的接口即可。</p>
+<h3><span id="对象的适配器模式">对象的适配器模式</span></h3><p>当希望将一个对象转换成满足另一个新接口的对象时，可以创建一个Adapter类，<strong>持有原类Adaptee的一个实例</strong>，在Adapter类的方法中，调用实例的方法就行。</p>
+<h3><span id="接口的适配器模式">接口的适配器模式</span></h3><p>当不希望实现一个接口中所有的方法时，可以创建一个抽象类Adapter，实现所有方法，我们写别的类的时候，继承抽象类即可。</p>
+<h3><span id="适配器模式的调用顺序">适配器模式的调用顺序</span></h3><p><img src="http://hoxis-github-io.qiniudn.com/150708-adapter-call-sequence.png" alt="适配器模式的调用顺序"></p>
+<h2><span id="优缺点">优缺点</span></h2><h3><span id="优点">优点</span></h3><ul>
 <li>更好的复用性</li>
 <li>刚好的可扩展性</li>
 </ul>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<h3><span id="缺点">缺点</span></h3><ul>
 <li>过多地使用会让系统非常混乱，很难从整体进行把握。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。</li>
 </ul>
-<h2 id="何时使用适配器"><a href="#何时使用适配器" class="headerlink" title="何时使用适配器"></a>何时使用适配器</h2><p>适配器模式的本质是：<strong>转换匹配，复用功能</strong>。通过转换已有的功能实现，从而可以将其匹配成所需的接口。转换匹配是手段，复用功能是目的。</p>
+<h2><span id="何时使用适配器">何时使用适配器</span></h2><p>适配器模式的本质是：<strong>转换匹配，复用功能</strong>。通过转换已有的功能实现，从而可以将其匹配成所需的接口。转换匹配是手段，复用功能是目的。</p>
 <ul>
 <li>想使用一个已存在的类，但它的接口不符合需求时。或者是它不能对每一个子类都进行适配，这种情况下可以使用对象适配器，直接适配这些子类的父类。</li>
 <li>想创建一个可复用的类，但是这个类可能会与一些类不兼容时</li>
@@ -579,7 +592,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -664,8 +677,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/我学设计模式：外观（Facade）模式.html" rel="next" title="我学设计模式：外观（Facade）模式">
-                <i class="fa fa-chevron-left"></i> 我学设计模式：外观（Facade）模式
+              <a href="/我学设计模式：单例（Singleton）模式.html" rel="next" title="我学设计模式：单例（Singleton）模式">
+                <i class="fa fa-chevron-left"></i> 我学设计模式：单例（Singleton）模式
               </a>
             
           </div>
@@ -727,6 +740,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -739,6 +753,7 @@
 
 
 
+          
         </div>
         
           
@@ -787,7 +802,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -798,7 +813,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -809,7 +824,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -879,23 +894,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -917,7 +932,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#适配器模式中的3个角色"><span class="nav-text">适配器模式中的3个角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适配器的实现"><span class="nav-text">适配器的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类的适配器模式"><span class="nav-text">类的适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的适配器模式"><span class="nav-text">对象的适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口的适配器模式"><span class="nav-text">接口的适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#适配器模式的调用顺序"><span class="nav-text">适配器模式的调用顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优缺点"><span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何时使用适配器"><span class="nav-text">何时使用适配器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">适配器模式中的3个角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">适配器的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">类的适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">对象的适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">接口的适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">适配器模式的调用顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">何时使用适配器</span></a></li></ol></div>
             
 
           </div>
@@ -937,7 +952,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1614,6 +1629,7 @@
   
 
   
+
 
 </body>
 </html>

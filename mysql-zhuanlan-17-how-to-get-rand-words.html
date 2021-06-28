@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -536,7 +549,7 @@
 <p>假设有一个单词表，如何从中随机选择 3 个出来？</p>
 <p>下面是表初始化的 SQL：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE `words` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `word` varchar(64) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB;</span><br><span class="line"></span><br><span class="line">delimiter ;;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> idata()</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">declare</span> i <span class="built_in">int</span>;</span><br><span class="line">  <span class="keyword">set</span> i=<span class="number">0</span>;</span><br><span class="line">  while i&lt;10000 do</span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> words(word) <span class="keyword">values</span>(<span class="keyword">concat</span>(<span class="built_in">char</span>(<span class="number">97</span>+(i <span class="keyword">div</span> <span class="number">1000</span>)), <span class="built_in">char</span>(<span class="number">97</span>+(i % <span class="number">1000</span> <span class="keyword">div</span> <span class="number">100</span>)), <span class="built_in">char</span>(<span class="number">97</span>+(i % <span class="number">100</span> <span class="keyword">div</span> <span class="number">10</span>)), <span class="built_in">char</span>(<span class="number">97</span>+(i % <span class="number">10</span>))));</span><br><span class="line">    <span class="keyword">set</span> i=i+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">end</span> <span class="keyword">while</span>;</span><br><span class="line"><span class="keyword">end</span>;;</span><br><span class="line">delimiter ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">call</span> idata();</span><br></pre></td></tr></table></figure>
-<h1 id="顺序排序"><a href="#顺序排序" class="headerlink" title="顺序排序"></a>顺序排序</h1><h2 id="内存临时表"><a href="#内存临时表" class="headerlink" title="内存临时表"></a>内存临时表</h2><p>首先想到的是使用 <code>order by rand()</code>：</p>
+<h1><span id="顺序排序">顺序排序</span></h1><h2><span id="内存临时表">内存临时表</span></h2><p>首先想到的是使用 <code>order by rand()</code>：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select word from words order by rand() limit 3;</span><br></pre></td></tr></table></figure>
 <p>用 explain 对其进行解析：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190426131817.png" alt></p>
@@ -556,7 +569,7 @@
 <li>没有主键的 InnoDB 表：系统生成一个 rowid</li>
 <li>Memory 引擎的临时表：数组的下标</li>
 </ul>
-<h2 id="磁盘临时表"><a href="#磁盘临时表" class="headerlink" title="磁盘临时表"></a>磁盘临时表</h2><p>其实，并不是所有的临时表都会采用内存表。</p>
+<h2><span id="磁盘临时表">磁盘临时表</span></h2><p>其实，并不是所有的临时表都会采用内存表。</p>
 <p><code>tmp_table_size</code> 这个配置限制了<strong>内存临时表的大小</strong>，默认值是 16M。</p>
 <p>如果临时表大小超过了 tmp_table_size，那么内存临时表就会转成磁盘临时表。</p>
 <p>磁盘临时表使用的是 InnoDB 引擎，该设置是通过参数 <code>internal_tmp_disk_storage_engine</code> 设置的。</p>
@@ -569,7 +582,7 @@
 <p>然后依次把它们的 rowid 取出，去临时表拿出对应的 word 字段。</p>
 <p>如果，要维护的堆大小超过 sort_buffer_size 的大小，就只能使用归并排序算法了。</p>
 <p>无论哪种算法，order by rand() 的计算过程都很复杂，需要扫描很多行数，资源消耗也很多。</p>
-<h1 id="随机排序"><a href="#随机排序" class="headerlink" title="随机排序"></a>随机排序</h1><p>如果只需要取一个随机 word 值？</p>
+<h1><span id="随机排序">随机排序</span></h1><p>如果只需要取一个随机 word 值？</p>
 <p>很简单，只需要从主键最大值和最小值之间，生成一个随机数 X，然后取不小于 X 的第一个 ID 的行即可。</p>
 <p>这样就不需要进行全表扫描，但是若 <strong>id 存在空洞</strong>，就会出现问题。</p>
 <p>比如，有 4 个 id：1、2、40000、40001？这个算法基本上就是个 bug 了。</p>
@@ -597,7 +610,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -745,6 +758,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -757,6 +771,7 @@
 
 
 
+          
         </div>
         
           
@@ -805,7 +820,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -816,7 +831,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -827,7 +842,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -897,23 +912,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -935,7 +950,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#顺序排序"><span class="nav-text">顺序排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存临时表"><span class="nav-text">内存临时表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘临时表"><span class="nav-text">磁盘临时表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随机排序"><span class="nav-text">随机排序</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">顺序排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">内存临时表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">磁盘临时表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">随机排序</span></a></li></ol></div>
             
 
           </div>
@@ -955,7 +970,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1632,6 +1647,7 @@
   
 
   
+
 
 </body>
 </html>

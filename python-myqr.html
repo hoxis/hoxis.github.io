@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -218,8 +218,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -328,6 +330,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -376,6 +388,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -543,7 +556,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ myqr --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1538052137230.jpg" alt="myqr参数"></p>
 <p>可以看出 myqr 有着丰富的参数支持，这里就不再一一解释，后面使用到会再细说。</p>
-<h1 id="简单用法"><a href="#简单用法" class="headerlink" title="简单用法"></a>简单用法</h1><p>首先我们生成一个普通二维码：</p>
+<h1><span id="简单用法">简单用法</span></h1><p>首先我们生成一个普通二维码：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ myqr <span class="string">"http://weixin.qq.com/r/PnUmPg7E8lONrUpd9yAs"</span></span><br><span class="line">line 16: mode: byte</span><br><span class="line">Succeed!</span><br><span class="line">Check out your 2-H QR-code: /mnt/d/code/Python/learn/myqr/qrcode.png</span><br></pre></td></tr></table></figure>
 <p>这时就会在当前目录下生成一个名称为 qrcode.png 的二维码。</p>
 <p>如果 myqr 后面传入的是普通字符串，那么扫描后会现在字符串。若是一个网址，扫描后会自动跳转。</p>
@@ -556,7 +569,7 @@
 <p>2、使用 <code>-n</code> 控制文件名称，格式可以是 <code>.jpg</code>、<code>.png</code>、<code>.bmp</code>、<code>.gif</code>；</p>
 <p>3、使用 <code>-l</code> 可以控制二维码的纠错等级，范围是L、M、Q、H，从左到右依次升高；</p>
 <p>4、使用 <code>-v</code> 控制二维码的边长，范围是 1 至 40，数字越大边长越大。</p>
-<h1 id="生成带图片的二维码"><a href="#生成带图片的二维码" class="headerlink" title="生成带图片的二维码"></a>生成带图片的二维码</h1><p>光是二维码，是否太单调了呢？没关系，我们能加上我们想要的图片，使二维码更具辨识度！</p>
+<h1><span id="生成带图片的二维码">生成带图片的二维码</span></h1><p>光是二维码，是否太单调了呢？没关系，我们能加上我们想要的图片，使二维码更具辨识度！</p>
 <p>我们可以使用 <code>-p</code> 参数指定图片，将二维码与该图片结合在一起。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1538055649727.jpg" alt="原图"></p>
 <p>想要将上面的图片结合到二维码中，可以使用下面的命令来生成：</p>
@@ -567,13 +580,13 @@
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1538055727463.jpg" alt="彩色二维码"></p>
 <p>另外，如果想要图片的对比度和亮度，可以使用参数 <code>-con</code> 控制图片对比度，1.0 表示原始图片，更小的值表示更低对比度，更大反之。默认为 1.0；</p>
 <p>使用参数 <code>-bri</code> 用来调节图片的亮度，其余用法和取值与 <code>-con</code> 相同。</p>
-<h1 id="生成动态二维码"><a href="#生成动态二维码" class="headerlink" title="生成动态二维码"></a>生成动态二维码</h1><p>其实生成动态二维码，并没有想象的那么复杂。</p>
+<h1><span id="生成动态二维码">生成动态二维码</span></h1><p>其实生成动态二维码，并没有想象的那么复杂。</p>
 <p>方式与上面的带图片的二维码的生成方式没有区别，只是将原始图片换成 <code>.gif</code> 即可!</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/gf.gif" alt="你女友"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myqr <span class="string">"http://weixin.qq.com/r/PnUmPg7E8lONrUpd9yAs"</span> -p who.gif -c</span><br></pre></td></tr></table></figure>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/gf_qrcode.gif" alt="你女友的二维码"></p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/m_mc_qrcode.gif" alt="哇哦~"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>myqr 使用非常简单，一行代码就可以生成我们想要的二维码。另外，还有在 Python 代码中调用的方式生成，这里就不再赘述。</p>
+<h1><span id="总结">总结</span></h1><p>myqr 使用非常简单，一行代码就可以生成我们想要的二维码。另外，还有在 Python 代码中调用的方式生成，这里就不再赘述。</p>
 <p>大家快试试生成自己的专属炫酷二维码吧！</p>
 
       
@@ -586,7 +599,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -732,6 +745,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -744,6 +758,7 @@
 
 
 
+          
         </div>
         
           
@@ -792,7 +807,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -803,7 +818,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -814,7 +829,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -884,23 +899,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -922,7 +937,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单用法"><span class="nav-text">简单用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成带图片的二维码"><span class="nav-text">生成带图片的二维码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成动态二维码"><span class="nav-text">生成动态二维码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">简单用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">生成带图片的二维码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">生成动态二维码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -942,7 +957,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1619,6 +1634,7 @@
   
 
   
+
 
 </body>
 </html>

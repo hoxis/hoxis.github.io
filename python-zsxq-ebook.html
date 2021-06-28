@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -224,8 +224,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -334,6 +336,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -382,6 +394,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -413,29 +426,29 @@
 <p>内容基于 <a href="https://github.com/96chh/crawl-zsxq" target="_blank" rel="noopener">https://github.com/96chh/crawl-zsxq</a> 进行的优化，主要优化内容在于，翻页时间的处理、大段空白处理、评论抓取、超链接处理等。</p>
 <p>涉及到隐私问题，这里我们以免费星球「万人学习分享群」为爬取对象。</p>
 </blockquote>
-<h1 id="过程分析"><a href="#过程分析" class="headerlink" title="过程分析"></a>过程分析</h1><h2 id="模拟登录"><a href="#模拟登录" class="headerlink" title="模拟登录"></a>模拟登录</h2><p>爬取的是网页版知识星球，<a href="https://wx.zsxq.com/dweb/。" target="_blank" rel="noopener">https://wx.zsxq.com/dweb/。</a></p>
+<h1><span id="过程分析">过程分析</span></h1><h2><span id="模拟登录">模拟登录</span></h2><p>爬取的是网页版知识星球，<a href="https://wx.zsxq.com/dweb/。" target="_blank" rel="noopener">https://wx.zsxq.com/dweb/。</a></p>
 <p>这个网站并不是依靠 cookie 来判断你是否登录，而是请求头中的 Authorization 字段。</p>
 <p>所以，需要把 Authorization，User-Agent 换成你自己的。（注意 User-Agent 也要换成你自己的）</p>
 <p>一般来说，星球使用微信扫码登录后，可以获取到一个 Authorization，这个歌有效期很长反正，真的很长。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    'Authorization': 'C08AEDBB-A627-F9F1-1223-7E212B1C9D7D',</span><br><span class="line">    'x-request-id': "7b898dff-e40f-578e-6cfd-9687a3a32e49",</span><br><span class="line">    'accept': "application/json, text/plain, */*",</span><br><span class="line">    'host': "api.zsxq.com",</span><br><span class="line">    'connection': "keep-alive",</span><br><span class="line">    'referer': "https://wx.zsxq.com/dweb/",</span><br><span class="line">    'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36",</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="页面内容分析"><a href="#页面内容分析" class="headerlink" title="页面内容分析"></a>页面内容分析</h2><p>登录成功后，一般我习惯右键、检查或者查看源代码。</p>
+<h2><span id="页面内容分析">页面内容分析</span></h2><p>登录成功后，一般我习惯右键、检查或者查看源代码。</p>
 <p>但是这个页面比较特殊，它不把内容放到当前地址栏 URL 下，而是通过异步加载（XHR），只要找对接口就可以了。</p>
 <p>精华区的接口：<a href="https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&amp;count=20" target="_blank" rel="noopener">https://api.zsxq.com/v1.10/groups/2421112121/topics?scope=digests&amp;count=20</a></p>
 <p>这个接口是最新 20 条数据的，还有后面数据对应不同接口，这就是后面要说的翻页。</p>
-<h2 id="制作-PDF-电子书"><a href="#制作-PDF-电子书" class="headerlink" title="制作 PDF 电子书"></a>制作 PDF 电子书</h2><p>需安装模块： </p>
+<h2><span id="制作-pdf-电子书">制作 PDF 电子书</span></h2><p>需安装模块： </p>
 <ol>
 <li>wkhtmltopdf，用作导出 PDF，安装完成后可用命令生成 PDF，例如：<code>wkhtmltopdf http://www.google.com.hk google.pdf</code></li>
 <li>pdfkit，是 python 对 wkhtmltopdf 调用的封装，支持 URL、本地文件、文本内容到 PDF 的转换，实际转换还是最终调用 wkhtmltopdf 命令</li>
 </ol>
 <p>本来精华区是没有标题的，我把每个问题的前 6 个字符当做标题，以此区分不同问题。</p>
-<h2 id="爬取图片"><a href="#爬取图片" class="headerlink" title="爬取图片"></a>爬取图片</h2><p>很明显，在返回的数据中的 images 键就是图片，只需提取 large 的，即高清的 url 即可。</p>
+<h2><span id="爬取图片">爬取图片</span></h2><p>很明显，在返回的数据中的 images 键就是图片，只需提取 large 的，即高清的 url 即可。</p>
 <p>关键在于将图片标签 img 插入到 HTML 文档。我使用 BeautifulSoup 操纵 DOM 的方式。</p>
 <p>需要注意的是，有可能图片不止一张，所以需要用 for 循环全部迭代出来。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> content.get(<span class="string">'images'</span>):</span><br><span class="line">    soup = BeautifulSoup(html_template, <span class="string">'html.parser'</span>)</span><br><span class="line">    <span class="keyword">for</span> img <span class="keyword">in</span> content.get(<span class="string">'images'</span>):</span><br><span class="line">        url = img.get(<span class="string">'large'</span>).get(<span class="string">'url'</span>)</span><br><span class="line">        img_tag = soup.new_tag(<span class="string">'img'</span>, src=url)</span><br><span class="line">        soup.body.append(img_tag)</span><br><span class="line">        html_img = str(soup)</span><br><span class="line">        html = html_img.format(title=title, text=text)</span><br></pre></td></tr></table></figure>
-<h2 id="制作精美-PDF"><a href="#制作精美-PDF" class="headerlink" title="制作精美 PDF"></a>制作精美 PDF</h2><p>通过 css 样式来控制字体大小、布局、颜色等，详见 test.css 文件。</p>
+<h2><span id="制作精美-pdf">制作精美 PDF</span></h2><p>通过 css 样式来控制字体大小、布局、颜色等，详见 test.css 文件。</p>
 <p>再将此文件引入到 options 字段中。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">options = &#123;</span><br><span class="line">    "user-style-sheet": "test.css",</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="难点分析"><a href="#难点分析" class="headerlink" title="难点分析"></a>难点分析</h1><h2 id="翻页逻辑"><a href="#翻页逻辑" class="headerlink" title="翻页逻辑"></a>翻页逻辑</h2><p>爬取地址是：{url}?scope=digests&amp;count=20&amp;end_time=2018-04-12T15%3A49%3A13.443%2B0800</p>
+<h1><span id="难点分析">难点分析</span></h1><h2><span id="翻页逻辑">翻页逻辑</span></h2><p>爬取地址是：{url}?scope=digests&amp;count=20&amp;end_time=2018-04-12T15%3A49%3A13.443%2B0800</p>
 <p>路径后面的 <code>end_time</code> 表示加载帖子的最后日期，以此达到翻页。</p>
 <p>这个 <code>end_time</code> 是经过 url 转义了的，可以通过 urllib.parse.quote 方法进行转义，关键是找出这个 end_time 是从那里来的。</p>
 <p>经过我细细观察发现：每次请求返回 20 条帖子，最后一条贴子就与下一条链接的 end_time 有关系。</p>
@@ -445,16 +458,16 @@
 <p>由于时分秒都有出现 0 的可能，看来最好的方法是，若出现 <code>000</code>，则利用时间模块 datetime 获取 create_time 的上一秒，然后在拼接 <code>999</code>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># int -1 后需要进行补 0 处理，test_str.zfill(3)</span></span><br><span class="line">end_time = create_time[:<span class="number">20</span>]+str(int(create_time[<span class="number">20</span>:<span class="number">23</span>])<span class="number">-1</span>).zfill(<span class="number">3</span>)+create_time[<span class="number">23</span>:]</span><br><span class="line"><span class="comment"># 时间出现整点时需要特殊处理，否则会出现 -1</span></span><br><span class="line"><span class="keyword">if</span> create_time[<span class="number">20</span>:<span class="number">23</span>] == <span class="string">'000'</span>:</span><br><span class="line">    temp_time = datetime.datetime.strptime(create_time, <span class="string">"%Y-%m-%dT%H:%M:%S.%f+0800"</span>)</span><br><span class="line">    temp_time += datetime.timedelta(seconds=<span class="number">-1</span>)</span><br><span class="line">    end_time = temp_time.strftime(<span class="string">"%Y-%m-%dT%H:%M:%S"</span>) + <span class="string">'.999+0800'</span></span><br><span class="line">end_time = quote(end_time)</span><br><span class="line"></span><br><span class="line">next_url = start_url + <span class="string">'&amp;end_time='</span> + end_time</span><br></pre></td></tr></table></figure>
 <p>处理过程有点啰嗦，原谅我时间后面的 <code>000</code> 我没找到直接处理的办法，只能这样曲线救国了。</p>
-<h2 id="判断最后一页"><a href="#判断最后一页" class="headerlink" title="判断最后一页"></a>判断最后一页</h2><p>翻页到最后返回的数据是：</p>
+<h2><span id="判断最后一页">判断最后一页</span></h2><p>翻页到最后返回的数据是：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"succeeded"</span>:true,<span class="string">"resp_data"</span>:&#123;<span class="string">"topics"</span>:[]&#125;&#125;</span><br></pre></td></tr></table></figure>
 <p>故以 <code>next_page = rsp.json().get(&#39;resp_data&#39;).get(&#39;topics&#39;)</code> 来判断是否有下一页。</p>
-<h2 id="评论爬取"><a href="#评论爬取" class="headerlink" title="评论爬取"></a>评论爬取</h2><p>发现评论里也有很多有用的内容，评论的格式如下：</p>
+<h2><span id="评论爬取">评论爬取</span></h2><p>发现评论里也有很多有用的内容，评论的格式如下：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"comment_id"</span>: <span class="number">15118288421852</span>,</span><br><span class="line">    <span class="attr">"create_time"</span>: <span class="string">"2018-08-16T16:19:39.216+0800"</span>,</span><br><span class="line">    <span class="attr">"owner"</span>: &#123;</span><br><span class="line">        <span class="attr">"user_id"</span>: <span class="number">1484141222</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"xxx"</span>,</span><br><span class="line">        <span class="attr">"alias"</span>: <span class="string">"xxx"</span>,</span><br><span class="line">        <span class="attr">"avatar_url"</span>: <span class="string">"https://images.xxx"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"text"</span>: <span class="string">"他这个资源不做投资才傻"</span>,</span><br><span class="line">    <span class="attr">"likes_count"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"rewards_count"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"repliee"</span>: &#123;</span><br><span class="line">        <span class="attr">"user_id"</span>: <span class="number">484552118</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"Kiwi"</span>,</span><br><span class="line">        <span class="attr">"avatar_url"</span>: <span class="string">"https://images.zsxqxxxTRQKsci9Q="</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们主要解析其中的 <code>owner.name</code> 和 <code>text</code>，其他信息我们暂时不关心，比如是对谁谁谁的回复，我们暂时只把评论列举出来。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 评论解析</span></span><br><span class="line">comments = topic.get(<span class="string">'show_comments'</span>)</span><br><span class="line">comments_str = <span class="string">''</span></span><br><span class="line"><span class="keyword">if</span> comments:</span><br><span class="line">    <span class="keyword">for</span> comment <span class="keyword">in</span> comments:</span><br><span class="line">        comments_str += comment.get(<span class="string">'owner'</span>).get(<span class="string">'name'</span>) + <span class="string">" : "</span> + handle_link(comment.get(<span class="string">'text'</span>))</span><br><span class="line">        comments_str += <span class="string">'&lt;br&gt;&lt;br&gt;'</span></span><br></pre></td></tr></table></figure>
 <p>最终评论展示效果：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297117733.jpg" alt="评论展示效果"></p>
-<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><h2 id="中文问题"><a href="#中文问题" class="headerlink" title="中文问题"></a>中文问题</h2><p>生成 PDF 后，打开发现中文全部显示为方框，如下图：</p>
+<h1><span id="优化">优化</span></h1><h2><span id="中文问题">中文问题</span></h2><p>生成 PDF 后，打开发现中文全部显示为方框，如下图：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297150152.jpg" alt="中文显示问题"></p>
 <p>这表示服务器未安装中文字体，安装字体即可，安装下面说明；</p>
 <pre><code>1. 查看目前安装字体：fc-list
@@ -466,14 +479,14 @@
 </code></pre><p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297183265.jpg" alt="查看字体列表"></p>
 <p>重新生成后，一切 OK：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297217439.jpg" alt="显示正常的中文"></p>
-<h2 id="页面空白优化"><a href="#页面空白优化" class="headerlink" title="页面空白优化"></a>页面空白优化</h2><p>生成成功，但是返现每篇文章默认都是新的一页，出现大块空白，阅读时非常别扭，于是我想着是否可以进行优化。</p>
+<h2><span id="页面空白优化">页面空白优化</span></h2><p>生成成功，但是返现每篇文章默认都是新的一页，出现大块空白，阅读时非常别扭，于是我想着是否可以进行优化。</p>
 <p>之所以是一篇星球推文显示成单独的一页，是因为原作者处理时，是将推文分别保存成 HTML 文件进行处理，然后再转换成 PDF。</p>
 <p>那么我的思路就是，将每篇推文放在单独的 <code>&lt;body&gt;</code> 里，最后合并成一个 HTML，这样最终显示的就是连续的页面了。</p>
 <p>修改前：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297249605.jpg" alt="大段空白"></p>
 <p>修改后：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297277207.jpg" alt="连续的页面"></p>
-<h2 id="超链接优化"><a href="#超链接优化" class="headerlink" title="超链接优化"></a>超链接优化</h2><p>在原作者的代码中，没有对超链接进行处理，而星球中有大部分都是进行超链接的分享。</p>
+<h2><span id="超链接优化">超链接优化</span></h2><p>在原作者的代码中，没有对超链接进行处理，而星球中有大部分都是进行超链接的分享。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297303333.jpg" alt="其实这是分享的超链接"></p>
 <p>没有处理的原因是，抓取到的代码中，超链接是这种形式的：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">e</span> <span class="attr">type</span>=<span class="string">"web"</span> <span class="attr">href</span>=<span class="string">"https%3A%2F%2Fmp.weixin.qq.com%2Fs%2Fw8geobayB8sIRWYcxmvCSQ"</span> <span class="attr">title</span>=<span class="string">"5000%E5%AD%97%E9%95%BF%E6%96%87%E5%91%8A%E8%AF%89%E4%BD%A0%EF%BC%8CSEO%E6%AF%8F%E6%97%A5%E6%B5%81%E9%87%8F%E5%A6%82%E4%BD%95%E4%BB%8E0%E5%88%B010000%2B"</span> <span class="attr">cache</span>=<span class="string">"http%3A%2F%2Fcache.zsxq.com%2F201808%2F732760494981a6500d8aadf0469efbf205c21d23ca472826f13e127799973455"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
@@ -484,7 +497,7 @@
 <p>处理后：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297336588.jpg" alt="超链接处理效果"></p>
 <p>当然，最好的方式是把超链接的内容也爬取出来，一并放在 PDF 里，这里我就不搞了，有兴趣的尝试下吧。</p>
-<h2 id="换行处理"><a href="#换行处理" class="headerlink" title="换行处理"></a>换行处理</h2><p>换行在星球上显示是这样的：</p>
+<h2><span id="换行处理">换行处理</span></h2><p>换行在星球上显示是这样的：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297361623.jpg" alt="星球显示"></p>
 <p>但是到 PDF 后，换行全部没了，大段文字看起来很费劲：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1536297387354.jpg" alt="换行失败"></p>
@@ -509,6 +522,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -521,6 +535,7 @@
 
 
 
+          
         </div>
         
           
@@ -569,7 +584,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -580,7 +595,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -591,7 +606,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -661,23 +676,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -699,7 +714,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过程分析"><span class="nav-text">过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟登录"><span class="nav-text">模拟登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面内容分析"><span class="nav-text">页面内容分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作-PDF-电子书"><span class="nav-text">制作 PDF 电子书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬取图片"><span class="nav-text">爬取图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作精美-PDF"><span class="nav-text">制作精美 PDF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#难点分析"><span class="nav-text">难点分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#翻页逻辑"><span class="nav-text">翻页逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断最后一页"><span class="nav-text">判断最后一页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评论爬取"><span class="nav-text">评论爬取</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中文问题"><span class="nav-text">中文问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面空白优化"><span class="nav-text">页面空白优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超链接优化"><span class="nav-text">超链接优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#换行处理"><span class="nav-text">换行处理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模拟登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">页面内容分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">制作 PDF 电子书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">爬取图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">制作精美 PDF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">难点分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">翻页逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">判断最后一页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">评论爬取</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">中文问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">页面空白优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">超链接优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">换行处理</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -719,7 +734,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1396,6 +1411,7 @@
   
 
   
+
 
 </body>
 </html>

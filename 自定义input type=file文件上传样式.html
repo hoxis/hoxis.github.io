@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -533,16 +546,16 @@
 <p>原生的<code>&lt;input type=&quot;file&quot;&gt;</code>标签在Firefox下显示是这样的：<br><img src="http://hoxis-github-io.qiniudn.com/150901_input_file_Firefox.png" alt="input_file_Firefox"><br>而在chrome显示是这样的：<br><img src="http://hoxis-github-io.qiniudn.com/150901_input_file_chrome.png" alt="input_file_chrome"></p>
 <p>其中的选择文件的按钮和后面文字是一体的，点击后面的文字同样可以进行文件选择，这是原生<code>&lt;input type=&quot;file&quot;&gt;</code>标签显示的结果。</p>
 <p>有些人想自定义显示按钮上的文字（各个浏览器下面显示还不一样，坑啊），或者 自定义 后面显示的文字，又或者不想让用户点击文字就可以上传文件，等等。</p>
-<h2 id="自定义样式实现思路"><a href="#自定义样式实现思路" class="headerlink" title="自定义样式实现思路"></a>自定义样式实现思路</h2><p>隐藏<code>&lt;input type=&quot;file&quot;&gt;</code>，自己写一个按钮，加上onclick事件，触发file文件域。<br>具体做法如下：</p>
+<h2><span id="自定义样式实现思路">自定义样式实现思路</span></h2><p>隐藏<code>&lt;input type=&quot;file&quot;&gt;</code>，自己写一个按钮，加上onclick事件，触发file文件域。<br>具体做法如下：</p>
 <ol>
 <li>页面上放个隐藏的<code>&lt;input type=&quot;file&quot;&gt;</code>;</li>
 <li>然后加上一个文本<code>&lt;a id=&quot;filename&quot;&gt;请选择文件&lt;/a&gt;</code>用于显示文件名和一个按钮input（type=”button”）</li>
 <li>点按钮的时候调用<code>&lt;input type=&quot;file&quot;&gt;</code>的click选择文件</li>
 <li>在<code>&lt;input type=&quot;file&quot;&gt;</code>的onchange事件中把其值显示在文本<code>&lt;a&gt;</code>中</li>
 </ol>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><h3 id="页面显示部分"><a href="#页面显示部分" class="headerlink" title="页面显示部分"></a>页面显示部分</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">'mainForm'</span> <span class="attr">action</span>=<span class="string">"xxx.action"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">name</span>=<span class="string">"mainForm"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"选择文件"</span> <span class="attr">onclick</span>=<span class="string">"document.mainForm.excel.click()"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"filename"</span>&gt;</span>请选择文件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"excel"</span> <span class="attr">id</span>=<span class="string">"excel"</span> <span class="attr">accept</span>=<span class="string">"application/vnd.ms-excel"</span>	<span class="attr">style</span>=<span class="string">"display:none"</span> <span class="attr">onChange</span>=<span class="string">"changeText(this)"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="js代码处理"><a href="#js代码处理" class="headerlink" title="js代码处理"></a>js代码处理</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeText</span>(<span class="params">th</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> filename = <span class="built_in">document</span>.getElementById(<span class="string">"filename"</span>);</span><br><span class="line">	<span class="keyword">var</span> exist = th.value.lastIndexOf(<span class="string">"\\"</span>);</span><br><span class="line">	<span class="comment">// 火狐浏览器直接可以获取到文件名</span></span><br><span class="line">	<span class="keyword">if</span>(exist == <span class="number">-1</span>)&#123;</span><br><span class="line">		filename.textContent = th.value;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//chrome可以获取到绝对路径</span></span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		filename.textContent = th.value.substring(exist + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>刚开始考虑如何在选择文件后将文件名显示在按钮后面时，考虑的是使用<code>innerText</code>方法，将读取的文件名塞到<code>&lt;a&gt;</code>标签内。但是发现<code>innerText</code>方法在Firefox下不起作用。在网上查了<a href="http://stackoverflow.com/questions/1359469/innertext-works-in-ie-but-not-in-firefox" target="_blank" rel="noopener">相关资料</a>后发现<code>innerText</code>方法并非W3C标准属性，因此我们无法在FireFox中使用它，一般情况下我们可以使用<code>textContent</code>来代替。具体的区别可以参考文章：<a href="http://www.cnblogs.com/fsjohnhuang/p/4319635.html" target="_blank" rel="noopener">被玩坏的innerHTML、innerText、textContent和value属性</a></p>
+<h2><span id="实现代码">实现代码</span></h2><h3><span id="页面显示部分">页面显示部分</span></h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">'mainForm'</span> <span class="attr">action</span>=<span class="string">"xxx.action"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">name</span>=<span class="string">"mainForm"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"选择文件"</span> <span class="attr">onclick</span>=<span class="string">"document.mainForm.excel.click()"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"filename"</span>&gt;</span>请选择文件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"excel"</span> <span class="attr">id</span>=<span class="string">"excel"</span> <span class="attr">accept</span>=<span class="string">"application/vnd.ms-excel"</span>	<span class="attr">style</span>=<span class="string">"display:none"</span> <span class="attr">onChange</span>=<span class="string">"changeText(this)"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3><span id="js代码处理">js代码处理</span></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeText</span>(<span class="params">th</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> filename = <span class="built_in">document</span>.getElementById(<span class="string">"filename"</span>);</span><br><span class="line">	<span class="keyword">var</span> exist = th.value.lastIndexOf(<span class="string">"\\"</span>);</span><br><span class="line">	<span class="comment">// 火狐浏览器直接可以获取到文件名</span></span><br><span class="line">	<span class="keyword">if</span>(exist == <span class="number">-1</span>)&#123;</span><br><span class="line">		filename.textContent = th.value;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//chrome可以获取到绝对路径</span></span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		filename.textContent = th.value.substring(exist + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="注意事项">注意事项</span></h2><p>刚开始考虑如何在选择文件后将文件名显示在按钮后面时，考虑的是使用<code>innerText</code>方法，将读取的文件名塞到<code>&lt;a&gt;</code>标签内。但是发现<code>innerText</code>方法在Firefox下不起作用。在网上查了<a href="http://stackoverflow.com/questions/1359469/innertext-works-in-ie-but-not-in-firefox" target="_blank" rel="noopener">相关资料</a>后发现<code>innerText</code>方法并非W3C标准属性，因此我们无法在FireFox中使用它，一般情况下我们可以使用<code>textContent</code>来代替。具体的区别可以参考文章：<a href="http://www.cnblogs.com/fsjohnhuang/p/4319635.html" target="_blank" rel="noopener">被玩坏的innerHTML、innerText、textContent和value属性</a></p>
 
       
     </div>
@@ -554,7 +567,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -702,6 +715,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -714,6 +728,7 @@
 
 
 
+          
         </div>
         
           
@@ -762,7 +777,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -773,7 +788,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -784,7 +799,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -854,23 +869,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -892,7 +907,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义样式实现思路"><span class="nav-text">自定义样式实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代码"><span class="nav-text">实现代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#页面显示部分"><span class="nav-text">页面显示部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码处理"><span class="nav-text">js代码处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-text">注意事项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">自定义样式实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">实现代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">页面显示部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">js代码处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li></ol></div>
             
 
           </div>
@@ -912,7 +927,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1589,6 +1604,7 @@
   
 
   
+
 
 </body>
 </html>

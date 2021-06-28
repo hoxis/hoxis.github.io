@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -531,8 +544,8 @@
       
         <p>本文主要介绍运维监控软件<code>Sensu</code>，主要包括<code>Sensu</code>的组成，事件处理流程，以及<code>Sensu</code>的安装过程。</p>
 <a id="more"></a>
-<h1 id="Sensu-简介"><a href="#Sensu-简介" class="headerlink" title="Sensu 简介"></a>Sensu 简介</h1><p><code>Sensu</code>是由 Sonian 公司开发的一种监控框架，主要用于基础设施和应用的监控和检测。<code>Sensu</code>可以为基础设施、服务、应用运行状况以及业务的监控提供一个框架。<code>Sensu</code>专门设计用于解决现代基础设施平台在规模（即公共，私有和混合云）中混合使用静态，动态和短暂基础设施所带来的监控挑战。</p>
-<h2 id="Sensu的优势"><a href="#Sensu的优势" class="headerlink" title="Sensu的优势"></a>Sensu的优势</h2><ul>
+<h1><span id="sensu-简介">Sensu 简介</span></h1><p><code>Sensu</code>是由 Sonian 公司开发的一种监控框架，主要用于基础设施和应用的监控和检测。<code>Sensu</code>可以为基础设施、服务、应用运行状况以及业务的监控提供一个框架。<code>Sensu</code>专门设计用于解决现代基础设施平台在规模（即公共，私有和混合云）中混合使用静态，动态和短暂基础设施所带来的监控挑战。</p>
+<h2><span id="sensu的优势">Sensu的优势</span></h2><ul>
 <li>可以监控服务器、服务、应用运行状态</li>
 <li>可以发送告警和通知</li>
 <li>支持客户端的动态注册</li>
@@ -541,16 +554,16 @@
 <li>内置的集成工具，可用于和其它系统集成，如 <code>Graphite</code>、<code>Email</code>等</li>
 <li>提供丰富的<code>API</code>接口，支持通过<code>API</code>调用访问事件和客户端信息，触发检测等</li>
 </ul>
-<h1 id="Sensu-的组成部分"><a href="#Sensu-的组成部分" class="headerlink" title="Sensu 的组成部分"></a>Sensu 的组成部分</h1><h2 id="数据传输部分"><a href="#数据传输部分" class="headerlink" title="数据传输部分"></a>数据传输部分</h2><p><code>Sensu</code>使用消息总线（如<code>RabbitMQ</code>）来互信通信，<code>Sensu</code>的这种消息总线通信已被抽象为<code>Sensu Transport</code>。Sensu服务需要通过访问<code>Sensu Transport</code>实例（例如<code>RabbitMQ</code>群集）才能运行。Sensu检查请求和<code>Check Results</code>会作为<code>消息</code>发布到<code>Sensu Transport</code>，相应的<code>Sensu</code>服务可以通过订阅的方式来接收这些消息。</p>
-<h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><p>在<code>Sensu</code>体系中，只有<code>Sensu Server</code>、<code>API</code>和<code>dashboard</code>才需要访问数据存储。通过将数据存储在<code>Redis</code>中，<code>Sensu</code>服务本身可以保持无状态。主要存储以下数据：</p>
+<h1><span id="sensu-的组成部分">Sensu 的组成部分</span></h1><h2><span id="数据传输部分">数据传输部分</span></h2><p><code>Sensu</code>使用消息总线（如<code>RabbitMQ</code>）来互信通信，<code>Sensu</code>的这种消息总线通信已被抽象为<code>Sensu Transport</code>。Sensu服务需要通过访问<code>Sensu Transport</code>实例（例如<code>RabbitMQ</code>群集）才能运行。Sensu检查请求和<code>Check Results</code>会作为<code>消息</code>发布到<code>Sensu Transport</code>，相应的<code>Sensu</code>服务可以通过订阅的方式来接收这些消息。</p>
+<h2><span id="数据存储">数据存储</span></h2><p>在<code>Sensu</code>体系中，只有<code>Sensu Server</code>、<code>API</code>和<code>dashboard</code>才需要访问数据存储。通过将数据存储在<code>Redis</code>中，<code>Sensu</code>服务本身可以保持无状态。主要存储以下数据：</p>
 <ul>
 <li>客户端注册表</li>
 <li><code>Check</code>历史</li>
 <li>事件注册表</li>
 <li><code>Stashes</code>（<code>Sensu API</code>提供的一个<code>key-value</code>形式的存储）</li>
 </ul>
-<h2 id="Check执行调度"><a href="#Check执行调度" class="headerlink" title="Check执行调度"></a>Check执行调度</h2><p><code>Sensu</code>可以通过服务端或者客户端来调度<code>Check</code>。服务端通过<code>发布/订阅模型</code>将<code>Check</code>请求发送给客户端，客户端会处理相应的<code>Check</code>，<code>Sensu</code>会确保在相应的系统上执行相应的<code>Check</code>。</p>
-<h2 id="监控客户端"><a href="#监控客户端" class="headerlink" title="监控客户端"></a>监控客户端</h2><p><code>Sensu</code>客户端提供了以下功能：</p>
+<h2><span id="check执行调度">Check执行调度</span></h2><p><code>Sensu</code>可以通过服务端或者客户端来调度<code>Check</code>。服务端通过<code>发布/订阅模型</code>将<code>Check</code>请求发送给客户端，客户端会处理相应的<code>Check</code>，<code>Sensu</code>会确保在相应的系统上执行相应的<code>Check</code>。</p>
+<h2><span id="监控客户端">监控客户端</span></h2><p><code>Sensu</code>客户端提供了以下功能：</p>
 <ul>
 <li>动态自助注册</li>
 <li>客户订阅（用于监控通过<code>发布/订阅模式</code>配置的<code>Check</code>）</li>
@@ -558,14 +571,14 @@
 <li>用于监控本地系统、服务</li>
 <li>可以接收来自外部服务的信息输入</li>
 </ul>
-<h2 id="事件处理器"><a href="#事件处理器" class="headerlink" title="事件处理器"></a>事件处理器</h2><p><code>Sensu Server</code>是一个可伸缩的事件处理器，用于处理事件并采取行动。<code>Sensu</code>的事件处理功能包括：</p>
+<h2><span id="事件处理器">事件处理器</span></h2><p><code>Sensu Server</code>是一个可伸缩的事件处理器，用于处理事件并采取行动。<code>Sensu</code>的事件处理功能包括：</p>
 <ul>
 <li>注册和注销客户</li>
 <li>处理检查结果</li>
 <li>使用<code>filters</code>，<code>mutators</code>，<code>handlers</code>处理监视事件 </li>
 </ul>
 <p>尽管事件处理程序由<code>Sensu Server</code>在本地执行，但可以运行<code>Sensu Server</code>的多个实例而无需任何其他配置。<code>Sensu</code>提供了内置的任务选择算法以避免<code>Sensu</code>服务器之间的调度冲突，并且<code>Sensu</code>可以通过循环算法将检查结果分发到不同的<code>Sensu Server</code>实例以进行处理，从而实现负载平衡。</p>
-<h2 id="RESTful-API"><a href="#RESTful-API" class="headerlink" title="RESTful API"></a>RESTful API</h2><p><code>Sensu</code>通过<code>RESTful HTTP JSON API</code>提供对监控数据和核心功能的访问，包括：</p>
+<h2><span id="restful-api">RESTful API</span></h2><p><code>Sensu</code>通过<code>RESTful HTTP JSON API</code>提供对监控数据和核心功能的访问，包括：</p>
 <ul>
 <li><code>Clients API</code> - 用于访问<code>client</code>数据，以及添加/删除<code>client</code></li>
 <li><code>Checks API</code> - 用于访问<code>Check</code>配置数据和发布<code>Check</code>请求</li>
@@ -577,8 +590,8 @@
 <p>生产过程中<code>Sensu</code>主要由服务端、客户端、<code>RabbitMQ</code>、<code>Redis</code>和<code>API</code>五个部分构成。如图所示，<code>RabbitMQ</code>用于组件之间的通信，<code>Redis</code>用于持久化<code>Sensu</code>服务器和<code>Sensu API</code>的数据。因为客户端都是通过文件进行配置，并且不需要在服务器端配置客户端的信息，所以可以很轻易的增加和减少客户端的数量。从图中可以看到，为了解耦服务器和客户端，通信都是通过<code>RabbitMQ</code>进行的，如果只有单节点的<code>RabbitMQ</code>，这可能会带来通信上的瓶颈问题，不过可以通过<code>RabbitMQ</code>官方提供的集群部署解决方案来解决这个问题。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1516862558667.jpg" alt="Sensu 的组成部分"></p>
 <p><img src="http://hoxis-image.oss-cn-hangzhou.aliyuncs.com/hoxis/md/2018-8-13-1534153561723.png" alt="Sensu 组件交互"></p>
-<h1 id="Sensu-的安装与配置"><a href="#Sensu-的安装与配置" class="headerlink" title="Sensu 的安装与配置"></a>Sensu 的安装与配置</h1><p>下面介绍针对单节点的情况的安装与配置。安装环境是<code>Centos7</code>。</p>
-<h2 id="RabbitMQ-和-Redis-的安装与配置"><a href="#RabbitMQ-和-Redis-的安装与配置" class="headerlink" title="RabbitMQ 和 Redis 的安装与配置"></a>RabbitMQ 和 Redis 的安装与配置</h2><h3 id="安装-RabbitMQ"><a href="#安装-RabbitMQ" class="headerlink" title="安装 RabbitMQ"></a>安装 RabbitMQ</h3><h4 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h4><ul>
+<h1><span id="sensu-的安装与配置">Sensu 的安装与配置</span></h1><p>下面介绍针对单节点的情况的安装与配置。安装环境是<code>Centos7</code>。</p>
+<h2><span id="rabbitmq-和-redis-的安装与配置">RabbitMQ 和 Redis 的安装与配置</span></h2><h3><span id="安装-rabbitmq">安装 RabbitMQ</span></h3><h4><span id="安装准备">安装准备</span></h4><ul>
 <li>安装 epel 源</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br></pre></td></tr></table></figure>
@@ -591,16 +604,16 @@
 <li>测试是否安装成功</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 home]<span class="comment"># erl</span></span><br><span class="line">Erlang R16B03-1 (erts-5.10.4) [<span class="built_in">source</span>] [64-bit] [async-threads:10] [hipe] [kernel-poll:<span class="literal">false</span>]</span><br><span class="line"></span><br><span class="line">Eshell V5.10.4  (abort with ^G)</span><br><span class="line">1&gt; 1+2.</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-<h4 id="安装-RabbitMQ-1"><a href="#安装-RabbitMQ-1" class="headerlink" title="安装 RabbitMQ"></a>安装 RabbitMQ</h4><p>这里安装的是最新版本<code>3.6.15</code>，可以通过访问<a href="http://www.rabbitmq.com/releases/rabbitmq-server/" target="_blank" rel="noopener">http://www.rabbitmq.com/releases/rabbitmq-server/</a>获取。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc</span><br><span class="line">rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/rabbitmq-server-3.6.15-1.el7.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<h4><span id="安装-rabbitmq">安装 RabbitMQ</span></h4><p>这里安装的是最新版本<code>3.6.15</code>，可以通过访问<a href="http://www.rabbitmq.com/releases/rabbitmq-server/" target="_blank" rel="noopener">http://www.rabbitmq.com/releases/rabbitmq-server/</a>获取。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc</span><br><span class="line">rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/rabbitmq-server-3.6.15-1.el7.noarch.rpm</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>验证是否安装成功</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 home]<span class="comment"># service rabbitmq-server status</span></span><br><span class="line">Redirecting to /bin/systemctl status  rabbitmq-server.service</span><br><span class="line">● rabbitmq-server.service - RabbitMQ broker</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/rabbitmq-server.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: inactive (dead)</span><br></pre></td></tr></table></figure>
-<h4 id="配置-RabbitMQ"><a href="#配置-RabbitMQ" class="headerlink" title="配置 RabbitMQ"></a>配置 RabbitMQ</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 home]<span class="comment"># chkconfig rabbitmq-server on</span></span><br><span class="line">[root@centos7 home]<span class="comment"># service rabbitmq-server start</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl add_vhost /sensu</span></span><br><span class="line">Creating vhost <span class="string">"/sensu"</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl add_user sensu secret</span></span><br><span class="line">Creating user <span class="string">"sensu"</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"</span></span><br><span class="line">Setting permissions <span class="keyword">for</span> user <span class="string">"sensu"</span> <span class="keyword">in</span> vhost <span class="string">"/sensu"</span></span><br></pre></td></tr></table></figure>
-<h3 id="安装-Redis"><a href="#安装-Redis" class="headerlink" title="安装 Redis"></a>安装 Redis</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install redis</span><br><span class="line">/sbin/chkconfig redis on</span><br><span class="line">service redis start</span><br></pre></td></tr></table></figure>
-<h2 id="Sensu-服务器和客户端的安装与配置"><a href="#Sensu-服务器和客户端的安装与配置" class="headerlink" title="Sensu 服务器和客户端的安装与配置"></a>Sensu 服务器和客户端的安装与配置</h2><p>Sensu服务器和客户端的安装过程是一致的，都是使用sensu的yum源进行安装。</p>
-<h3 id="安装-sensu"><a href="#安装-sensu" class="headerlink" title="安装 sensu"></a>安装 sensu</h3><h4 id="配置-sensu-的-yum-源"><a href="#配置-sensu-的-yum-源" class="headerlink" title="配置 sensu 的 yum 源"></a>配置 sensu 的 yum 源</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># echo '[sensu]</span></span><br><span class="line">name=sensu</span><br><span class="line">baseurl=https://sensu.global.ssl.fastly.net/yum/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1<span class="string">' | sudo tee /etc/yum.repos.d/sensu.repo</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># yum -y install sensu</span></span><br></pre></td></tr></table></figure>
-<h4 id="配置-sensu-服务器端"><a href="#配置-sensu-服务器端" class="headerlink" title="配置 sensu 服务器端"></a>配置 sensu 服务器端</h4><ul>
+<h4><span id="配置-rabbitmq">配置 RabbitMQ</span></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 home]<span class="comment"># chkconfig rabbitmq-server on</span></span><br><span class="line">[root@centos7 home]<span class="comment"># service rabbitmq-server start</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl add_vhost /sensu</span></span><br><span class="line">Creating vhost <span class="string">"/sensu"</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl add_user sensu secret</span></span><br><span class="line">Creating user <span class="string">"sensu"</span></span><br><span class="line"></span><br><span class="line">[root@centos7 home]<span class="comment"># rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"</span></span><br><span class="line">Setting permissions <span class="keyword">for</span> user <span class="string">"sensu"</span> <span class="keyword">in</span> vhost <span class="string">"/sensu"</span></span><br></pre></td></tr></table></figure>
+<h3><span id="安装-redis">安装 Redis</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install redis</span><br><span class="line">/sbin/chkconfig redis on</span><br><span class="line">service redis start</span><br></pre></td></tr></table></figure>
+<h2><span id="sensu-服务器和客户端的安装与配置">Sensu 服务器和客户端的安装与配置</span></h2><p>Sensu服务器和客户端的安装过程是一致的，都是使用sensu的yum源进行安装。</p>
+<h3><span id="安装-sensu">安装 sensu</span></h3><h4><span id="配置-sensu-的-yum-源">配置 sensu 的 yum 源</span></h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># echo '[sensu]</span></span><br><span class="line">name=sensu</span><br><span class="line">baseurl=https://sensu.global.ssl.fastly.net/yum/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1<span class="string">' | sudo tee /etc/yum.repos.d/sensu.repo</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># yum -y install sensu</span></span><br></pre></td></tr></table></figure>
+<h4><span id="配置-sensu-服务器端">配置 sensu 服务器端</span></h4><ul>
 <li>添加<code>/etc/sensu/conf.d/api.json</code>文件：</li>
 </ul>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"api"</span>: &#123;</span><br><span class="line">        <span class="attr">"host"</span>: <span class="string">"localhost"</span>,</span><br><span class="line">        <span class="attr">"port"</span>: <span class="number">4567</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -616,7 +629,7 @@
 <li>添加开机自启动</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig sensu-server on</span><br><span class="line">chkconfig sensu-api on</span><br></pre></td></tr></table></figure>
-<h4 id="配置-sensu-客户端"><a href="#配置-sensu-客户端" class="headerlink" title="配置 sensu 客户端"></a>配置 sensu 客户端</h4><ul>
+<h4><span id="配置-sensu-客户端">配置 sensu 客户端</span></h4><ul>
 <li>添加rabbitmq配置<code>/etc/sensu/conf.d/rabbitmq.json</code></li>
 </ul>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"rabbitmq"</span>: &#123;</span><br><span class="line">    <span class="attr">"host"</span>: <span class="string">"192.168.31.63"</span>,</span><br><span class="line">    <span class="attr">"port"</span>: <span class="number">5672</span>,</span><br><span class="line">    <span class="attr">"vhost"</span>: <span class="string">"/sensu"</span>,</span><br><span class="line">    <span class="attr">"user"</span>: <span class="string">"sensu"</span>,</span><br><span class="line">    <span class="attr">"password"</span>: <span class="string">"secret"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -625,9 +638,9 @@
 <li>添加开机自启动</li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig sensu-client on</span><br></pre></td></tr></table></figure>
-<h2 id="Uchiwa-的安装与配置"><a href="#Uchiwa-的安装与配置" class="headerlink" title="Uchiwa 的安装与配置"></a>Uchiwa 的安装与配置</h2><p><code>Uchiwa</code>是 sensu 的用户管理界面，主要包含查看客户端和 check 相关信息的功能。下面简要介绍<code>uchiwa</code>的安装与配置。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://dl.bintray.com/palourde/uchiwa/uchiwa-1.1.1-1.x86_64.rpm</span><br><span class="line">rpm -Uvh uchiwa-0.10.2-1.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
+<h2><span id="uchiwa-的安装与配置">Uchiwa 的安装与配置</span></h2><p><code>Uchiwa</code>是 sensu 的用户管理界面，主要包含查看客户端和 check 相关信息的功能。下面简要介绍<code>uchiwa</code>的安装与配置。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://dl.bintray.com/palourde/uchiwa/uchiwa-1.1.1-1.x86_64.rpm</span><br><span class="line">rpm -Uvh uchiwa-0.10.2-1.x86_64.rpm</span><br></pre></td></tr></table></figure></p>
 <p>配置/etc/sensu/uchiwa.json 文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"sensu"</span>: [&#123;</span><br><span class="line">		<span class="attr">"name"</span>: <span class="string">"sensu31"</span>,</span><br><span class="line">		"host": "192.168.31.63", #API服务IP地址。</span><br><span class="line">		"port": 4567, #API服务的端口。</span><br><span class="line">		"timeout": 5</span><br><span class="line">	&#125;],</span><br><span class="line">	"uchiwa": &#123;</span><br><span class="line">		"host": "192.168.31.63",</span><br><span class="line">		"port": 3000,</span><br><span class="line">		"interval": 5</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="启动相关服务并验证是否安装成功"><a href="#启动相关服务并验证是否安装成功" class="headerlink" title="启动相关服务并验证是否安装成功"></a>启动相关服务并验证是否安装成功</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 etc]<span class="comment"># service sensu-server start</span></span><br><span class="line">Redirecting to /bin/systemctl start  sensu-server.service</span><br><span class="line"></span><br><span class="line">[root@centos7 etc]<span class="comment"># service sensu-server status</span></span><br><span class="line">Redirecting to /bin/systemctl status  sensu-server.service</span><br><span class="line">● sensu-server.service - sensu server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/sensu-server.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 五 2018-01-26 13:59:13 CST; 4s ago</span><br><span class="line"> Main PID: 15189 (sensu-server)</span><br><span class="line"></span><br><span class="line">[root@centos7 sensu]<span class="comment"># service uchiwa start</span></span><br><span class="line">uchiwa started.</span><br><span class="line"></span><br><span class="line">[root@centos7 sensu]<span class="comment"># service uchiwa status</span></span><br><span class="line">uchiwa is running</span><br></pre></td></tr></table></figure>
+<h2><span id="启动相关服务并验证是否安装成功">启动相关服务并验证是否安装成功</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 etc]<span class="comment"># service sensu-server start</span></span><br><span class="line">Redirecting to /bin/systemctl start  sensu-server.service</span><br><span class="line"></span><br><span class="line">[root@centos7 etc]<span class="comment"># service sensu-server status</span></span><br><span class="line">Redirecting to /bin/systemctl status  sensu-server.service</span><br><span class="line">● sensu-server.service - sensu server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/sensu-server.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 五 2018-01-26 13:59:13 CST; 4s ago</span><br><span class="line"> Main PID: 15189 (sensu-server)</span><br><span class="line"></span><br><span class="line">[root@centos7 sensu]<span class="comment"># service uchiwa start</span></span><br><span class="line">uchiwa started.</span><br><span class="line"></span><br><span class="line">[root@centos7 sensu]<span class="comment"># service uchiwa status</span></span><br><span class="line">uchiwa is running</span><br></pre></td></tr></table></figure>
 <p>此时，<code>uchiwa</code>页面也可以成功启动访问<code>192.168.31.63:3000</code>：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2018126143949.gif" alt="uchiwa页面"></p>
 <p>至此，sensu的简单介绍和安装就完成了，后续结合实践对<code>check</code>、<code>handler</code>和<code>filter</code>等概念进行详细介绍。</p>
@@ -646,7 +659,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -792,6 +805,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -804,6 +818,7 @@
 
 
 
+          
         </div>
         
           
@@ -852,7 +867,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -863,7 +878,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -874,7 +889,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -944,23 +959,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -982,7 +997,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Sensu-简介"><span class="nav-text">Sensu 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sensu的优势"><span class="nav-text">Sensu的优势</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sensu-的组成部分"><span class="nav-text">Sensu 的组成部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传输部分"><span class="nav-text">数据传输部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存储"><span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Check执行调度"><span class="nav-text">Check执行调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控客户端"><span class="nav-text">监控客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件处理器"><span class="nav-text">事件处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RESTful-API"><span class="nav-text">RESTful API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sensu-的安装与配置"><span class="nav-text">Sensu 的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RabbitMQ-和-Redis-的安装与配置"><span class="nav-text">RabbitMQ 和 Redis 的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-RabbitMQ"><span class="nav-text">安装 RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装准备"><span class="nav-text">安装准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-RabbitMQ-1"><span class="nav-text">安装 RabbitMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-RabbitMQ"><span class="nav-text">配置 RabbitMQ</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Redis"><span class="nav-text">安装 Redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sensu-服务器和客户端的安装与配置"><span class="nav-text">Sensu 服务器和客户端的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-sensu"><span class="nav-text">安装 sensu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-sensu-的-yum-源"><span class="nav-text">配置 sensu 的 yum 源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-sensu-服务器端"><span class="nav-text">配置 sensu 服务器端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-sensu-客户端"><span class="nav-text">配置 sensu 客户端</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uchiwa-的安装与配置"><span class="nav-text">Uchiwa 的安装与配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动相关服务并验证是否安装成功"><span class="nav-text">启动相关服务并验证是否安装成功</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Sensu 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Sensu的优势</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Sensu 的组成部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">数据传输部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Check执行调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">监控客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">事件处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">RESTful API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Sensu 的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">RabbitMQ 和 Redis 的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">安装 RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">安装准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">安装 RabbitMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">配置 RabbitMQ</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">安装 Redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Sensu 服务器和客户端的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">安装 sensu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">配置 sensu 的 yum 源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">配置 sensu 服务器端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">配置 sensu 客户端</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Uchiwa 的安装与配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">启动相关服务并验证是否安装成功</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1002,7 +1017,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1679,6 +1694,7 @@
   
 
   
+
 
 </body>
 </html>

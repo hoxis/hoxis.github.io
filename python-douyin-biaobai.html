@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -215,8 +215,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -325,6 +327,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -373,6 +385,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -537,12 +550,12 @@
 <p>效果大概是这样的：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/0.gif" alt="流氓！"></p>
 <p>我要做一个高仿版的！</p>
-<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><p>首先我想到的就是 pygame 实现，因为之前很多人都用它「打过飞机」，不对，是做「打飞机」的游戏，因此多少有些熟悉。</p>
+<h1><span id="实现思路">实现思路</span></h1><p>首先我想到的就是 pygame 实现，因为之前很多人都用它「打过飞机」，不对，是做「打飞机」的游戏，因此多少有些熟悉。</p>
 <p>其实思路很简单，就是探测鼠标位置，当鼠标跑到按钮上面时，随机改变按钮的位置。</p>
 <p>剩下的就是组件的布局样式了！</p>
 <p>这里我在网上找了一个小图片，放在左方，然后中间位置放置两行文字，下方放置两个按钮，最终布局如下：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1541654836467.jpg" alt="样式布局"></p>
-<h1 id="主要实现逻辑"><a href="#主要实现逻辑" class="headerlink" title="主要实现逻辑"></a>主要实现逻辑</h1><p>实现流程大致如下：</p>
+<h1><span id="主要实现逻辑">主要实现逻辑</span></h1><p>实现流程大致如下：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1541657380653.jpg" alt="实现流程"></p>
 <p>主要的逻辑就是鼠标移动到按钮上时，按钮的位置进行随机的变动。</p>
 <p>如何判断鼠标在按钮上？看下出自灵魂画手的示意图：</p>
@@ -550,7 +563,7 @@
 <p>代码实现也很简单：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成随机的位置坐标</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_random_pos</span><span class="params">()</span>:</span></span><br><span class="line">    x, y = random.randint(<span class="number">20</span>, WIDTH<span class="number">-20</span>), random.randint(<span class="number">20</span>, HEIGHT<span class="number">-20</span>)</span><br><span class="line">    <span class="keyword">return</span> x, y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取鼠标位置</span></span><br><span class="line"><span class="comment"># 若鼠标位置位于按钮区域内</span></span><br><span class="line"><span class="comment"># 则随机生成按钮位置进行显示</span></span><br><span class="line">mouse_pos = pygame.mouse.get_pos()</span><br><span class="line"><span class="keyword">if</span> mouse_pos[<span class="number">0</span>] &lt; unlike_pos_x+unlike_pos_width <span class="keyword">and</span> mouse_pos[<span class="number">0</span>] &gt; unlike_pos_x <span class="keyword">and</span>\</span><br><span class="line">        mouse_pos[<span class="number">1</span>] &lt; unlike_pos_y+unlike_pos_height <span class="keyword">and</span> mouse_pos[<span class="number">1</span>] &gt; unlike_pos_y:</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        unlike_pos_x, unlike_pos_y = get_random_pos()</span><br><span class="line">        <span class="keyword">if</span> mouse_pos[<span class="number">0</span>] &lt; unlike_pos_x+unlike_pos_width <span class="keyword">and</span> mouse_pos[<span class="number">0</span>] &gt; unlike_pos_x <span class="keyword">and</span>\</span><br><span class="line">                mouse_pos[<span class="number">1</span>] &lt; unlike_pos_y+unlike_pos_height <span class="keyword">and</span> mouse_pos[<span class="number">1</span>] &gt; unlike_pos_y:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
 <p>看着有点乱，但其实就是上图的公式。</p>
-<h1 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h1><p>最终实现效果：</p>
+<h1><span id="实现效果">实现效果</span></h1><p>最终实现效果：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/201811081351.gif" alt="实现效果"></p>
 <p>最后，把我们的程序打包成 exe，当然，需要附上图片和字体文件。</p>
 <p>不会代码打包的可以参考之前的文章：</p>
@@ -569,7 +582,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -715,6 +728,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -727,6 +741,7 @@
 
 
 
+          
         </div>
         
           
@@ -775,7 +790,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -786,7 +801,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -797,7 +812,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -867,23 +882,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -905,7 +920,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现思路"><span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主要实现逻辑"><span class="nav-text">主要实现逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现效果"><span class="nav-text">实现效果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">主要实现逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实现效果</span></a></li></ol></div>
             
 
           </div>
@@ -925,7 +940,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1602,6 +1617,7 @@
   
 
   
+
 
 </body>
 </html>

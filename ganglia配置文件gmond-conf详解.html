@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -529,14 +542,14 @@
       
 
       
-        <h1 id="Ganglia简介"><a href="#Ganglia简介" class="headerlink" title="Ganglia简介"></a>Ganglia简介</h1><p><a href="http://ganglia.sourceforge.net/" target="_blank" rel="noopener">Ganglia</a>是一款为HPC（高性能计算）集群而设计的可扩展的分布式监控系统，它可以监视和显示集群中的节点的各种状态信息，它由运行在各个节点上的gmond守护进程来采集CPU、内存、硬盘利用率、I/O负载、网络流量情况等方面的数据，然后汇总到gmetad守护进程下，使用rrdtool存储数据，最后将历史数据以曲线方式通过PHP页面呈现。</p>
+        <h1><span id="ganglia简介">Ganglia简介</span></h1><p><a href="http://ganglia.sourceforge.net/" target="_blank" rel="noopener">Ganglia</a>是一款为HPC（高性能计算）集群而设计的可扩展的分布式监控系统，它可以监视和显示集群中的节点的各种状态信息，它由运行在各个节点上的gmond守护进程来采集CPU、内存、硬盘利用率、I/O负载、网络流量情况等方面的数据，然后汇总到gmetad守护进程下，使用rrdtool存储数据，最后将历史数据以曲线方式通过PHP页面呈现。</p>
 <p>Ganglia的特点如下：</p>
 <ul>
 <li>良好的扩展性，分层架构设计能够适应大规模服务器集群的需要</li>
 <li>负载开销低，支持高并发</li>
 <li>广泛支持各种操作系统（UNIX等）和cpu架构，支持虚拟机</li>
 </ul>
-<h1 id="gmond-conf配置文件"><a href="#gmond-conf配置文件" class="headerlink" title="gmond.conf配置文件"></a>gmond.conf配置文件</h1><p>这里对于ganglia的安装不再赘述，主要讲解<code>gmond.conf</code>配置文件内容。</p>
+<h1><span id="gmondconf配置文件">gmond.conf配置文件</span></h1><p>这里对于ganglia的安装不再赘述，主要讲解<code>gmond.conf</code>配置文件内容。</p>
 <p>Ganglia监控客户端<code>gmond</code>安装完成后，配置文件位于Ganglia安装路径的etc目录下，名称为 <code>gmond.conf</code>，使用yum或者RPM包安装的话位于<code>/etc/ganglia/gmond.conf</code>。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">globals &#123;</span><br><span class="line">  daemonize = yes	#是否后台运行，这里表示以后台的方式运行 </span><br><span class="line">  setuid = yes		#是否设置运行用户，在 Windows 中需要设置为 false</span><br><span class="line">  user = ganglia	#设置运行的用户名称，必须是操作系统已经存在的用户，默认是 ganglia </span><br><span class="line">  debug_level = 0	 #调试级别，默认是 0，表示不输出任何日志，数字越大表示输出的日志越多 </span><br><span class="line">  max_udp_msg_len = 1472</span><br><span class="line">  mute = no			 #字面意思是“哑巴”，是否发送监控数据到其他节点，设置为 yes 表示本节点将不再广播任何自己收集到的数据到网络上 </span><br><span class="line">  deaf = yes		 #是否接受其他节点发送过来的监控数据，设置为 yes 表示本节点将不再接收任何其他节点广播的数据包 	</span><br><span class="line">  allow_extra_data = yes	#是否发送扩展数据 </span><br><span class="line">  host_dmax = 400 /*secs. Expires (removes from web interface) hosts in 1 day */</span><br><span class="line">  #是否删除一个节点，0 代表永远不删除，0 之外的整数代表节点的不响应时间，超过这个时间后，Ganglia 就会刷新集群节点信息进而删除此节点 </span><br><span class="line">  host_tmax = 20 /*secs */</span><br><span class="line">  cleanup_threshold = 300 /*secs */	#gmond 清理过期数据的时间 </span><br><span class="line">  gexec = no	#是否使用 gexec 来告知主机是否可用，这里不启用 </span><br><span class="line">  # By default gmond will use reverse DNS resolution when displaying your hostname</span><br><span class="line">  # Uncommeting following value will override that value.</span><br><span class="line">  # override_hostname = "mywebserver.domain.com"</span><br><span class="line">  # If you are not using multicast this value should be set to something other than 0.</span><br><span class="line">  # Otherwise if you restart aggregator gmond you will get empty graphs. 60 seconds is reasonable</span><br><span class="line">  send_metadata_interval = 30 /*secs */		#在单播协议中，新添加的节点在多长时间内响应一下以表示自己的存在，0 代表仅在 gmond 启动时通知一次，单位秒 </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * The cluster attributes specified will be used as part of the <span class="tag">&lt;<span class="name">CLUSTER</span>&gt;</span></span><br><span class="line"> * tag that will wrap all hosts collected by this instance.</span><br><span class="line"> */</span><br><span class="line">cluster &#123;</span><br><span class="line">  name = "bcclm1"	 #集群的名称，是区分此节点属于某个集群的标志，必须和监控服务端 data_source 中的某一项名称匹配 </span><br><span class="line">  owner = "unspecified"	 #节点的拥有者，也就是节点的管理员 </span><br><span class="line">  latlong = "unspecified"	#节点的坐标，经度、纬度等，一般无需指定 </span><br><span class="line">  url = "unspecified"	 #节点的 URL 地址，一般无需指定</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* The host section describes attributes of the host, like the location */</span><br><span class="line">host &#123;</span><br><span class="line">  location = "unspecified"	#节点的物理位置，一般无需指定 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* Feel free to specify as many udp_send_channels as you like.  Gmond</span><br><span class="line">   used to only support having a single channel */</span><br><span class="line">udp_send_channel &#123;		#udp 包的发送通道 </span><br><span class="line">  #bind_hostname = yes # Highly recommended, soon to be default.</span><br><span class="line">                       # This option tells gmond to use a source address</span><br><span class="line">                       # that resolves to the machine's hostname.  Without</span><br><span class="line">                       # this, the metrics may appear to come from any</span><br><span class="line">                       # interface and the DNS names associated with</span><br><span class="line">                       # those IPs will be used to create the RRDs.</span><br><span class="line">#  mcast_join = 239.2.11.71	#指定发送的多播地址，其中 239.2.11.71 是一个 D 类地址。如果使用单播模式，则要写 host = host1，在单播模式下也可以配置多个 udp_send_channel </span><br><span class="line">  host = 172.16.203.51</span><br><span class="line">  port = 8649	#监听端口 </span><br><span class="line">#  ttl = 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* You can specify as many udp_recv_channels as you like as well. */</span><br><span class="line">udp_recv_channel &#123;	 			#接收 udp 包配置</span><br><span class="line">  #mcast_join = 239.2.11.71		#指定接收的多播地址，同样也是 239.2.11.71 这个 D 类地址 </span><br><span class="line">  port = 8649					#监听端口 </span><br><span class="line">  #bind = 239.2.11.71			#绑定地址 </span><br><span class="line">  retry_bind = true</span><br><span class="line">  # Size of the UDP buffer. If you are handling lots of metrics you really</span><br><span class="line">  # should bump it up to e.g. 10MB or even higher.</span><br><span class="line">  # buffer = 10485760</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* You can specify as many tcp_accept_channels as you like to share</span><br><span class="line">   an xml description of the state of the cluster */</span><br><span class="line">tcp_accept_channel &#123;</span><br><span class="line">  port = 8649			#通过 tcp 协议监听的端口，在远端可以通过连接到 8649 端口得到监控数据 </span><br><span class="line">  # If you want to gzip XML output</span><br><span class="line">  gzip_output = no</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -550,7 +563,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -698,6 +711,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -710,6 +724,7 @@
 
 
 
+          
         </div>
         
           
@@ -758,7 +773,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -769,7 +784,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -780,7 +795,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -850,23 +865,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -888,7 +903,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ganglia简介"><span class="nav-text">Ganglia简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gmond-conf配置文件"><span class="nav-text">gmond.conf配置文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Ganglia简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">gmond.conf配置文件</span></a></li></ol></div>
             
 
           </div>
@@ -908,7 +923,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1585,6 +1600,7 @@
   
 
   
+
 
 </body>
 </html>

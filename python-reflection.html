@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,9 +540,9 @@
       
         <p>在 Java 中我们经常使用反射，而且大部分的 Java 框架都是基于反射实现的。那么 Python 中是否也有反射呢？答案是肯定的。那么 Python 中的反射如何使用呢？</p>
 <a id="more"></a>
-<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>有时候我们会碰到这样的需求，需要执行对象的某个方法，或是需要对对象的某个字段赋值，而方法名或是字段名在编码代码时并不能确定，需要通过参数传递字符串的形式输入。举个具体的例子：需要调用的方法名是前端通过接口传入的，而在代码编写时根本无法确定前端会传入具体的那个方法名，因此无法确定调用哪个方法，这时，我们需要通过某种机制访问未知的属性。这个机制被称为反射。</p>
+<h1><span id="概念">概念</span></h1><p>有时候我们会碰到这样的需求，需要执行对象的某个方法，或是需要对对象的某个字段赋值，而方法名或是字段名在编码代码时并不能确定，需要通过参数传递字符串的形式输入。举个具体的例子：需要调用的方法名是前端通过接口传入的，而在代码编写时根本无法确定前端会传入具体的那个方法名，因此无法确定调用哪个方法，这时，我们需要通过某种机制访问未知的属性。这个机制被称为反射。</p>
 <p>反射就是通过字符串的形式，导入模块；通过字符串的形式，去模块寻找指定函数，并执行。利用字符串的形式去对象（模块）中操作（查找/获取/删除/添加）成员，是一种基于字符串的事件驱动！</p>
-<h1 id="相关方法"><a href="#相关方法" class="headerlink" title="相关方法"></a>相关方法</h1><ul>
+<h1><span id="相关方法">相关方法</span></h1><ul>
 <li>dir([obj]): </li>
 </ul>
 <p>调用这个方法将返回包含 obj 大多数属性名的列表（会有一些特殊的属性不包含在内）。obj 的默认值是当前的模块对象。</p>
@@ -549,7 +562,7 @@
 <li>delattr(obj, name)</li>
 </ul>
 <p>与 setattr() 相关的一组函数，删除模块中某个变量或者函数。参数是由一个对象（记住python中一切皆是对象）和一个字符串组成的。string 参数必须是对象属性名之一。该函数删除该 obj 的一个由 string 指定的属性。<code>delattr(bar,&#39;age&#39;)</code></p>
-<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span><span class="params">(object)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name=<span class="string">"kitty"</span>)</span>:</span></span><br><span class="line">                self.name = name</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">sayHi</span><span class="params">(self)</span>:</span></span><br><span class="line">                print(self.name, <span class="string">"say Hi"</span>)</span><br><span class="line"></span><br><span class="line">kit = Cat()</span><br><span class="line">print(<span class="string">"name is:"</span>, kit.name)</span><br><span class="line">kit.sayHi()</span><br><span class="line"></span><br><span class="line">print(dir(kit))</span><br><span class="line">print(dir(Cat))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断是否方法或属性是否存在</span></span><br><span class="line">print(hasattr(kit,<span class="string">'sayHi'</span>))</span><br><span class="line">print(hasattr(kit,<span class="string">'name'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 name 属性</span></span><br><span class="line">setattr(kit, <span class="string">'name'</span>, <span class="string">'xiaohei'</span>)</span><br><span class="line">print(<span class="string">"name is:"</span>, kit.name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过反射的方式调用 sayHi 方法</span></span><br><span class="line">func = getattr(kit, <span class="string">'sayHi'</span>)</span><br><span class="line">func()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除属性</span></span><br><span class="line">delattr(kit, name)</span><br><span class="line">print(<span class="string">"name is:"</span>, kit.name)</span><br></pre></td></tr></table></figure>
+<h1><span id="实例">实例</span></h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span><span class="params">(object)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name=<span class="string">"kitty"</span>)</span>:</span></span><br><span class="line">                self.name = name</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">sayHi</span><span class="params">(self)</span>:</span></span><br><span class="line">                print(self.name, <span class="string">"say Hi"</span>)</span><br><span class="line"></span><br><span class="line">kit = Cat()</span><br><span class="line">print(<span class="string">"name is:"</span>, kit.name)</span><br><span class="line">kit.sayHi()</span><br><span class="line"></span><br><span class="line">print(dir(kit))</span><br><span class="line">print(dir(Cat))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断是否方法或属性是否存在</span></span><br><span class="line">print(hasattr(kit,<span class="string">'sayHi'</span>))</span><br><span class="line">print(hasattr(kit,<span class="string">'name'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 name 属性</span></span><br><span class="line">setattr(kit, <span class="string">'name'</span>, <span class="string">'xiaohei'</span>)</span><br><span class="line">print(<span class="string">"name is:"</span>, kit.name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过反射的方式调用 sayHi 方法</span></span><br><span class="line">func = getattr(kit, <span class="string">'sayHi'</span>)</span><br><span class="line">func()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除属性</span></span><br><span class="line">delattr(kit, name)</span><br><span class="line">print(<span class="string">"name is:"</span>, kit.name)</span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">name is: kitty</span><br><span class="line">kitty say Hi</span><br><span class="line">[<span class="string">'__class__'</span>, <span class="string">'__delattr__'</span>, <span class="string">'__dict__'</span>, <span class="string">'__dir__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__eq__'</span>, <span class="string">'__format__'</span>, <span class="string">'__ge__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__gt__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__le__'</span>, <span class="string">'__lt__'</span>, <span class="string">'__module__'</span>, <span class="string">'__ne__'</span>, <span class="string">'__new__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>, <span class="string">'__weakref__'</span>, <span class="string">'name'</span>, <span class="string">'sayHi'</span>]</span><br><span class="line">[<span class="string">'__class__'</span>, <span class="string">'__delattr__'</span>, <span class="string">'__dict__'</span>, <span class="string">'__dir__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__eq__'</span>, <span class="string">'__format__'</span>, <span class="string">'__ge__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__gt__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__le__'</span>, <span class="string">'__lt__'</span>, <span class="string">'__module__'</span>, <span class="string">'__ne__'</span>, <span class="string">'__new__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>, <span class="string">'__weakref__'</span>, <span class="string">'sayHi'</span>]</span><br><span class="line">True</span><br><span class="line">True</span><br><span class="line">name is: xiaohei</span><br><span class="line">xiaohei say Hi</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"reflection.py"</span>, line 28, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    delattr(kit, name)</span><br><span class="line">NameError: name <span class="string">'name'</span> is not defined</span><br></pre></td></tr></table></figure>
 
@@ -563,7 +576,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -709,6 +722,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -721,6 +735,7 @@
 
 
 
+          
         </div>
         
           
@@ -769,7 +784,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -780,7 +795,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -791,7 +806,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -861,23 +876,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -899,7 +914,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关方法"><span class="nav-text">相关方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例"><span class="nav-text">实例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">相关方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">实例</span></a></li></ol></div>
             
 
           </div>
@@ -919,7 +934,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1596,6 +1611,7 @@
   
 
   
+
 
 </body>
 </html>

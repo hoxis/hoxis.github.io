@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -207,8 +207,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left 
   page-home">
@@ -318,6 +320,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -366,6 +378,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -383,7 +396,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mysql-zhuanlan-08-current-read.html">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/goodthings-finalshell.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hoxis">
@@ -402,7 +415,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/mysql-zhuanlan-08-current-read.html" itemprop="url">MySQL实战 | 08 懵逼，可重复读好像失效了？</a></h2>
+                <a class="post-title-link" href="/goodthings-finalshell.html" itemprop="url">没想到，这款国产的终端工具这么好用</a></h2>
         
 
         <div class="post-meta">
@@ -414,612 +427,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T10:57:43+08:00">
-                2018-12-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/mysql-zhuanlan-08-current-read.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-zhuanlan-08-current-read.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/mysql-zhuanlan-08-current-read.html" class="leancloud_visitors" data-flag-title="MySQL实战 | 08 懵逼，可重复读好像失效了？">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,096
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>我们之前学习了隔离级别和锁，在隔离级别里有一个<strong>可重复读</strong>，锁里有个<strong>行锁</strong>。</p>
-<ul>
-<li>可重复读：事务期间，看不懂别的事务的更新；</li>
-<li>行锁：有事务 1 在更新某行数据时，若有其他事务 2 进来，会被锁住</li>
-</ul>
-<p>矛盾来了：事务 2 等待结束，获取到行锁时，看到的是哪个数据呢？</p>
-<p>按可重复读隔离级别来说，看到的应该是事务启动时的最新数据，即事务 1 修改之前的数据；</p>
-<p>但是这样不就造成了事务 1 的修改丢失了吗？</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/mysql-zhuanlan-08-current-read.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/why-are-they-so-excellent.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hoxis">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hoxis' blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/why-are-they-so-excellent.html" itemprop="url">现在的年轻人好像都很优秀！</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T13:50:50+08:00">
-                2018-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/闲扯系列/" itemprop="url" rel="index">
-                    <span itemprop="name">闲扯系列</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/why-are-they-so-excellent.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/why-are-they-so-excellent.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/why-are-they-so-excellent.html" class="leancloud_visitors" data-flag-title="现在的年轻人好像都很优秀！">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  617
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>再不加把劲，就要被后面大浪拍死了！</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/why-are-they-so-excellent.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mysql-zhuanlan-06-07-lock.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hoxis">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hoxis' blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/mysql-zhuanlan-06-07-lock.html" itemprop="url">MySQL实战 | 06/07 简单说说MySQL中的锁</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T13:48:50+08:00">
-                2018-12-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/mysql-zhuanlan-06-07-lock.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-zhuanlan-06-07-lock.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/mysql-zhuanlan-06-07-lock.html" class="leancloud_visitors" data-flag-title="MySQL实战 | 06/07 简单说说MySQL中的锁">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,909
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  10
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文思维导图：<a href="https://mubu.com/doc/AOa-5t-IsG" target="_blank" rel="noopener">https://mubu.com/doc/AOa-5t-IsG</a></p>
-<p>锁是计算机协调多个进程或纯线程并发访问某一资源的机制。</p>
-<p>在数据库中，除传统的计算资源（CPU、RAM、I/O）的争用以外，数据也是一种供许多用户共享的资源。</p>
-<p>如何保证数据并发访问的一致性、有效性是所在有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/mysql-zhuanlan-06-07-lock.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/good-things-shaishufang.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hoxis">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hoxis' blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/good-things-shaishufang.html" itemprop="url">好物分享 | 一个支持文字识别的图书管理软件</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T13:08:52+08:00">
-                2018-12-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-13T12:52:56+08:00">
+                2019-12-13
               </time>
             
 
@@ -1059,8 +468,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/good-things-shaishufang.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/good-things-shaishufang.html" itemprop="commentCount"></span>
+                <a href="/goodthings-finalshell.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/goodthings-finalshell.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1068,7 +477,7 @@
 
           
           
-             <span id="/good-things-shaishufang.html" class="leancloud_visitors" data-flag-title="好物分享 | 一个支持文字识别的图书管理软件">
+             <span id="/goodthings-finalshell.html" class="leancloud_visitors" data-flag-title="没想到，这款国产的终端工具这么好用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1093,7 +502,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  639
+                  464
                 </span>
               
 
@@ -1131,12 +540,12 @@
 
       
         
-          <p>之前朋友圈经常发一些图书的精彩摘录，比如这样的：</p>
-<p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1544418236322.png" alt="前方的路"></p>
-<p>很多小伙伴问我是怎么做的，今天特地分享一下。</p>
+          <p>之前分享 MobaXterm 时</p>
+<p>有小伙伴留言说到了 FinalShell</p>
+<p>我本来是一脸蒙蔽的</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/good-things-shaishufang.html#more" rel="contents">
+            <a class="btn" href="/goodthings-finalshell.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1187,7 +596,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mysql-zhuanlan-05-high-performance-index.html">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/video-speed-controller.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hoxis">
@@ -1206,7 +615,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/mysql-zhuanlan-05-high-performance-index.html" itemprop="url">MySQL实战 | 05 如何设计高性能的索引？</a></h2>
+                <a class="post-title-link" href="/video-speed-controller.html" itemprop="url">倍速播放任一网站的视频！</a></h2>
         
 
         <div class="post-meta">
@@ -1218,8 +627,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T15:11:51+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-11T12:56:28+08:00">
+                2019-12-11
               </time>
             
 
@@ -1241,8 +650,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/好物分享/" itemprop="url" rel="index">
+                    <span itemprop="name">好物分享</span>
                   </a>
                 </span>
 
@@ -1259,8 +668,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/mysql-zhuanlan-05-high-performance-index.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-zhuanlan-05-high-performance-index.html" itemprop="commentCount"></span>
+                <a href="/video-speed-controller.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/video-speed-controller.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1268,7 +677,7 @@
 
           
           
-             <span id="/mysql-zhuanlan-05-high-performance-index.html" class="leancloud_visitors" data-flag-title="MySQL实战 | 05 如何设计高性能的索引？">
+             <span id="/video-speed-controller.html" class="leancloud_visitors" data-flag-title="倍速播放任一网站的视频！">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1293,7 +702,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,180
+                  323
                 </span>
               
 
@@ -1309,7 +718,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12
+                  1
                 </span>
               
             </div>
@@ -1331,10 +740,12 @@
 
       
         
-          <p>上回我们主要研究了为什么使用索引，以及索引的数据结构。今天带你了解如何设计高性能的索引。</p>
+          <p>现在人们的时间那是越来越金贵</p>
+<p>看个视频恨不得 10 倍速播放</p>
+<p>但是！</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/mysql-zhuanlan-05-high-performance-index.html#more" rel="contents">
+            <a class="btn" href="/video-speed-controller.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1385,7 +796,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mysql-zhuanlan-04-index.html">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/everything-quick-start.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hoxis">
@@ -1404,7 +815,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/mysql-zhuanlan-04-index.html" itemprop="url">MySQL实战 | 04 为什么要使用索引？</a></h2>
+                <a class="post-title-link" href="/everything-quick-start.html" itemprop="url">只需一招，让它变身“快速启动”工具！</a></h2>
         
 
         <div class="post-meta">
@@ -1416,8 +827,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T15:11:51+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-27T13:34:19+08:00">
+                2019-11-27
               </time>
             
 
@@ -1439,8 +850,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/好物分享/" itemprop="url" rel="index">
+                    <span itemprop="name">好物分享</span>
                   </a>
                 </span>
 
@@ -1457,8 +868,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/mysql-zhuanlan-04-index.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-zhuanlan-04-index.html" itemprop="commentCount"></span>
+                <a href="/everything-quick-start.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/everything-quick-start.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1466,7 +877,7 @@
 
           
           
-             <span id="/mysql-zhuanlan-04-index.html" class="leancloud_visitors" data-flag-title="MySQL实战 | 04 为什么要使用索引？">
+             <span id="/everything-quick-start.html" class="leancloud_visitors" data-flag-title="只需一招，让它变身“快速启动”工具！">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1491,7 +902,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,834
+                  217
                 </span>
               
 
@@ -1507,7 +918,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  17
+                  1
                 </span>
               
             </div>
@@ -1529,10 +940,13 @@
 
       
         
-          <p>用过 MySQL 的应该都知道索引是干啥的吧，应该多少都设置过索引，但是若是问你索引是怎么实现的，你能说上来吗？</p>
+          <p>说到快速启动工具</p>
+<p>你可能会想到 Launchy、Wox</p>
+<p>或者是 Win+S</p>
+<p>今天给你介绍一款其他的</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/mysql-zhuanlan-04-index.html#more" rel="contents">
+            <a class="btn" href="/everything-quick-start.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1583,7 +997,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mysql-zhuanlan-03-isolation.html">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/baidu-yun-search.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hoxis">
@@ -1602,7 +1016,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/mysql-zhuanlan-03-isolation.html" itemprop="url">MySQL实战 | 03 - 谁动了我的数据：浅析MySQL的事务隔离级别</a></h2>
+                <a class="post-title-link" href="/baidu-yun-search.html" itemprop="url">百度云资源搜索网站汇总，免费，好用！</a></h2>
         
 
         <div class="post-meta">
@@ -1614,8 +1028,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T17:30:52+08:00">
-                2018-11-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-24T12:25:22+08:00">
+                2019-11-24
               </time>
             
 
@@ -1637,8 +1051,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/好物分享/" itemprop="url" rel="index">
+                    <span itemprop="name">好物分享</span>
                   </a>
                 </span>
 
@@ -1655,8 +1069,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/mysql-zhuanlan-03-isolation.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-zhuanlan-03-isolation.html" itemprop="commentCount"></span>
+                <a href="/baidu-yun-search.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/baidu-yun-search.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1664,7 +1078,7 @@
 
           
           
-             <span id="/mysql-zhuanlan-03-isolation.html" class="leancloud_visitors" data-flag-title="MySQL实战 | 03 - 谁动了我的数据：浅析MySQL的事务隔离级别">
+             <span id="/baidu-yun-search.html" class="leancloud_visitors" data-flag-title="百度云资源搜索网站汇总，免费，好用！">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1689,7 +1103,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,613
+                  672
                 </span>
               
 
@@ -1705,7 +1119,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13
+                  2
                 </span>
               
             </div>
@@ -1727,10 +1141,13 @@
 
       
         
-          <p>使用过关系型数据库的，应该都事务的概念有所了解，知道事务有 ACID 四个基本属性：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）和持久性（Durability），今天我们主要来理解一下事务的隔离性。</p>
+          <p>后台经常有小伙伴找我要资源</p>
+<p>俗话说『授人以鱼，不如授人以渔』</p>
+<p>今天就给大家分享一下</p>
+<p>我平时都是在哪找资源的</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/mysql-zhuanlan-03-isolation.html#more" rel="contents">
+            <a class="btn" href="/baidu-yun-search.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1781,7 +1198,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mysql-zhuanlan-02-redolog-binlog.html">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/hexo-blog-to-wechat.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hoxis">
@@ -1800,7 +1217,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/mysql-zhuanlan-02-redolog-binlog.html" itemprop="url">MySQL实战 | 02-MySQL 如何恢复到半个月内任意一秒的状态？</a></h2>
+                <a class="post-title-link" href="/hexo-blog-to-wechat.html" itemprop="url">hexo 博客引流到公众号配置方法（亲测可用）</a></h2>
         
 
         <div class="post-meta">
@@ -1812,8 +1229,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T13:26:48+08:00">
-                2018-11-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T17:29:25+08:00">
+                2019-11-12
               </time>
             
 
@@ -1835,8 +1252,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/奇技淫巧/" itemprop="url" rel="index">
+                    <span itemprop="name">奇技淫巧 </span>
                   </a>
                 </span>
 
@@ -1853,8 +1270,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/mysql-zhuanlan-02-redolog-binlog.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-zhuanlan-02-redolog-binlog.html" itemprop="commentCount"></span>
+                <a href="/hexo-blog-to-wechat.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/hexo-blog-to-wechat.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1862,7 +1279,7 @@
 
           
           
-             <span id="/mysql-zhuanlan-02-redolog-binlog.html" class="leancloud_visitors" data-flag-title="MySQL实战 | 02-MySQL 如何恢复到半个月内任意一秒的状态？">
+             <span id="/hexo-blog-to-wechat.html" class="leancloud_visitors" data-flag-title="hexo 博客引流到公众号配置方法（亲测可用）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1887,7 +1304,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,403
+                  567
                 </span>
               
 
@@ -1903,7 +1320,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12
+                  2
                 </span>
               
             </div>
@@ -1925,15 +1342,10 @@
 
       
         
-          <p>看到这个题目是不是觉得数据库再也不用担心服务器 crash 了？</p>
-<p>那我们需要学习为什么可以这么做？以及如何做？</p>
-<p>即为什么可以恢复到任意时间点？如何恢复到任意时间点？</p>
-<p>为什么有了 binlog 还需要 redo log？</p>
-<p>事务是如何提交的？事务提交先写 binlog 还是 redo log？如何保证这两部分的日志做到顺序一致性？</p>
-<p>为了保障主从复制安全，故障恢复是如何做的？</p>
+          <p>相信有不少小伙伴都在 github 上创建了属于自己的博客，其中用 Hexo 的 Next 主题应该不少，那么，我们究竟该如何将博客的流量引流到微信呢？今天就来带你看一看。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/mysql-zhuanlan-02-redolog-binlog.html#more" rel="contents">
+            <a class="btn" href="/hexo-blog-to-wechat.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1984,7 +1396,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mysql-zhuanlan-01-select.html">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/taobao-venues-auto.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hoxis">
@@ -2003,7 +1415,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/mysql-zhuanlan-01-select.html" itemprop="url">MySQL实战 | 01 当执行一条 select 语句时，MySQL 到底做了啥？</a></h2>
+                <a class="post-title-link" href="/taobao-venues-auto.html" itemprop="url">分享两款“自动领喵币”的软件（附使用教程）</a></h2>
         
 
         <div class="post-meta">
@@ -2015,8 +1427,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T12:53:49+08:00">
-                2018-11-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T14:12:11+08:00">
+                2019-11-04
               </time>
             
 
@@ -2038,8 +1450,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/好物分享/" itemprop="url" rel="index">
+                    <span itemprop="name">好物分享</span>
                   </a>
                 </span>
 
@@ -2056,8 +1468,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/mysql-zhuanlan-01-select.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/mysql-zhuanlan-01-select.html" itemprop="commentCount"></span>
+                <a href="/taobao-venues-auto.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/taobao-venues-auto.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2065,7 +1477,7 @@
 
           
           
-             <span id="/mysql-zhuanlan-01-select.html" class="leancloud_visitors" data-flag-title="MySQL实战 | 01 当执行一条 select 语句时，MySQL 到底做了啥？">
+             <span id="/taobao-venues-auto.html" class="leancloud_visitors" data-flag-title="分享两款“自动领喵币”的软件（附使用教程）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2090,7 +1502,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,547
+                  620
                 </span>
               
 
@@ -2106,7 +1518,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  16
+                  2
                 </span>
               
             </div>
@@ -2128,16 +1540,11 @@
 
       
         
-          <p>也许，你也跟我一样，在遇到数据库问题时，总时茫然失措，想重启解决问题，又怕导致数据丢失，更怕重启失败，影响业务。</p>
-<p>就算重启成功了，对于问题的原因仍不知所以。</p>
-<p>本文开始，记录学习《MySQL实战45讲》专栏的过程。</p>
-<p>也许有人会问，你记录有什么意义？直接看专栏不就行了吗？你这不是啃别人的剩骨头吗？</p>
-<p>是的，这个系列，我只是基于专栏学习，但是我会尽量从我的角度搞懂每一个知识点，遇到不懂得也会将知识点进行拆分。</p>
-<p>我知道关注公众号的小伙伴也有很多购买了这个专栏的，我希望大家都能够利用好这个机会，把 MySQL 吃透！</p>
-<p>看大家的反馈情况吧，若有需要，可以建个小群，大家互相讨论学习！</p>
+          <p>双十一将近，各大电商有开始铺起了套路</p>
+<p>淘宝的套路就是要领喵币</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/mysql-zhuanlan-01-select.html#more" rel="contents">
+            <a class="btn" href="/taobao-venues-auto.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2188,7 +1595,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/what-is-cloud-compute.html">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/mobaxterm.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hoxis">
@@ -2207,7 +1614,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/what-is-cloud-compute.html" itemprop="url">人人都能看懂的云计算知识科普</a></h2>
+                <a class="post-title-link" href="/mobaxterm.html" itemprop="url">Xshell、SecureCRT公司都不让用了，我好难啊！</a></h2>
         
 
         <div class="post-meta">
@@ -2219,8 +1626,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T13:02:59+08:00">
-                2018-11-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-23T09:17:25+08:00">
+                2019-10-23
               </time>
             
 
@@ -2242,8 +1649,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/闲扯系列/" itemprop="url" rel="index">
-                    <span itemprop="name">闲扯系列</span>
+                  <a href="/categories/好物分享/" itemprop="url" rel="index">
+                    <span itemprop="name">好物分享</span>
                   </a>
                 </span>
 
@@ -2260,8 +1667,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/what-is-cloud-compute.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/what-is-cloud-compute.html" itemprop="commentCount"></span>
+                <a href="/mobaxterm.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/mobaxterm.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2269,7 +1676,7 @@
 
           
           
-             <span id="/what-is-cloud-compute.html" class="leancloud_visitors" data-flag-title="人人都能看懂的云计算知识科普">
+             <span id="/mobaxterm.html" class="leancloud_visitors" data-flag-title="Xshell、SecureCRT公司都不让用了，我好难啊！">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2294,7 +1701,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,243
+                  568
                 </span>
               
 
@@ -2310,7 +1717,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  14
+                  2
                 </span>
               
             </div>
@@ -2332,11 +1739,618 @@
 
       
         
-          <p>双十一期间，我想很多小伙伴都被阿里云的促销活动刷屏了，大家组队组团，可以得到较为便宜的阿里云服务器。另外，Docker 也红得发紫，与之对应的 DevOps 和 NoOps 持续高温。</p>
-<p>但是对于不少企业尤其是传统企业，云仍在天边，对于云仍感觉云里雾里。上云还是不上云，上什么云，这是个问题。我们试着用最通俗的比喻，理清云服务中最基本的那些事儿。</p>
+          <p>近年来，大家的版权意识越来越强</p>
+<p>员工使用盗版软件，导致公司被罚的新闻也屡屡曝出</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/what-is-cloud-compute.html#more" rel="contents">
+            <a class="btn" href="/mobaxterm.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/baidupcs-web.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/baidupcs-web.html" itemprop="url">Pandownload倒下了，还有它，又一款百度云下载神器，10M/s</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-16T12:30:21+08:00">
+                2019-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/好物分享/" itemprop="url" rel="index">
+                    <span itemprop="name">好物分享</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/baidupcs-web.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/baidupcs-web.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/baidupcs-web.html" class="leancloud_visitors" data-flag-title="Pandownload倒下了，还有它，又一款百度云下载神器，10M/s">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  488
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近很多小伙伴反馈 Pandownload 不好使了</p>
+<p>对此我表示</p>
+<p>脑壳疼</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/baidupcs-web.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/99baiduyun.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/99baiduyun.html" itemprop="url">试用了65个网盘搜索引擎，这一款确实不错！</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-11T13:14:30+08:00">
+                2019-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/好物分享/" itemprop="url" rel="index">
+                    <span itemprop="name">好物分享</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/99baiduyun.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/99baiduyun.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/99baiduyun.html" class="leancloud_visitors" data-flag-title="试用了65个网盘搜索引擎，这一款确实不错！">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  293
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>之前我们做过一次分享</p>
+<p>但是</p>
+<p>最近很多小伙伴反馈</p>
+<p>Pandownload 自带的搜索不好使了</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/99baiduyun.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hoxis.github.io/xunjiepdf.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hoxis">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hoxis' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/xunjiepdf.html" itemprop="url">『神网站』文档处理、文档转换、语音识别、图片文字识别、论文查重，它都行！</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-09T12:19:04+08:00">
+                2019-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/好物分享/" itemprop="url" rel="index">
+                    <span itemprop="name">好物分享</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/xunjiepdf.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/xunjiepdf.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/xunjiepdf.html" class="leancloud_visitors" data-flag-title="『神网站』文档处理、文档转换、语音识别、图片文字识别、论文查重，它都行！">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  340
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>神网站系列第 1 篇。</p>
+</blockquote>
+<p>之前需要将一段录音文件转化为文字</p>
+<p>刚开始想的是使用百度的 API 接口</p>
+<p>但是觉得麻烦</p>
+<p>还要写代码</p>
+<p>后来简单搜索了一下</p>
+<p>没想到发现了一个宝藏</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/xunjiepdf.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2378,17 +2392,19 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
 
           </div>
+			</div>
           
 
 
           
 
+          
         </div>
         
           
@@ -2428,7 +2444,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2439,7 +2455,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2450,7 +2466,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2520,23 +2536,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -2562,7 +2578,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -3235,6 +3251,7 @@
   
 
   
+
 
 </body>
 </html>

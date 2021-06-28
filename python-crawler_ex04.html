@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -218,8 +218,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -328,6 +330,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -376,6 +388,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -542,7 +555,7 @@
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906135733.png" alt="第五关"></p>
 <p>思路其实基本和第三关类似，主要是多了验证码的处理。</p>
 <p>可以看出，验证码都是英文大写，并且位置不正，歪扭七八的，这给验证码识别带来了难度。</p>
-<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>先来看一眼请求数据：</p>
+<h1><span id="解题思路">解题思路</span></h1><p>先来看一眼请求数据：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906135759.png" alt="请求数据"></p>
 <ol>
 <li>username</li>
@@ -558,24 +571,24 @@
 <li>自动识别：指使用一些高级的算法技术来完成的，如 OCR 文字识别，机器学习进行识别训练等。一般免费的文字识别算法识别率并不高，收费的识别效率还是可以接受的。</li>
 </ul>
 <p>我们先体验一把自动处理，知道处理效果后，再考虑是不是用手动处理。</p>
-<h1 id="自动识别验证码"><a href="#自动识别验证码" class="headerlink" title="自动识别验证码"></a>自动识别验证码</h1><p>处理流程如下：</p>
+<h1><span id="自动识别验证码">自动识别验证码</span></h1><p>处理流程如下：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906135814.png" alt="自动处理流程"></p>
 <p>这里我们打算使用 <code>Tesseract</code> 进行自动图片识别的尝试。</p>
 <p><code>tesseract-ocr</code> 是一个做图形识别必须用到第一个软件，不仅可以处理验证码，也可以识别图片上的文字等等。其他的这里不再赘述，请自行 Google。</p>
 <p>安装可以参考官方文档：<a href="https://github.com/tesseract-ocr/tesseract/wiki" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki</a></p>
-<h2 id="试用下"><a href="#试用下" class="headerlink" title="试用下"></a>试用下</h2><p>准备好待识别的图片</p>
+<h2><span id="试用下">试用下</span></h2><p>准备好待识别的图片</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1518052906464.jpg" alt="待识别图片"></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tesseract test.png result -l eng</span></span><br><span class="line">Tesseract Open Source OCR Engine v3.04.01 with Leptonica</span><br><span class="line"><span class="comment"># cat result.txt</span></span><br><span class="line">UZUM</span><br></pre></td></tr></table></figure>
 <p>可以看出，识别成功，难道识别率这么好吗？  </p>
-<h2 id="安装其他依赖组件"><a href="#安装其他依赖组件" class="headerlink" title="安装其他依赖组件"></a>安装其他依赖组件</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install PIL</span><br><span class="line">pip install Pillow</span><br><span class="line">pip install pytesseract</span><br></pre></td></tr></table></figure>
+<h2><span id="安装其他依赖组件">安装其他依赖组件</span></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install PIL</span><br><span class="line">pip install Pillow</span><br><span class="line">pip install pytesseract</span><br></pre></td></tr></table></figure>
 <p><code>Pytesseract</code> 是一个 python 的第三方的包，主要作用就是用来连接操作 tesseract-ocr 工具。为我们用 python 来处理图形打好了基础。</p>
 <p><code>Pillow</code> 包是 python 的图形处理库，用来处理调整图形的各种内容。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>准备工作差不多了，下面就动手写代码吧！</p>
+<h2><span id="实现">实现</span></h2><p>准备工作差不多了，下面就动手写代码吧！</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getImage</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 获取登录页面</span></span><br><span class="line">    response = requests.get(url, cookies=cookies)</span><br><span class="line">    soup = bs4.BeautifulSoup(response.text, <span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 解析获取图片地址</span></span><br><span class="line">    image_url = <span class="string">'http://www.heibanke.com'</span> + soup.select(<span class="string">'img[class="captcha"]'</span>)[<span class="number">0</span>][<span class="string">'src'</span>]</span><br><span class="line">    <span class="comment"># 获取图片</span></span><br><span class="line">    image_response = requests.get(image_url)</span><br><span class="line">    <span class="keyword">if</span> image_response.status_code != <span class="number">200</span>:</span><br><span class="line">        print(<span class="string">'get image fail: '</span> + image_url)</span><br><span class="line">    image = image_response.content</span><br><span class="line">    <span class="comment"># 保存图片</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'./crawler_ex04.png'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(image)</span><br><span class="line">    <span class="keyword">return</span> Image.open(<span class="string">'./crawler_ex04.png'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:  </span><br><span class="line">    url = <span class="string">'http://www.heibanke.com/lesson/crawler_ex04/'</span></span><br><span class="line">    login_url = <span class="string">'http://www.heibanke.com/accounts/login'</span></span><br><span class="line">    login_data = &#123;<span class="string">'username'</span>:<span class="string">'liuhaha'</span>, <span class="string">'password'</span>:<span class="string">'123456'</span>&#125;</span><br><span class="line"></span><br><span class="line">    cookies = login()</span><br><span class="line"></span><br><span class="line">    playload = &#123;<span class="string">'username'</span>:<span class="string">'liuhaha'</span>, <span class="string">'password'</span>:<span class="string">'1'</span>&#125;</span><br><span class="line">    playload[<span class="string">'csrfmiddlewaretoken'</span>] = cookies[<span class="string">'csrftoken'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">31</span>):</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 识别验证码</span></span><br><span class="line">        optCode = pytesseract.image_to_string(getImage(), lang=<span class="string">"eng"</span>, config=<span class="string">"-psm 7"</span>)</span><br><span class="line">        <span class="comment"># 验证码的准确率是个问题啊</span></span><br><span class="line">        print(<span class="string">u'验证码为：'</span> + optCode)</span><br><span class="line"></span><br><span class="line">        playload[<span class="string">'captcha_1'</span>] = optCode</span><br><span class="line">        playload[<span class="string">'password'</span>] = i</span><br><span class="line">        <span class="comment"># print(u'传入参数为：' + str(playload))</span></span><br><span class="line"></span><br><span class="line">        r = requests.post(url, data=playload, cookies=cookies)</span><br><span class="line">        soup = bs4.BeautifulSoup(r.text, <span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># print(u'执行结果：' + str(r.status_code))</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">u"成功"</span> <span class="keyword">in</span> r.text:</span><br><span class="line">                print(<span class="string">u'闯关成功！密码为：'</span> + str(i))</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(<span class="string">u'请继续'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">u'Failed'</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906135946.png" alt="运行结果"></p>
 <p>这里我对一些乱码进行了过滤，不过识别结果还是惨不忍睹啊！获取了 447 次，最后终于成功。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906140005.png" alt="心痛"></p>
-<h2 id="数据训练"><a href="#数据训练" class="headerlink" title="数据训练"></a>数据训练</h2><p>识别率很差，但是 tesseract 是可以自行训练的，这样也许能够提升识别率。</p>
+<h2><span id="数据训练">数据训练</span></h2><p>识别率很差，但是 tesseract 是可以自行训练的，这样也许能够提升识别率。</p>
 <p>训练过程很漫长，这里就不再展开，有兴趣的可以参考 <a href="https://www.cnblogs.com/zhongtang/p/5555950.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhongtang/p/5555950.html</a> 中的方法进行训练。</p>
 <p>这里只说下训练结果。</p>
 <p>刚开始使用 100 张图片进行训练，但是结果还是不能令人满意，识别的正确率大概只有 10% 左右。</p>
@@ -584,12 +597,12 @@
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906140017.png" alt="欲哭无泪"></p>
 <p>也许还可以用 TensorFlow 来试一把，我现在实在没力气折腾了，有兴趣的搞一下看看？</p>
 <p>另外，百度、腾讯等也有免费的图像识别服务，后面有兴趣我会进行测试，与大家分享。</p>
-<h1 id="手动识别"><a href="#手动识别" class="headerlink" title="手动识别"></a>手动识别</h1><p>手动识别其实就是通过验证码链接将验证码图片下载到本地，然后手动敲入完成信息录入。</p>
+<h1><span id="手动识别">手动识别</span></h1><p>手动识别其实就是通过验证码链接将验证码图片下载到本地，然后手动敲入完成信息录入。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getImage</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 获取登录页面</span></span><br><span class="line">    response = requests.get(url, cookies=cookies)</span><br><span class="line">    soup = bs4.BeautifulSoup(response.text, <span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 解析获取图片地址</span></span><br><span class="line">    image_url = <span class="string">'http://www.heibanke.com'</span> + soup.select(<span class="string">'img[class="captcha"]'</span>)[<span class="number">0</span>][<span class="string">'src'</span>]</span><br><span class="line">    <span class="comment"># print(soup.select('img[class="captcha"]')[0]['src'].split('/')[-2])</span></span><br><span class="line">    <span class="comment"># 获取图片</span></span><br><span class="line">    image_response = requests.get(image_url)</span><br><span class="line">    <span class="comment"># if image_response.status_code != 200:</span></span><br><span class="line">    <span class="comment"># print('get image: ' + image_url)</span></span><br><span class="line">    image = image_response.content</span><br><span class="line">    <span class="comment"># 保存图片</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'./crawler_ex04.png'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(image)</span><br><span class="line">    </span><br><span class="line">    code_typein = input(<span class="string">'请根据下载图片 crawler_ex04.png 输入验证码：'</span>)</span><br><span class="line">    <span class="keyword">return</span> soup.select(<span class="string">'img[class="captcha"]'</span>)[<span class="number">0</span>][<span class="string">'src'</span>].split(<span class="string">'/'</span>)[<span class="number">-2</span>], code_typein</span><br></pre></td></tr></table></figure>
 <p>需要每次运行时手动输入验证码，运行结果如下：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20180906140029.png" alt="运行结果"></p>
 <p>还好运行到 3 就成功了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本关的难点就是验证码的处理，用自动识别方法，识别率不高，当然这里我只用了一种方法，有做这方面工作的同学可以尝试用 TensorFlow 来试一把，记得来分享~</p>
+<h1><span id="总结">总结</span></h1><p>本关的难点就是验证码的处理，用自动识别方法，识别率不高，当然这里我只用了一种方法，有做这方面工作的同学可以尝试用 TensorFlow 来试一把，记得来分享~</p>
 <p>后续，我会测试下 百度、腾讯、阿里的图像识别接口，看下它们的识别情况是否能够让人满意，到时再给大家分享。</p>
 <p>到这里，爬虫闯关系列就结束了，一共 5 关。通过这 5 关，我们大致了解了爬虫的一般流程，其中涉及了 cookie 处理、验证码处理、多线程爬虫等知识点，当然不能完全覆盖爬虫所有的知识点，但是我觉得足以应对一般网站的爬取了。</p>
 
@@ -603,7 +616,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -749,6 +762,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -761,6 +775,7 @@
 
 
 
+          
         </div>
         
           
@@ -809,7 +824,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -820,7 +835,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -831,7 +846,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -901,23 +916,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -939,7 +954,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解题思路"><span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动识别验证码"><span class="nav-text">自动识别验证码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#试用下"><span class="nav-text">试用下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装其他依赖组件"><span class="nav-text">安装其他依赖组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据训练"><span class="nav-text">数据训练</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手动识别"><span class="nav-text">手动识别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">自动识别验证码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">试用下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装其他依赖组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">数据训练</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">手动识别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -959,7 +974,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1636,6 +1651,7 @@
   
 
   
+
 
 </body>
 </html>

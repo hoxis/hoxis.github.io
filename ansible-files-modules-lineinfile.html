@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -528,12 +541,12 @@
       
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+        <h2><span id="简介">简介</span></h2><ul>
 <li>该模块用于确保一个特定的行在一个文件中，或者使用一个正则表达式替换一个现有的行。</li>
 <li>如果想要改变文件中相似的多行，可以使用<code>replace</code>模块。如果想要插入/更新/删除一个行块，可以使用<code>blockinfile</code>模块。</li>
 </ul>
 <a id="more"></a>
-<h2 id="模块参数"><a href="#模块参数" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<h2><span id="模块参数">模块参数</span></h2><table>
 <thead>
 <tr>
 <th style="text-align:center">名称</th>
@@ -651,14 +664,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="文本替换"><a href="#文本替换" class="headerlink" title="文本替换"></a>文本替换</h3><p>将<code>/etc/selinux/config</code>文件中所有匹配<code>^SELINUX=</code>正则表达式的行中的最后一行使用<code>SELINUX=disabled</code>替换；<br>如果regexp不匹配文件中的任何一行，则将<code>line</code>所指定的行插入到文件的末尾。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 templates]<span class="comment"># ansible test -m lineinfile -a "path=/etc/selinux/config regexp='^SELINUX=' line='SELINUX=disabled'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line replaced"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line">[root@centos7 templates]<span class="comment"># ansible test -m command -a "cat /etc/selinux/config"</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># This file controls the state of SELinux on the system.</span></span><br><span class="line"><span class="comment"># SELINUX= can take one of these three values:</span></span><br><span class="line"><span class="comment">#     enforcing - SELinux security policy is enforced.</span></span><br><span class="line"><span class="comment">#     permissive - SELinux prints warnings instead of enforcing.</span></span><br><span class="line"><span class="comment">#     disabled - No SELinux policy is loaded.</span></span><br><span class="line">SELINUX=disabled</span><br><span class="line"><span class="comment"># SELINUXTYPE= can take one of three two values:</span></span><br><span class="line"><span class="comment">#     targeted - Targeted processes are protected,</span></span><br><span class="line"><span class="comment">#     minimum - Modification of targeted policy. Only selected processes are protected. </span></span><br><span class="line"><span class="comment">#     mls - Multi Level Security protection.</span></span><br><span class="line">SELINUXTYPE=targeted</span><br></pre></td></tr></table></figure></p>
-<h3 id="删除行"><a href="#删除行" class="headerlink" title="删除行"></a>删除行</h3><p>将/tmp/test.sh文件中所有匹配<code>^pwd</code>的行删除<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 templates]<span class="comment"># ansible test -m lineinfile -a "path=/tmp/test.sh regexp='^pwd' state=absent"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"found"</span>: 3, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"3 line(s) removed"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再次运行，没有匹配行</span></span><br><span class="line">[root@centos7 templates]<span class="comment"># ansible test -m lineinfile -a "path=/tmp/test.sh regexp='^pwd' state=absent"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"found"</span>: 0, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="示例">示例</span></h2><h3><span id="文本替换">文本替换</span></h3><p>将<code>/etc/selinux/config</code>文件中所有匹配<code>^SELINUX=</code>正则表达式的行中的最后一行使用<code>SELINUX=disabled</code>替换；<br>如果regexp不匹配文件中的任何一行，则将<code>line</code>所指定的行插入到文件的末尾。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 templates]<span class="comment"># ansible test -m lineinfile -a "path=/etc/selinux/config regexp='^SELINUX=' line='SELINUX=disabled'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line replaced"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看结果</span></span><br><span class="line">[root@centos7 templates]<span class="comment"># ansible test -m command -a "cat /etc/selinux/config"</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># This file controls the state of SELinux on the system.</span></span><br><span class="line"><span class="comment"># SELINUX= can take one of these three values:</span></span><br><span class="line"><span class="comment">#     enforcing - SELinux security policy is enforced.</span></span><br><span class="line"><span class="comment">#     permissive - SELinux prints warnings instead of enforcing.</span></span><br><span class="line"><span class="comment">#     disabled - No SELinux policy is loaded.</span></span><br><span class="line">SELINUX=disabled</span><br><span class="line"><span class="comment"># SELINUXTYPE= can take one of three two values:</span></span><br><span class="line"><span class="comment">#     targeted - Targeted processes are protected,</span></span><br><span class="line"><span class="comment">#     minimum - Modification of targeted policy. Only selected processes are protected. </span></span><br><span class="line"><span class="comment">#     mls - Multi Level Security protection.</span></span><br><span class="line">SELINUXTYPE=targeted</span><br></pre></td></tr></table></figure></p>
+<h3><span id="删除行">删除行</span></h3><p>将/tmp/test.sh文件中所有匹配<code>^pwd</code>的行删除<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 templates]<span class="comment"># ansible test -m lineinfile -a "path=/tmp/test.sh regexp='^pwd' state=absent"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"found"</span>: 3, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"3 line(s) removed"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再次运行，没有匹配行</span></span><br><span class="line">[root@centos7 templates]<span class="comment"># ansible test -m lineinfile -a "path=/tmp/test.sh regexp='^pwd' state=absent"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"found"</span>: 0, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1516065643566.jpg" alt="删除匹配行"></p>
-<h3 id="替换行并设置文件权限"><a href="#替换行并设置文件权限" class="headerlink" title="替换行并设置文件权限"></a>替换行并设置文件权限</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/etc/hosts regexp='^127.0.0.1' line='127.0.0.1 localhost' owner=root group=root mode=0644"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line replaced"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="替换行并设置文件权限">替换行并设置文件权限</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/etc/hosts regexp='^127.0.0.1' line='127.0.0.1 localhost' owner=root group=root mode=0644"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line replaced"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1516072251391.jpg" alt="替换行并设置文件权限"></p>
-<h3 id="insertafter和insertbefore"><a href="#insertafter和insertbefore" class="headerlink" title="insertafter和insertbefore"></a>insertafter和insertbefore</h3><p>当文件中没有匹配正则表达式<code>^Listen80</code>的行时，会将<code>Listen 80</code>插入到<code>^#Listen</code>所匹配的最后一行的后面。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/etc/httpd/conf/httpd.conf regexp='^Listen80' insertafter='^#Listen' line='Listen 80'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line added"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># insertbefore的使用方法类似</span></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/etc/httpd/conf/httpd.conf regexp='^#Listen80' insertbefore='^Listen 80' line='#Listen 80'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line added"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="为文件新增一行"><a href="#为文件新增一行" class="headerlink" title="为文件新增一行"></a>为文件新增一行</h3><p>直接在文件中新增一行（如果line不存在则会插入），而不通过正则表达式进行匹配。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/root/test.sh line='liuhao test'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line added"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再次执行</span></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/root/test.sh line='liuhao test'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="backrefs用法"><a href="#backrefs用法" class="headerlink" title="backrefs用法"></a>backrefs用法</h3><ul>
+<h3><span id="insertafter和insertbefore">insertafter和insertbefore</span></h3><p>当文件中没有匹配正则表达式<code>^Listen80</code>的行时，会将<code>Listen 80</code>插入到<code>^#Listen</code>所匹配的最后一行的后面。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/etc/httpd/conf/httpd.conf regexp='^Listen80' insertafter='^#Listen' line='Listen 80'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line added"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># insertbefore的使用方法类似</span></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/etc/httpd/conf/httpd.conf regexp='^#Listen80' insertbefore='^Listen 80' line='#Listen 80'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line added"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="为文件新增一行">为文件新增一行</span></h3><p>直接在文件中新增一行（如果line不存在则会插入），而不通过正则表达式进行匹配。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/root/test.sh line='liuhao test'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"line added"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 再次执行</span></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m lineinfile -a "path=/root/test.sh line='liuhao test'"</span></span><br><span class="line">172.20.21.121 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"backup"</span>: <span class="string">""</span>, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="backrefs用法">backrefs用法</span></h3><ul>
 <li>backrefs为no时，如果没有匹配，则添加一行line。如果匹配了，则把匹配内容替被换为line内容。</li>
 <li>backrefs为yes时，如果没有匹配，则文件保持不变。如果匹配了，把匹配内容替被换为line内容。</li>
 </ul>
@@ -674,7 +687,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -820,6 +833,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -832,6 +846,7 @@
 
 
 
+          
         </div>
         
           
@@ -880,7 +895,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -891,7 +906,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -902,7 +917,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -972,23 +987,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1010,7 +1025,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文本替换"><span class="nav-text">文本替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除行"><span class="nav-text">删除行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换行并设置文件权限"><span class="nav-text">替换行并设置文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insertafter和insertbefore"><span class="nav-text">insertafter和insertbefore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为文件新增一行"><span class="nav-text">为文件新增一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backrefs用法"><span class="nav-text">backrefs用法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">文本替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">删除行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">替换行并设置文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">insertafter和insertbefore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">为文件新增一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">backrefs用法</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1030,7 +1045,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1707,6 +1722,7 @@
   
 
   
+
 
 </body>
 </html>

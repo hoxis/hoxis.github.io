@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -232,8 +232,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -342,6 +344,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -390,6 +402,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -552,7 +565,7 @@
 <p>本文就给大家推荐几款可以操作大文件的编辑器，准备好小板凳，开始吧。</p>
 <a id="more"></a>
 <p>本机配置：Windows10，16G 内存，i5 处理器。</p>
-<h1 id="Notepad"><a href="#Notepad" class="headerlink" title="Notepad++"></a>Notepad++</h1><p>第一站，就拿我本机的记事本替代者 Notepad++ 开刀。</p>
+<h1><span id="notepad">Notepad++</span></h1><p>第一站，就拿我本机的记事本替代者 Notepad++ 开刀。</p>
 <blockquote>
 <p>网上传闻 Notepad++ 打开大文件不佳，Notepad++ 可以打开 600M 左右的文件，大于 700M 就直接无法打开了，一般 &gt;400m 就会卡死。</p>
 </blockquote>
@@ -571,7 +584,7 @@
 <p>直接程序无响应了！</p>
 <p>Notepad++ 是很优秀，但是在打开大文件方面，简直是一塌糊涂！</p>
 <p>超过 100M 的文件，用 Notepad++ 打开时，请慎重！</p>
-<h1 id="Sublime-Text"><a href="#Sublime-Text" class="headerlink" title="Sublime Text"></a>Sublime Text</h1><p>下面我们用很多人都喜欢的 Sublime Text 来试下。</p>
+<h1><span id="sublime-text">Sublime Text</span></h1><p>下面我们用很多人都喜欢的 Sublime Text 来试下。</p>
 <p>首先，比 Notepad++ 好的地方是，2.3G 的文件起码是能打开的</p>
 <p>没有报错</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-15-1565883849230.png" alt="看起来很棒"></p>
@@ -588,7 +601,7 @@
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-15-1565884035483.png" alt="内存占用"></p>
 <p>看得出来，它是一次性将文件全加载到内存中了</p>
 <p>所以，Sublime Text 也是很优秀，但是打开大文件，同样一塌糊涂。</p>
-<h1 id="VSCode"><a href="#VSCode" class="headerlink" title="VSCode"></a>VSCode</h1><p>编辑器界的新秀 VSCode 在大文件方面又能表现如何呢？</p>
+<h1><span id="vscode">VSCode</span></h1><p>编辑器界的新秀 VSCode 在大文件方面又能表现如何呢？</p>
 <p>当我把文件拖入到 VSCode 时，弹出了如下提示</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-16-1565885447166.png" alt="提示"></p>
 <p>按照提示进行重启后，再次尝试打开文件</p>
@@ -599,7 +612,7 @@
 <p>后又多次尝试打开，均以失败告终</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190705162506.png" alt="我FFF"></p>
 <p>所以，VSCode 打开大文件，失败！</p>
-<h1 id="UltraEdit"><a href="#UltraEdit" class="headerlink" title="UltraEdit"></a>UltraEdit</h1><p>现在再来试一下老牌的 UltraEdit，网上说它是可以打开大文件的，那我们就看下到底表现如何。</p>
+<h1><span id="ultraedit">UltraEdit</span></h1><p>现在再来试一下老牌的 UltraEdit，网上说它是可以打开大文件的，那我们就看下到底表现如何。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-16-20190816936.gif" alt="UltraEdit"></p>
 <p>打开有了几十秒的时间，并且<strong>打开过程中卡死</strong></p>
 <p>但是打开后，文件浏览起来还是很<strong>顺滑</strong>的。</p>
@@ -610,7 +623,7 @@
 <p>我们发现，其实 UltraEdit 内存占用很小，这种情况下，仍然能够顺滑浏览大文件，难道是因为我的 SSD？</p>
 <p>总之，UltraEdit 要比 Notepad++ 和 Sublime Text 表现要好多了。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190705161832.png" alt="很好了"></p>
-<h1 id="EmEditor"><a href="#EmEditor" class="headerlink" title="EmEditor"></a>EmEditor</h1><p>好了，做了这么多铺垫，到了主角出现的时候了，它就是：EmEditor</p>
+<h1><span id="emeditor">EmEditor</span></h1><p>好了，做了这么多铺垫，到了主角出现的时候了，它就是：EmEditor</p>
 <p>EmEditor 是一个比较小众的编辑器，当年实习时，只有当年实习时看到指导老师用过，此后多年，没再看到过它的身影。</p>
 <p>知乎上甚至还有一个问题：<strong>为什么用 EmEditor 的人不多？</strong></p>
 <p>回答者对其的评价颇高，有人甚至称其为：<strong>Windows平台下最棒的文本编辑工具！没有之一！</strong></p>
@@ -626,7 +639,7 @@
 <p>4、保存时，出现短暂卡死的情况；</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/md/2019-8-16-1565921796784.png" alt="资源占有情况"></p>
 <p>总之，这是今天所有测试下来，大文件打开表现最优秀的一个。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文并没有比较各个编辑器的意图，所以对于各个编辑器的优劣不做评价。</p>
+<h1><span id="总结">总结</span></h1><p>本文并没有比较各个编辑器的意图，所以对于各个编辑器的优劣不做评价。</p>
 <p>本文只是实验在大文件编辑的情况下，到底谁的表现更为突出。</p>
 <p>综合结论：<strong>EmEditor ≈ UltraEdit &gt; Sublime Text</strong> ，VSCode 和 Notepad++ 无法打开大文件，不参与排名。</p>
 <p>另外，也许还有其他更为优秀的工具，比如 Vim 其实也可以用来编辑大文件，小编认知有限，大家可以留言推荐。</p>
@@ -641,7 +654,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -787,6 +800,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -799,6 +813,7 @@
 
 
 
+          
         </div>
         
           
@@ -847,7 +862,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -858,7 +873,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -869,7 +884,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -939,23 +954,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -977,7 +992,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Notepad"><span class="nav-text">Notepad++</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sublime-Text"><span class="nav-text">Sublime Text</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VSCode"><span class="nav-text">VSCode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UltraEdit"><span class="nav-text">UltraEdit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EmEditor"><span class="nav-text">EmEditor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Notepad++</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">Sublime Text</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">VSCode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">UltraEdit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">EmEditor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -997,7 +1012,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1674,6 +1689,7 @@
   
 
   
+
 
 </body>
 </html>

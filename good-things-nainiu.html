@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -221,8 +221,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -331,6 +333,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -379,6 +391,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -545,11 +558,11 @@
 <p>另外，百度云<strong>不够轻量</strong>，不登录是无法上传和分享文件的。</p>
 <p>当我们仅仅想给好友分享一个文件时，有没有一款简单易用的产品呢？</p>
 <p>今天就给大家介绍另外一款传输文件的工具，它就是–<strong>奶牛快传</strong>。</p>
-<h1 id="奶牛简介"><a href="#奶牛简介" class="headerlink" title="奶牛简介"></a>奶牛简介</h1><p>奶牛只有一个功能：上传文件并生成分享链接，无需注册登录，免费传输最大 4GB 的文件，并最多暂存七天，真正做到了专注于文件传输。</p>
+<h1><span id="奶牛简介">奶牛简介</span></h1><p>奶牛只有一个功能：上传文件并生成分享链接，无需注册登录，免费传输最大 4GB 的文件，并最多暂存七天，真正做到了专注于文件传输。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190715215043.png" alt></p>
 <p>奶牛快传的操作<strong>界面极简</strong>，界面中心只留了一个大按钮，添加文件后，文件会被快速上传，随后跳出该文件的下载链接、二维码及小程序码。整个上传过程只需要2-3次交互。</p>
 <p>其最大的特点就是，以最快的速度传输你的私人文档，无论是上传还是下载，都<strong>没有速度限制</strong>，<strong>完全依托于用户本地网络的带宽</strong>。</p>
-<h1 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h1><p>点击添加文件，选择本地文件后，就开始了上传。</p>
+<h1><span id="上传">上传</span></h1><p>点击添加文件，选择本地文件后，就开始了上传。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190715215710.png" alt></p>
 <p>上传时，可以选择是否对文件分享进行加密，也就是下载时需要输入密码。</p>
 <p><strong>上传速度</strong></p>
@@ -563,7 +576,7 @@
 <p>然而奶牛并没有这个功能。</p>
 <p>我刚上传的一个文件，重新进行上传，依然是在进行真实上传。</p>
 <p>不过，瑕不掩瑜。</p>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>文件上传完成后，直接访问文件分享地址，就可以对文件进行下载了。</p>
+<h1><span id="下载">下载</span></h1><p>文件上传完成后，直接访问文件分享地址，就可以对文件进行下载了。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190715220133.png" alt></p>
 <p>首先，我用 <strong>chrome 浏览器自带下载</strong>：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190715213819.png" alt></p>
@@ -575,7 +588,7 @@
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/c238ece29ff93f8018e96c66fd134a9.png" alt></p>
 <p>此时此刻，我只想对网速说</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190705162506.png" alt></p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>对于<strong>注册登录的用户</strong>，奶牛提供了单次上传文件<strong>大小限制可以到 4GB</strong>，<strong>文件最多可保留 7 天</strong>。</p>
+<h1><span id="其他">其他</span></h1><p>对于<strong>注册登录的用户</strong>，奶牛提供了单次上传文件<strong>大小限制可以到 4GB</strong>，<strong>文件最多可保留 7 天</strong>。</p>
 <p>另外，登录后，可以查看自己的<strong>文件上传历史</strong></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190715205705.png" alt></p>
 <p>对于<strong>未注册用户</strong>，也可以<strong>支持最大 4GB 文件</strong>，<strong>72 小时保存时效</strong>。</p>
@@ -584,7 +597,7 @@
 <p>上图是他们首页的直接截图，简直就像壁纸一样，其实它是一个广告。</p>
 <p>对于普通用户，4GB 的文件大小，7 天的文件保存限制，其实也够用了。</p>
 <p>不过，奶牛快传也还提供的付费 Pro 高级会员，可以让你获得<strong>无限存储空间</strong>、无传输大小限制、归档管理、自定义个性传输域名等功能。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>作为网络文件传输工具，奶牛快传真正做到了<strong>轻量</strong>、<strong>快捷</strong>、<strong>高效</strong>，以最简单的方式最快速的满足用户传输文件的需求。</p>
+<h1><span id="总结">总结</span></h1><p>作为网络文件传输工具，奶牛快传真正做到了<strong>轻量</strong>、<strong>快捷</strong>、<strong>高效</strong>，以最简单的方式最快速的满足用户传输文件的需求。</p>
 <p>而且<strong>不强制注册登录就能快速上传下载</strong>，这才是最便利的。</p>
 <p>况且，它还长得这么好看！</p>
 <p>比起目前严重限速的百度云网盘而言，奶牛快传简直太棒了！</p>
@@ -600,7 +613,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -683,8 +696,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/mysqldump-ignore-tables.html" rel="next" title="mysqldump 导出数据库时，忽略指定表的数据">
-                <i class="fa fa-chevron-left"></i> mysqldump 导出数据库时，忽略指定表的数据
+              <a href="/kubernetes-runasuser.html" rel="next" title="Kubernetes：如何修改容器服务的运行用户？">
+                <i class="fa fa-chevron-left"></i> Kubernetes：如何修改容器服务的运行用户？
               </a>
             
           </div>
@@ -746,6 +759,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -758,6 +772,7 @@
 
 
 
+          
         </div>
         
           
@@ -806,7 +821,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -817,7 +832,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -828,7 +843,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -898,23 +913,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -936,7 +951,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#奶牛简介"><span class="nav-text">奶牛简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上传"><span class="nav-text">上传</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载"><span class="nav-text">下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">奶牛简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">上传</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">其他</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -956,7 +971,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1633,6 +1648,7 @@
   
 
   
+
 
 </body>
 </html>

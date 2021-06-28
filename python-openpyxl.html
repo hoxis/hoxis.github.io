@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -537,22 +550,22 @@
 <p>现在还有很多人在用 Excel 2003 版本，即 xls 格式，那么 <code>xls</code> 和 <code>xlsx</code> 有什么区别呢？</p>
 <p>xls 是一个特有的二进制格式，其核心结构是复合文档类型的结构，而 xlsx 的核心结构是 XML 类型的结构，采用的是基于 XML 的压缩方式，使其占用的空间更小。xlsx 中最后一个 x 的意义就在于此。</p>
 </blockquote>
-<h1 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1 基本概念"></a>1 基本概念</h1><p>在 openpyxl 中，主要用到三个概念：Workbook，Sheet，Cell：</p>
+<h1><span id="1-基本概念">1 基本概念</span></h1><p>在 openpyxl 中，主要用到三个概念：Workbook，Sheet，Cell：</p>
 <ul>
 <li><code>Workbook</code>：就是一个 excel 工作簿，其中包含多个 sheet；</li>
 <li><code>Sheet</code>：工作簿中的一张表页；</li>
 <li><code>Cell</code>：就是简单的一个单元格，用来存储数据对象；</li>
 </ul>
 <p>openpyxl 的主要操作就是围绕着这三个概念进行的，无怪乎：打开 Workbook，定位 Sheet，操作 Cell。下面就分别介绍 openpyxl 几个常见的方法。</p>
-<h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h1><p>openpyxl 的安装很简单，使用 pip 直接安装即可。</p>
+<h1><span id="2-安装">2 安装</span></h1><p>openpyxl 的安装很简单，使用 pip 直接安装即可。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install openpyxl</span><br></pre></td></tr></table></figure>
-<h1 id="3-基本操作"><a href="#3-基本操作" class="headerlink" title="3 基本操作"></a>3 基本操作</h1><p>提前新建一个测试 Excel：</p>
+<h1><span id="3-基本操作">3 基本操作</span></h1><p>提前新建一个测试 Excel：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1530407721941.jpg" alt="测试 Excel"></p>
 <ul>
 <li>导入模块</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> openpyxl</span><br></pre></td></tr></table></figure>
-<h2 id="3-1-Workbook-相关"><a href="#3-1-Workbook-相关" class="headerlink" title="3.1 Workbook 相关"></a>3.1 Workbook 相关</h2><ul>
+<h2><span id="31-workbook-相关">3.1 Workbook 相关</span></h2><ul>
 <li>读取已存在的 xlsx</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>wb = openpyxl.load_workbook(<span class="string">"test.xlsx"</span>)</span><br></pre></td></tr></table></figure>
@@ -567,7 +580,7 @@
 <p>在对 Workbook 进行了相关操作后，可以调用 <code>save(filename)</code> 方法进行保存。</p>
 <p>另外，在只读模式下保存时，会报 <code>Workbook is read-only</code> 异常。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>wb.save(<span class="string">'test.xlsx'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">"/usr/local/lib/python3.5/dist-packages/openpyxl/workbook/workbook.py"</span>, line <span class="number">363</span>, <span class="keyword">in</span> save</span><br><span class="line">    <span class="keyword">raise</span> TypeError(<span class="string">"""Workbook is read-only"""</span>)</span><br><span class="line">TypeError: Workbook <span class="keyword">is</span> read-only</span><br></pre></td></tr></table></figure>
-<h2 id="3-2-Sheet-相关"><a href="#3-2-Sheet-相关" class="headerlink" title="3.2 Sheet 相关"></a>3.2 Sheet 相关</h2><ul>
+<h2><span id="32-sheet-相关">3.2 Sheet 相关</span></h2><ul>
 <li>获取 Workbook 中的 sheet 列表</li>
 </ul>
 <p>返回一个 sheet 的 list。</p>
@@ -604,7 +617,7 @@
 </ul>
 <p>要先获取到 sheet 页才能删除，不能直接用 sheet 页的名称删除</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>sheet = wb[<span class="string">'test3'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>wb.remove(sheet)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>wb.sheetnames</span><br><span class="line">[<span class="string">'各专业历年录取分数线'</span>, <span class="string">'测试页'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 del 进行删除</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> wb[<span class="string">'test2'</span>]</span><br></pre></td></tr></table></figure>
-<h1 id="3-3-行和列"><a href="#3-3-行和列" class="headerlink" title="3.3 行和列"></a>3.3 行和列</h1><ul>
+<h1><span id="33-行和列">3.3 行和列</span></h1><ul>
 <li>获取指定行/列</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取第 1 行</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sheet[<span class="number">1</span>]</span><br><span class="line">(&lt;Cell <span class="string">'测试页'</span>.A1&gt;, &lt;Cell <span class="string">'测试页'</span>.B1&gt;, &lt;Cell <span class="string">'测试页'</span>.C1&gt;, &lt;Cell <span class="string">'测试页'</span>.D1&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取第 1 列</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sheet[<span class="string">'A'</span>]</span><br><span class="line">(&lt;Cell <span class="string">'测试页'</span>.A1&gt;, &lt;Cell <span class="string">'测试页'</span>.A2&gt;, &lt;Cell <span class="string">'测试页'</span>.A3&gt;, &lt;Cell <span class="string">'测试页'</span>.A4&gt;, &lt;Cel</span><br><span class="line">l <span class="string">'测试页'</span>.A5&gt;, &lt;Cell <span class="string">'测试页'</span>.A6&gt;, &lt;Cell <span class="string">'测试页'</span>.A7&gt;, &lt;Cell <span class="string">'测试页'</span>.A8&gt;, &lt;Cell <span class="string">'测</span></span><br><span class="line"><span class="string">试页'</span>.A9&gt;, &lt;Cell <span class="string">'测试页'</span>.A10&gt;, &lt;Cell <span class="string">'测试页'</span>.A11&gt;, &lt;Cell <span class="string">'测试页'</span>.A12&gt;, &lt;Cell <span class="string">'测试</span></span><br><span class="line"><span class="string">页'</span>.A13&gt;)</span><br></pre></td></tr></table></figure>
@@ -622,7 +635,7 @@
 <li>添加一行值</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>sheet.append(row)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>row = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br></pre></td></tr></table></figure>
-<h1 id="3-4-Cell-相关"><a href="#3-4-Cell-相关" class="headerlink" title="3.4 Cell 相关"></a>3.4 Cell 相关</h1><ul>
+<h1><span id="34-cell-相关">3.4 Cell 相关</span></h1><ul>
 <li>读取 Cell</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>cell = sheet[<span class="string">'B2'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cell = sheet.cell(<span class="number">2</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
@@ -672,7 +685,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -818,6 +831,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -830,6 +844,7 @@
 
 
 
+          
         </div>
         
           
@@ -878,7 +893,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -889,7 +904,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -900,7 +915,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -970,23 +985,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1008,7 +1023,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-基本概念"><span class="nav-text">1 基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-安装"><span class="nav-text">2 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-基本操作"><span class="nav-text">3 基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Workbook-相关"><span class="nav-text">3.1 Workbook 相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Sheet-相关"><span class="nav-text">3.2 Sheet 相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-3-行和列"><span class="nav-text">3.3 行和列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-4-Cell-相关"><span class="nav-text">3.4 Cell 相关</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1 基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3 基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">3.1 Workbook 相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">3.2 Sheet 相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3.3 行和列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3.4 Cell 相关</span></a></li></ol></div>
             
 
           </div>
@@ -1028,7 +1043,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1705,6 +1720,7 @@
   
 
   
+
 
 </body>
 </html>

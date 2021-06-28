@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,30 +540,30 @@
       
         <p>本章节主要介绍MySQL下如何创建用户、对用户授权、设置与更改用户密码、撤销用户权限、删除用户。</p>
 <a id="more"></a>
-<h2 id="一-创建用户"><a href="#一-创建用户" class="headerlink" title="一. 创建用户"></a>一. 创建用户</h2><h3 id="命令"><a href="#命令" class="headerlink" title="命令:"></a>命令:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'host'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'password'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h3><ul>
+<h2><span id="一-创建用户">一. 创建用户</span></h2><h3><span id="命令">命令:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'host'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'password'</span>;</span><br></pre></td></tr></table></figure>
+<h3><span id="说明">说明：</span></h3><ul>
 <li>username：你将创建的用户名</li>
 <li>host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以<strong>从任意远程主机登陆</strong>，可以使用通配符<code>%</code></li>
 <li>password：该用户的登陆密码，密码可以为空，如果为空则该用户可以不需要密码登陆服务器</li>
 </ul>
-<h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'dog'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'123456'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'pig'</span>@<span class="string">'192.168.1.101_'</span> IDENDIFIED <span class="keyword">BY</span> <span class="string">'123456'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'pig'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'123456'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'pig'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">''</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'pig'</span>@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="二-授权"><a href="#二-授权" class="headerlink" title="二. 授权:"></a>二. 授权:</h2><h3 id="命令-1"><a href="#命令-1" class="headerlink" title="命令:"></a>命令:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> databasename.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'host'</span></span><br></pre></td></tr></table></figure>
-<h3 id="说明"><a href="#说明" class="headerlink" title="说明:"></a>说明:</h3><ul>
+<h3><span id="例子">例子：</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'dog'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'123456'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'pig'</span>@<span class="string">'192.168.1.101_'</span> IDENDIFIED <span class="keyword">BY</span> <span class="string">'123456'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'pig'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'123456'</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'pig'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">''</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'pig'</span>@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
+<h2><span id="二-授权">二. 授权:</span></h2><h3><span id="命令">命令:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> databasename.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'host'</span></span><br></pre></td></tr></table></figure>
+<h3><span id="说明">说明:</span></h3><ul>
 <li>privileges：用户的操作权限，如<code>SELECT</code>，<code>INSERT</code>，<code>UPDATE</code>等，如果要授予所的权限则使用<code>ALL</code></li>
 <li>databasename：数据库名</li>
 <li>tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用<code>*</code>表示，如<code>*.*</code></li>
 </ul>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子:"></a>例子:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>, <span class="keyword">INSERT</span> <span class="keyword">ON</span> test.user <span class="keyword">TO</span> <span class="string">'pig'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'pig'</span>@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h3><p>用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用以下命令:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> databasename.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'host'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span><br></pre></td></tr></table></figure></p>
-<h2 id="三-设置与更改用户密码"><a href="#三-设置与更改用户密码" class="headerlink" title="三.设置与更改用户密码"></a>三.设置与更改用户密码</h2><h3 id="命令-2"><a href="#命令-2" class="headerlink" title="命令:"></a>命令:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'username'</span>@<span class="string">'host'</span> = <span class="keyword">PASSWORD</span>(<span class="string">'newpassword'</span>);</span><br></pre></td></tr></table></figure>
+<h3><span id="例子">例子:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>, <span class="keyword">INSERT</span> <span class="keyword">ON</span> test.user <span class="keyword">TO</span> <span class="string">'pig'</span>@<span class="string">'%'</span>;</span><br><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'pig'</span>@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
+<h3><span id="注意">注意:</span></h3><p>用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用以下命令:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> databasename.tablename <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'host'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="三设置与更改用户密码">三.设置与更改用户密码</span></h2><h3><span id="命令">命令:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'username'</span>@<span class="string">'host'</span> = <span class="keyword">PASSWORD</span>(<span class="string">'newpassword'</span>);</span><br></pre></td></tr></table></figure>
 <p>如果是当前登陆用户用:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> = <span class="keyword">PASSWORD</span>(<span class="string">"newpassword"</span>);</span><br></pre></td></tr></table></figure></p>
-<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子:"></a>例子:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'pig'</span>@<span class="string">'%'</span> = <span class="keyword">PASSWORD</span>(<span class="string">"123456"</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="四-撤销用户权限"><a href="#四-撤销用户权限" class="headerlink" title="四. 撤销用户权限"></a>四. 撤销用户权限</h2><h3 id="命令-3"><a href="#命令-3" class="headerlink" title="命令:"></a>命令:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REVOKE</span> privilege <span class="keyword">ON</span> databasename.tablename <span class="keyword">FROM</span> <span class="string">'username'</span>@<span class="string">'host'</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="说明-1"><a href="#说明-1" class="headerlink" title="说明:"></a>说明:</h2><p>privilege, databasename, tablename：同授权部分</p>
-<h3 id="例子-2"><a href="#例子-2" class="headerlink" title="例子:"></a>例子:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REVOKE</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> *.* <span class="keyword">FROM</span> <span class="string">'pig'</span>@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意:"></a>注意:</h3><p>假如你在给用户<code>&#39;pig&#39;@&#39;%&#39;</code>授权的时候是这样的（或类似的）：<code>GRANT SELECT ON test.user TO &#39;pig&#39;@&#39;%&#39;</code>，则在使用<code>REVOKE SELECT ON *.* FROM &#39;pig&#39;@&#39;%&#39;;</code>命令并不能撤销该用户对test数据库中user表的<code>SELECT</code> 操作。相反，如果授权使用的是<code>GRANT SELECT ON *.* TO &#39;pig&#39;@&#39;%&#39;;</code>则<code>REVOKE SELECT ON test.user FROM &#39;pig&#39;@&#39;%&#39;;</code>命令也不能撤销该用户对test数据库中user表的<code>Select</code>权限。</p>
+<h3><span id="例子">例子:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'pig'</span>@<span class="string">'%'</span> = <span class="keyword">PASSWORD</span>(<span class="string">"123456"</span>);</span><br></pre></td></tr></table></figure>
+<h2><span id="四-撤销用户权限">四. 撤销用户权限</span></h2><h3><span id="命令">命令:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REVOKE</span> privilege <span class="keyword">ON</span> databasename.tablename <span class="keyword">FROM</span> <span class="string">'username'</span>@<span class="string">'host'</span>;</span><br></pre></td></tr></table></figure>
+<h2><span id="说明">说明:</span></h2><p>privilege, databasename, tablename：同授权部分</p>
+<h3><span id="例子">例子:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REVOKE</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> *.* <span class="keyword">FROM</span> <span class="string">'pig'</span>@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
+<h3><span id="注意">注意:</span></h3><p>假如你在给用户<code>&#39;pig&#39;@&#39;%&#39;</code>授权的时候是这样的（或类似的）：<code>GRANT SELECT ON test.user TO &#39;pig&#39;@&#39;%&#39;</code>，则在使用<code>REVOKE SELECT ON *.* FROM &#39;pig&#39;@&#39;%&#39;;</code>命令并不能撤销该用户对test数据库中user表的<code>SELECT</code> 操作。相反，如果授权使用的是<code>GRANT SELECT ON *.* TO &#39;pig&#39;@&#39;%&#39;;</code>则<code>REVOKE SELECT ON test.user FROM &#39;pig&#39;@&#39;%&#39;;</code>命令也不能撤销该用户对test数据库中user表的<code>Select</code>权限。</p>
 <p>具体信息可以用命令<code>SHOW GRANTS FOR &#39;pig&#39;@&#39;%&#39;;</code> 查看。</p>
-<h2 id="五-删除用户"><a href="#五-删除用户" class="headerlink" title="五.删除用户"></a>五.删除用户</h2><h3 id="命令-4"><a href="#命令-4" class="headerlink" title="命令:"></a>命令:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'host'</span>;</span><br></pre></td></tr></table></figure>
+<h2><span id="五删除用户">五.删除用户</span></h2><h3><span id="命令">命令:</span></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> <span class="string">'username'</span>@<span class="string">'host'</span>;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -561,7 +574,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -707,6 +720,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -719,6 +733,7 @@
 
 
 
+          
         </div>
         
           
@@ -767,7 +782,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -778,7 +793,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -789,7 +804,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -859,23 +874,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -897,7 +912,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-创建用户"><span class="nav-text">一. 创建用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-text">命令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说明："><span class="nav-text">说明：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子："><span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-授权"><span class="nav-text">二. 授权:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-1"><span class="nav-text">命令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-text">说明:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-text">例子:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-text">注意:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-设置与更改用户密码"><span class="nav-text">三.设置与更改用户密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-2"><span class="nav-text">命令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-1"><span class="nav-text">例子:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-撤销用户权限"><span class="nav-text">四. 撤销用户权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-3"><span class="nav-text">命令:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明-1"><span class="nav-text">说明:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-2"><span class="nav-text">例子:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意-1"><span class="nav-text">注意:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-删除用户"><span class="nav-text">五.删除用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-4"><span class="nav-text">命令:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">一. 创建用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">命令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">说明：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">二. 授权:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">命令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">说明:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">例子:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">注意:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">三.设置与更改用户密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">命令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">例子:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">四. 撤销用户权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">命令:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">说明:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">例子:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">注意:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">五.删除用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">命令:</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -917,7 +932,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1594,6 +1609,7 @@
   
 
   
+
 
 </body>
 </html>

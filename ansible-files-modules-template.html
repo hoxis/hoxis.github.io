@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -211,8 +211,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -321,6 +323,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -369,6 +381,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,7 +540,7 @@
       
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>template</code>模块使用了<a href="http://jinja.pocoo.org/docs/" target="_blank" rel="noopener"><code>Jinjia2</code>模版语言</a>，进行文档内变量的替换的模块。</p>
+        <h2><span id="简介">简介</span></h2><p><code>template</code>模块使用了<a href="http://jinja.pocoo.org/docs/" target="_blank" rel="noopener"><code>Jinjia2</code>模版语言</a>，进行文档内变量的替换的模块。</p>
 <p>template模块用法和copy模块用法基本一致，它主要用于复制配置文件。可以按需求修改配置文件内容来复制模板到被控主机上。</p>
 <p>模版中可以使用如下6个变量：</p>
 <ul>
@@ -539,7 +552,7 @@
 <li><code>template_run_date</code> - 模版呈现的时间</li>
 </ul>
 <a id="more"></a>
-<h2 id="模块参数"><a href="#模块参数" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<h2><span id="模块参数">模块参数</span></h2><table>
 <thead>
 <tr>
 <th style="text-align:center">名称</th>
@@ -629,26 +642,26 @@
 </tr>
 </tbody>
 </table>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><code>template</code>模块的使用方法和<code>copy</code>模块基本相同，相同之处这里就不再赘述，出门左转可以看之前copy模块的讲解，这里举个例子讲一下<code>template</code>的使用方法。</p>
-<h3 id="建立模版"><a href="#建立模版" class="headerlink" title="建立模版"></a>建立模版</h3><p><code>vim hello_world.txt.j2</code>：</p>
+<h2><span id="示例">示例</span></h2><p><code>template</code>模块的使用方法和<code>copy</code>模块基本相同，相同之处这里就不再赘述，出门左转可以看之前copy模块的讲解，这里举个例子讲一下<code>template</code>的使用方法。</p>
+<h3><span id="建立模版">建立模版</span></h3><p><code>vim hello_world.txt.j2</code>：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello "&#123;&#123; dynamic_word &#125;&#125;"</span><br></pre></td></tr></table></figure>
 <ul>
 <li>由于Ansible是使用<code>Jinja2</code>来编写<code>template</code>模版的，所以需要使用<code>*.j2</code>为文件后缀</li>
 <li>上面的<code>&quot;&quot;</code>代表我们在该template里使用了名为<code>dynamic_word</code>的变量</li>
 </ul>
-<h3 id="编写playbook，加入变量"><a href="#编写playbook，加入变量" class="headerlink" title="编写playbook，加入变量"></a>编写playbook，加入变量</h3><p><code>vim template_demo.yml</code>：</p>
+<h3><span id="编写playbook加入变量">编写playbook，加入变量</span></h3><p><code>vim template_demo.yml</code>：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- name: Play the template module</span><br><span class="line">  hosts: test</span><br><span class="line">  vars:</span><br><span class="line">    dynamic_word: "World , liuhao ^_^"</span><br><span class="line"></span><br><span class="line">  tasks:</span><br><span class="line">    - name: generation the hello_world.txt file</span><br><span class="line">      template:</span><br><span class="line">        src: hello_world.txt.j2</span><br><span class="line">        dest: /tmp/hello_world.txt</span><br><span class="line">        mode: 0644</span><br><span class="line">        owner: liuhao</span><br><span class="line">        group: liuhao</span><br></pre></td></tr></table></figure>
 <ul>
 <li>在第5行，为<code>dynamic_word</code>变量设了一个预设值</li>
 <li>在task 里，我们使用<code>template module</code>，并指定了模版的来源<code>src</code>和目的地<code>dest</code></li>
 </ul>
-<h3 id="执行playbook"><a href="#执行playbook" class="headerlink" title="执行playbook"></a>执行playbook</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible-playbook template_demo.yml </span></span><br><span class="line"></span><br><span class="line">PLAY [Play the template module] *********************************************************************************************************************</span><br><span class="line"></span><br><span class="line">TASK [Gathering Facts] ******************************************************************************************************************************</span><br><span class="line">ok: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">TASK [generation the hello_world.txt file] **********************************************************************************************************</span><br><span class="line">changed: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">PLAY RECAP ******************************************************************************************************************************************</span><br><span class="line">172.20.21.121              : ok=2    changed=1    unreachable=0    failed=0</span><br></pre></td></tr></table></figure>
-<h3 id="获取执行结果"><a href="#获取执行结果" class="headerlink" title="获取执行结果"></a>获取执行结果</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m command -a "cat /tmp/hello_world.txt"</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">Hello <span class="string">"World , liuhao ^_^"</span></span><br></pre></td></tr></table></figure>
+<h3><span id="执行playbook">执行playbook</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible-playbook template_demo.yml </span></span><br><span class="line"></span><br><span class="line">PLAY [Play the template module] *********************************************************************************************************************</span><br><span class="line"></span><br><span class="line">TASK [Gathering Facts] ******************************************************************************************************************************</span><br><span class="line">ok: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">TASK [generation the hello_world.txt file] **********************************************************************************************************</span><br><span class="line">changed: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">PLAY RECAP ******************************************************************************************************************************************</span><br><span class="line">172.20.21.121              : ok=2    changed=1    unreachable=0    failed=0</span><br></pre></td></tr></table></figure>
+<h3><span id="获取执行结果">获取执行结果</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m command -a "cat /tmp/hello_world.txt"</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">Hello <span class="string">"World , liuhao ^_^"</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1515849275888.jpg" alt="template执行结果"></p>
 <p>可以发现，之前设置的变量<code>dynamic_word</code>已经被替换。</p>
-<h3 id="如果配置了重复的变量"><a href="#如果配置了重复的变量" class="headerlink" title="如果配置了重复的变量"></a>如果配置了重复的变量</h3><p>比如，这里配置了两个<code>dynamic_word</code>，那么ansible会如何处理呢？<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- name: Play the template module</span><br><span class="line">  hosts: test</span><br><span class="line">  vars:</span><br><span class="line">    dynamic_word: "World , liuhao ^_^"</span><br><span class="line">    dynamic_word: "Problem?"</span><br><span class="line"></span><br><span class="line">  tasks:</span><br><span class="line">    - name: generation the hello_world.txt file</span><br><span class="line">      template:</span><br><span class="line">        src: hello_world.txt.j2</span><br><span class="line">        dest: /tmp/hello_world.txt</span><br><span class="line">        mode: 0644</span><br><span class="line">        owner: liuhao</span><br><span class="line">        group: liuhao</span><br></pre></td></tr></table></figure></p>
-<h3 id="再次运行"><a href="#再次运行" class="headerlink" title="再次运行"></a>再次运行</h3><p>发现这里会给出一个警告，但是程序会继续运行，当存在重复的字典值时，会使用最后配置的那个变量。从执行结果也可以看出。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible-playbook template_demo.yml </span></span><br><span class="line"> [WARNING]:While constructing a mapping from /root/template_demo.yml, line 5, column 5, found a duplicate dict key (dynamic_word). Using last</span><br><span class="line">defined value only.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PLAY [Play the template module] *********************************************************************************************************************</span><br><span class="line"></span><br><span class="line">TASK [Gathering Facts] ******************************************************************************************************************************</span><br><span class="line">ok: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">TASK [generation the hello_world.txt file] **********************************************************************************************************</span><br><span class="line">changed: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">PLAY RECAP ******************************************************************************************************************************************</span><br><span class="line">172.20.21.121              : ok=2    changed=1    unreachable=0    failed=0   </span><br><span class="line"></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m command -a "cat /tmp/hello_world.txt"</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">Hello <span class="string">"Problem?"</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="目标文件的父目录不存在"><a href="#目标文件的父目录不存在" class="headerlink" title="目标文件的父目录不存在"></a>目标文件的父目录不存在</h3><p>与<code>copy</code>模块类似，若目标文件的父目录不存在时，也会报错，如下示例：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible-playbook template_demo.yml </span></span><br><span class="line"> [WARNING]: While constructing a mapping from /root/template_demo.yml, line 5, column 5, found a duplicate dict key (dynamic_word). Using</span><br><span class="line">last defined value only.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PLAY [Play the template module] **************************************************************************************************************</span><br><span class="line"></span><br><span class="line">TASK [Gathering Facts] ***********************************************************************************************************************</span><br><span class="line">ok: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">TASK [generation the hello_world.txt file] ***************************************************************************************************</span><br><span class="line">fatal: [172.20.21.121]: FAILED! =&gt; &#123;<span class="string">"changed"</span>: <span class="literal">false</span>, <span class="string">"checksum"</span>: <span class="string">"c871758134bd7d3cd7d718ee65ed459b6ca2f0f1"</span>, <span class="string">"msg"</span>: <span class="string">"Destination directory /tmp/hello does not exist"</span>&#125;</span><br><span class="line">	to retry, use: --<span class="built_in">limit</span> @/root/template_demo.retry</span><br><span class="line"></span><br><span class="line">PLAY RECAP ***********************************************************************************************************************************</span><br><span class="line">172.20.21.121              : ok=1    changed=0    unreachable=0    failed=1</span><br></pre></td></tr></table></figure></p>
+<h3><span id="如果配置了重复的变量">如果配置了重复的变量</span></h3><p>比如，这里配置了两个<code>dynamic_word</code>，那么ansible会如何处理呢？<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- name: Play the template module</span><br><span class="line">  hosts: test</span><br><span class="line">  vars:</span><br><span class="line">    dynamic_word: "World , liuhao ^_^"</span><br><span class="line">    dynamic_word: "Problem?"</span><br><span class="line"></span><br><span class="line">  tasks:</span><br><span class="line">    - name: generation the hello_world.txt file</span><br><span class="line">      template:</span><br><span class="line">        src: hello_world.txt.j2</span><br><span class="line">        dest: /tmp/hello_world.txt</span><br><span class="line">        mode: 0644</span><br><span class="line">        owner: liuhao</span><br><span class="line">        group: liuhao</span><br></pre></td></tr></table></figure></p>
+<h3><span id="再次运行">再次运行</span></h3><p>发现这里会给出一个警告，但是程序会继续运行，当存在重复的字典值时，会使用最后配置的那个变量。从执行结果也可以看出。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible-playbook template_demo.yml </span></span><br><span class="line"> [WARNING]:While constructing a mapping from /root/template_demo.yml, line 5, column 5, found a duplicate dict key (dynamic_word). Using last</span><br><span class="line">defined value only.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PLAY [Play the template module] *********************************************************************************************************************</span><br><span class="line"></span><br><span class="line">TASK [Gathering Facts] ******************************************************************************************************************************</span><br><span class="line">ok: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">TASK [generation the hello_world.txt file] **********************************************************************************************************</span><br><span class="line">changed: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">PLAY RECAP ******************************************************************************************************************************************</span><br><span class="line">172.20.21.121              : ok=2    changed=1    unreachable=0    failed=0   </span><br><span class="line"></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m command -a "cat /tmp/hello_world.txt"</span></span><br><span class="line">172.20.21.121 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">Hello <span class="string">"Problem?"</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="目标文件的父目录不存在">目标文件的父目录不存在</span></h3><p>与<code>copy</code>模块类似，若目标文件的父目录不存在时，也会报错，如下示例：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible-playbook template_demo.yml </span></span><br><span class="line"> [WARNING]: While constructing a mapping from /root/template_demo.yml, line 5, column 5, found a duplicate dict key (dynamic_word). Using</span><br><span class="line">last defined value only.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PLAY [Play the template module] **************************************************************************************************************</span><br><span class="line"></span><br><span class="line">TASK [Gathering Facts] ***********************************************************************************************************************</span><br><span class="line">ok: [172.20.21.121]</span><br><span class="line"></span><br><span class="line">TASK [generation the hello_world.txt file] ***************************************************************************************************</span><br><span class="line">fatal: [172.20.21.121]: FAILED! =&gt; &#123;<span class="string">"changed"</span>: <span class="literal">false</span>, <span class="string">"checksum"</span>: <span class="string">"c871758134bd7d3cd7d718ee65ed459b6ca2f0f1"</span>, <span class="string">"msg"</span>: <span class="string">"Destination directory /tmp/hello does not exist"</span>&#125;</span><br><span class="line">	to retry, use: --<span class="built_in">limit</span> @/root/template_demo.retry</span><br><span class="line"></span><br><span class="line">PLAY RECAP ***********************************************************************************************************************************</span><br><span class="line">172.20.21.121              : ok=1    changed=0    unreachable=0    failed=1</span><br></pre></td></tr></table></figure></p>
 <p>这里只是先简单讲述<code>template</code>模块的使用方法，后续讲解<code>playbook</code>编写时还会再接触。</p>
 
       
@@ -661,7 +674,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -807,6 +820,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -819,6 +833,7 @@
 
 
 
+          
         </div>
         
           
@@ -867,7 +882,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -878,7 +893,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -889,7 +904,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -959,23 +974,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -997,7 +1012,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立模版"><span class="nav-text">建立模版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写playbook，加入变量"><span class="nav-text">编写playbook，加入变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行playbook"><span class="nav-text">执行playbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取执行结果"><span class="nav-text">获取执行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果配置了重复的变量"><span class="nav-text">如果配置了重复的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再次运行"><span class="nav-text">再次运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标文件的父目录不存在"><span class="nav-text">目标文件的父目录不存在</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">建立模版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">编写playbook，加入变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">执行playbook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">获取执行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">如果配置了重复的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">再次运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">目标文件的父目录不存在</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1017,7 +1032,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1694,6 +1709,7 @@
   
 
   
+
 
 </body>
 </html>

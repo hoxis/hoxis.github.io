@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -219,8 +219,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -329,6 +331,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -377,6 +389,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -538,19 +551,19 @@
         <p>相信很多小伙伴都用过 Selenium 来完成爬虫工作，今天就给大家带来一个神器，可以录制你的浏览器动作，然后直接生成 Selenium 脚本，是不是心动了？</p>
 <a id="more"></a>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/%E5%BF%83%E5%8A%A8.gif" alt="心动"></p>
-<h1 id="1-Selenium-简介"><a href="#1-Selenium-简介" class="headerlink" title="1 Selenium 简介"></a>1 Selenium 简介</h1><p>Selenium 是为了测试而出生的。但是没想到到了爬虫的年代，它摇身一变，变成了爬虫的好工具。</p>
+<h1><span id="1-selenium-简介">1 Selenium 简介</span></h1><p>Selenium 是为了测试而出生的。但是没想到到了爬虫的年代，它摇身一变，变成了爬虫的好工具。</p>
 <p>让我试着用一句话来概括 Seleninm：它能控制你的浏览器，有模有样地学人类「看」网页。</p>
 <p>那么你什么时候会要用到 Selenium 呢？当你：</p>
 <p>1、发现用普通方法爬不到想要的内容；<br>2、网站跟你玩「捉迷藏」，包含太多的 JavaScript 内容；<br>3、需要像人一样浏览的爬虫；</p>
 <p>好了，Selenium 的其他这里不再赘述，本公众号已与 Google 达成战略协议，Google 可以免费提供 Selenium 的其他信息！</p>
-<h1 id="2-Katalon-Recorder"><a href="#2-Katalon-Recorder" class="headerlink" title="2 Katalon Recorder"></a>2 Katalon Recorder</h1><p>Katalon Recorder 能够记录你使用浏览器的操作。</p>
+<h1><span id="2-katalon-recorder">2 Katalon Recorder</span></h1><p>Katalon Recorder 能够记录你使用浏览器的操作。</p>
 <p>相信很多小伙伴都知道一个叫「按键精灵」的东西，它帮我做了很多重复性的工作，这个 Katalon Recorder 插件 + Selenium 就和按键精灵是一个意思，记录你的操作，然后你可以让电脑重复上千遍。</p>
-<h2 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h2><p>谷歌应用商店和火狐插件均可下载安装。</p>
+<h2><span id="21-安装">2.1 安装</span></h2><p>谷歌应用商店和火狐插件均可下载安装。</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537160031771.jpg" alt="Katalon Recorder"></p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537160286091.jpg" alt="Katalon Recorder"></p>
 <p>安装完成后，右上角会出现插件图标：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537161783778.jpg" alt="图标"></p>
-<h2 id="2-2-使用"><a href="#2-2-使用" class="headerlink" title="2.2 使用"></a>2.2 使用</h2><p>点击图标，会出现单独的 Katalon Recorder 窗口：</p>
+<h2><span id="22-使用">2.2 使用</span></h2><p>点击图标，会出现单独的 Katalon Recorder 窗口：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537161913673.jpg" alt="Katalon Recorder 窗口"></p>
 <p>其中：<br>① 工具栏<br>② 用例管理器<br>③ 用例详情<br>④ Log/Reference/Variable </p>
 <p>点击窗口上的 <strong>Record</strong>，下面就会开始录制浏览器操作了。</p>
@@ -566,7 +579,7 @@
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537167710591.jpg" alt="脚本也可以导出"></p>
 <p>这里的脚本应该是自动化测试使用的，我们爬虫时只要截取其中的 selenium、driver 部分的即可。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">driver.get(<span class="string">"https://www.lagou.com/"</span>)</span><br><span class="line">driver.find_element_by_link_text(<span class="string">u"全国站"</span>).click()</span><br><span class="line">driver.find_element_by_id(<span class="string">"search_input"</span>).click()</span><br><span class="line">driver.find_element_by_id(<span class="string">"search_input"</span>).click()</span><br><span class="line">driver.find_element_by_id(<span class="string">"search_input"</span>).clear()</span><br><span class="line">driver.find_element_by_id(<span class="string">"search_input"</span>).send_keys(<span class="string">"python"</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">"search_button"</span>).click()</span><br><span class="line">driver.find_element_by_xpath(<span class="string">u"(.//*[normalize-space(text()) and normalize-space(.)='下一页'])[1]/following::span[5]"</span>).click()</span><br></pre></td></tr></table></figure>
-<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3 总结"></a>3 总结</h1><p>使用 Katalon Recorder 可以完成以下脚本的自动生成，但有时会不太好使，比如上面的下一页的点击，我运行代码时就不管用，还需要后续进行微调。</p>
+<h1><span id="3-总结">3 总结</span></h1><p>使用 Katalon Recorder 可以完成以下脚本的自动生成，但有时会不太好使，比如上面的下一页的点击，我运行代码时就不管用，还需要后续进行微调。</p>
 <p>Katalon Recorder 还有很多其他方面的功能，其实人家是用来录制自动化测试脚本的，有兴趣的同学快试试吧~</p>
 
       
@@ -579,7 +592,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -725,6 +738,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -737,6 +751,7 @@
 
 
 
+          
         </div>
         
           
@@ -785,7 +800,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -796,7 +811,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -807,7 +822,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -877,23 +892,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -915,7 +930,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Selenium-简介"><span class="nav-text">1 Selenium 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Katalon-Recorder"><span class="nav-text">2 Katalon Recorder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-安装"><span class="nav-text">2.1 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-使用"><span class="nav-text">2.2 使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-总结"><span class="nav-text">3 总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1 Selenium 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2 Katalon Recorder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">2.1 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">2.2 使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3 总结</span></a></li></ol></div>
             
 
           </div>
@@ -935,7 +950,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1612,6 +1627,7 @@
   
 
   
+
 
 </body>
 </html>

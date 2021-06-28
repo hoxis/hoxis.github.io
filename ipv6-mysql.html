@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,16 +540,16 @@
       
         <p>RT</p>
 <a id="more"></a>
-<h1 id="地址格式"><a href="#地址格式" class="headerlink" title="地址格式"></a>地址格式</h1><p>IPv6 地址有两个逻辑部分：64 位网络前缀和 64 位主机地址部分。（主机地址通常是从接口 MAC 地址自动生成的。）</p>
+<h1><span id="地址格式">地址格式</span></h1><p>IPv6 地址有两个逻辑部分：64 位网络前缀和 64 位主机地址部分。（主机地址通常是从接口 MAC 地址自动生成的。）</p>
 <p>IPv6 地址由 8 组 16 位十六进制值表示，以冒号（:）分隔，如下所示：</p>
 <p>IPv6 地址的典型示例：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2001<span class="selector-pseudo">:0db8</span><span class="selector-pseudo">:85a3</span><span class="selector-pseudo">:0000</span><span class="selector-pseudo">:0000</span><span class="selector-pseudo">:8a2e</span><span class="selector-pseudo">:0370</span><span class="selector-pseudo">:7334</span></span><br></pre></td></tr></table></figure>
 <p>另外，十六进制数字不区分大小写。</p>
-<h1 id="使用IPv4地址连接到MYSQL的方法（传统方式）"><a href="#使用IPv4地址连接到MYSQL的方法（传统方式）" class="headerlink" title="使用IPv4地址连接到MYSQL的方法（传统方式）"></a>使用IPv4地址连接到MYSQL的方法（传统方式）</h1><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">urlString = <span class="string">"jdbc:mysql://10.144.1.216:3306/dbName"</span>;</span><br><span class="line">Class.forName(driver);</span><br><span class="line">DriverManager.setLoginTimeout(getConnectionTimeOut());</span><br><span class="line">dbConnection = DriverManager.getConnection(urlString,user,password);</span><br></pre></td></tr></table></figure>
-<h1 id="使用IPv6地址连接到MYSQL的方法（新方法）"><a href="#使用IPv6地址连接到MYSQL的方法（新方法）" class="headerlink" title="使用IPv6地址连接到MYSQL的方法（新方法）"></a>使用IPv6地址连接到MYSQL的方法（新方法）</h1><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">urlString = <span class="string">"jdbc:mysql://address=(protocol=tcp)(host=fe80::5ed6:baff:fe14:a23e)(port=3306)/db"</span>;</span><br><span class="line">Class.forName(driver);</span><br><span class="line">DriverManager.setLoginTimeout(getConnectionTimeOut());</span><br><span class="line">dbConnection = DriverManager.getConnection(urlString,user,password);</span><br></pre></td></tr></table></figure>
-<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>如果直接在 IPv4 地址格式的基础上，将 IPv4 地址直接换成 IPv6 地址，启动项目时，可能会出现下面的异常：</p>
+<h1><span id="使用ipv4地址连接到mysql的方法传统方式">使用IPv4地址连接到MYSQL的方法（传统方式）</span></h1><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">urlString = <span class="string">"jdbc:mysql://10.144.1.216:3306/dbName"</span>;</span><br><span class="line">Class.forName(driver);</span><br><span class="line">DriverManager.setLoginTimeout(getConnectionTimeOut());</span><br><span class="line">dbConnection = DriverManager.getConnection(urlString,user,password);</span><br></pre></td></tr></table></figure>
+<h1><span id="使用ipv6地址连接到mysql的方法新方法">使用IPv6地址连接到MYSQL的方法（新方法）</span></h1><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">urlString = <span class="string">"jdbc:mysql://address=(protocol=tcp)(host=fe80::5ed6:baff:fe14:a23e)(port=3306)/db"</span>;</span><br><span class="line">Class.forName(driver);</span><br><span class="line">DriverManager.setLoginTimeout(getConnectionTimeOut());</span><br><span class="line">dbConnection = DriverManager.getConnection(urlString,user,password);</span><br></pre></td></tr></table></figure>
+<h1><span id="注意">注意</span></h1><p>如果直接在 IPv4 地址格式的基础上，将 IPv4 地址直接换成 IPv6 地址，启动项目时，可能会出现下面的异常：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Cannot load connection class because of underlying exception: 'java.lang.NumberFormatException: For input string: "fe80::5ed6:baff:fe14:a23e]:3306"'.</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:<span class="number">45</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="附-Spring-配置方式"><a href="#附-Spring-配置方式" class="headerlink" title="附 Spring 配置方式"></a>附 Spring 配置方式</h1><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.url</span>=jdbc:mysql:<span class="comment">//address=(protocol=tcp)(host=fe80::5ed6:baff:fe14:a23e)(port=3306)/test?useUnicode=true&amp;characterEncoding=utf8</span></span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.username</span>=root</span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.password</span>=<span class="number">123456</span></span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.driver-class-name</span>=com<span class="selector-class">.mysql</span><span class="selector-class">.jdbc</span><span class="selector-class">.Driver</span></span><br></pre></td></tr></table></figure>
+<h1><span id="附-spring-配置方式">附 Spring 配置方式</span></h1><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.url</span>=jdbc:mysql:<span class="comment">//address=(protocol=tcp)(host=fe80::5ed6:baff:fe14:a23e)(port=3306)/test?useUnicode=true&amp;characterEncoding=utf8</span></span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.username</span>=root</span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.password</span>=<span class="number">123456</span></span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.driver-class-name</span>=com<span class="selector-class">.mysql</span><span class="selector-class">.jdbc</span><span class="selector-class">.Driver</span></span><br></pre></td></tr></table></figure>
 <p>参考：</p>
 <p><a href="http://blog.ashwani.co.in/blog/2012-10-10/mysql-with-ipv6/" target="_blank" rel="noopener">http://blog.ashwani.co.in/blog/2012-10-10/mysql-with-ipv6/</a></p>
 <p><a href="https://flyli815.iteye.com/blog/2125088" target="_blank" rel="noopener">https://flyli815.iteye.com/blog/2125088</a></p>
@@ -551,7 +564,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -697,6 +710,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -709,6 +723,7 @@
 
 
 
+          
         </div>
         
           
@@ -757,7 +772,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -768,7 +783,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -779,7 +794,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -849,23 +864,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -887,7 +902,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#地址格式"><span class="nav-text">地址格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用IPv4地址连接到MYSQL的方法（传统方式）"><span class="nav-text">使用IPv4地址连接到MYSQL的方法（传统方式）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用IPv6地址连接到MYSQL的方法（新方法）"><span class="nav-text">使用IPv6地址连接到MYSQL的方法（新方法）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附-Spring-配置方式"><span class="nav-text">附 Spring 配置方式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">地址格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">使用IPv4地址连接到MYSQL的方法（传统方式）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">使用IPv6地址连接到MYSQL的方法（新方法）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">附 Spring 配置方式</span></a></li></ol></div>
             
 
           </div>
@@ -907,7 +922,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1584,6 +1599,7 @@
   
 
   
+
 
 </body>
 </html>

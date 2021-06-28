@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -527,90 +540,90 @@
       
         <p>Python 字符串、列表、元组、字典常用操作。</p>
 <a id="more"></a>
-<h1 id="字符串常用操作"><a href="#字符串常用操作" class="headerlink" title="字符串常用操作"></a>字符串常用操作</h1><ul>
+<h1><span id="字符串常用操作">字符串常用操作</span></h1><ul>
 <li>字符串反转 - str[::-1]，使用 -1 作为步长</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str = <span class="string">'12345'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str[::<span class="number">-1</span>]</span><br><span class="line"><span class="string">'54321'</span></span><br></pre></td></tr></table></figure>
-<h2 id="find-rfind"><a href="#find-rfind" class="headerlink" title="find/rfind"></a>find/rfind</h2><ul>
+<h2><span id="findrfind">find/rfind</span></h2><ul>
 <li>find - 检测 str 是否包含在 mystr 中，如果是返回开始的索引值，否则返回 -1</li>
 <li>rfind - 从右边开始查找</li>
 </ul>
 <p><code>mystr.find(str, start=0, end=len(mystr))</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str = <span class="string">'hello world'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.find(<span class="string">'mm'</span>)     </span><br><span class="line"><span class="number">-1</span>                     </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.find(<span class="string">'o'</span>)      </span><br><span class="line"><span class="number">4</span>                      </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.find(<span class="string">'ll'</span>)     </span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
-<h2 id="index-rindex"><a href="#index-rindex" class="headerlink" title="index/rindex"></a>index/rindex</h2><p>跟 find() 方法一样，只不过如果 str 不在 mystr 中会报一个异常</p>
+<h2><span id="indexrindex">index/rindex</span></h2><p>跟 find() 方法一样，只不过如果 str 不在 mystr 中会报一个异常</p>
 <p><code>mystr.index(str, start=0, end=len(mystr))</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.index(<span class="string">'ll'</span>)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.index(<span class="string">'mm'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError: substring <span class="keyword">not</span> found</span><br></pre></td></tr></table></figure>
-<h2 id="count"><a href="#count" class="headerlink" title="count"></a>count</h2><p>返回 str 在 start 和 end 之间 在 mystr 里面出现的次数 <code>mystr.count(str, start=0, end=len(mystr))</code></p>
+<h2><span id="count">count</span></h2><p>返回 str 在 start 和 end 之间 在 mystr 里面出现的次数 <code>mystr.count(str, start=0, end=len(mystr))</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str                  </span><br><span class="line"><span class="string">'hello world'</span>            </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.count(<span class="string">'l'</span>)       </span><br><span class="line"><span class="number">3</span>                        </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.count(<span class="string">'o'</span>)       </span><br><span class="line"><span class="number">2</span>                        </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.count(<span class="string">'l'</span>, <span class="number">1</span>, <span class="number">6</span>) </span><br><span class="line"><span class="number">2</span>                        </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.count(<span class="string">'oo'</span>)      </span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
-<h2 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h2><p>把 mystr 中的 str1 替换成 str2,如果 count 指定，则替换不超过 count 次，不修改原字符串，返回一个新字符串。</p>
+<h2><span id="replace">replace</span></h2><p>把 mystr 中的 str1 替换成 str2,如果 count 指定，则替换不超过 count 次，不修改原字符串，返回一个新字符串。</p>
 <p><code>mystr.replace(str1, str2,  mystr.count(str1))</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str = <span class="string">'hello sb sb2'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.replace(<span class="string">'sb'</span>, <span class="string">'mb'</span>)</span><br><span class="line"><span class="string">'hello mb mb2'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str</span><br><span class="line"><span class="string">'hello sb sb2'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str2 = str.replace(<span class="string">'sb'</span>, <span class="string">'mb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str2</span><br><span class="line"><span class="string">'hello mb mb2'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str2 = str.replace(<span class="string">'sb'</span>, <span class="string">'mb'</span>, <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str2</span><br><span class="line"><span class="string">'hello mb sb2'</span></span><br></pre></td></tr></table></figure>
-<h2 id="split"><a href="#split" class="headerlink" title="split"></a>split</h2><p>以 str 为分隔符切片 mystr，如果 maxsplit 有指定值，则仅分隔 maxsplit 个子字符串<br><code>mystr.split(str=&quot; &quot;, 2)</code></p>
+<h2><span id="split">split</span></h2><p>以 str 为分隔符切片 mystr，如果 maxsplit 有指定值，则仅分隔 maxsplit 个子字符串<br><code>mystr.split(str=&quot; &quot;, 2)</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str = <span class="string">'www.sb.com.cn'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.split(<span class="string">'.'</span>)</span><br><span class="line">[<span class="string">'www'</span>, <span class="string">'sb'</span>, <span class="string">'com'</span>, <span class="string">'cn'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str.split(<span class="string">'.'</span>, <span class="number">2</span>)</span><br><span class="line">[<span class="string">'www'</span>, <span class="string">'sb'</span>, <span class="string">'com.cn'</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="join"><a href="#join" class="headerlink" title="join"></a>join</h2><ul>
+<h2><span id="join">join</span></h2><ul>
 <li>str.join(list) - list 中每个字符后面插入 str，构造出一个新的字符串</li>
 </ul>
-<h2 id="startswith-endswith"><a href="#startswith-endswith" class="headerlink" title="startswith/endswith"></a>startswith/endswith</h2><p>检查字符串是否是以 obj 开头/结尾, 是则返回 True，否则返回 False</p>
+<h2><span id="startswithendswith">startswith/endswith</span></h2><p>检查字符串是否是以 obj 开头/结尾, 是则返回 True，否则返回 False</p>
 <ul>
 <li><code>mystr.startswith(obj)</code></li>
 <li><code>mystr.endswith(obj)</code></li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>www</span><br><span class="line">[<span class="string">'www'</span>, <span class="string">'sb'</span>, <span class="string">'com'</span>, <span class="string">'cn'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>www.join(<span class="string">'@'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: <span class="string">'list'</span> object has no attribute <span class="string">'join'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'@'</span>.join(www)</span><br><span class="line"><span class="string">'www@sb@com@cn'</span></span><br></pre></td></tr></table></figure>
-<h2 id="lower-upper-转化大小写"><a href="#lower-upper-转化大小写" class="headerlink" title="lower/upper 转化大小写"></a>lower/upper 转化大小写</h2><ul>
+<h2><span id="lowerupper-转化大小写">lower/upper 转化大小写</span></h2><ul>
 <li>mystr.lower()  </li>
 <li>mystr.upper()</li>
 </ul>
-<h2 id="ljust-rjust-center-对其方式"><a href="#ljust-rjust-center-对其方式" class="headerlink" title="ljust/rjust/center 对其方式"></a>ljust/rjust/center 对其方式</h2><ul>
+<h2><span id="ljustrjustcenter-对其方式">ljust/rjust/center 对其方式</span></h2><ul>
 <li>mystr.ljust(width) - 返回一个原字符串左对齐,并使用空格填充至长度 width 的新字符串</li>
 <li>mystr.rjust(width) - 返回一个原字符串右对齐,并使用空格填充至长度 width 的新字符串</li>
 <li>mystr.center(width) - 返回一个原字符串居中,并使用空格填充至长度 width 的新字符串</li>
 </ul>
-<h2 id="lstrip-rstrip-strip-去除空格"><a href="#lstrip-rstrip-strip-去除空格" class="headerlink" title="lstrip/rstrip/strip 去除空格"></a>lstrip/rstrip/strip 去除空格</h2><ul>
+<h2><span id="lstriprstripstrip-去除空格">lstrip/rstrip/strip 去除空格</span></h2><ul>
 <li>mystr.lstrip() - 删除 mystr 左边的空白字符</li>
 <li>mystr.rstrip() - 删除 mystr 字符串末尾的空白字符</li>
 <li>mystr.strip() - 删除mystr字符串两端的空白字符</li>
 </ul>
-<h2 id="isalpha-isdigit-isalnum-isspace"><a href="#isalpha-isdigit-isalnum-isspace" class="headerlink" title="isalpha/isdigit/isalnum/isspace/"></a>isalpha/isdigit/isalnum/isspace/</h2><ul>
+<h2><span id="isalphaisdigitisalnumisspace">isalpha/isdigit/isalnum/isspace/</span></h2><ul>
 <li>mystr.isalpha() - 如果 mystr 所有字符都是字母 则返回 True,否则返回 False</li>
 <li>mystr.isdigit() - 如果 mystr 只包含数字则返回 True 否则返回 False</li>
 <li>mystr.isalnum() - 如果 mystr 所有字符都是字母或数字则返回 True,否则返回 False</li>
 <li>mystr.isspace() - 如果 mystr 中只包含空格，则返回 True，否则返回 False</li>
 </ul>
-<h1 id="列表相关操作"><a href="#列表相关操作" class="headerlink" title="列表相关操作"></a>列表相关操作</h1><h2 id="添加-append-extend-insert"><a href="#添加-append-extend-insert" class="headerlink" title="添加 append/extend/insert"></a>添加 append/extend/insert</h2><ul>
+<h1><span id="列表相关操作">列表相关操作</span></h1><h2><span id="添加-appendextendinsert">添加 append/extend/insert</span></h2><ul>
 <li>append - 通过append可以向列表添加元素</li>
 <li>extend - 通过extend可以将另一个集合中的元素逐一添加到列表中</li>
 <li>insert(index, object) - 在指定位置 index 前插入元素 object</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list = []                            </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.append(<span class="number">2</span>)                       </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list                                 </span><br><span class="line">[<span class="number">2</span>]                                      </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.append(<span class="number">3</span>)                       </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list                                 </span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>]                                   </span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.extend([<span class="number">6</span>,<span class="number">7</span>])                   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list                                 </span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span>]                             </span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.insert(<span class="number">2</span>,<span class="string">'w'</span>)                   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list                                 </span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="string">'w'</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="查找-in-index-count"><a href="#查找-in-index-count" class="headerlink" title="查找 in/index/count"></a>查找 in/index/count</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="string">'b'</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">2</span> <span class="keyword">in</span> list</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">5</span> <span class="keyword">in</span> list</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">5</span> <span class="keyword">not</span> <span class="keyword">in</span> list</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.index(<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.index(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.count(<span class="number">3</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
-<h2 id="删除-del-pop-remove"><a href="#删除-del-pop-remove" class="headerlink" title="删除 del/pop/remove"></a>删除 del/pop/remove</h2><ul>
+<h2><span id="查找-inindexcount">查找 in/index/count</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="string">'b'</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">2</span> <span class="keyword">in</span> list</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">5</span> <span class="keyword">in</span> list</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">5</span> <span class="keyword">not</span> <span class="keyword">in</span> list</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.index(<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.index(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.count(<span class="number">3</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h2><span id="删除-delpopremove">删除 del/pop/remove</span></h2><ul>
 <li>del - 根据下标进行删除</li>
 <li>pop - 删除最后一个元素</li>
 <li>remove - 根据元素的值进行删除</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="string">'b'</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> list[<span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.pop()</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以删除指定元素</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.pop(<span class="number">2</span>)</span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">7</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.append(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除第一个匹配到的</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.remove(<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="排序-sort-reverse"><a href="#排序-sort-reverse" class="headerlink" title="排序 sort/reverse"></a>排序 sort/reverse</h2><ul>
+<h2><span id="排序-sortreverse">排序 sort/reverse</span></h2><ul>
 <li>sort 方法是将 list 按特定顺序重新排列，默认为由小到大，参数 reverse=True 可改为倒序，由大到小。</li>
 <li>reverse 方法是将 list 逆置，不是排序</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">7</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接改变原list</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.sort()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">7</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.sort(reverse=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">7</span>, <span class="number">3</span>, <span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.sort(reverse=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">7</span>, <span class="number">3</span>, <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># reverse方法只是倒置，而非排序</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">7</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list.reverse()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list</span><br><span class="line">[<span class="number">5</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">7</span>]</span><br></pre></td></tr></table></figure>
 <hr>
-<h1 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h1><p>Python 的元组与列表类似，不同之处在于<strong>元组的元素不能修改</strong>。元组使用小括号，列表使用方括号。</p>
+<h1><span id="元组">元组</span></h1><p>Python 的元组与列表类似，不同之处在于<strong>元组的元素不能修改</strong>。元组使用小括号，列表使用方括号。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>tuple = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tuple</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="comment"># 访问元组</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tuple[<span class="number">4</span>]</span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># index 和 count 与字符串和列表中的用法相同</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tuple.index(<span class="number">2</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tuple.count(<span class="number">2</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tuple.count(<span class="number">3</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
 <hr>
-<h1 id="字典的常见操作"><a href="#字典的常见操作" class="headerlink" title="字典的常见操作"></a>字典的常见操作</h1><h2 id="获取元素"><a href="#获取元素" class="headerlink" title="获取元素"></a>获取元素</h2><p><code>get(key)</code> 方法不会在 key 不存在时抛出异常。</p>
+<h1><span id="字典的常见操作">字典的常见操作</span></h1><h2><span id="获取元素">获取元素</span></h2><p><code>get(key)</code> 方法不会在 key 不存在时抛出异常。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>info = &#123;<span class="string">'name'</span>:<span class="string">'班长'</span>, <span class="string">'id'</span>:<span class="number">100</span>, <span class="string">'sex'</span>:<span class="string">'f'</span>, <span class="string">'address'</span>:<span class="string">'地球亚洲中国北京'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info[<span class="string">'name'</span>]</span><br><span class="line"><span class="string">'班长'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info[<span class="string">'age'</span>]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">KeyError: <span class="string">'age'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info.get(<span class="string">'age'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info.get(<span class="string">'name'</span>)</span><br><span class="line"><span class="string">'班长'</span></span><br></pre></td></tr></table></figure>
-<h2 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h2><p>字典的每个元素中的数据是可以修改的，只要通过 key 找到，即可修改<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>info.get(<span class="string">'id'</span>)</span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info[<span class="string">'id'</span>] = <span class="number">101</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info.get(<span class="string">'id'</span>)</span><br><span class="line"><span class="number">101</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h2><p><code>变量名[&#39;键&#39;] = 数据</code></p>
-<h2 id="删除元素-del-clear"><a href="#删除元素-del-clear" class="headerlink" title="删除元素 del / clear"></a>删除元素 del / clear</h2><ul>
+<h2><span id="修改元素">修改元素</span></h2><p>字典的每个元素中的数据是可以修改的，只要通过 key 找到，即可修改<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>info.get(<span class="string">'id'</span>)</span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info[<span class="string">'id'</span>] = <span class="number">101</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info.get(<span class="string">'id'</span>)</span><br><span class="line"><span class="number">101</span></span><br></pre></td></tr></table></figure></p>
+<h2><span id="添加元素">添加元素</span></h2><p><code>变量名[&#39;键&#39;] = 数据</code></p>
+<h2><span id="删除元素-del-clear">删除元素 del / clear</span></h2><ul>
 <li><code>del 变量名[&#39;键&#39;]</code> - 用于删除指定 key，key 不存在时会抛出异常，也可以直接删除整个字典</li>
 <li>clear - 用于清空整个字典</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>info                                                                     </span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'班长'</span>, <span class="string">'id'</span>: <span class="number">101</span>, <span class="string">'sex'</span>: <span class="string">'f'</span>, <span class="string">'address'</span>: <span class="string">'地球亚洲中国北京'</span>, <span class="string">'age'</span>: <span class="number">28</span>&#125;      </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> info[<span class="string">'id2'</span>]                                                          </span><br><span class="line">Traceback (most recent call last):                                           </span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;                                        </span><br><span class="line">KeyError: <span class="string">'id2'</span>                                                              </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> info[<span class="string">'age'</span>]                                                          </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info                                                                     </span><br><span class="line">&#123;<span class="string">'name'</span>: <span class="string">'班长'</span>, <span class="string">'id'</span>: <span class="number">101</span>, <span class="string">'sex'</span>: <span class="string">'f'</span>, <span class="string">'address'</span>: <span class="string">'地球亚洲中国北京'</span>&#125;                 </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info.clear()                                                             </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info                                                                     </span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="len-字典数据个数"><a href="#len-字典数据个数" class="headerlink" title="len() 字典数据个数"></a>len() 字典数据个数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>info = &#123;<span class="string">'name'</span>:<span class="string">'班长'</span>, <span class="string">'id'</span>:<span class="number">100</span>, <span class="string">'sex'</span>:<span class="string">'f'</span>, <span class="string">'address'</span>:<span class="string">'地球亚洲中国北京'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(info)</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
-<h2 id="keys-values-items"><a href="#keys-values-items" class="headerlink" title="keys() / values() / items()"></a>keys() / values() / items()</h2><p>需要使用 list() 进行转换。</p>
+<h2><span id="len-字典数据个数">len() 字典数据个数</span></h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>info = &#123;<span class="string">'name'</span>:<span class="string">'班长'</span>, <span class="string">'id'</span>:<span class="number">100</span>, <span class="string">'sex'</span>:<span class="string">'f'</span>, <span class="string">'address'</span>:<span class="string">'地球亚洲中国北京'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(info)</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h2><span id="keys-values-items">keys() / values() / items()</span></h2><p>需要使用 list() 进行转换。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>info = &#123;<span class="string">'name'</span>:<span class="string">'班长'</span>, <span class="string">'id'</span>:<span class="number">100</span>, <span class="string">'sex'</span>:<span class="string">'f'</span>, <span class="string">'address'</span>:<span class="string">'地球亚洲中国北京'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>info.keys()</span><br><span class="line">dict_keys([<span class="string">'name'</span>, <span class="string">'id'</span>, <span class="string">'sex'</span>, <span class="string">'address'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(info.keys())</span><br><span class="line">[<span class="string">'name'</span>, <span class="string">'id'</span>, <span class="string">'sex'</span>, <span class="string">'address'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(info.values())</span><br><span class="line">[<span class="string">'班长'</span>, <span class="number">100</span>, <span class="string">'f'</span>, <span class="string">'地球亚洲中国北京'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(info.items())</span><br><span class="line">[(<span class="string">'name'</span>, <span class="string">'班长'</span>), (<span class="string">'id'</span>, <span class="number">100</span>), (<span class="string">'sex'</span>, <span class="string">'f'</span>), (<span class="string">'address'</span>, <span class="string">'地球亚洲中国北京'</span>)]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="in-not-in"><a href="#in-not-in" class="headerlink" title="in / not in"></a>in / not in</h2><p>判断字典中是否包含指定的 key。Python3 已删除 has_key() 函数。</p>
+<h2><span id="in-not-in">in / not in</span></h2><p>判断字典中是否包含指定的 key。Python3 已删除 has_key() 函数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>info = &#123;<span class="string">'name'</span>:<span class="string">'班长'</span>, <span class="string">'id'</span>:<span class="number">100</span>, <span class="string">'sex'</span>:<span class="string">'f'</span>, <span class="string">'address'</span>:<span class="string">'地球亚洲中国北京'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'id'</span> <span class="keyword">in</span> info</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'age'</span> <span class="keyword">in</span> info</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'age'</span> <span class="keyword">not</span> <span class="keyword">in</span> info</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -622,7 +635,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -768,6 +781,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -780,6 +794,7 @@
 
 
 
+          
         </div>
         
           
@@ -828,7 +843,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -839,7 +854,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -850,7 +865,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -920,23 +935,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -958,7 +973,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串常用操作"><span class="nav-text">字符串常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#find-rfind"><span class="nav-text">find/rfind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#index-rindex"><span class="nav-text">index/rindex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#count"><span class="nav-text">count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#replace"><span class="nav-text">replace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#split"><span class="nav-text">split</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#join"><span class="nav-text">join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#startswith-endswith"><span class="nav-text">startswith/endswith</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lower-upper-转化大小写"><span class="nav-text">lower/upper 转化大小写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ljust-rjust-center-对其方式"><span class="nav-text">ljust/rjust/center 对其方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lstrip-rstrip-strip-去除空格"><span class="nav-text">lstrip/rstrip/strip 去除空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isalpha-isdigit-isalnum-isspace"><span class="nav-text">isalpha/isdigit/isalnum/isspace/</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表相关操作"><span class="nav-text">列表相关操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加-append-extend-insert"><span class="nav-text">添加 append/extend/insert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找-in-index-count"><span class="nav-text">查找 in/index/count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除-del-pop-remove"><span class="nav-text">删除 del/pop/remove</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序-sort-reverse"><span class="nav-text">排序 sort/reverse</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元组"><span class="nav-text">元组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字典的常见操作"><span class="nav-text">字典的常见操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取元素"><span class="nav-text">获取元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改元素"><span class="nav-text">修改元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加元素"><span class="nav-text">添加元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除元素-del-clear"><span class="nav-text">删除元素 del / clear</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#len-字典数据个数"><span class="nav-text">len() 字典数据个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#keys-values-items"><span class="nav-text">keys() / values() / items()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-not-in"><span class="nav-text">in / not in</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">字符串常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">find/rfind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">index/rindex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">replace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">split</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">join</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">startswith/endswith</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">lower/upper 转化大小写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">ljust/rjust/center 对其方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">lstrip/rstrip/strip 去除空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">isalpha/isdigit/isalnum/isspace/</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">列表相关操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">添加 append/extend/insert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">查找 in/index/count</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">删除 del/pop/remove</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">排序 sort/reverse</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">元组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">字典的常见操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">获取元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">修改元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">添加元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">删除元素 del / clear</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">len() 字典数据个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">keys() / values() / items()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">in / not in</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -978,7 +993,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1655,6 +1670,7 @@
   
 
   
+
 
 </body>
 </html>

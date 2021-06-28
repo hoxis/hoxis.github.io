@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -214,8 +214,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -324,6 +326,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -372,6 +384,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -533,20 +546,20 @@
         <p>最近项目组之前一直使用的OneCMDB出现了问题，在增删改数据时异常的慢，于是考虑是否可以优化OneCMDB，由于本人水平有限，对OneCMDB进行代码级别的优化暂时还有点难度。于是就对现有的其他开源CMDB进行调研，首先是CMDBuild（<a href="http://www.cmdbuild.org/en" target="_blank" rel="noopener">官方网站</a>）。</p>
 <a id="more"></a>
 <p>对于CMDBuild，先上结论。</p>
-<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<h2><span id="优缺点">优缺点</span></h2><h3><span id="优点">优点</span></h3><ul>
 <li>完全自主的系统配置</li>
 <li>界面炫酷美观，AJAX让人操作十分便捷</li>
 <li>数据格式自由定制（在GLPI中，资产的数据格式都已经定义好了，用户很难修改）</li>
 <li>有专门的团队在进行不断的维护，目前最新的版本是2015年6月发布的2.3.2</li>
 <li>内置工作流引擎，可以创建工作流</li>
 <li>报表系统：支持JasperReports、Alfresco</li>
-<li>提供基于SOAP和REST的webservice接口<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>提供基于SOAP和REST的webservice接口<h3><span id="缺点">缺点</span></h3></li>
 <li>网上资料少，极其少！差不多只有安装的介绍！</li>
 <li>官方提供的代码示例几乎没有，这让开发者自己摸索么？还是我没找到？</li>
 <li>提供的webservice接口是wsdl和wadl形式的，不能给个jar包什么的吗？</li>
 </ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>参考：<br><a href="http://www.cnblogs.com/supakito/p/cmdbuild_install.html" target="_blank" rel="noopener">http://www.cnblogs.com/supakito/p/cmdbuild_install.html</a><br><a href="http://20988902.blog.51cto.com/805922/1541289" target="_blank" rel="noopener">http://20988902.blog.51cto.com/805922/1541289</a></p>
-<h3 id="安装要求"><a href="#安装要求" class="headerlink" title="安装要求"></a>安装要求</h3><ul>
+<h2><span id="安装">安装</span></h2><p>参考：<br><a href="http://www.cnblogs.com/supakito/p/cmdbuild_install.html" target="_blank" rel="noopener">http://www.cnblogs.com/supakito/p/cmdbuild_install.html</a><br><a href="http://20988902.blog.51cto.com/805922/1541289" target="_blank" rel="noopener">http://20988902.blog.51cto.com/805922/1541289</a></p>
+<h3><span id="安装要求">安装要求</span></h3><ul>
 <li>硬件：<ul>
 <li>server-class computer (modern architecture)</li>
 <li>4GB of RAM</li>
@@ -561,7 +574,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><ol>
+<h3><span id="安装步骤">安装步骤</span></h3><ol>
 <li>安装<code>jdk</code>，<code>tomcat</code>（不再赘述）</li>
 <li>安装<code>PostgreSQL</code>并配置</li>
 <li>将下载好的<code>cmdbuild-2.3.2.zip</code>解压，文件目录如下图所示，<br> <img src="http://hoxis-github-io.qiniudn.com/cmdbuild-dir.png" alt="cmdbuild文件目录"></li>
@@ -573,8 +586,8 @@
 <li>按照如图所示进行配置，可以测试下数据库连接是否可以。如果没有错误出现，那么就可以进入到主界面了，炫酷！<br> <img src="http://hoxis-github-io.qiniudn.com/cmdbuild-main.png" alt="CMDBuild主界面"></li>
 </ol>
 <p>至此，CMDBuild的安装就完成了。</p>
-<h2 id="webservice接口的获取"><a href="#webservice接口的获取" class="headerlink" title="webservice接口的获取"></a>webservice接口的获取</h2><p>在找CMDBuild的接口时可是费了很大劲，最后在一个角落里找到了一点痕迹，<code>http://hostname:port/cmdbuild/services/rest/v1</code>，于是按照这个地址拼接了自己的获取地址：<strong><code>http://localhost:8080/cmdbuild/services</code></strong>，就这样终于找到了所谓的webservice接口。但其中SOAP是WSDL形式的，REST是WADL形式的。于是乎，又想着如何将<code>wsdl</code>的接口变成<code>java</code>的。</p>
-<h3 id="WSDL2Java"><a href="#WSDL2Java" class="headerlink" title="WSDL2Java"></a>WSDL2Java</h3><p>利用jdk自带的工具<code>wsimport.exe</code>就可以实现：</p>
+<h2><span id="webservice接口的获取">webservice接口的获取</span></h2><p>在找CMDBuild的接口时可是费了很大劲，最后在一个角落里找到了一点痕迹，<code>http://hostname:port/cmdbuild/services/rest/v1</code>，于是按照这个地址拼接了自己的获取地址：<strong><code>http://localhost:8080/cmdbuild/services</code></strong>，就这样终于找到了所谓的webservice接口。但其中SOAP是WSDL形式的，REST是WADL形式的。于是乎，又想着如何将<code>wsdl</code>的接口变成<code>java</code>的。</p>
+<h3><span id="wsdl2java">WSDL2Java</span></h3><p>利用jdk自带的工具<code>wsimport.exe</code>就可以实现：</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsimport http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span><span class="regexp">/TicketMobile/</span>services<span class="regexp">/Cococ?wsdl  -keep -p com.llg.ws2 -s g:/</span>ws</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>参数说明</p>
@@ -590,7 +603,7 @@
 <p>官方文档上只有这么一点代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Create an instance in the ConfigurationContext class and indicate in it where the repository directory is. In the repository directory there are 2 directories: the modules directory which contains the rampart.mar file, and the conf directory which contains the file to define the safety policy which should be adopted.</span></span><br><span class="line">ConfigurationContext configContext = ConfigurationContextFactory</span><br><span class="line">        .createConfigurationContextFromFileSystem(<span class="string">"/path/to/repository"</span>,<span class="comment">//</span></span><br><span class="line">                                                    <span class="keyword">null</span>);<span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Instance the WebservicesStub class moving in it the ConfigurationContext just created     </span></span><br><span class="line">WebServicesStub stub = <span class="keyword">new</span> WebServicesStub(configContext);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.Set the authentication credentials</span></span><br><span class="line">StAXOMBuilder builder = <span class="keyword">new</span> StAXOMBuilder(</span><br><span class="line">                            <span class="string">"/path/to/repository/conf/policy.xml"</span>);<span class="comment">//</span></span><br><span class="line">Options options = stub._getServiceClient().getOptions();</span><br><span class="line">options.setUserName(<span class="string">"username"</span>);</span><br><span class="line">options.setPassword(<span class="string">"password"</span>);</span><br><span class="line">options.setProperty(<span class="comment">//</span></span><br><span class="line">        RampartMessageData.KEY_RAMPART_POLICY,<span class="comment">//</span></span><br><span class="line">        PolicyEngine.getPolicy(builder.getDocumentElement()<span class="comment">//</span></span><br><span class="line">            ));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4.Instance a GetCardList object and call the server</span></span><br><span class="line">GetCardList list = <span class="keyword">new</span> GetCardList();</span><br><span class="line">list.setClassName(<span class="string">"Computer"</span>);</span><br><span class="line">GetCardListResponse response = stub.getCardList(list);</span><br><span class="line">Card[] card = response.get_return();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5.At this point you can iterate on the array card content and extract the most interesting values. For example, if you want to recover the description of every Computer, the following method will be enough:</span></span><br><span class="line">System.out.println(card[i].getDescription());</span><br></pre></td></tr></table></figure>
 <p>至此，官方代码提供完毕，可是<code>WebServicesStub</code>哪来的？其他的类还可以通过Google找到相关的jar包，可是<code>WebServicesStub</code>哪来的？</p>
-<h3 id="WebServicesStub的来头"><a href="#WebServicesStub的来头" class="headerlink" title="WebServicesStub的来头"></a>WebServicesStub的来头</h3><p>最后，网上各种找啊，凡是相关的资料都试了，终于在<a href="http://blog.sina.com.cn/s/blog_6b1c9ed50100luk4.html" target="_blank" rel="noopener">stub调用WebService</a>这里找到了管用的方法。</p>
+<h3><span id="webservicesstub的来头">WebServicesStub的来头</span></h3><p>最后，网上各种找啊，凡是相关的资料都试了，终于在<a href="http://blog.sina.com.cn/s/blog_6b1c9ed50100luk4.html" target="_blank" rel="noopener">stub调用WebService</a>这里找到了管用的方法。</p>
 <p>使用<strong>Axis2提供的wsdl2java.bat命令可以根据WSDL文件产生调用WebService的代码</strong></p>
 <p>具体操作，下载安装Axis2不说了。</p>
 <p>进入到<code>%AXIS2_HOME%\bin\</code>，执行<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsdl2java -uri http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/cmdbuild/</span>services<span class="regexp">/soap/</span>Webservices?wsdl -p client -s -o stub</span><br></pre></td></tr></table></figure></p>
@@ -610,7 +623,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -758,6 +771,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -770,6 +784,7 @@
 
 
 
+          
         </div>
         
           
@@ -818,7 +833,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -829,7 +844,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -840,7 +855,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -910,23 +925,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -948,7 +963,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#优缺点"><span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装要求"><span class="nav-text">安装要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装步骤"><span class="nav-text">安装步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webservice接口的获取"><span class="nav-text">webservice接口的获取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WSDL2Java"><span class="nav-text">WSDL2Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebServicesStub的来头"><span class="nav-text">WebServicesStub的来头</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">安装要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">安装步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">webservice接口的获取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">WSDL2Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">WebServicesStub的来头</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -968,7 +983,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1645,6 +1660,7 @@
   
 
   
+
 
 </body>
 </html>

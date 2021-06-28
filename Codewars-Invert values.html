@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -525,24 +538,24 @@
       
 
       
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://www.codewars.com/kata/invert-values/train/python" target="_blank" rel="noopener">题目地址</a></p>
+        <h2><span id="题目">题目</span></h2><p><a href="https://www.codewars.com/kata/invert-values/train/python" target="_blank" rel="noopener">题目地址</a></p>
 <p>Given a set of numbers, return the additive inverse of each. Each positive becomes negatives, and the negatives become positives.</p>
 <a id="more"></a>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">invert([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]) == [<span class="number">-1</span>,<span class="number">-2</span>,<span class="number">-3</span>,<span class="number">-4</span>,<span class="number">-5</span>]</span><br><span class="line">invert([<span class="number">1</span>,<span class="number">-2</span>,<span class="number">3</span>,<span class="number">-4</span>,<span class="number">5</span>]) == [<span class="number">-1</span>,<span class="number">2</span>,<span class="number">-3</span>,<span class="number">4</span>,<span class="number">-5</span>]</span><br><span class="line">invert([]) == []</span><br></pre></td></tr></table></figure>
 <p>You can assume that all values are integers.</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>遍历列表，分别对每个数字取相反数，再将其放入到新的list里。</p>
-<h2 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h2><h3 id="我的答案"><a href="#我的答案" class="headerlink" title="我的答案"></a>我的答案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invert</span><span class="params">(lst)</span>:</span></span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> lst:</span><br><span class="line">        result.append(<span class="number">0</span>-a)</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-<h3 id="最佳答案"><a href="#最佳答案" class="headerlink" title="最佳答案"></a>最佳答案</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invert</span><span class="params">(lst)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> [-x <span class="keyword">for</span> x <span class="keyword">in</span> lst]</span><br></pre></td></tr></table></figure>
+<h2><span id="思路">思路</span></h2><p>遍历列表，分别对每个数字取相反数，再将其放入到新的list里。</p>
+<h2><span id="答案">答案</span></h2><h3><span id="我的答案">我的答案</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invert</span><span class="params">(lst)</span>:</span></span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> lst:</span><br><span class="line">        result.append(<span class="number">0</span>-a)</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<h3><span id="最佳答案">最佳答案</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invert</span><span class="params">(lst)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> [-x <span class="keyword">for</span> x <span class="keyword">in</span> lst]</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invert</span><span class="params">(lst)</span>:</span></span><br><span class="line">   <span class="keyword">return</span> [i*<span class="number">-1</span> <span class="keyword">for</span> i <span class="keyword">in</span> lst]</span><br></pre></td></tr></table></figure>
 <p>本题还是比较简单的，没有很多技巧。主要在于如何取相反数，一般有两种方法，用<code>-x</code>或者<code>x * -1</code>。另外需要熟悉<code>return [-x for x in lst]</code>这种list的处理方式。</p>
-<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="list-append"><a href="#list-append" class="headerlink" title="list.append()"></a>list.append()</h3><p><code>sort()</code>与<code>sorted()</code>的不同在于，<code>sort()</code>是在<strong>原位重新排列列表</strong>，而<code>sorted()</code>是<strong>产生一个新的列表</strong>，也就是说<code>sorted()</code>函数有一个copy的过程，这样多少会带来性能的损耗。另外二者的使用方法也有不同。</p>
-<h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p><code>append()</code>方法用于在列表末尾添加新的对象。</p>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p><code>list.append(obj)</code></p>
+<h2><span id="知识点">知识点</span></h2><h3><span id="listappend">list.append()</span></h3><p><code>sort()</code>与<code>sorted()</code>的不同在于，<code>sort()</code>是在<strong>原位重新排列列表</strong>，而<code>sorted()</code>是<strong>产生一个新的列表</strong>，也就是说<code>sorted()</code>函数有一个copy的过程，这样多少会带来性能的损耗。另外二者的使用方法也有不同。</p>
+<h4><span id="描述">描述</span></h4><p><code>append()</code>方法用于在列表末尾添加新的对象。</p>
+<h4><span id="语法">语法</span></h4><p><code>list.append(obj)</code></p>
 <ul>
 <li>obj – 添加到列表末尾的对象。</li>
 </ul>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>该方法无返回值，但是会修改原来的列表。</p>
-<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = []</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.append(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.append([<span class="number">2</span>,<span class="number">3</span>,<span class="string">'a'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>, <span class="string">'a'</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.extend([<span class="number">2</span>,<span class="number">3</span>,<span class="string">'a'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>, <span class="string">'a'</span>], <span class="number">2</span>, <span class="number">3</span>, <span class="string">'a'</span>]</span><br></pre></td></tr></table></figure>
+<h4><span id="返回值">返回值</span></h4><p>该方法无返回值，但是会修改原来的列表。</p>
+<h4><span id="示例">示例</span></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = []</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.append(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.append([<span class="number">2</span>,<span class="number">3</span>,<span class="string">'a'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>, <span class="string">'a'</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.extend([<span class="number">2</span>,<span class="number">3</span>,<span class="string">'a'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">[<span class="number">1</span>, [<span class="number">2</span>, <span class="number">3</span>, <span class="string">'a'</span>], <span class="number">2</span>, <span class="number">3</span>, <span class="string">'a'</span>]</span><br></pre></td></tr></table></figure>
 <p>注意<code>append()</code>与<code>extend()</code>的不同。</p>
 
       
@@ -555,7 +568,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -701,6 +714,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -713,6 +727,7 @@
 
 
 
+          
         </div>
         
           
@@ -761,7 +776,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -772,7 +787,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -783,7 +798,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -853,23 +868,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -891,7 +906,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#答案"><span class="nav-text">答案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的答案"><span class="nav-text">我的答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最佳答案"><span class="nav-text">最佳答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点"><span class="nav-text">知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list-append"><span class="nav-text">list.append()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述"><span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语法"><span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回值"><span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">答案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">我的答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">最佳答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">list.append()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -911,7 +926,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1588,6 +1603,7 @@
   
 
   
+
 
 </body>
 </html>

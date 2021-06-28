@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,7 +545,7 @@
         <p>经常会有同学来问我，我的数据库占用空间太大，我把一个最大的表删掉了一半的数据，怎么表文件的大小还是没变？</p>
 <a id="more"></a>
 <p>InnoDB 表的组成：表结构定义和数据。</p>
-<h1 id="数据删除流程"><a href="#数据删除流程" class="headerlink" title="数据删除流程"></a>数据删除流程</h1><p>InnoDB 中，数据是以 B+ 树结构来存储数据的：</p>
+<h1><span id="数据删除流程">数据删除流程</span></h1><p>InnoDB 中，数据是以 B+ 树结构来存储数据的：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190219185319.png" alt></p>
 <p>假设删掉表记录 R4，此时 InnoDB 只是把 R4 <strong>标记为已删除状态</strong>，后续这个位置可以插入新的数据，但是磁盘文件大小并不会变化。</p>
 <p><strong>何时复用？</strong></p>
@@ -544,12 +557,12 @@
 <p>此时，所有的数据页都会标记为可复用，但是磁盘空间仍然不会变小。</p>
 <p><strong>总结</strong></p>
 <p>delete 操作，只是把记录的位置标记为「可复用」，但是磁盘大小不会变化，这些可以复用，而未被使用的空间，看起来就像<strong>空洞</strong>。</p>
-<h1 id="增删改-造成空洞"><a href="#增删改-造成空洞" class="headerlink" title="增删改-造成空洞"></a>增删改-造成空洞</h1><p>当数据是随机插入时，就可能造成索引的数据页分裂。</p>
+<h1><span id="增删改-造成空洞">增删改-造成空洞</span></h1><p>当数据是随机插入时，就可能造成索引的数据页分裂。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20190219190353.png" alt></p>
 <p>如图所示，由于 page A 写满，此时插入 ID 为 550 的数据，就不得不申请新的数据页，页分裂完成后，A 上就会留下空洞。</p>
 <p>另外，更新索引上的值，其实是删除旧值，插入新值，这个过程同样会造成空洞。</p>
 <p>综上，经过大量增删改操作的表，都是可能存在大量空洞的，若要收缩表空间，就要清除这些空洞。</p>
-<h1 id="重建表-清除空洞"><a href="#重建表-清除空洞" class="headerlink" title="重建表-清除空洞"></a>重建表-清除空洞</h1><p>如何清除空洞？</p>
+<h1><span id="重建表-清除空洞">重建表-清除空洞</span></h1><p>如何清除空洞？</p>
 <p>直接的想法就是，新建一个表结构相同的表，然后按主键 ID 递增的顺序，将原表中的数据，插入到新表。</p>
 <p>这样，新表中就不会存在空洞了。新表的主键索引也会更加紧凑，数据页的利用率也更高。</p>
 <p>上面的操作可以通过下面的语句自动完成：</p>
@@ -573,7 +586,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -721,6 +734,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -733,6 +747,7 @@
 
 
 
+          
         </div>
         
           
@@ -781,7 +796,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -792,7 +807,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -803,7 +818,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -873,23 +888,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -911,7 +926,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据删除流程"><span class="nav-text">数据删除流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#增删改-造成空洞"><span class="nav-text">增删改-造成空洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重建表-清除空洞"><span class="nav-text">重建表-清除空洞</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">数据删除流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">增删改-造成空洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">重建表-清除空洞</span></a></li></ol></div>
             
 
           </div>
@@ -931,7 +946,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1608,6 +1623,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -211,8 +211,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -321,6 +323,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -369,6 +381,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -529,7 +542,7 @@
       
         <p>提供一个创建对象实例的功能，而无需关心其具体实现。被创建实例的类型可以是接口、抽象类，也可以是具体的类。</p>
 <a id="more"></a>
-<h2 id="认识简单工厂"><a href="#认识简单工厂" class="headerlink" title="认识简单工厂"></a>认识简单工厂</h2><h3 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h3><ul>
+<h2><span id="认识简单工厂">认识简单工厂</span></h2><h3><span id="示例">示例：</span></h3><ul>
 <li><p>一个简单接口：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuhao.designpattern.factory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Api</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String s)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -558,25 +571,25 @@
 <blockquote>
 <p>简单工厂的创建范围通常不要太大，建议控制在一个独立的组件级别或者模块级别。</p>
 </blockquote>
-<h3 id="简单工厂的调用顺序"><a href="#简单工厂的调用顺序" class="headerlink" title="简单工厂的调用顺序"></a>简单工厂的调用顺序</h3><p><img src="http://hoxis-github-io.qiniudn.com/150706-the%20call%20sequence%20of%20%20simple%20factory.png" alt="简单工厂的调用顺序"></p>
-<h3 id="简单工厂的命名建议"><a href="#简单工厂的命名建议" class="headerlink" title="简单工厂的命名建议"></a>简单工厂的命名建议</h3><ul>
+<h3><span id="简单工厂的调用顺序">简单工厂的调用顺序</span></h3><p><img src="http://hoxis-github-io.qiniudn.com/150706-the%20call%20sequence%20of%20%20simple%20factory.png" alt="简单工厂的调用顺序"></p>
+<h3><span id="简单工厂的命名建议">简单工厂的命名建议</span></h3><ul>
 <li>类名：<code>模块名称+Factory</code>，如用户模块的工厂就称为<code>UserFactory</code></li>
 <li>方法名：<code>get+接口名称</code>或者<code>create+接口名称</code>，比如<code>getUser</code></li>
 </ul>
-<h2 id="简单工厂中方法的写法"><a href="#简单工厂中方法的写法" class="headerlink" title="简单工厂中方法的写法"></a>简单工厂中方法的写法</h2><p>主要实现的功能是<strong>选择合适的实现类</strong>来创建实例对象。选择条件或者参数主要有：</p>
+<h2><span id="简单工厂中方法的写法">简单工厂中方法的写法</span></h2><p>主要实现的功能是<strong>选择合适的实现类</strong>来创建实例对象。选择条件或者参数主要有：</p>
 <ul>
 <li>源自客户端，有Client传入参数</li>
 <li>源于配置文件，从中获取用于判断的值</li>
 <li>源于运行期间的某个值</li>
 </ul>
-<h3 id="可配置的简单工厂"><a href="#可配置的简单工厂" class="headerlink" title="可配置的简单工厂"></a>可配置的简单工厂</h3><p>如上述的工厂代码实例，创建对象时根据传入的参数值来判断创建的实现类，这种情况下每次新增一个实现类都要来修改该工厂类，这种做法明显不太好。</p>
+<h3><span id="可配置的简单工厂">可配置的简单工厂</span></h3><p>如上述的工厂代码实例，创建对象时根据传入的参数值来判断创建的实现类，这种情况下每次新增一个实现类都要来修改该工厂类，这种做法明显不太好。</p>
 <p>解决的方法可以<strong>使用配置文件</strong>，当有新的实现类时，只需在配置文件中配置即可。然后使用反射的方式来实现类。</p>
-<h2 id="思考简单工厂"><a href="#思考简单工厂" class="headerlink" title="思考简单工厂"></a>思考简单工厂</h2><h3 id="本质：选择实现"><a href="#本质：选择实现" class="headerlink" title="本质：选择实现"></a>本质：选择实现</h3><p>简单工厂的重点在于选择，实现是已经做好了的，目的在于为客户端选择相应的实现，从而使得客户端和具体实现之间解耦。</p>
-<h3 id="何时选用简单工厂"><a href="#何时选用简单工厂" class="headerlink" title="何时选用简单工厂"></a>何时选用简单工厂</h3><ul>
+<h2><span id="思考简单工厂">思考简单工厂</span></h2><h3><span id="本质选择实现">本质：选择实现</span></h3><p>简单工厂的重点在于选择，实现是已经做好了的，目的在于为客户端选择相应的实现，从而使得客户端和具体实现之间解耦。</p>
+<h3><span id="何时选用简单工厂">何时选用简单工厂</span></h3><ul>
 <li>想完全封装隔离具体实现，让外部只能通过接口来操作封装体</li>
 <li>想对创建对象的职责集中管理和控制</li>
 </ul>
-<h2 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h2><ul>
+<h2><span id="相关模式">相关模式</span></h2><ul>
 <li>简单工厂 和 抽象工厂模式<br>简单工厂是用来选择实现的，可以选择任意接口的实现。</li>
 </ul>
 <p>抽象工厂是用来选择产品簇的实现的，也就是说抽象工厂里有多个用于选择并创建对象的方法，并且这些对象之间是有关系的，它们通常是构成一个产品簇所需要的部件对象。</p>
@@ -596,7 +609,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -746,6 +759,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -758,6 +772,7 @@
 
 
 
+          
         </div>
         
           
@@ -806,7 +821,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -817,7 +832,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -828,7 +843,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -898,23 +913,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -936,7 +951,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#认识简单工厂"><span class="nav-text">认识简单工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例："><span class="nav-text">示例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂的调用顺序"><span class="nav-text">简单工厂的调用顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂的命名建议"><span class="nav-text">简单工厂的命名建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂中方法的写法"><span class="nav-text">简单工厂中方法的写法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可配置的简单工厂"><span class="nav-text">可配置的简单工厂</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考简单工厂"><span class="nav-text">思考简单工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本质：选择实现"><span class="nav-text">本质：选择实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时选用简单工厂"><span class="nav-text">何时选用简单工厂</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关模式"><span class="nav-text">相关模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">认识简单工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">示例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">简单工厂的调用顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">简单工厂的命名建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简单工厂中方法的写法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">可配置的简单工厂</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">思考简单工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">本质：选择实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">何时选用简单工厂</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">相关模式</span></a></li></ol></div>
             
 
           </div>
@@ -956,7 +971,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1633,6 +1648,7 @@
   
 
   
+
 
 </body>
 </html>

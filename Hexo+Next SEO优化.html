@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -217,8 +217,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -327,6 +329,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -375,6 +387,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -539,33 +552,33 @@
       
         <p>本文主要介绍Hexo博客的优化方法，以Google搜索为例。</p>
 <a id="more"></a>
-<h1 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h1><h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>需要安装两个插件来生成 sitemap 文件，前一个是传统的 sitemap，后一个是百度的 sitemap。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="修改站点配置文件"><a href="#修改站点配置文件" class="headerlink" title="修改站点配置文件"></a>修改站点配置文件</h2><p>将<code>sitemap</code>文件添加到站点配置文件<code>_config.yml</code>中，并修改<code>url</code>字段的值，其值默认为<code>http://yoursite.com</code>。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sitemap: </span><br><span class="line">  path: sitemap.xml</span><br><span class="line">baidusitemap:</span><br><span class="line">  path: baidusitemap.xml</span><br><span class="line"></span><br><span class="line">url: https://hoxis.github.io</span><br></pre></td></tr></table></figure></p>
+<h1><span id="添加站点地图">添加站点地图</span></h1><h2><span id="安装插件">安装插件</span></h2><p>需要安装两个插件来生成 sitemap 文件，前一个是传统的 sitemap，后一个是百度的 sitemap。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br></pre></td></tr></table></figure></p>
+<h2><span id="修改站点配置文件">修改站点配置文件</span></h2><p>将<code>sitemap</code>文件添加到站点配置文件<code>_config.yml</code>中，并修改<code>url</code>字段的值，其值默认为<code>http://yoursite.com</code>。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sitemap: </span><br><span class="line">  path: sitemap.xml</span><br><span class="line">baidusitemap:</span><br><span class="line">  path: baidusitemap.xml</span><br><span class="line"></span><br><span class="line">url: https://hoxis.github.io</span><br></pre></td></tr></table></figure></p>
 <p>安装完成后执行<code>hexo g</code>即会在站点<code>public</code>目录下生成<code>sitemap.xml</code>和<code>baidusitemap.xml</code>。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1514368736324.jpg" alt="站点地图文件"></p>
-<h1 id="添加蜘蛛协议"><a href="#添加蜘蛛协议" class="headerlink" title="添加蜘蛛协议"></a>添加蜘蛛协议</h1><p>在站点<code>source</code>文件夹下新建<code>robots.txt</code>文件，文件内容如下：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">User-<span class="string">agent:</span> *</span><br><span class="line"><span class="string">Allow:</span> /</span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/archives/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/categories/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/tags/</span> </span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/resources/</span> </span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/js/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/css/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fonts/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fancybox/</span></span><br><span class="line"></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">https:</span><span class="comment">//hoxis.github.io/sitemap.xml</span></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">https:</span><span class="comment">//hoxis.github.io/baidusitemap.xml</span></span><br></pre></td></tr></table></figure></p>
+<h1><span id="添加蜘蛛协议">添加蜘蛛协议</span></h1><p>在站点<code>source</code>文件夹下新建<code>robots.txt</code>文件，文件内容如下：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">User-<span class="string">agent:</span> *</span><br><span class="line"><span class="string">Allow:</span> /</span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/archives/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/categories/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/tags/</span> </span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/resources/</span> </span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/js/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/css/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fonts/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fancybox/</span></span><br><span class="line"></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">https:</span><span class="comment">//hoxis.github.io/sitemap.xml</span></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">https:</span><span class="comment">//hoxis.github.io/baidusitemap.xml</span></span><br></pre></td></tr></table></figure></p>
 <p><code>Allow</code>字段的值即为允许搜索引擎爬区的内容，可以对应到主题配置文件中的menu目录配置，如果菜单栏还有其他选项都可以按照格式自行添加。</p>
 <p>需要将<code>https://hoxis.github.io</code>改成自己的域名。</p>
-<h1 id="提交站点到-Google"><a href="#提交站点到-Google" class="headerlink" title="提交站点到 Google"></a>提交站点到 Google</h1><p>打开<a href="https://www.google.com/webmasters/" target="_blank" rel="noopener">Google Search Console</a>，添加博客地址。</p>
+<h1><span id="提交站点到-google">提交站点到 Google</span></h1><p>打开<a href="https://www.google.com/webmasters/" target="_blank" rel="noopener">Google Search Console</a>，添加博客地址。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20171227182234.gif" alt="提交站点到 Google"></p>
-<h2 id="站点验证"><a href="#站点验证" class="headerlink" title="站点验证"></a>站点验证</h2><p><code>Google</code>给出的推荐方法是上传<code>HTML</code>文件，但是不知道为什么一直验证失败，所以我选择了备用方法中的<code>HTML 标记</code>，将给出的元标记复制到<code>\themes\hexo-theme-next\layout\_partials\head.swig</code>文件中。添加后运行<code>hexo d -g</code>将改动提交。稍后就可以验证成功了。</p>
+<h2><span id="站点验证">站点验证</span></h2><p><code>Google</code>给出的推荐方法是上传<code>HTML</code>文件，但是不知道为什么一直验证失败，所以我选择了备用方法中的<code>HTML 标记</code>，将给出的元标记复制到<code>\themes\hexo-theme-next\layout\_partials\head.swig</code>文件中。添加后运行<code>hexo d -g</code>将改动提交。稍后就可以验证成功了。</p>
 <p><code>your-hexo-site\themes\hexo-theme-next\layout\_partials\head.swig</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, maximum-scale=1"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"theme-color"</span> <span class="attr">content</span>=<span class="string">"&#123;&#123; theme.android_chrome_color &#125;&#125;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"google-site-verification"</span> <span class="attr">content</span>=<span class="string">"xxxxxxxxxxxxx"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"baidu-site-verification"</span> <span class="attr">content</span>=<span class="string">"xxxxxxxxx"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>该方法是通过校验网页中<code>&lt;head&gt;</code>中的属性来进行校验的。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"google-site-verification"</span> <span class="attr">content</span>=<span class="string">"S2s6Oge-PuQt56EBO4t90FLwhL0P0faoH08iSNXe8iU"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span> 我的标题 <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        网页内容</span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="测试-robots-txt-文件"><a href="#测试-robots-txt-文件" class="headerlink" title="测试 robots.txt 文件"></a>测试 robots.txt 文件</h2><p>点击左侧的robots.txt测试工具，根据提示提交你的robots.txt。</p>
+<h2><span id="测试-robotstxt-文件">测试 robots.txt 文件</span></h2><p>点击左侧的robots.txt测试工具，根据提示提交你的robots.txt。</p>
 <p>注意要0错误才可以，如果有错误的话，会有提示，改正确就可以了。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20171227183005.gif" alt="测试robots.txt文件"></p>
-<h2 id="提交站点地图"><a href="#提交站点地图" class="headerlink" title="提交站点地图"></a>提交站点地图</h2><p>点击右上角添加/测试站点地图输入 sitemap.xml 进行测试，测试无误后再提交文件。</p>
+<h2><span id="提交站点地图">提交站点地图</span></h2><p>点击右上角添加/测试站点地图输入 sitemap.xml 进行测试，测试无误后再提交文件。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20171227183912.gif" alt="提交站点地图"></p>
-<h2 id="Google抓取方式"><a href="#Google抓取方式" class="headerlink" title="Google抓取方式"></a>Google抓取方式</h2><p>到了最后一步，如果上方的输入框留空表示抓取首页，抓取方式可以选择桌面，智能手机等等，自行根据需要选择。填好url之后，点击抓取。</p>
+<h2><span id="google抓取方式">Google抓取方式</span></h2><p>到了最后一步，如果上方的输入框留空表示抓取首页，抓取方式可以选择桌面，智能手机等等，自行根据需要选择。填好url之后，点击抓取。</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/20171227184633%20.gif" alt="Google抓取方式"></p>
 <p>抓取完成后可能会有几种状态：完成、部分完成和已重定向等，不过无需担心，这些状态并不会影响提交。此时点击请求编入索引即可，至此博客就成功提交到了 Google，你的博客在google搜索上排名想不靠前都难了，马上上google搜索一下你的关键词和博客title测试一下吧。</p>
-<h2 id="Baidu主动提交链接方法"><a href="#Baidu主动提交链接方法" class="headerlink" title="Baidu主动提交链接方法"></a>Baidu主动提交链接方法</h2><p>该方法可直接推送.github.io结尾的网页的链接给百度而避免百度无法爬取github中链接的问题。<br>该方法需要安装hexo插件，参考官方说明<a href="http://hui-wang.info/2016/10/23/Hexo%E6%8F%92%E4%BB%B6%E4%B9%8B%E7%99%BE%E5%BA%A6%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BA%A4%E9%93%BE%E6%8E%A5/" target="_blank" rel="noopener">Hexo插件之百度自动提交链接</a>。</p>
-<h3 id="安装插件-1"><a href="#安装插件-1" class="headerlink" title="安装插件"></a>安装插件</h3><ul>
+<h2><span id="baidu主动提交链接方法">Baidu主动提交链接方法</span></h2><p>该方法可直接推送.github.io结尾的网页的链接给百度而避免百度无法爬取github中链接的问题。<br>该方法需要安装hexo插件，参考官方说明<a href="http://hui-wang.info/2016/10/23/Hexo%E6%8F%92%E4%BB%B6%E4%B9%8B%E7%99%BE%E5%BA%A6%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BA%A4%E9%93%BE%E6%8E%A5/" target="_blank" rel="noopener">Hexo插件之百度自动提交链接</a>。</p>
+<h3><span id="安装插件">安装插件</span></h3><ul>
 <li>在Hexo根目录下，安装本插件：<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-baidu-url-submit --save</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
+<h3><span id="配置">配置</span></h3><ul>
 <li>配置博客根目录下的_config.yml文件<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">baidu_url_submit:</span></span><br><span class="line"><span class="attr">  count:</span> <span class="number">3</span> <span class="comment">## 比如3，代表提交最新的三个链接</span></span><br><span class="line"><span class="attr">  host:</span> <span class="attr">https://hoxis.github.io</span> <span class="comment">## 在百度站长平台中注册的域名</span></span><br><span class="line"><span class="attr">  token:</span> <span class="string">your_token</span> <span class="comment">## 请注意这是您的秘钥， 请不要发布在公众仓库里!</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">baidu_urls.txt</span> <span class="comment">## 文本文档的地址， 新链接会保存在此文本文档里</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -578,17 +591,17 @@
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>: </span><br><span class="line">- <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: <span class="attribute">https</span>:<span class="comment">//github.com/hoxis/hoxis.github.io.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br><span class="line">  </span><br><span class="line">- <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: <span class="attribute">https</span>:<span class="comment">//git.coding.net/hoxis/hoxis.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br><span class="line"></span><br><span class="line">- <span class="attribute">type</span>: baidu_url_submitter</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><p>之后进行部署后该插件将自动进行主动推送至百度，如图所示表示推送成功。<br><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1514960357987.jpg" alt="推送成功"></p>
-<h1 id="网站结构自身优化"><a href="#网站结构自身优化" class="headerlink" title="网站结构自身优化"></a>网站结构自身优化</h1><h2 id="出站链接添加nofollow标签"><a href="#出站链接添加nofollow标签" class="headerlink" title="出站链接添加nofollow标签"></a>出站链接添加nofollow标签</h2><p>网络爬虫会在当前页面搜索所有的链接，然后一个个查看，所以就很有可能跳到别的网站就不回来了。这个时候就需要<code>nofollow</code>起作用了。</p>
+<h3><span id="推送">推送</span></h3><p>之后进行部署后该插件将自动进行主动推送至百度，如图所示表示推送成功。<br><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1514960357987.jpg" alt="推送成功"></p>
+<h1><span id="网站结构自身优化">网站结构自身优化</span></h1><h2><span id="出站链接添加nofollow标签">出站链接添加nofollow标签</span></h2><p>网络爬虫会在当前页面搜索所有的链接，然后一个个查看，所以就很有可能跳到别的网站就不回来了。这个时候就需要<code>nofollow</code>起作用了。</p>
 <p><code>nofollow标签</code>是由谷歌领头创新的一个<code>反垃圾链接</code>的标签，并被百度、yahoo等各大搜索引擎广泛支持，引用nofollow标签的目的是：用于指示搜索引擎不要追踪（即抓取）网页上的带有nofollow属性的任何出站链接，以减少垃圾链接的分散网站权重。</p>
-<h3 id="修改footer-swig文件"><a href="#修改footer-swig文件" class="headerlink" title="修改footer.swig文件"></a>修改footer.swig文件</h3><p>路径在<code>your-hexo-site\themes\next\layout\_partials</code>，将下面代码中的a标签加上<code>rel=&quot;external nofollow&quot;</code>属性。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; __('footer.powered', '<span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">class</span>=<span class="string">"theme-link"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">href</span>=<span class="string">"https://hexo.io"</span>&gt;</span>Hexo<span class="tag">&lt;/<span class="name">a</span>&gt;</span>') &#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="修改footerswig文件">修改footer.swig文件</span></h3><p>路径在<code>your-hexo-site\themes\next\layout\_partials</code>，将下面代码中的a标签加上<code>rel=&quot;external nofollow&quot;</code>属性。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; __('footer.powered', '<span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">class</span>=<span class="string">"theme-link"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">href</span>=<span class="string">"https://hexo.io"</span>&gt;</span>Hexo<span class="tag">&lt;/<span class="name">a</span>&gt;</span>') &#125;&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">class</span>=<span class="string">"theme-link"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">href</span>=<span class="string">"https://github.com/iissnan/hexo-theme-next"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="修改sidebar-swig文件"><a href="#修改sidebar-swig文件" class="headerlink" title="修改sidebar.swig文件"></a>修改sidebar.swig文件</h3><p>路径在<code>your-hexo-site\themes\next\layout_macro</code>，将下面代码中的a标签加上<code>rel=&quot;external nofollow&quot;</code>属性；<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://creativecommons.org/&#123;% if theme.creative_commons === 'zero' %&#125;publicdomain/zero/1.0&#123;% else %&#125;licenses/&#123;&#123; theme.creative_commons &#125;&#125;/4.0&#123;% endif %&#125;/"</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">class</span>=<span class="string">"cc-opacity"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="修改sidebarswig文件">修改sidebar.swig文件</span></h3><p>路径在<code>your-hexo-site\themes\next\layout_macro</code>，将下面代码中的a标签加上<code>rel=&quot;external nofollow&quot;</code>属性；<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://creativecommons.org/&#123;% if theme.creative_commons === 'zero' %&#125;publicdomain/zero/1.0&#123;% else %&#125;licenses/&#123;&#123; theme.creative_commons &#125;&#125;/4.0&#123;% endif %&#125;/"</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">class</span>=<span class="string">"cc-opacity"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; link &#125;&#125;"</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; name &#125;&#125;"</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span>&#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">"external nofollow"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; link.split('||')[0] | trim &#125;&#125;"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; name &#125;&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="添加关键字"><a href="#添加关键字" class="headerlink" title="添加关键字"></a>添加关键字</h2><p>修改模板<code>your-hexo-site\scaffolds\post.md</code>文件，添加<code>keywords</code>和<code>description</code>字段，用于生成的文章中添加关键字和描述。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags:</span><br><span class="line">keywords:</span><br><span class="line">description:</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
-<h2 id="修改博文链接"><a href="#修改博文链接" class="headerlink" title="修改博文链接"></a>修改博文链接</h2><p>HEXO默认的文章链接形式为<code>domain/year/month/day/postname</code>，默认就是一个四级url，并且可能造成url过长，对搜索引擎是十分不友好的，我们可以改成domain/postname 的形式。编辑站点<code>_config.yml</code>文件，修改其中的<code>permalink</code>字段改为<code>permalink: :title.html</code>即可。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#permalink: :year/:month/:day/:title/</span><br><span class="line">permalink: :title.html</span><br></pre></td></tr></table></figure></p>
-<h2 id="首页title优化"><a href="#首页title优化" class="headerlink" title="首页title优化"></a>首页title优化</h2><p>更改<code>index.swig</code>文件<code>your-hexo-site\themes\next\layout</code></p>
+<h2><span id="添加关键字">添加关键字</span></h2><p>修改模板<code>your-hexo-site\scaffolds\post.md</code>文件，添加<code>keywords</code>和<code>description</code>字段，用于生成的文章中添加关键字和描述。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags:</span><br><span class="line">keywords:</span><br><span class="line">description:</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
+<h2><span id="修改博文链接">修改博文链接</span></h2><p>HEXO默认的文章链接形式为<code>domain/year/month/day/postname</code>，默认就是一个四级url，并且可能造成url过长，对搜索引擎是十分不友好的，我们可以改成domain/postname 的形式。编辑站点<code>_config.yml</code>文件，修改其中的<code>permalink</code>字段改为<code>permalink: :title.html</code>即可。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#permalink: :year/:month/:day/:title/</span><br><span class="line">permalink: :title.html</span><br></pre></td></tr></table></figure></p>
+<h2><span id="首页title优化">首页title优化</span></h2><p>更改<code>index.swig</code>文件<code>your-hexo-site\themes\next\layout</code></p>
 <p>将下面这段代码：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block title %&#125; &#123;&#123; config.title &#125;&#125; &#123;% endblock %&#125;</span><br></pre></td></tr></table></figure></p>
 <p>改成</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block title %&#125; &#123;&#123; config.title &#125;&#125; - &#123;&#123; theme.description &#125;&#125; &#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
@@ -606,7 +619,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -754,6 +767,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -766,6 +780,7 @@
 
 
 
+          
         </div>
         
           
@@ -814,7 +829,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -825,7 +840,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -836,7 +851,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -906,23 +921,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -944,7 +959,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#添加站点地图"><span class="nav-text">添加站点地图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改站点配置文件"><span class="nav-text">修改站点配置文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加蜘蛛协议"><span class="nav-text">添加蜘蛛协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提交站点到-Google"><span class="nav-text">提交站点到 Google</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#站点验证"><span class="nav-text">站点验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-robots-txt-文件"><span class="nav-text">测试 robots.txt 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交站点地图"><span class="nav-text">提交站点地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Google抓取方式"><span class="nav-text">Google抓取方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Baidu主动提交链接方法"><span class="nav-text">Baidu主动提交链接方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装插件-1"><span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送"><span class="nav-text">推送</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网站结构自身优化"><span class="nav-text">网站结构自身优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#出站链接添加nofollow标签"><span class="nav-text">出站链接添加nofollow标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改footer-swig文件"><span class="nav-text">修改footer.swig文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改sidebar-swig文件"><span class="nav-text">修改sidebar.swig文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加关键字"><span class="nav-text">添加关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改博文链接"><span class="nav-text">修改博文链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首页title优化"><span class="nav-text">首页title优化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">添加站点地图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">修改站点配置文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">添加蜘蛛协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">提交站点到 Google</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">站点验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">测试 robots.txt 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">提交站点地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Google抓取方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">Baidu主动提交链接方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">推送</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">网站结构自身优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">出站链接添加nofollow标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">修改footer.swig文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">修改sidebar.swig文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">添加关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">修改博文链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">首页title优化</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -964,7 +979,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1641,6 +1656,7 @@
   
 
   
+
 
 </body>
 </html>

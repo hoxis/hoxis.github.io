@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,11 +545,11 @@
 <li><code>raw</code> - 执行低级的和脏的SSH命令</li>
 </ul>
 <a id="more"></a>
-<h1 id="command模块"><a href="#command模块" class="headerlink" title="command模块"></a>command模块</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<h1><span id="command模块">command模块</span></h1><h2><span id="简介">简介</span></h2><ul>
 <li><code>command</code>模块用于在给的的节点上运行系统命令，比如echo hello。</li>
 <li>它不会通过shell处理命令，因此不支持像<code>$HOME</code>这样的变量和，以及<code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>;</code>和<code>&amp;</code>等都是无效的。也就是在<code>command</code>模块中<strong>无法使用管道符</strong>。</li>
 </ul>
-<h2 id="模块参数"><a href="#模块参数" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<h2><span id="模块参数">模块参数</span></h2><table>
 <thead>
 <tr>
 <th style="text-align:center">名称</th>
@@ -577,7 +590,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><ul>
+<h2><span id="示例">示例</span></h2><ul>
 <li>列出指定目录下的文件<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m command -a "ls /root"</span></span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">anaconda-ks.cfg</span><br><span class="line">test.sh</span><br><span class="line">whoami.rst</span><br><span class="line"></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m command -a "ls /root creates=test.sh"</span></span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">skipped, since test.sh exists</span><br><span class="line"></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m command -a "ls /root removes=test.sh1"</span></span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">skipped, since test.sh1 does not exist</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -591,14 +604,14 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m command -a "ls /root | grep test"</span></span><br><span class="line">172.20.21.120 | FAILED | rc=2 &gt;&gt;</span><br><span class="line">/root:</span><br><span class="line">anaconda-ks.cfg</span><br><span class="line">test.sh</span><br><span class="line">whoami.rstls: 无法访问|: 没有那个文件或目录</span><br><span class="line">ls: 无法访问grep: 没有那个文件或目录</span><br><span class="line">ls: 无法访问<span class="built_in">test</span>: 没有那个文件或目录non-zero <span class="built_in">return</span> code</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<h2><span id="注意事项">注意事项</span></h2><ul>
 <li>若要通过shell运行一个命令，比如<code>&lt;</code>, <code>&gt;</code>, <code>|</code>等，你实际上需要<code>shell</code>模块。</li>
 <li><code>command</code>模块更安全，因为它不受用户环境的影响</li>
 <li>从版本2.4开始，<code>executable</code>参数被删除。如果您需要此参数，请改用shell模块。</li>
 <li>对于Windows节点，请改用<code>win_command</code>模块。 </li>
 </ul>
-<h1 id="shell模块"><a href="#shell模块" class="headerlink" title="shell模块"></a>shell模块</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p>让远程主机在shell进程下执行命令，从而支持shell的特性，如管道等。与<code>command</code>模块几乎相同，但在执行命令的时候使用的是<code>/bin/sh</code>。</p>
-<h2 id="模块参数-1"><a href="#模块参数-1" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<h1><span id="shell模块">shell模块</span></h1><h2><span id="简介">简介</span></h2><p>让远程主机在shell进程下执行命令，从而支持shell的特性，如管道等。与<code>command</code>模块几乎相同，但在执行命令的时候使用的是<code>/bin/sh</code>。</p>
+<h2><span id="模块参数">模块参数</span></h2><table>
 <thead>
 <tr>
 <th style="text-align:center">名称</th>
@@ -639,18 +652,18 @@
 </tr>
 </tbody>
 </table>
-<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><ul>
+<h2><span id="示例">示例</span></h2><ul>
 <li>切换目录，执行命令并保持输出<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m shell -a "sh test.sh &gt; result chdir=/root"</span></span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m shell -a "cat result chdir=/root"</span></span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<h2><span id="注意事项">注意事项</span></h2><ul>
 <li>如果你想安全可靠的执行命令，请使用<code>command</code>模块，这也是编写playbook的最佳实践。</li>
 </ul>
-<h1 id="raw模块"><a href="#raw模块" class="headerlink" title="raw模块"></a>raw模块</h1><h2 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h2><ul>
+<h1><span id="raw模块">raw模块</span></h1><h2><span id="简介">简介</span></h2><ul>
 <li><code>raw</code>模块主要用于执行一些低级的，脏的SSH命令，而不是通过<code>command</code>模块。 <code>raw</code>模块只适用于下列两种场景，第一种情况是在较老的（Python 2.4和之前的版本）主机上，另一种情况是对任何没有安装Python的设备（如路由器）。 在任何其他情况下，使用<code>shell</code>或<code>command</code>模块更为合适。</li>
 <li>就像<code>script</code>模块一样，<code>raw</code>模块不需要远程系统上的python</li>
 </ul>
-<h2 id="模块参数-2"><a href="#模块参数-2" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<h2><span id="模块参数">模块参数</span></h2><table>
 <thead>
 <tr>
 <th>名称</th>
@@ -671,11 +684,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h2><ul>
+<h2><span id="示例">示例</span></h2><ul>
 <li>在远程主机上执行脚本<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m raw -a "pwd"</span></span><br><span class="line">172.20.21.120 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">/root</span><br><span class="line">Shared connection to 172.20.21.120 closed.</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<h2><span id="注意事项">注意事项</span></h2><ul>
 <li>如果要安全可靠地执行命令，最好使用<code>shell</code>或<code>command</code>模块来代替。</li>
 <li>如果从playbook中使用raw，则可能需要使用<code>gather_facts: no</code>禁用事实收集</li>
 </ul>
@@ -690,7 +703,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -836,6 +849,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -848,6 +862,7 @@
 
 
 
+          
         </div>
         
           
@@ -896,7 +911,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -907,7 +922,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -918,7 +933,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -988,23 +1003,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1026,7 +1041,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#command模块"><span class="nav-text">command模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shell模块"><span class="nav-text">shell模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介-1"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数-1"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例-1"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项-1"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#raw模块"><span class="nav-text">raw模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介-2"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数-2"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例-2"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项-2"><span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">command模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">shell模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">raw模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1046,7 +1061,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1723,6 +1738,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -213,8 +213,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -323,6 +325,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -371,6 +383,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -543,21 +556,21 @@
 </li>
 </ul>
 <p>明显地，当磁盘超过<code>2TB</code>时需要使用<code>GBT</code>分区。<br><a id="more"></a></p>
-<h2 id="parted分区步骤"><a href="#parted分区步骤" class="headerlink" title="parted分区步骤"></a>parted分区步骤</h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2017-12-20-174302.gif" alt="所有流程"></p>
-<h3 id="进入parted"><a href="#进入parted" class="headerlink" title="进入parted"></a>进入parted</h3><p>在命令行键入命令<strong>parted 待格式化分区</strong>，如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sdb</span><br></pre></td></tr></table></figure></p>
+<h2><span id="parted分区步骤">parted分区步骤</span></h2><p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/2017-12-20-174302.gif" alt="所有流程"></p>
+<h3><span id="进入parted">进入parted</span></h3><p>在命令行键入命令<strong>parted 待格式化分区</strong>，如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sdb</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513761711249.jpg" alt="parted /dev/sdb"></p>
 <p>类似fdisk一样，先选择要分区的硬盘，此处为/dev/sdb。</p>
 <p>可以输入p打印磁盘信息，查看分区的情况，找到起始和结束位置。</p>
-<h3 id="设置分区类型为gpt"><a href="#设置分区类型为gpt" class="headerlink" title="设置分区类型为gpt"></a>设置分区类型为gpt</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklabel gpt</span><br></pre></td></tr></table></figure>
-<h3 id="开始分区"><a href="#开始分区" class="headerlink" title="开始分区"></a>开始分区</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkpart primary 0% 100%</span><br></pre></td></tr></table></figure>
+<h3><span id="设置分区类型为gpt">设置分区类型为gpt</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklabel gpt</span><br></pre></td></tr></table></figure>
+<h3><span id="开始分区">开始分区</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkpart primary 0% 100%</span><br></pre></td></tr></table></figure>
 <p>primary指分区类型为主分区，0是分区开始位置，100%是分区结束位置。相同的命令为：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkpart primary 0-1</span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513762566190.jpg" alt="开始分区"><br>分区时系统会给出提示。</p>
-<h3 id="检查分区"><a href="#检查分区" class="headerlink" title="检查分区"></a>检查分区</h3><p>检查打印当前分区，查看分区设置是否正确<br>完成后用quit命令退出。</p>
-<h2 id="磁盘格式化和挂载"><a href="#磁盘格式化和挂载" class="headerlink" title="磁盘格式化和挂载"></a>磁盘格式化和挂载</h2><h3 id="格式化磁盘"><a href="#格式化磁盘" class="headerlink" title="格式化磁盘"></a>格式化磁盘</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext3 /dev/sdb1</span><br></pre></td></tr></table></figure>
+<h3><span id="检查分区">检查分区</span></h3><p>检查打印当前分区，查看分区设置是否正确<br>完成后用quit命令退出。</p>
+<h2><span id="磁盘格式化和挂载">磁盘格式化和挂载</span></h2><h3><span id="格式化磁盘">格式化磁盘</span></h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext3 /dev/sdb1</span><br></pre></td></tr></table></figure>
 <p>如果支持<code>ext4</code>可选择格式化为<code>ext4</code>，格式化成<code>ext3</code>的时候又出现问题。<code>ext3</code>默认的<code>block size</code>的大小为4k，最大只能支持8T的空间。格式化时指定<code>block size</code>的大小为8K这样最大可以支持16T的空间。相应命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext3 -b 8192 /dev/sdb1</span><br></pre></td></tr></table></figure></p>
-<h3 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h3><p>挂载到/home目录下<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /home/</span><br></pre></td></tr></table></figure></p>
-<h3 id="自动挂载分区配置"><a href="#自动挂载分区配置" class="headerlink" title="自动挂载分区配置"></a>自动挂载分区配置</h3><p>当在系统里创建了一个新的分区后，因为mount挂载在重启服务后会失效，所以需要将分区信息写到/etc/fstab文件中让其永久挂载<br>，编辑/etc/fstab里加入：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sdb1 /home ext3 defaults 0 0</span><br></pre></td></tr></table></figure></p>
+<h3><span id="挂载">挂载</span></h3><p>挂载到/home目录下<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /home/</span><br></pre></td></tr></table></figure></p>
+<h3><span id="自动挂载分区配置">自动挂载分区配置</span></h3><p>当在系统里创建了一个新的分区后，因为mount挂载在重启服务后会失效，所以需要将分区信息写到/etc/fstab文件中让其永久挂载<br>，编辑/etc/fstab里加入：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sdb1 /home ext3 defaults 0 0</span><br></pre></td></tr></table></figure></p>
 <p>保存退出，重启后<code>/dev/sdb1</code>就会自动挂载到<code>/home</code>目录下</p>
 
       
@@ -570,7 +583,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -718,6 +731,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -730,6 +744,7 @@
 
 
 
+          
         </div>
         
           
@@ -778,7 +793,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -789,7 +804,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -800,7 +815,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -870,23 +885,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -908,7 +923,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#parted分区步骤"><span class="nav-text">parted分区步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进入parted"><span class="nav-text">进入parted</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置分区类型为gpt"><span class="nav-text">设置分区类型为gpt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始分区"><span class="nav-text">开始分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查分区"><span class="nav-text">检查分区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘格式化和挂载"><span class="nav-text">磁盘格式化和挂载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化磁盘"><span class="nav-text">格式化磁盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载"><span class="nav-text">挂载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动挂载分区配置"><span class="nav-text">自动挂载分区配置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">parted分区步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">进入parted</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">设置分区类型为gpt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">开始分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">检查分区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">磁盘格式化和挂载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">格式化磁盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">挂载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-text">自动挂载分区配置</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -928,7 +943,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1605,6 +1620,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -212,8 +212,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -322,6 +324,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -370,6 +382,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -534,7 +547,7 @@
       
         <p>vim 常用指令收集。</p>
 <a id="more"></a>
-<h1 id="vim-列编辑"><a href="#vim-列编辑" class="headerlink" title="vim 列编辑"></a>vim 列编辑</h1><h2 id="插入字符（可以实现快速多行注释、多行缩进）"><a href="#插入字符（可以实现快速多行注释、多行缩进）" class="headerlink" title="插入字符（可以实现快速多行注释、多行缩进）"></a>插入字符（可以实现快速多行注释、多行缩进）</h2><ol>
+<h1><span id="vim-列编辑">vim 列编辑</span></h1><h2><span id="插入字符可以实现快速多行注释-多行缩进">插入字符（可以实现快速多行注释、多行缩进）</span></h2><ol>
 <li>将光标移动到要操作的位置；</li>
 <li><code>ctrl-v</code> 进入可视块模式；</li>
 <li>使用j或者k进行光标上下移动，选取待操作的行；</li>
@@ -543,12 +556,12 @@
 <li>最终会在选中的每行出现插入的内容；</li>
 </ol>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/test.gif" alt="vim 列编辑"></p>
-<h2 id="删除列字符"><a href="#删除列字符" class="headerlink" title="删除列字符"></a>删除列字符</h2><ol>
+<h2><span id="删除列字符">删除列字符</span></h2><ol>
 <li>光标定位到要操作的地方；</li>
 <li><code>CTRL+v</code>进入<code>可视块</code>模式，选取这一列操作多少行；</li>
 <li><code>d</code>删除。</li>
 </ol>
-<h1 id="vim单词间移动"><a href="#vim单词间移动" class="headerlink" title="vim单词间移动"></a>vim单词间移动</h1><ul>
+<h1><span id="vim单词间移动">vim单词间移动</span></h1><ul>
 <li><code>w</code> - 跳到下一个单词的开头</li>
 <li><code>e</code> - 跳到这个单词的末尾</li>
 <li><code>%</code> - 跳到对应的<code>()</code>,<code>{}</code>,<code>[]</code>处 </li>
@@ -562,7 +575,7 @@
 <li><code>B</code> - 向前移动一个单词，不把符号或标点当作单词处理</li>
 </ul>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1513058148082.jpg" alt="单词间移动"></p>
-<h1 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h1><ul>
+<h1><span id="移动光标">移动光标</span></h1><ul>
 <li><code>0</code> - 到行头</li>
 <li><code>^</code> - 到本行的第一个非blank字符</li>
 <li><code>$</code> - 到行尾</li>
@@ -578,7 +591,7 @@
 <li><code>n-</code> - 光标上移n行 </li>
 <li><code>Ctrl+g</code> - 查询当前行信息和当前文件信息</li>
 </ul>
-<h1 id="删除相关"><a href="#删除相关" class="headerlink" title="删除相关"></a>删除相关</h1><ul>
+<h1><span id="删除相关">删除相关</span></h1><ul>
 <li><code>dt&quot;</code> - 删除所有的内容，直到遇到双引号<code>&quot;</code>，双引号可以变成其它字符。</li>
 <li><code>dd</code> - 删除一行</li>
 <li><code>dw</code> - 删除一个单词/光标之后的单词剩余部分</li>
@@ -588,7 +601,7 @@
 <li><code>d0</code> - 删除至行首</li>
 <li><code>ndd</code> - 删除以当前行开始的n行</li>
 </ul>
-<h1 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h1><ul>
+<h1><span id="插入模式">插入模式</span></h1><ul>
 <li><code>i</code> - 从<strong>光标前</strong>开始插入</li>
 <li><code>I</code> - 从<strong>行首</strong>开始插入</li>
 <li><code>a</code> - 从<strong>光标后</strong>开始插入</li>
@@ -598,13 +611,13 @@
 <li><code>s</code> - 删除当前字符，然后进入插入模式</li>
 <li><code>S</code> - 清空当前行，然后进入插入模式 (同cc)</li>
 </ul>
-<h1 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h1><ul>
+<h1><span id="替换">替换</span></h1><ul>
 <li><code>:%s/abc/123</code> - 替换每一行的第一个abc为123</li>
 <li><code>:%s/abc/123/g</code> - 替换每一行的所有abc为123</li>
 <li><code>:s/abc/123/g</code> - 替换当前行的第一个abc为123</li>
 </ul>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="重复上一次动作"><a href="#重复上一次动作" class="headerlink" title="重复上一次动作"></a>重复上一次动作</h2><ul>
-<li><code>.</code> - 重复上次改变<h2 id="vim-粘贴时取消自动缩进"><a href="#vim-粘贴时取消自动缩进" class="headerlink" title="vim 粘贴时取消自动缩进"></a>vim 粘贴时取消自动缩进</h2></li>
+<h1><span id="其他">其他</span></h1><h2><span id="重复上一次动作">重复上一次动作</span></h2><ul>
+<li><code>.</code> - 重复上次改变<h2><span id="vim-粘贴时取消自动缩进">vim 粘贴时取消自动缩进</span></h2></li>
 </ul>
 <ol>
 <li><p>在vim里，粘贴代码之前最好进入粘贴模式，这样就会关闭自动缩进</p>
@@ -625,7 +638,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -773,6 +786,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -785,6 +799,7 @@
 
 
 
+          
         </div>
         
           
@@ -833,7 +848,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -844,7 +859,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -855,7 +870,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -925,23 +940,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -963,7 +978,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vim-列编辑"><span class="nav-text">vim 列编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插入字符（可以实现快速多行注释、多行缩进）"><span class="nav-text">插入字符（可以实现快速多行注释、多行缩进）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除列字符"><span class="nav-text">删除列字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim单词间移动"><span class="nav-text">vim单词间移动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动光标"><span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除相关"><span class="nav-text">删除相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入模式"><span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换"><span class="nav-text">替换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重复上一次动作"><span class="nav-text">重复上一次动作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim-粘贴时取消自动缩进"><span class="nav-text">vim 粘贴时取消自动缩进</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">vim 列编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">插入字符（可以实现快速多行注释、多行缩进）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">删除列字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">vim单词间移动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">删除相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">替换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">重复上一次动作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">vim 粘贴时取消自动缩进</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -983,7 +998,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1660,6 +1675,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -209,8 +209,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -319,6 +321,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -367,6 +379,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -532,12 +545,12 @@
 <li><code>telnet</code> - 执行低级的和脏的telnet命令</li>
 </ul>
 <a id="more"></a>
-<h1 id="script模块"><a href="#script模块" class="headerlink" title="script模块"></a>script模块</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<h1><span id="script模块">script模块</span></h1><h2><span id="简介">简介</span></h2><ul>
 <li><code>script</code>模块的作用是将本地script传送到远程主机之后执行</li>
 <li>给定的脚本将通过远程节点上的shell环境进行处理</li>
 <li><code>script</code>模块在远程系统上不需要python的支持</li>
 </ul>
-<h2 id="模块参数"><a href="#模块参数" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<h2><span id="模块参数">模块参数</span></h2><table>
 <thead>
 <tr>
 <th style="text-align:center">名称</th>
@@ -585,23 +598,23 @@
 </tr>
 </tbody>
 </table>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><ul>
+<h2><span id="示例">示例</span></h2><ul>
 <li>在远程主机上执行脚本<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]<span class="comment"># ansible test -m script -a "test.sh chdir=/tmp"</span></span><br><span class="line">172.20.21.120 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">true</span>, </span><br><span class="line">    <span class="string">"rc"</span>: 0, </span><br><span class="line">    <span class="string">"stderr"</span>: <span class="string">"Shared connection to 172.20.21.120 closed.\r\n"</span>, </span><br><span class="line">    <span class="string">"stdout"</span>: <span class="string">"/tmp\r\n"</span>, </span><br><span class="line">    <span class="string">"stdout_lines"</span>: [</span><br><span class="line">        <span class="string">"/tmp"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<h2><span id="注意事项">注意事项</span></h2><ul>
 <li>通常来说，使用Ansible模块比推送脚本更好</li>
 <li>当脚本执行时，ssh连接插件将通过<code>-tt</code>强制<code>伪tty</code>分配。<code>伪ttys</code>没有stderr通道，所有stderr被发送到标准输出。如果需要标准输出和标准错误分离，请使用到<code>copy</code>模块。</li>
 </ul>
-<h1 id="expect模块（预览版）"><a href="#expect模块（预览版）" class="headerlink" title="expect模块（预览版）"></a>expect模块（预览版）</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><ul>
+<h1><span id="expect模块预览版">expect模块（预览版）</span></h1><h2><span id="简介">简介</span></h2><ul>
 <li><code>expect</code>模块用于在给的的节点上执行一个命令并响应提示。</li>
 <li>它不会通过shell处理命令，因此不支持像<code>$HOME</code>这样的变量和，以及<code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>;</code>和<code>&amp;</code>等都是无效的。也就是在<code>command</code>模块中<strong>无法使用管道符</strong>。</li>
 </ul>
-<h2 id="使用要求（在执行模块的主机上）"><a href="#使用要求（在执行模块的主机上）" class="headerlink" title="使用要求（在执行模块的主机上）"></a>使用要求（在执行模块的主机上）</h2><ul>
+<h2><span id="使用要求在执行模块的主机上">使用要求（在执行模块的主机上）</span></h2><ul>
 <li>python &gt;= 2.6</li>
 <li>pexpect &gt;= 3.3 </li>
 </ul>
-<h2 id="模块参数-1"><a href="#模块参数-1" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<h2><span id="模块参数">模块参数</span></h2><table>
 <thead>
 <tr>
 <th style="text-align:center">名称</th>
@@ -655,21 +668,21 @@
 </tr>
 </tbody>
 </table>
-<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><ul>
+<h2><span id="示例">示例</span></h2><ul>
 <li>在远程主机上执行脚本<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- name: Case insensitve password string match</span><br><span class="line">  expect:</span><br><span class="line">    <span class="built_in">command</span>: passwd username</span><br><span class="line">    responses:</span><br><span class="line">      (?i)password: <span class="string">"MySekretPa$<span class="variable">$word</span>"</span></span><br><span class="line"></span><br><span class="line">- name: Generic question with multiple different responses</span><br><span class="line">  expect:</span><br><span class="line">    <span class="built_in">command</span>: /path/to/custom/<span class="built_in">command</span></span><br><span class="line">    responses:</span><br><span class="line">      Question:</span><br><span class="line">        - response1</span><br><span class="line">        - response2</span><br><span class="line">        - response3</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<h2><span id="注意事项">注意事项</span></h2><ul>
 <li>如果你想通过shell运行一个命令（比如你正在使用<code>&lt;</code>,<code>&gt;</code>,<code>|</code>等），你必须在命令中指定一个shell，比如<code>/bin/bash -c &quot;/path/to/something | grep else&quot;</code>。</li>
 <li>在<code>responses</code>下关键是一个python正则表达式匹配，不区分大小写的搜索用前缀<code>?i</code>。</li>
 <li>默认情况下，如果多次遇到问题，则会重复其字符串响应。 如果连续问题匹配需要不同的响应，而不是字符串响应，请使用字符串列表作为响应。 </li>
 <li><code>expect</code>模块设计用于简单场景，对于更复杂的需求，应该考虑在<code>shell</code>或<code>script</code>模块中使用expect代码</li>
 </ul>
-<h1 id="telnet模块（预览版）"><a href="#telnet模块（预览版）" class="headerlink" title="telnet模块（预览版）"></a>telnet模块（预览版）</h1><h2 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h2><ul>
+<h1><span id="telnet模块预览版">telnet模块（预览版）</span></h1><h2><span id="简介">简介</span></h2><ul>
 <li><code>expect</code>模块用于执行一些低级的和脏telnet命令，不通过模块子系统。</li>
 <li>它不会通过shell处理命令，因此不支持像<code>$HOME</code>这样的变量和，以及<code>&lt;</code>, <code>&gt;</code>, <code>|</code>, <code>;</code>和<code>&amp;</code>等都是无效的。也就是在<code>command</code>模块中<strong>无法使用管道符</strong>。</li>
 </ul>
-<h2 id="模块参数-2"><a href="#模块参数-2" class="headerlink" title="模块参数"></a>模块参数</h2><table>
+<h2><span id="模块参数">模块参数</span></h2><table>
 <thead>
 <tr>
 <th style="text-align:center">名称</th>
@@ -729,11 +742,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h2><ul>
+<h2><span id="示例">示例</span></h2><ul>
 <li>在远程主机上执行脚本<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- name: send configuration commands to IOS</span><br><span class="line">  telnet:</span><br><span class="line">    user: cisco</span><br><span class="line">    password: cisco</span><br><span class="line">    login_prompt: <span class="string">"Username: "</span></span><br><span class="line">    prompts:</span><br><span class="line">      - <span class="string">"[&gt;|#]"</span></span><br><span class="line">    <span class="built_in">command</span>:</span><br><span class="line">      - terminal length 0</span><br><span class="line">      - configure terminal</span><br><span class="line">      - hostname ios01</span><br><span class="line"></span><br><span class="line">- name: run show commands</span><br><span class="line">  telnet:</span><br><span class="line">    user: cisco</span><br><span class="line">    password: cisco</span><br><span class="line">    login_prompt: <span class="string">"Username: "</span></span><br><span class="line">    prompts:</span><br><span class="line">      - <span class="string">"[&gt;|#]"</span></span><br><span class="line">    <span class="built_in">command</span>:</span><br><span class="line">      - terminal length 0</span><br><span class="line">      - show version</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<h2><span id="注意事项">注意事项</span></h2><ul>
 <li>如果你想通过shell运行一个命令（比如你正在使用<code>&lt;</code>,<code>&gt;</code>,<code>|</code>等），你必须在命令中指定一个shell，比如<code>/bin/bash -c &quot;/path/to/something | grep else&quot;</code>。</li>
 <li>在<code>responses</code>下关键是一个python正则表达式匹配，不区分大小写的搜索用前缀<code>?i</code>。</li>
 <li>默认情况下，如果多次遇到问题，则会重复其字符串响应。 如果连续问题匹配需要不同的响应，而不是字符串响应，请使用字符串列表作为响应。 </li>
@@ -750,7 +763,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -896,6 +909,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -908,6 +922,7 @@
 
 
 
+          
         </div>
         
           
@@ -956,7 +971,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -967,7 +982,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -978,7 +993,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1048,23 +1063,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -1086,7 +1101,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#script模块"><span class="nav-text">script模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#expect模块（预览版）"><span class="nav-text">expect模块（预览版）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介-1"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用要求（在执行模块的主机上）"><span class="nav-text">使用要求（在执行模块的主机上）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数-1"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例-1"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项-1"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#telnet模块（预览版）"><span class="nav-text">telnet模块（预览版）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介-2"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块参数-2"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例-2"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项-2"><span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">script模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">expect模块（预览版）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">使用要求（在执行模块的主机上）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">telnet模块（预览版）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">模块参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1106,7 +1121,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1783,6 +1798,7 @@
   
 
   
+
 
 </body>
 </html>

@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -216,8 +216,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -326,6 +328,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -374,6 +386,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -535,7 +548,7 @@
         <p>上回我们说到怎么把签到结果发出来，于是就找到了 Twilio。</p>
 <p>Twilio 是一个位于加利福尼亚的云通信（PaaS）公司，致力于为开发者提供通讯模块的 API。由于 Twilio 为试用帐户提供了免费电话短信服务，我们可以在申请需要短信验证的国外免费资源时，使用 Twilio 在线实时收取验证短信。下面，本站就详细介绍一下 Twilio 的申请及短信发送过程。</p>
 <a id="more"></a>
-<h1 id="注册及设置"><a href="#注册及设置" class="headerlink" title="注册及设置"></a>注册及设置</h1><p>访问 <a href="http://twilio.com/" target="_blank" rel="noopener">http://twilio.com/</a> 并填写注册表单。注册了新账户后，你需要验证一个手机号码，短信将发给该号码。还需要做一个人机验证，证明你是一个人！</p>
+<h1><span id="注册及设置">注册及设置</span></h1><p>访问 <a href="http://twilio.com/" target="_blank" rel="noopener">http://twilio.com/</a> 并填写注册表单。注册了新账户后，你需要验证一个手机号码，短信将发给该号码。还需要做一个人机验证，证明你是一个人！</p>
 <p>注册成功后，需要新建一个 Project，进入 Project 界面后可以看到有 SID 和 TOKEN 信息，后面代码中会用到：</p>
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533092598328.jpg" alt="Project"></p>
 <p>你需要激活一个电话号码，就是让 Twilio 分配一个，分配成功后，就可以用它来发短信了。在 Project 页面 Phone Numbers 下操作即可：</p>
@@ -546,7 +559,7 @@
 <p><img src="https://blog-1254259578.cos.ap-shanghai.myqcloud.com/picgo/1533093169577.jpg" alt="验证3"></p>
 <p>输入手机验证码，确认后即完成了接收方的手机验证。</p>
 <p>下面，我们就可以使用代码来发送短信了。</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>首先，要安装，很简单：</p>
+<h1><span id="使用">使用</span></h1><p>首先，要安装，很简单：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install twilio</span><br></pre></td></tr></table></figure>
 <p>其实 Twilio 官方文档提供了各种代码发送短信的方式，如 Python：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Download the helper library from https://www.twilio.com/docs/python/install</span></span><br><span class="line"><span class="keyword">from</span> twilio.rest <span class="keyword">import</span> Client</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Your Account Sid and Auth Token from twilio.com/console</span></span><br><span class="line">account_sid = <span class="string">'AC4e30ba292bcf6fc97ca656aa71b34bc6'</span></span><br><span class="line">auth_token = <span class="string">'your_auth_token'</span></span><br><span class="line">client = Client(account_sid, auth_token)</span><br><span class="line"></span><br><span class="line">message = client.messages.create(</span><br><span class="line">                              from_=<span class="string">'+15017122661'</span>,</span><br><span class="line">                              body=<span class="string">'body'</span>,</span><br><span class="line">                              to=<span class="string">'+15558675310'</span></span><br><span class="line">                          )</span><br><span class="line"></span><br><span class="line">print(message.sid)</span><br></pre></td></tr></table></figure>
@@ -558,7 +571,7 @@
 <p>上次食行签到领积分里我们说过是不是有办法提醒签到成功，这里就可以操作了，定义一个发送短信的函数，将签到信息发送到指定号码上就行啦：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_sms</span><span class="params">(text)</span>:</span></span><br><span class="line">    account_sid = <span class="string">'your_sid'</span></span><br><span class="line">    auth_token = <span class="string">'your_auth_token'</span></span><br><span class="line">    client = Client(account_sid, auth_token)</span><br><span class="line"></span><br><span class="line">    message = client.messages.create(</span><br><span class="line">                                from_=<span class="string">'your_from_num'</span>,</span><br><span class="line">                                body=text,</span><br><span class="line">                                to=<span class="string">'your_to_num'</span></span><br><span class="line">                            )</span><br><span class="line">    print(message.sid)</span><br></pre></td></tr></table></figure>
 <p>完整代码后台回复「食行生鲜」即可获取。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Twilio 的使用还是很简单的，另外官方的文档也很赞，都提供了示例代码。这里我们仅仅演示了发送短信的功能，有兴趣的还可以试一下接收短信、拨打电话等功能。</p>
+<h1><span id="总结">总结</span></h1><p>Twilio 的使用还是很简单的，另外官方的文档也很赞，都提供了示例代码。这里我们仅仅演示了发送短信的功能，有兴趣的还可以试一下接收短信、拨打电话等功能。</p>
 <p>如果 Twilio 的注册过程比较懵，可以参考下这篇：<a href="http://uuxn.com/twilio-toll-free-sms" target="_blank" rel="noopener">http://uuxn.com/twilio-toll-free-sms</a></p>
 
       
@@ -571,7 +584,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -717,6 +730,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -729,6 +743,7 @@
 
 
 
+          
         </div>
         
           
@@ -777,7 +792,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -788,7 +803,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -799,7 +814,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -869,23 +884,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -907,7 +922,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注册及设置"><span class="nav-text">注册及设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">注册及设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -927,7 +942,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1604,6 +1619,7 @@
   
 
   
+
 
 </body>
 </html>

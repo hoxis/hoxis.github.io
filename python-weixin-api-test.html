@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -215,8 +215,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -325,6 +327,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -373,6 +385,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -540,7 +553,7 @@
 <p>我先捋了下思路，技术实现的话，大概需要解决如下几个问题：</p>
 <p>1、微信后台接口如何测试？<br>2、如何用 Python 实现？<br>3、如何及时获取测试结果？<br>4、如何定时执行测试？</p>
 <p>下面开始！</p>
-<h1 id="1-微信接口如何测试？"><a href="#1-微信接口如何测试？" class="headerlink" title="1 微信接口如何测试？"></a>1 微信接口如何测试？</h1><p>最开始，我比较闹心的就是微信接口怎么测，因为之前基本没有接触过。</p>
+<h1><span id="1-微信接口如何测试">1 微信接口如何测试？</span></h1><p>最开始，我比较闹心的就是微信接口怎么测，因为之前基本没有接触过。</p>
 <p>我先去他们微信后台找到了配置的服务接口信息，然后又再往上各种找如何测试。</p>
 <p>最后，找到的一个竟然是官网提供的：<a href="https://mp.weixin.qq.com/debug/cgi-bin/apiinfo?t=index&amp;type=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95&amp;form=%E6%96%87%E6%9C%AC%E6%B6%88%E6%81%AF" target="_blank" rel="noopener">https://mp.weixin.qq.com/debug/cgi-bin/apiinfo?t=index&amp;type=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95&amp;form=%E6%96%87%E6%9C%AC%E6%B6%88%E6%81%AF</a></p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/weixin.qq.com-2018.10.02-15-43-44.png" alt="官方测试工具"></p>
@@ -550,7 +563,7 @@
 <p>能够得到我们想要的数据。</p>
 <p>返回数据长这样：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1538466558299.jpg" alt="返回数据"></p>
-<h1 id="2-Python-如何实现接口测试？"><a href="#2-Python-如何实现接口测试？" class="headerlink" title="2 Python 如何实现接口测试？"></a>2 Python 如何实现接口测试？</h1><p>经过上面的分析，如何测试接口，流程已经很清晰，我们接下来要做的就是数据解析。</p>
+<h1><span id="2-python-如何实现接口测试">2 Python 如何实现接口测试？</span></h1><p>经过上面的分析，如何测试接口，流程已经很清晰，我们接下来要做的就是数据解析。</p>
 <p>由上图可见，返回的其实是一个 HTML，我们想要的数据在其中的 resultData 变量中。</p>
 <p>resultData 变量对应的是一个 json 数据，其中的 <code>body</code> 是我们最想要的内容，它还是一个 XML 格式的数据。</p>
 <p>resultData 对应的数据如下（已经过 UrlDecode）：</p>
@@ -565,16 +578,16 @@
 <p>写出来我们的正则就是：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r'(?&lt;=resultData = ).*?&#125;'</span>)</span><br></pre></td></tr></table></figure>
 <p>看着有点懵吧，正则的一大头疼问题就是难看，难懂！</p>
-<h2 id="body-内容的解析"><a href="#body-内容的解析" class="headerlink" title="body 内容的解析"></a>body 内容的解析</h2><p>resultData 对应数据解析完成后，我们得到了一个 json 数据，然后很容易可以获取到 body 数据。</p>
+<h2><span id="body-内容的解析">body 内容的解析</span></h2><p>resultData 对应数据解析完成后，我们得到了一个 json 数据，然后很容易可以获取到 body 数据。</p>
 <p>接下来就是解析 body 对应的 xml 数据了。</p>
 <p>这里，我们使用的是 <code>xml.etree.ElementTree</code>，解析 xml 非常简单：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xml_data = ET.fromstring(body)</span><br><span class="line">text = xml_data.find(<span class="string">'Content'</span>).text</span><br></pre></td></tr></table></figure>
 <p>这个组件在之前的文章 《<a href="https://hoxis.github.io/python-gaokao-2018.html">Python 助你填写高考志愿</a>》也有用过，有兴趣的可以点击查阅。</p>
 <p>重要信息我们都获取到了，下面我们就要想怎么把接口结果发出去了。</p>
-<h1 id="3-如何及时获取测试结果？"><a href="#3-如何及时获取测试结果？" class="headerlink" title="3 如何及时获取测试结果？"></a>3 如何及时获取测试结果？</h1><p>这里，我首先想到的还是之前用过的 pushbear 的微信推送服务，因为实现很简单，而且也不是正式场合使用。</p>
+<h1><span id="3-如何及时获取测试结果">3 如何及时获取测试结果？</span></h1><p>这里，我首先想到的还是之前用过的 pushbear 的微信推送服务，因为实现很简单，而且也不是正式场合使用。</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def send_wechat(tiele, <span class="keyword">text</span>):</span><br><span class="line">    url = <span class="string">"https://pushbear.ftqq.com/sub?sendkey=xxx5&amp;text=&#123;&#125;&amp;desp=&#123;&#125;"</span>.<span class="built_in">format</span>(tiele, <span class="keyword">text</span>)</span><br><span class="line">    resp = requests.<span class="built_in">get</span>(url)</span><br></pre></td></tr></table></figure>
 <p>通过上面的函数，就可以将信息推送到微信了，不懂得可以参考之前的文章：<a href="https://hoxis.github.io/python-serverchan.html">1 行代码，实现微信消息发送</a>。</p>
-<h1 id="4-如何定时执行接口测试？"><a href="#4-如何定时执行接口测试？" class="headerlink" title="4 如何定时执行接口测试？"></a>4 如何定时执行接口测试？</h1><p>接口测试代码也有了，消息推送也有了，下面就是如何定时执行接口测试了，比如半小时执行一次？</p>
+<h1><span id="4-如何定时执行接口测试">4 如何定时执行接口测试？</span></h1><p>接口测试代码也有了，消息推送也有了，下面就是如何定时执行接口测试了，比如半小时执行一次？</p>
 <p>一种方案是使用 Linux 系统自带的 <code>crontab</code> 模块。</p>
 <p>还有就是 Python 也有定时任务的模块，我找到了一个轻量级的定时任务调度的库：<code>schedule</code>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> schedule</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">job</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"I'm working..."</span>)</span><br><span class="line"> </span><br><span class="line">schedule.every(<span class="number">10</span>).minutes.do(job)</span><br><span class="line">schedule.every().hour.do(job)</span><br><span class="line">schedule.every().day.at(<span class="string">"10:30"</span>).do(job)</span><br><span class="line">schedule.every(<span class="number">5</span>).to(<span class="number">10</span>).days.do(job)</span><br><span class="line">schedule.every().monday.do(job)</span><br><span class="line">schedule.every().wednesday.at(<span class="string">"13:15"</span>).do(job)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    schedule.run_pending()</span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
@@ -582,7 +595,7 @@
 <p>在 while True 死循环中，<code>schedule.run_pending()</code> 是保持 <code>schedule</code> 一直运行，去查询上面那一堆的任务，在任务中，就可以设置不同的时间去运行。跟 crontab 是类似的。</p>
 <p>我们只要把我们的测试接口方法放在上面的 job() 方法里，然后通过 <code>schedule.every(30).minutes.do(job)</code> 就可以实现半小时一次执行啦！</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1538471460152.jpg" alt="最终执行效果"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此，我的任务基本完毕，虽然功能简单，也没有什么高级的架构。</p>
+<h1><span id="总结">总结</span></h1><p>至此，我的任务基本完毕，虽然功能简单，也没有什么高级的架构。</p>
 <p>但是涉及的东西还是挺多的，网络交互、XML 解析、JSON 解析、正则表达式、微信推送、定时任务等。</p>
 <p>这次，就到这吧，大家节日快乐~</p>
 
@@ -596,7 +609,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -744,6 +757,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -756,6 +770,7 @@
 
 
 
+          
         </div>
         
           
@@ -804,7 +819,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -815,7 +830,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -826,7 +841,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -896,23 +911,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -934,7 +949,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-微信接口如何测试？"><span class="nav-text">1 微信接口如何测试？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Python-如何实现接口测试？"><span class="nav-text">2 Python 如何实现接口测试？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#body-内容的解析"><span class="nav-text">body 内容的解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-如何及时获取测试结果？"><span class="nav-text">3 如何及时获取测试结果？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-如何定时执行接口测试？"><span class="nav-text">4 如何定时执行接口测试？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">1 微信接口如何测试？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">2 Python 如何实现接口测试？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">body 内容的解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">3 如何及时获取测试结果？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">4 如何定时执行接口测试？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -954,7 +969,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1631,6 +1646,7 @@
   
 
   
+
 
 </body>
 </html>

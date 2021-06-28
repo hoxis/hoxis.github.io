@@ -82,7 +82,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.proxy.ustclug.org/css?family=Verdana:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -214,8 +214,10 @@
   
     
   
-  <!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 页面点击小红心 
+<script type="text/javascript" src="/js/src/love.js"></script>-->
+
+<script type="text/javascript" src="/js/src/click.js"></script>
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -324,6 +326,16 @@
           </a>
         </li>
       
+        
+        <li class="menu-item menu-item-baidu">
+          <a href="/baidu/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cloud"></i> <br>
+            
+            百度
+          </a>
+        </li>
+      
 
       
         <li class="menu-item menu-item-search">
@@ -372,6 +384,7 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+			<div id="container">
           <div id="content" class="content">
             
 
@@ -533,12 +546,12 @@
         <p>上回在《<a href="https://hoxis.github.io/python-pyinstaller.html">使用 PyInstaller 打包 Python 程序</a>》中，我们介绍了使用 PyInstaller 对 Python 程序进行打包，今天带大家认识一个新的工具：py2exe。</p>
 <p>接下来将从这几个方面进行介绍：基本使用方法、高级参数、注意点等。</p>
 <a id="more"></a>
-<h1 id="简介-amp-安装"><a href="#简介-amp-安装" class="headerlink" title="简介 &amp; 安装"></a>简介 &amp; 安装</h1><p>py2exe 是一个将 python 脚本转换成 Windows 上的可独立执行的可执行程序（*.exe）的工具，这样，你就可以不用装 python 而在 Windows 系统上运行这个可执行程序。</p>
+<h1><span id="简介-amp-安装">简介 &amp; 安装</span></h1><p>py2exe 是一个将 python 脚本转换成 Windows 上的可独立执行的可执行程序（*.exe）的工具，这样，你就可以不用装 python 而在 Windows 系统上运行这个可执行程序。</p>
 <ul>
 <li>安装</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install py2exe</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">python -m pip install py2exe</span><br></pre></td></tr></table></figure>
-<h1 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h1><p>看一个简单的例子：先写一个简单的脚本，文件名：helloworld.py：</p>
+<h1><span id="基本用法">基本用法</span></h1><p>看一个简单的例子：先写一个简单的脚本，文件名：helloworld.py：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python  </span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-  </span></span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">say_hello</span><span class="params">(name)</span>:</span>  </span><br><span class="line">    print(<span class="string">"Hello, "</span> + name)</span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:  </span><br><span class="line">    name = input(<span class="string">"What's your name："</span>)</span><br><span class="line">    say_hello(name)</span><br></pre></td></tr></table></figure>
 <p>下面还需要个用于发布程序的设置脚本：mysetup.py，在其中的 setup 函数前插入语句 <code>import py2exe</code>。 </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">import</span> py2exe</span><br><span class="line"></span><br><span class="line">setup(console=[<span class="string">"helloworld.py"</span>])</span><br></pre></td></tr></table></figure>
@@ -555,11 +568,11 @@
 <p>dist 子目录中的文件包含了程序所必须的东西，你需要将该目录中的所有内容一起发布。</p>
 <p>默认情况下，py2exe 会在 dist 下创建以下这些文件：</p>
 <p>1、一个或多个 exe 文件；<br>2、几个 .pyd 文件，它们是已编译的扩展名，是 exe 文件所需要的；<br>3、python**.dll，加上其它的 .dll 文件，这些 .dll 是 .pyd 所需要的；<br>4、一个 library.zip 文件，它包含了已编译的纯的 python 模块如 .pyc 或 .pyo；</p>
-<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><h2 id="setup-优化"><a href="#setup-优化" class="headerlink" title="setup 优化"></a>setup 优化</h2><p>我们可以看到生成的 dist 目录中文件很多，那么是不是可以进行优化呢？</p>
+<h1><span id="扩展">扩展</span></h1><h2><span id="setup-优化">setup 优化</span></h2><p>我们可以看到生成的 dist 目录中文件很多，那么是不是可以进行优化呢？</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mysetup.py</span></span><br><span class="line"><span class="comment"># from distutils.core import setup</span></span><br><span class="line"><span class="comment"># import py2exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># setup(console=["helloworld.py"])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -*- encoding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">import</span> py2exe</span><br><span class="line"></span><br><span class="line">INCLUDES = []</span><br><span class="line"></span><br><span class="line">options = &#123;</span><br><span class="line">    <span class="string">"py2exe"</span> :</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"compressed"</span> : <span class="number">1</span>, <span class="comment"># 压缩   </span></span><br><span class="line">            <span class="string">"optimize"</span> : <span class="number">2</span>,</span><br><span class="line">            <span class="string">"bundle_files"</span> : <span class="number">1</span>, <span class="comment"># 所有文件打包成一个 exe 文件  </span></span><br><span class="line">            <span class="string">"includes"</span> : INCLUDES,</span><br><span class="line">            <span class="string">"dll_excludes"</span> : [<span class="string">"MSVCR100.dll"</span>]</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    options=options,    </span><br><span class="line">    description = <span class="string">"this is a py2exe test"</span>,   </span><br><span class="line">    zipfile=<span class="keyword">None</span>,</span><br><span class="line">    console = [&#123;<span class="string">"script"</span>:<span class="string">'helloworld.py'</span>&#125;])</span><br></pre></td></tr></table></figure>
 <p>options 可以用来指定一些编译的参数，譬如是否压缩，是否打包为一个文件等。</p>
 <p>再次运行后，发现所有内容打包进了一个 helloworld.exe 程序中。</p>
-<h2 id="指定额外的文件"><a href="#指定额外的文件" class="headerlink" title="指定额外的文件"></a>指定额外的文件</h2><p>一些应用程序在运行时需要额外的文件，诸如配置文件、字体、图标。py2exe 并不会自动把他们打包到 dist 目录，不过可以通过配置参数来打包。</p>
+<h2><span id="指定额外的文件">指定额外的文件</span></h2><p>一些应用程序在运行时需要额外的文件，诸如配置文件、字体、图标。py2exe 并不会自动把他们打包到 dist 目录，不过可以通过配置参数来打包。</p>
 <p>可以在安装脚本中用 <code>data_files</code> 可选项指定了那些额外的文件，那么 py2exe 能将这些文件拷贝到 dist 子目录中。</p>
 <p>格式如下：data_files=[(“目的文件夹”,[“文件名”,]), (“目的文件夹”,[“文件名”,]), (“目的文件夹”,[“文件名”,]),]。</p>
 <p>比如，我们的程序中有一个名为 images 的目录放置了程序需要的图片，</p>
@@ -567,13 +580,13 @@
 <p>示例如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">import</span> py2exe</span><br><span class="line"> </span><br><span class="line">setup(</span><br><span class="line"> </span><br><span class="line">    windows = [<span class="string">'hello.py],</span></span><br><span class="line"><span class="string">    data_files = [('</span>images<span class="string">',['</span>images\*.jpg<span class="string">'])]</span></span><br><span class="line"><span class="string">    )</span></span><br></pre></td></tr></table></figure>
 <p>上面的示例中，会把 images 目录中所有的 jpg 文件打包到 dist/images 子目录中。</p>
-<h1 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h1><p>1、py2exe 新版本只支持 python3.3 以上，可以使用 pip install py2exe_py2 来安装兼容 python2 版本；<br>2、若在 python3.6 版本下运行报错，请切换到 python3.4 尝试；<br>3、python3 如果是 64 位，生成的 exe 只能在 64 位操作系统下运行，使用 32 位 python 可以解决；</p>
+<h1><span id="注意点">注意点</span></h1><p>1、py2exe 新版本只支持 python3.3 以上，可以使用 pip install py2exe_py2 来安装兼容 python2 版本；<br>2、若在 python3.6 版本下运行报错，请切换到 python3.4 尝试；<br>3、python3 如果是 64 位，生成的 exe 只能在 64 位操作系统下运行，使用 32 位 python 可以解决；</p>
 <p>4、从 Python 3.3，Windows 在构建 Python 时使用的是 Visual Studio 2010，因此生成后，需要手动将 msvcr100.dll 拷到生成目录下（dist目录），否则最终的文件运行时可能会报错；</p>
 <p>或者通过 <code>data_files=[(&quot;&quot;,[&quot;MSVCR100.dll&quot;])],</code> 打包其中；</p>
 <p>比如，我在 Win10 下打的包，拷贝到 Win7 上，运行出错：</p>
 <p><img src="http://blog-1254259578.cossh.myqcloud.com/xsj/1537941166150.jpg" alt="运行出错"></p>
 <p>出现类似确实 dll 文件的情况，都可以参考这种方法进行解决；</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于 pyinstaller 和 py2exe 两种把 Python 文件打包成 exe 的可执行文件的方法，都有各自的优缺点。但是最终目的都是为了在没有 Python 环境下的普通 Windows 系统的电脑中可直接运行，这点还是很不错的。</p>
+<h1><span id="总结">总结</span></h1><p>对于 pyinstaller 和 py2exe 两种把 Python 文件打包成 exe 的可执行文件的方法，都有各自的优缺点。但是最终目的都是为了在没有 Python 环境下的普通 Windows 系统的电脑中可直接运行，这点还是很不错的。</p>
 <p>大家根据自己的需要，择优选择就行了。</p>
 <blockquote>
 <p>参考：<br>1、<a href="http://irootlee.com/Py2exe/" target="_blank" rel="noopener">http://irootlee.com/Py2exe/</a><br>2、<a href="https://www.jianshu.com/p/afc56b647867" target="_blank" rel="noopener">https://www.jianshu.com/p/afc56b647866</a></p>
@@ -589,7 +602,7 @@
       <div>
         <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
     <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="hoxis wechat" style="width: auto; height:200px; max-width: 100%;">
-    <div>提供 CSDN 资料免费下载服务，欢迎来撩~</div>
+    <div>一个脱离了高级趣味的程序员，关注回复1024有惊喜~</div>
 </div>
 
       </div>
@@ -737,6 +750,7 @@
 
 
           </div>
+			</div>
           
 
 
@@ -749,6 +763,7 @@
 
 
 
+          
         </div>
         
           
@@ -797,7 +812,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">205</span>
+                  <span class="site-state-item-count">266</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -808,7 +823,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -819,7 +834,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -889,23 +904,23 @@
                 
                 
                   <li>
-                    <a href="/shang-hai-bao-lei.html" title="《上海堡垒》坍塌，鹿晗该背锅吗？" target="_blank">《上海堡垒》坍塌，鹿晗该背锅吗？</a>
+                    <a href="/Windows11.html" title="Win11系统镜像下载地址+安装教程" target="_blank">Win11系统镜像下载地址+安装教程</a>
                   </li>
                 
                   <li>
-                    <a href="/how-to-edit-big-file.html" title="10G的变态SQL文件，如何快速打开编辑？" target="_blank">10G的变态SQL文件，如何快速打开编辑？</a>
+                    <a href="/weixindushu.html" title="微信读书无限卡白嫖攻略" target="_blank">微信读书无限卡白嫖攻略</a>
                   </li>
                 
                   <li>
-                    <a href="/woyaohezhishishenggehaizi.html" title="想和知识生个孩子" target="_blank">想和知识生个孩子</a>
+                    <a href="/weixin-windows-3.3.html" title="微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包" target="_blank">微信Windows版可以刷朋友圈了，微信3.3.0内测版安装包</a>
                   </li>
                 
                   <li>
-                    <a href="/pyecharts-themes-preview.html" title="pyecharts 主题风格预览" target="_blank">pyecharts 主题风格预览</a>
+                    <a href="/ali-yun-pan.html" title="阿里云盘如何分享文件？" target="_blank">阿里云盘如何分享文件？</a>
                   </li>
                 
                   <li>
-                    <a href="/good-things-nainiu.html" title="这个工具一点也不比百度云差！" target="_blank">这个工具一点也不比百度云差！</a>
+                    <a href="/luping.html" title="oCam屏幕录像机绿色版" target="_blank">oCam屏幕录像机绿色版</a>
                   </li>
                 
               </ul>
@@ -927,7 +942,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介-amp-安装"><span class="nav-text">简介 &amp; 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本用法"><span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展"><span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#setup-优化"><span class="nav-text">setup 优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定额外的文件"><span class="nav-text">指定额外的文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意点"><span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">简介 &amp; 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">setup 优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-text">指定额外的文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -947,7 +962,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1624,6 +1639,7 @@
   
 
   
+
 
 </body>
 </html>
